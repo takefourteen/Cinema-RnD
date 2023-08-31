@@ -33,6 +33,9 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-max-sans)", "sans-serif"],
       },
+      backgroundImage: (theme) => ({
+        "body-pattern": "url('assets/images/body-pattern.svg')",
+      }),
     },
   },
   plugins: [require("tailwindcss-animate")],
