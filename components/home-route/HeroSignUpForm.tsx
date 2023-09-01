@@ -3,8 +3,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-import { buttonColorBlue, buttonColorRed } from "@/lib/styles";
-
 import { IoChevronForwardSharp } from "react-icons/io5";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -12,9 +10,11 @@ import { Input } from "../ui/input";
 interface FormData {
   email: string;
 }
+
 type Props = {};
 
 const HeroSignUpForm = (props: Props) => {
+
   const {
     register,
     handleSubmit,
@@ -54,7 +54,7 @@ const HeroSignUpForm = (props: Props) => {
 
         <Button
           type="submit"
-          className={` h-full min-w-max ${buttonColorBlue.backgroundColor} px-6 py-3 text-2xl font-semibold  text-white hover:${buttonColorBlue.hoverBackgroundColor} `}
+          className={` h-full min-w-max bg-[#e50914] px-6 py-3 text-2xl font-semibold text-white  hover:bg-[#c11119] `}
         >
           Get Started <IoChevronForwardSharp className="ml-2 h-6 w-6" />
         </Button>

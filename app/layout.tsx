@@ -30,7 +30,7 @@ const maxSans = localFont({
 export const metadata: Metadata = {
   title: "Movie Streaming App",
   description:
-    "Welcome to the streaming platform that bundles all of shows together with even more of your favorite movies and TV series.",
+    "Welcome to the streaming platform where you can enjoy a vast selection of movies and TV series without any cost.",
 };
 
 export default function RootLayout({

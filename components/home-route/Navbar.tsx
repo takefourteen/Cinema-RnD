@@ -14,12 +14,7 @@ const Navbar = (props: Props) => {
     <nav className=" flex h-[80px] px-16">
       <div className="flex items-center">
         <Link href="/">
-          <Image
-            src={logo}
-            alt="Netflix Logo"
-            width={150}
-            priority
-          />
+          <Image src={logo} alt="Netflix Logo" width={150} priority />
         </Link>
       </div>
       <div className="ml-auto flex items-center justify-center gap-x-4">
@@ -33,7 +28,7 @@ const Navbar = (props: Props) => {
         <Button
           asChild
           // variant="ghost"
-          className="rounded-lg border-[#0021b2] bg-[#002be7] px-[25px] py-[10px] text-base font-bold uppercase text-white  outline outline-0 outline-[#0021b2] hover:bg-[#0021b2] hover:text-white hover:outline-2"
+          className="rounded-lg border-[#c11119] bg-[#e50914] px-[25px] py-[10px] text-base font-bold uppercase text-white  outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
         >
           <Link href="/login">Log In</Link>
         </Button>

@@ -1,10 +1,11 @@
-// Button colors
-export const buttonColorBlue: IButtonColor = {
-    backgroundColor: 'bg-[#002be7]',
-    hoverBackgroundColor: 'bg-[#0021b2]',
-};
+interface ButtonColors {
+  blue: string;
+  red: string;
+  green: string;
+}
 
-export const buttonColorRed: IButtonColor = {
-    backgroundColor: 'bg-[#e50914]',
-    hoverBackgroundColor: 'bg-[#c11119]',
+const buttonColors: ButtonColors = {
+  blue: "bg-[#002be7] hover:bg-[#0021b2]",
+  red: "bg-[#e50914] hover:bg-[#c11119]",
+  green: "bg-[#1ce783] hover:bg-[#1ce783CC]",
 };

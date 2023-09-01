@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-type Props = {};
+import { faqs as faqData } from "@/lib/faqData";
 
 interface FaqAccordionItemProps {
   value: string;
@@ -13,13 +13,8 @@ interface FaqAccordionItemProps {
   content: string;
 }
 
-interface IFaqData {
-  value: string;
-  label: string;
-  content: string;
-}
 
-const FAQ = (props: Props) => {
+const FAQ = () => {
   return (
     <section className="flex flex-col items-center overflow-x-hidden bg-[#040714] py-16">
       <h2 className="text-5xl font-bold">Frequently Asked Questions</h2>
@@ -29,26 +24,6 @@ const FAQ = (props: Props) => {
     </section>
   );
 };
-
-const faqData: IFaqData[] = [
-  {
-    value: "item-1",
-    label: "Is it accessible?",
-    content: "Yes. It adheres to the WAI-ARIA design pattern.",
-  },
-  {
-    value: "item-2",
-    label: "Is it styled?",
-    content:
-      "Yes. It comes with default styles that matches the other components' aesthetic.",
-  },
-  {
-    value: "item-3",
-    label: "Is it animated?",
-    content:
-      "Yes. It's animated by default, but you can disable it if you prefer.",
-  },
-];
 
 const FaqAccordion = () => {
   return (
