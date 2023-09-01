@@ -35,7 +35,12 @@ module.exports = {
       },
       backgroundImage: (theme) => ({
         "body-pattern": "url('assets/images/body-pattern.svg')",
+        "radial-gradient":
+          "radial-gradient( 51.39% 511.66% at 47.68% -217.91%, #ff9900 0%, #e50914 17.27%, #0e1b4f 79.44%, #000413 100% )",
       }),
+      boxShadow: {
+        "box-shadow": "0px -8px 25px rgba(0, 0, 0, 0.5)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

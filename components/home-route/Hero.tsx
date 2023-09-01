@@ -8,7 +8,7 @@ function Hero({}: Props) {
   return (
     <section className="relative min-h-[32rem]">
       <div className="absolute inset-0 bg-[url('/hero-img.avif')] bg-cover bg-center" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[rgba(0,0,0,0.4)] to-[rgba(0,0,0,0.9)]" />
+      <div className="absolute inset-0 bg-gradient-to-bl from-[rgba(0,0,0,0.4)] to-[rgba(0,0,0,0.9)]" />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-y-4">
         <h1 className="text-5xl font-bold text-white">
@@ -17,9 +17,11 @@ function Hero({}: Props) {
         <p className="text-2xl text-white">Watch anywhere. For free.</p>
 
         <HeroSignUpForm />
+
       </div>
     </section>
   );
 }
+
 
 export default Hero;

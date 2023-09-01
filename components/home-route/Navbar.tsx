@@ -17,8 +17,7 @@ const Navbar = (props: Props) => {
           <Image
             src={logo}
             alt="Netflix Logo"
-            width={100}
-            height={50}
+            width={150}
             priority
           />
         </Link>
