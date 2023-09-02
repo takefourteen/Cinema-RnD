@@ -6,9 +6,13 @@ type Props = {};
 
 function Hero({}: Props) {
   return (
-    <section className="relative min-h-[32rem]">
+    <section className="relative min-h-[32rem] lg:min-h-[44rem]">
       <div className="absolute inset-0 bg-[url('/hero-img.avif')] bg-cover bg-center" />
-      <div className="absolute inset-0 bg-gradient-to-bl from-[rgba(0,0,0,0.4)] to-[rgba(0,0,0,0.9)]" />
+      
+      {/* <div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.4)] to-[rgba(0,0,0,0.9)]" /> */}
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/90" />
+
 
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-y-4">
         <h1 className="text-5xl font-bold text-white">

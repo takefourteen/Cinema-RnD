@@ -1,6 +1,6 @@
-import Navbar from "@/components/auth-route/Navbar";
+import Navbar from "@/components/application-route/Navbar";
 
-export default function AuthLayout({
+export default function ApplicationLayout({
   children,
 }: {
   children: React.ReactNode;
