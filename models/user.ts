@@ -23,6 +23,11 @@ const UserSchema = new Schema({
     type: String,
     required: [true, "Last name is required"],
   },
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
 });
 
 // hash password before saving

@@ -14,26 +14,38 @@ interface NewUserResponse {
   firstName: string;
   lastName: string;
   email: string;
+  role: string;
 }
 
-export const POST = async (req: Request) => {
+type NewResponse = NextResponse<{
+  user?: NewUserResponse;
+  error?: string;
+}>;
+
+export const POST = async (req: Request): Promise<NewResponse> => {
+  // get body, which contains user info
   const body = (await req.json()) as NewUserRequest;
 
+  // connect to database
   await connectToDatabase();
 
   // check if user exists
-  const user = await User.findOne({ email: body.email });
+  const oldUser = await User.findOne({ email: body.email });
 
-  if (user) {
-    return NextResponse.json({ error: "User already exists" }, { status: 400 });
+  if (oldUser) {
+    return NextResponse.json({ error: "User already exists" }, { status: 422 });
   }
 
   // create user
-  const newUser = await User.create(body);
+  const user = await User.create({ ...body });
 
-  if (!newUser) {
-    return NextResponse.json({ error: "Error creating user" }, { status: 500 });
-  }
-
-  return NextResponse.json({ user: newUser }, { status: 201 });
+  return NextResponse.json({
+    user: {
+      id: user._id.toString(),
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      role: user.role,
+    },
+  });
 };

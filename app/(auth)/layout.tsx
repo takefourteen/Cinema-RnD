@@ -6,7 +6,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="overflow-x-hidden bg-[url('/dark-body-bg.jpg')] ">
+    <section className="overflow-x-hidden min-h-screen text-white bg-[url('/body-bg.svg')] ">
       <Navbar />
 
       {children}
