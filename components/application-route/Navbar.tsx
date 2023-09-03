@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+
 
 import logo from "@/assets/images/netflix-logo.png";
 import { Button } from "../ui/button";
@@ -10,7 +12,8 @@ import { Button } from "../ui/button";
 type Props = {};
 
 const Navbar = (props: Props) => {
-  // check for a scroll event and add a class to the navbar
+  const { data: session, status } = useSession();
+  console.log(session?.user);
   const [scroll, setScroll] = useState(false);
 
   useEffect(() => {
@@ -20,7 +23,6 @@ const Navbar = (props: Props) => {
   function handleScroll() {
     if (window.scrollY > 10) {
       setScroll(true);
-      console.log("scrolling");
     } else {
       setScroll(false);
     }
@@ -56,7 +58,7 @@ const Navbar = (props: Props) => {
         </Button>
         <Button
           asChild
-          className="rounded-lg border-[#c11119] bg-[#e50914] px-[25px] py-[10px] text-base font-bold uppercase text-white  outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
+          className="rounded-lg border-[#c11119] bg-[#e50914] px-[25px] py-[10px] text-base font-bold uppercase text-white w-max outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
         >
           <Link href="/create-account">Create Account</Link>
         </Button>

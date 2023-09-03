@@ -1,15 +1,11 @@
 import { NextAuthOptions } from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
 import { connectToDatabase } from "./mongodb";
+import CredentialsProvider from "next-auth/providers/credentials";
 import User from "@/models/user";
 
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
-  },
-
-  pages: {
-    signIn: "/login",
   },
 
   providers: [
@@ -24,7 +20,7 @@ export const authOptions: NextAuthOptions = {
 
         await connectToDatabase();
 
-        const user = await User.findOneAndDelete({ email });
+        const user = await User.findOne({ email });
         if (!user) {
           throw new Error(
             "There was a problem logging in. Check your email and password or create an account.",
@@ -49,9 +45,12 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     jwt(params: any) {
-      if (params.user.role) {
+      if (params.user && params.user.role) {
         params.token.role = params.user.role;
         params.token.id = params.user.id;
+        params.token.email = params.user.email;
+        params.token.firstName = params.user.firstName;
+        params.token.lastName = params.user.lastName;
       }
       return params.token;
     },
@@ -59,6 +58,11 @@ export const authOptions: NextAuthOptions = {
       if (session.user) {
         (session.user as { id: string }).id = token.id as string;
         (session.user as { role: string }).role = token.role as string;
+        (session.user as { email: string }).email = token.email as string;
+        (session.user as { firstName: string }).firstName =
+          token.firstName as string;
+        (session.user as { lastName: string }).lastName =
+          token.lastName as string;
       }
       return session;
     },

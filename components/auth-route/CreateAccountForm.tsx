@@ -18,6 +18,56 @@ interface FormData {
   lastName: string;
 }
 
+interface createAccountData {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+}
+
+interface signInData {
+  email: string;
+  password: string;
+}
+
+// function to create a new account
+async function createAccount(data: createAccountData) {
+  try {
+    const res = await fetch("/api/auth/create-account", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) {
+      const { message } = await res.json();
+      throw new Error(message);
+    }
+
+    return await res.json();
+  } catch (error) {
+    throw error;
+  }
+}
+
+// function to sign in the user after account creation
+async function signInUser(data: signInData) {
+  try {
+    const res = await signIn("credentials", {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
+
+    if (res?.error) {
+      throw new Error(res.error);
+    }
+
+    return res;
+  } catch (error) {
+    throw error;
+  }
+}
+
 const CreateAccountForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const {
@@ -34,39 +84,42 @@ const CreateAccountForm = () => {
   });
   const router = useRouter();
 
+  // function to handle form submission
   async function onSubmit(data: FormData) {
     setSubmitting(true);
+    const { email, password, firstName, lastName } = data;
+
     try {
-      const res = await fetch("/api/auth/create-account", {
-        method: "POST",
-        body: JSON.stringify(data),
+      const resData = await createAccount({
+        email,
+        password,
+        firstName,
+        lastName,
       });
-      const resData = await res.json();
-
-      if (!res.ok) {
-        const { message } = await res.json();
-        throw new Error(message);
-      }
-
-      // Use NextAuth.js to sign in the user after account creation
-      const signedInUser = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-      });
-      console.log(signedInUser);
 
       router.replace("/");
-
-      setSubmitting(false);
-    } catch (error) {
-      console.error(`Error creating account: ${error}`);
-    } finally {
-      // set loading to false after 1 second
-      setTimeout(() => {
-        setSubmitting(false);
-      }, 1000);
+    } catch (createAccountError) {
+      console.error(`Error creating account: ${createAccountError}`);
+      return;
+      // Handle create account error here if needed
     }
+
+    // Sign in the user after account creation
+    try {
+      const res = await signInUser({ email, password });
+      if (res?.error) {
+        throw new Error(res.error);
+      }
+    } catch (signInError) {
+      console.error(`Error signing in: ${signInError}`);
+      return;
+      // Handle sign in error here if needed
+    }
+
+    // Set loading to false after 1 second
+    setTimeout(() => {
+      setSubmitting(false);
+    }, 1000);
   }
 
   return (

@@ -23,29 +23,38 @@ type NewResponse = NextResponse<{
 }>;
 
 export const POST = async (req: Request): Promise<NewResponse> => {
-  // get body, which contains user info
-  const body = (await req.json()) as NewUserRequest;
+  try {
+    // Get user data from the request body
+    const body = (await req.json()) as NewUserRequest;
 
-  // connect to database
-  await connectToDatabase();
+    // Connect to the database
+    await connectToDatabase();
 
-  // check if user exists
-  const oldUser = await User.findOne({ email: body.email });
+    // Check if a user with the same email already exists
+    const existingUser = await User.findOne({ email: body.email });
 
-  if (oldUser) {
-    return NextResponse.json({ error: "User already exists" }, { status: 422 });
+    if (existingUser) {
+      return NextResponse.json(
+        { error: "User already exists" },
+        { status: 422 },
+      );
+    }
+
+    // Create a new user
+    const newUser = await User.create({ ...body, role: "user" });
+
+    // Return the user details
+    return NextResponse.json({
+      user: {
+        id: newUser._id.toString(),
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+        role: newUser.role,
+      },
+    });
+  } catch (error) {
+    console.error("Error creating user:", error);
+    return NextResponse.json({ error: "Error creating user" }, { status: 500 });
   }
-
-  // create user
-  const user = await User.create({ ...body });
-
-  return NextResponse.json({
-    user: {
-      id: user._id.toString(),
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      role: user.role,
-    },
-  });
 };
