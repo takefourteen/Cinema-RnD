@@ -10,13 +10,7 @@ import { useRouter } from "next/navigation";
 import logo from "@/assets/images/netflix-logo.png";
 import { Button } from "@/components/ui/button";
 
-interface UserData {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: string;
-}
+
 
 const Navbar = () => {
   const { data: session, status } = useSession();
@@ -63,7 +57,7 @@ const Navbar = () => {
         <NavLink href="#">movies</NavLink>
         <NavLink href="#">shows</NavLink>
         <NavLink href="#">documentaries</NavLink>
-        <NavLink href="#">my list</NavLink>
+        <NavLink href="/my-list">my list</NavLink>
       </div>
 
       <div className="ml-auto flex items-center justify-center gap-x-4 text-white">

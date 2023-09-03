@@ -8,6 +8,10 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
 
+  pages: {
+    signIn: "/login",
+  },
+
   providers: [
     CredentialsProvider({
       type: "credentials",
@@ -44,7 +48,7 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    jwt(params: any) {
+    async jwt(params: any) {
       if (params.user && params.user.role) {
         params.token.role = params.user.role;
         params.token.id = params.user.id;
@@ -54,7 +58,7 @@ export const authOptions: NextAuthOptions = {
       }
       return params.token;
     },
-    session({ session, token }) {
+    async session({ session, token }) {
       if (session.user) {
         (session.user as { id: string }).id = token.id as string;
         (session.user as { role: string }).role = token.role as string;
@@ -66,7 +70,22 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      // Check if the URL contains the ?callbackUrl query parameter
+      if (url.includes("?callbackUrl=")) {
+        // Extract the callback URL from the URL
+        const parts = url.split("?callbackUrl=");
+        if (parts.length === 2) {
+          const callbackUrl = parts[1];
+          console.log("callbackUrl", callbackUrl);
+          console.log("redirect to", baseUrl + callbackUrl);
+          // Redirect to the callback URL
+          return baseUrl + callbackUrl;
+        }
+      }
+
+      // If no callbackUrl found, redirect to the homepage
+      return baseUrl + "/";
+    },
   },
 };
-
-
