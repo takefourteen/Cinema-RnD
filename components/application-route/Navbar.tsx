@@ -33,13 +33,13 @@ const Navbar = (props: Props) => {
     <nav
       className={`fixed left-0 right-0 top-0 z-50 flex items-center px-16 py-4 ${navbarClasses}`}
     >
-      <div className="flex items-center mr-4">
+      <div className="mr-4 flex items-center">
         <Link href="/">
           <Image src={logo} alt="Netflix Logo" width={125} priority />
         </Link>
       </div>
 
-      <div className="flex  uppercase items-center">
+      <div className="flex  items-center uppercase">
         <NavLink href="#">movies</NavLink>
         <NavLink href="#">shows</NavLink>
         <NavLink href="#">documentaries</NavLink>
@@ -50,16 +50,15 @@ const Navbar = (props: Props) => {
         <Button
           asChild
           variant="ghost"
-          className="rounded-lg px-[25px] py-[10px] text- font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
+          className="text- rounded-lg px-[25px] py-[10px] font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
         >
-          <Link href="/login">Sign In</Link>
+          <Link href="/login">Login</Link>
         </Button>
         <Button
           asChild
-          // variant="ghost"
           className="rounded-lg border-[#c11119] bg-[#e50914] px-[25px] py-[10px] text-base font-bold uppercase text-white  outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
         >
-          <Link href="/login">Log In</Link>
+          <Link href="/create-account">Create Account</Link>
         </Button>
       </div>
     </nav>
@@ -77,7 +76,7 @@ const NavLink = ({ href, children }: NavLinkProps) => {
     <Button
       asChild
       variant="ghost"
-      className="rounded-lg px-[10px] py-[10px] h-fit text-sm font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
+      className="h-fit rounded-lg px-[10px] py-[10px] text-sm font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
     >
       <Link href={`${href}`}>{children}</Link>
     </Button>

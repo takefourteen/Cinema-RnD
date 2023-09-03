@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 import { PiSpinnerBold } from "react-icons/pi";
-import { ErrorIcon } from "../ui/Icons";
+import { ErrorIcon } from "../Icons";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
@@ -30,23 +32,33 @@ const CreateAccountForm = () => {
       lastName: "lastnamejeff",
     },
   });
+  const router = useRouter();
 
   async function onSubmit(data: FormData) {
     setSubmitting(true);
     try {
-      const res = await fetch("/api/auth/users", {
+      const res = await fetch("/api/auth/create-account", {
         method: "POST",
         body: JSON.stringify(data),
       });
+      const resData = await res.json();
 
-      setSubmitting(false);
       if (!res.ok) {
         const { message } = await res.json();
         throw new Error(message);
       }
 
-      const daata = await res.json();
-      console.log(daata);
+      // Use NextAuth.js to sign in the user after account creation
+      const signedInUser = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+      console.log(signedInUser);
+
+      router.replace("/");
+
+      setSubmitting(false);
     } catch (error) {
       console.error(`Error creating account: ${error}`);
     } finally {

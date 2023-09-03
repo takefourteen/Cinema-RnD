@@ -4,7 +4,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 import { IoChevronForwardSharp } from "react-icons/io5";
-import { ErrorIcon } from "../ui/Icons";
+import { ErrorIcon } from "../Icons";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
@@ -15,7 +15,6 @@ interface FormData {
 type Props = {};
 
 const HeroSignUpForm = (props: Props) => {
-
   const {
     register,
     handleSubmit,
@@ -71,7 +70,5 @@ const HeroSignUpForm = (props: Props) => {
     </form>
   );
 };
-
-
 
 export default HeroSignUpForm;
