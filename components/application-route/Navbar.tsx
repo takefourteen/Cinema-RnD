@@ -4,17 +4,25 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import logo from "@/assets/images/netflix-logo.png";
 import { Button } from "../ui/button";
 
-type Props = {};
+interface UserData {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: string;
+}
 
-const Navbar = (props: Props) => {
+const Navbar = () => {
   const { data: session, status } = useSession();
-  console.log(session?.user);
+  const user = session?.user as UserData;
   const [scroll, setScroll] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -25,6 +33,16 @@ const Navbar = (props: Props) => {
       setScroll(true);
     } else {
       setScroll(false);
+    }
+  }
+
+  // function to sign out the user
+  async function signOutUser() {
+    try {
+      await signOut();
+      router.push("/");
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -48,20 +66,38 @@ const Navbar = (props: Props) => {
         <NavLink href="#">my list</NavLink>
       </div>
 
-      <div className="ml-auto flex items-center justify-center gap-x-4">
-        <Button
-          asChild
-          variant="ghost"
-          className="text- rounded-lg px-[25px] py-[10px] font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
-        >
-          <Link href="/login">Login</Link>
-        </Button>
-        <Button
-          asChild
-          className="rounded-lg border-[#c11119] bg-[#e50914] px-[25px] py-[10px] text-base font-bold uppercase text-white w-max outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
-        >
-          <Link href="/create-account">Create Account</Link>
-        </Button>
+      <div className="ml-auto flex items-center justify-center gap-x-4 text-white">
+        {/* display log out if there is a user in session  */}
+        {session?.user && (
+          <React.Fragment>
+            <Button
+              onClick={signOutUser}
+              variant="ghost"
+              className="text- rounded-lg px-[25px] py-[10px] font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
+            >
+              Log Out
+            </Button>
+          </React.Fragment>
+        )}
+
+        {/* display create account and log in if there is no user in session  */}
+        {!session?.user && (
+          <React.Fragment>
+            <Button
+              asChild
+              variant="ghost"
+              className="text- rounded-lg px-[25px] py-[10px] font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
+            >
+              <Link href="/login">Login</Link>
+            </Button>
+            <Button
+              asChild
+              className="w-max rounded-lg border-[#c11119] bg-[#e50914] px-[25px] py-[10px] text-base font-bold uppercase text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
+            >
+              <Link href="/create-account">Create Account</Link>
+            </Button>
+          </React.Fragment>
+        )}
       </div>
     </nav>
   );

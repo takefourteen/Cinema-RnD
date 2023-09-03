@@ -6,7 +6,7 @@ type Props = {};
 
 function Hero({}: Props) {
   return (
-    <section className="relative min-h-[32rem] lg:min-h-[44rem]">
+    <section className="relative min-h-[36rem] lg:min-h-[44rem]">
       <div className="absolute inset-0 bg-[url('/hero-img.avif')] bg-cover bg-center" />
       
       {/* <div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.4)] to-[rgba(0,0,0,0.9)]" /> */}
