@@ -10,11 +10,8 @@ import { useRouter } from "next/navigation";
 import logo from "@/assets/images/netflix-logo.png";
 import { Button } from "@/components/ui/button";
 
-
-
 const Navbar = () => {
   const { data: session, status } = useSession();
-  const user = session?.user as UserData;
   const [scroll, setScroll] = useState(false);
   const router = useRouter();
 
@@ -34,7 +31,7 @@ const Navbar = () => {
   async function signOutUser() {
     try {
       await signOut();
-      router.push("/");
+      router.refresh();
     } catch (error) {
       console.log(error);
     }
@@ -62,7 +59,7 @@ const Navbar = () => {
 
       <div className="ml-auto flex items-center justify-center gap-x-4 text-white">
         {/* display log out if there is a user in session  */}
-        {session?.user && (
+        {session?.user ? (
           <React.Fragment>
             <Button
               onClick={signOutUser}
@@ -72,10 +69,7 @@ const Navbar = () => {
               Log Out
             </Button>
           </React.Fragment>
-        )}
-
-        {/* display create account and log in if there is no user in session  */}
-        {!session?.user && (
+        ) : (
           <React.Fragment>
             <Button
               asChild

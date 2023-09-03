@@ -1,8 +1,18 @@
 import React from 'react'
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 import CreateAccountForm from '@/components/auth-route/CreateAccountForm'
 
-const CreateAccount = () => {
+const CreateAccount = async () => {
+  const session = await getServerSession(authOptions);
+
+  // if the user is already logged in, redirect to home page
+  if (session?.user) {
+    redirect("/");
+  }
+
   return (
     <section className='pt-16 w-full justify-center flex gap-y-8 flex-col items-center'>
 

@@ -1,10 +1,18 @@
 import React from "react";
+import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 import LoginForm from "@/components/auth-route/LoginForm";
 
-type Props = {};
+const Login = async () => {
+  const session = await getServerSession(authOptions);
 
-const Login = () => {
+  // if the user is already logged in, redirect to home page
+  if (session?.user) {
+    redirect("/");
+  }
+
   return (
     <section className="flex w-full flex-col items-center justify-center gap-y-8 pt-16">
       {/* heading */}
