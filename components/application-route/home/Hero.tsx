@@ -1,6 +1,7 @@
 import React from "react";
 
 import HeroSignUpForm from "./HeroSignUpForm";
+import MovieSearchBar from "./MovieSearchBar";
 
 type Props = {};
 
@@ -11,7 +12,7 @@ function Hero({}: Props) {
 
       {/* <div className="absolute inset-0 bg-gradient-to-t from-[rgba(0,0,0,0.4)] to-[rgba(0,0,0,0.9)]" /> */}
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/90" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-black/90" />
 
       <div className="absolute inset-0 flex flex-col items-center justify-center gap-y-4">
         <h1 className="text-5xl font-bold text-white">
@@ -19,7 +20,9 @@ function Hero({}: Props) {
         </h1>
         <p className="text-2xl text-white">Watch anywhere. For free.</p>
 
-        <HeroSignUpForm />
+        {/* <HeroSignUpForm /> */}
+
+        <MovieSearchBar />
       </div>
     </section>
   );
