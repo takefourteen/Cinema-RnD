@@ -2,7 +2,7 @@ import PopcornImg from "./PopcornImg";
 
 const ColorFulBanner = () => {
   return (
-    <div className="bg-radial-gradient box-shadow  flex w-full items-center justify-center gap-x-4 p-[22px] text-white">
+    <div className="box-shadow flex  w-full items-center justify-center gap-x-4 bg-radial-gradient p-[22px] text-white">
       <PopcornImg />
 
       <div className="flex flex-col gap-y-2">

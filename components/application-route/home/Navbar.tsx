@@ -8,7 +8,7 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import logo from "@/assets/images/netflix-logo.png";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 interface UserData {
   id: string;
