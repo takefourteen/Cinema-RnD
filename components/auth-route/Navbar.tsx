@@ -29,22 +29,20 @@ const Navbar = (props: Props) => {
         </div>
 
         {pathname === "/create-account" ? (
-          <Button
-            asChild
-            variant="ghost"
-            className="w-max rounded-lg bg-none px-4 py-1 text-xs font-bold uppercase tracking-wider text-white hover:bg-[#40445999] hover:text-white lg:px-6 lg:py-2 lg:text-sm"
-          >
-            <Link href="/login" className="">
-              Log In
-            </Link>
-          </Button>
+         <Button
+         asChild
+         variant="ghost"
+         className="h-fit rounded-lg px-6 py-2 text-sm font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
+       >
+         <Link href="/login">Login</Link>
+       </Button>
         ) : (
           <Button
-            asChild
-            className="w-max rounded-lg border-[#c11119] bg-[#e50914] px-3 py-1 text-xs font-bold uppercase tracking-wider text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2 lg:px-6 lg:py-2 lg:text-sm"
-          >
-            <Link href="/create-account">Create Account</Link>
-          </Button>
+              asChild
+              className="h-fit w-max rounded-lg border-[#c11119] bg-[#e50914] px-6 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
+            >
+              <Link href="/create-account">Create Account</Link>
+            </Button>
         )}
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/90 to-black/0" />
