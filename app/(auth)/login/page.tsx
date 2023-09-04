@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
@@ -25,6 +26,19 @@ const Login = async () => {
 
       {/* form */}
       <LoginForm />
+
+      {/* create account like if the user doesn't have an account */}
+      <div className="flex flex-col items-center justify-center gap-1">
+        <p className="text-base tracking-wide text-white">
+          New to Netflix?{" "}
+          <Link
+            href={"/create-account"}
+            className="text-red-500 hover:underline focus:underline"
+          >
+            Sign up now.
+          </Link>
+        </p>
+      </div>
     </section>
   );
 };

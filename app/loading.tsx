@@ -2,11 +2,11 @@ const loading = () => {
   // const loading = "...";
 
   return (
-    <div className="flex h-screen items-center justify-center  bg-black p-5">
+    <div className="flex h-screen items-center justify-center  bg-[url('/dark-body-bg.jpg')] p-5">
       <span className="ml-2  flex items-center space-x-2 ">
-        <div className="h-4 w-4 animate-bounce rounded-full border p-1 delay-100"></div>
-        <div className="h-4 w-4 animate-bounce rounded-full border p-1 delay-200"></div>
-        <div className="h-4 w-4 animate-bounce rounded-full border p-1 delay-300"></div>
+        <div className="h-5 w-5 animate-bounce rounded-full border-2 p-1 delay-100"></div>
+        <div className="h-5 w-5 animate-bounce rounded-full border-2 p-1 delay-200"></div>
+        <div className="h-5 w-5 animate-bounce rounded-full border-2 p-1 delay-300"></div>
       </span>
     </div>
   );

@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 
 import { MdOutlineClose } from "react-icons/md";
 import { IoSearchOutline } from "react-icons/io5";
-import { IoChevronForwardSharp } from "react-icons/io5";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
