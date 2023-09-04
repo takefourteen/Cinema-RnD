@@ -13,11 +13,12 @@ interface FaqAccordionItemProps {
   content: string;
 }
 
-
 const FAQ = () => {
   return (
-    <section className="flex flex-col items-center overflow-x-hidden bg-[#040714] py-16">
-      <h2 className="text-5xl font-bold">Frequently Asked Questions</h2>
+    <section className="flex flex-col items-center overflow-x-hidden bg-[#040714] px-4 py-16">
+      <h2 className="text-center text-4xl font-bold text-white lg:text-5xl">
+        Frequently Asked Questions
+      </h2>
       <div className="mt-8 w-full max-w-3xl">
         <FaqAccordion />
       </div>
@@ -43,10 +44,10 @@ const FaqAccordion = () => {
 const FaqAccordionItem = ({ value, label, content }: FaqAccordionItemProps) => {
   return (
     <AccordionItem value={value} className="bg-[#13151d] p-0  ">
-      <AccordionTrigger className="p-6 text-xl font-bold text-[#F9F9F9]">
+      <AccordionTrigger className="p-6 text-lg font-semibold text-[#F9F9F9] md:text-xl">
         {label}
       </AccordionTrigger>
-      <AccordionContent className="px-6 text-lg font-normal text-[#C0C0C0]">
+      <AccordionContent className="px-6 text-base text-[#C0C0C0] md:text-lg">
         {content}
       </AccordionContent>
     </AccordionItem>
