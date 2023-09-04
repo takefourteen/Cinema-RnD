@@ -15,11 +15,11 @@ const Login = async () => {
   }
 
   return (
-    <section className="flex w-full flex-col items-center justify-center gap-y-8 pt-16">
+    <section className="flex w-full flex-col items-center justify-center pt-16">
       {/* heading */}
-      <div className="flex flex-col items-center justify-center gap-1">
-        <h1 className="text-4xl font-semibold">Sign In</h1>
-        <p className="text-base tracking-wide">
+      <div className="flex flex-col items-center justify-center gap-1 pb-8">
+        <h1 className="text-2xl font-semibold lg:text-4xl">Sign In</h1>
+        <p className="text-sm tracking-wide lg:text-base">
           Enter your account email address and password.
         </p>
       </div>
@@ -29,7 +29,7 @@ const Login = async () => {
 
       {/* create account like if the user doesn't have an account */}
       <div className="flex flex-col items-center justify-center gap-1">
-        <p className="text-base tracking-wide text-white">
+        <p className="text-sm tracking-wide text-white lg:text-base">
           New to Netflix?{" "}
           <Link
             href={"/create-account"}

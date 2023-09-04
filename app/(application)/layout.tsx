@@ -1,4 +1,4 @@
-import Navbar from "@/components/application-route/home/Navbar";
+import Navbar from "@/components/application-route/Navbar";
 
 export default function ApplicationLayout({
   children,

@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 import logo from "@/assets/images/netflix-logo.png";
 import { Button } from "@/components/ui/button";
+import MobileMenu from "./MobileMenu";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
@@ -42,15 +43,18 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed left-0 right-0 top-0 z-50 flex items-center px-16 py-4 ${navbarClasses}`}
+      className={`fixed left-0 right-0 top-0 z-50 flex items-center px-4 py-2 ${navbarClasses}`}
     >
+      {/* Mobile menu for sm screens */}
+      <MobileMenu />
+
       <div className="mr-4 flex items-center">
         <Link href="/">
           <Image src={logo} alt="Netflix Logo" width={125} priority />
         </Link>
       </div>
 
-      <div className="flex  items-center uppercase">
+      <div className="hidden items-center  uppercase lg:flex">
         <NavLink href="#">movies</NavLink>
         <NavLink href="#">shows</NavLink>
         <NavLink href="#">documentaries</NavLink>

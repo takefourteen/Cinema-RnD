@@ -64,7 +64,7 @@ const LoginForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex min-w-[500px] flex-col items-center justify-center gap-y-8 rounded-md bg-[#dedede0f] p-12"
+      className="flex w-full  flex-col items-center justify-center gap-y-8 px-12 py-6 lg:w-[500px] lg:rounded-md lg:bg-[#dedede0f] lg:p-12"
     >
       {/* alert error if there is one */}
       {error && <Alert value={error} />}
@@ -73,7 +73,7 @@ const LoginForm = () => {
       <div className="grid w-full gap-2">
         <Label
           htmlFor="email"
-          className="text-base font-semibold tracking-wide"
+          className="text-sm font-semibold tracking-wide lg:text-base"
         >
           Email Address *
         </Label>
@@ -87,7 +87,7 @@ const LoginForm = () => {
             },
           })}
           id="email"
-          className={`h-full rounded-md bg-black/30 px-6 py-3 text-base font-semibold text-white  ${
+          className={`h-full rounded-md bg-black/30 px-2 py-3 text-sm font-semibold text-white lg:text-base  ${
             errors.email ? "border border-red-500" : ""
           }`}
         />
@@ -103,7 +103,7 @@ const LoginForm = () => {
       <div className="grid w-full gap-2">
         <Label
           htmlFor="password"
-          className="text-base font-semibold tracking-wide"
+          className="text-sm font-semibold tracking-wide lg:text-base"
         >
           Password *
         </Label>
@@ -113,7 +113,7 @@ const LoginForm = () => {
             required: "Password is required",
           })}
           id="password"
-          className={`h-full rounded-md bg-black/30 px-6 py-3 text-base font-semibold text-white  ${
+          className={`h-full rounded-md bg-black/30 px-2 py-3 text-sm font-semibold text-white lg:text-base  ${
             errors.password ? "border border-red-500" : ""
           }`}
         />
@@ -129,7 +129,7 @@ const LoginForm = () => {
       <Button
         type="submit"
         disabled={submitting}
-        className="w-full rounded-lg border-[#c11119] bg-[#e50914] px-[25px] py-[10px] text-base font-semibold uppercase tracking-wide text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
+        className="w-full rounded-lg border-[#c11119] bg-[#e50914] px-[25px] py-[10px] text-sm font-semibold uppercase tracking-wide text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2 lg:text-base"
       >
         {submitting ? <PiSpinnerBold className="animate-spin" /> : "Sign In"}
       </Button>
