@@ -15,14 +15,18 @@ const CreateAccount = async () => {
   }
 
   return (
-    <section className="flex w-full flex-col items-center justify-center gap-y-8 pt-16">
+    <section className="flex w-full flex-col items-center justify-center pt-16">
       {/* heading */}
-      <div className="flex flex-col items-center justify-center gap-1">
-        <h1 className="text-4xl font-semibold">Create Your Account</h1>
-        <p className="text-base tracking-wide">
+      <div className="flex flex-col items-center justify-center gap-1 pb-8">
+        <h1 className="text-2xl font-semibold lg:text-4xl">
+          Create Your Account
+        </h1>
+        <p className="text-sm tracking-wide lg:text-base">
           You&apos;ll use this to watch on your favorite devices.
         </p>
-        <p className="text-sm text-white/70">* Indicates a required field</p>
+        <p className="text-xs text-white/70 lg:text-sm">
+          * Indicates a required field
+        </p>
       </div>
 
       {/* form */}
@@ -30,7 +34,7 @@ const CreateAccount = async () => {
 
       {/* log in like if the user has an account */}
       <div className="flex flex-col items-center justify-center gap-1">
-        <p className="text-base tracking-wide text-white">
+        <p className="text-sm tracking-wide text-white lg:text-base">
           Already have an account?{" "}
           <Link
             href="/login"
