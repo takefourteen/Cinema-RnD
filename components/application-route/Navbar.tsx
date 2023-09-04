@@ -39,11 +39,13 @@ const Navbar = () => {
   }
 
   // define classes based on the scroll state. the navbar will remain fixed at the top of the page when the user scrolls down
-  const navbarClasses = scroll ? "bg-black bg-opacity-90" : "";
+  // const navbarClasses = ;
 
   return (
     <nav
-      className={`fixed left-0 right-0 top-0 z-50 flex items-center px-4 py-2 ${navbarClasses}`}
+      className={`fixed left-0 right-0 top-0 z-50 flex items-center px-4 py-4 transition-colors ${
+        scroll ? "bg-black bg-opacity-90" : ""
+      }`}
     >
       {/* Mobile menu for sm screens */}
       <MobileMenu />
@@ -68,7 +70,7 @@ const Navbar = () => {
             <Button
               onClick={signOutUser}
               variant="ghost"
-              className="text- rounded-lg px-[25px] py-[10px] font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
+              className="h-fit rounded-lg px-6 py-2 text-sm font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
             >
               Log Out
             </Button>
@@ -78,13 +80,13 @@ const Navbar = () => {
             <Button
               asChild
               variant="ghost"
-              className="text- rounded-lg px-[25px] py-[10px] font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
+              className="h-fit rounded-lg px-6 py-2 text-sm font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
             >
               <Link href="/login">Login</Link>
             </Button>
             <Button
               asChild
-              className="w-max rounded-lg border-[#c11119] bg-[#e50914] px-[25px] py-[10px] text-base font-bold uppercase text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
+              className="h-fit w-max rounded-lg border-[#c11119] bg-[#e50914] px-6 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
             >
               <Link href="/create-account">Create Account</Link>
             </Button>

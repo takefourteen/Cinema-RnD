@@ -35,16 +35,16 @@ const MobileMenu = () => {
       {isOpen && (
         // <div className="">
         <ul className="absolute left-0 top-[60px] z-50 overflow-hidden  bg-black/70 p-4 shadow-md transition-all">
-          <li className="mt-4  px-10">
+          <li className="mt-4 px-10  hover:bg-[#40445999]">
             <NavLink href="#">movies</NavLink>
           </li>
-          <li className="mt-4 px-10">
+          <li className="mt-4 px-10 hover:bg-[#40445999]">
             <NavLink href="#">shows</NavLink>
           </li>
-          <li className="mt-4 px-10">
+          <li className="mt-4 px-10 hover:bg-[#40445999]">
             <NavLink href="#">documentaries</NavLink>
           </li>
-          <li className="mt-4 px-10">
+          <li className="mt-4 px-10 hover:bg-[#40445999]">
             <NavLink href="/my-list">my list</NavLink>
           </li>
         </ul>
@@ -65,7 +65,7 @@ const NavLink = ({ href, children }: NavLinkProps) => {
     <Button
       asChild
       variant="ghost"
-      className="h-fit rounded-lg px-[10px] py-[10px] text-sm font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
+      className="flex h-fit w-full justify-start rounded-lg px-[10px] py-[10px] text-sm font-bold uppercase text-white hover:bg-transparent hover:text-white"
     >
       <Link href={`${href}`}>{children}</Link>
     </Button>
