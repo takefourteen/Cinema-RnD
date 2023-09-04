@@ -35,7 +35,7 @@ const MovieSearchBar = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col items-center justify-center gap-y-4"
     >
-      <h3 className="text-center text-lg  text-white">
+      <h3 className="text-center text-base lg:text-lg mt-4  text-white">
         Ready to watch? Find Your Favorite Shows and Movies!
       </h3>
 
@@ -44,13 +44,13 @@ const MovieSearchBar = () => {
             <Input
               type="text"
               placeholder="Find movies, TV shows, and more..."
-              className="h-12 rounded-lg bg-black/30 px-6 py-3 text-2xl font-semibold text-white placeholder:text-[#a3a3a3] placeholder:text-lg"
+              className="h-12 rounded-lg bg-black/30 px-6 py-3 text-lg lg:text-2xl font-semibold text-white placeholder:text-[#a3a3a3] placeholder:text-lg"
               value={searchQuery}
               onChange={handleSearch}
             />
             {searchQuery && (
               <MdOutlineClose
-                className="absolute right-4 top-1/2 h-6 w-6 -translate-y-1/2 transform cursor-pointer rounded-full text-white "
+                className="absolute right-4 top-1/2 h-5 w-5 lg:h-6 lg:w-6 -translate-y-1/2 transform cursor-pointer rounded-full text-white "
                 onClick={handleClear}
               />
             )}
@@ -58,9 +58,9 @@ const MovieSearchBar = () => {
 
         <Button
           type="submit"
-          className={` h-12 min-w-max bg-[#e50914] px-6 py-3 text-xl font-semibold text-white  hover:bg-[#c11119] `}
+          className={` h-12 min-w-max bg-[#e50914] px-6 py-3 text-lg lg:text-xl font-semibold text-white  hover:bg-[#c11119] `}
         >
-          Search <IoSearchOutline className="ml-2 h-6 w-6" />
+          Search <IoSearchOutline className="ml-2 h-5 w-5 lg:h-6 lg:w-6" />
         </Button>
       </div>
     </form>
