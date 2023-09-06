@@ -1,4 +1,4 @@
-import Navbar from "@/components/auth-route/Navbar";
+import Navbar from "@/components/auth-group/Navbar";
 
 export default function AuthLayout({
   children,

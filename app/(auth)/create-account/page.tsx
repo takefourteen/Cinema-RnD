@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
-import CreateAccountForm from "@/components/auth-route/CreateAccountForm";
+import CreateAccountForm from "@/components/auth-group/CreateAccountForm";
 
 const CreateAccount = async () => {
   const session = await getServerSession(authOptions);
@@ -18,7 +18,7 @@ const CreateAccount = async () => {
     <section className="flex w-full flex-col items-center justify-center pt-16">
       {/* heading */}
       <div className="flex flex-col items-center justify-center gap-2 pb-8">
-      <h1 className="text-center text-4xl font-bold text-white lg:text-5xl">
+        <h1 className="text-center text-4xl font-bold text-white lg:text-5xl">
           Create Your Account
         </h1>
         <p className="text-base text-white">
