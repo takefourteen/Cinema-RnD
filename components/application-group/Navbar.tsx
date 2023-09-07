@@ -58,9 +58,9 @@ const Navbar = () => {
 
       <div className="hidden items-center  uppercase lg:flex">
         <NavLink href="#">movies</NavLink>
-        <NavLink href="#">shows</NavLink>
+        <NavLink href="#">tv shows</NavLink>
         <NavLink href="#">documentaries</NavLink>
-        <NavLink href="/my-list">my list</NavLink>
+        <NavLink href="/my-library">my library</NavLink>
       </div>
 
       <div className="ml-auto flex items-center justify-center gap-x-4 text-white">

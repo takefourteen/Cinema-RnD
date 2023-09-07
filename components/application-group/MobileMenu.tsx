@@ -45,7 +45,7 @@ const MobileMenu = () => {
             <NavLink href="#">documentaries</NavLink>
           </li>
           <li className="mt-4 px-10 hover:bg-[#40445999]">
-            <NavLink href="/my-list">my list</NavLink>
+            <NavLink href="/my-library">my library</NavLink>
           </li>
         </ul>
         // </div>

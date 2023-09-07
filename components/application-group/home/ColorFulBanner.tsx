@@ -2,7 +2,7 @@ import PopcornImg from "./PopcornImg";
 
 const ColorFulBanner = () => {
   return (
-    <div className="box-shadow flex  w-full items-center justify-center gap-x-4 bg-radial-gradient p-6 text-white">
+    <section className="box-shadow flex  w-full items-center justify-center gap-x-4 bg-radial-gradient p-6 text-white">
       <div className="mr-2">
         <PopcornImg />
       </div>
@@ -12,12 +12,14 @@ const ColorFulBanner = () => {
           Discover the Ultimate Streaming Experience
         </p>
 
-        <p className="text-sm lg:text-base">Stream anytime, anywhere, on any device.</p>
+        <p className="text-sm lg:text-base">
+          Stream anytime, anywhere, on any device.
+        </p>
         <p className="text-sm lg:text-base">
           Start watching now with no subscription required.
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -9,7 +9,7 @@ const MyList = async () => {
   // const { data: session, status } = useSession({
   //   required: true,
   //   onUnauthenticated() {
-  //     redirect("/login?callbackUrl=/my-list");
+  //     redirect("/login?callbackUrl=/my-library");
   //   },
   // });
   // const user = session?.user as UserData;
@@ -20,7 +20,7 @@ const MyList = async () => {
   console.log("session", session);
 
   if (!user) {
-    redirect("/login?callbackUrl=/my-list");
+    redirect("/login?callbackUrl=/my-library");
   }
 
   return (

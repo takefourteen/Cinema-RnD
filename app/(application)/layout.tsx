@@ -6,7 +6,7 @@ export default function ApplicationLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="overflow-x-hidden bg-[url('/dark-body-bg.jpg')] ">
+    <section className="overflow-x-hidden bg-gradient-to-tr from-[#070739] via-black to-[#060212]">
       <Navbar />
       {children}
     </section>
