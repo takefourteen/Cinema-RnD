@@ -5,7 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-import { faqs as faqData } from "@/lib/faqData";
+import { faqs as faqData } from "@/data/faqData";
 
 interface FaqAccordionItemProps {
   value: string;
