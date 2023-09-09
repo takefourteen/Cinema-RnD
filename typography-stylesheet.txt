@@ -1,0 +1,46 @@
+Typography Style Guide:
+
+Font: Use a consistent font family throughout (e.g., "Roboto" or "Helvetica Neue").
+
+Font Weights:
+
+Large Title: Font Weight: Bold
+Title 1: Font Weight: Bold
+Title 2: Font Weight: Semi-Bold
+Title 3: Font Weight: Semi-Bold
+Headline: Font Weight: Semi-Bold
+Body: Font Weight: Regular
+Subhead: Font Weight: Regular
+Input Label: Font Weight: Regular
+Font Sizes (in pixels):
+
+Small Screen (sm):
+
+Large Title: 32px
+Title 1: 28px
+Title 2: 24px
+Title 3: 20px
+Headline: 18px
+Body: 16px
+Subhead: 14px
+Input Label: 14px
+Medium Screen (md):
+
+Large Title: 36px
+Title 1: 32px
+Title 2: 28px
+Title 3: 24px
+Headline: 20px
+Body: 18px
+Subhead: 16px
+Input Label: 16px
+Large Screen (lg):
+
+Large Title: 40px
+Title 1: 36px
+Title 2: 32px
+Title 3: 28px
+Headline: 24px
+Body: 20px
+Subhead: 18px
+Input Label: 18px

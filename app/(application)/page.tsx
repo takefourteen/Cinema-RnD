@@ -5,7 +5,7 @@ import Discovery from "@/components/application-group/home/Discovery";
 
 export default function Page() {
   return (
-    <main className="text-white px-5">
+    <main className="text-white">
       <Hero />
       <ColorFulBanner />
       <Discovery />

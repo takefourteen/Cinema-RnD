@@ -1,6 +1,7 @@
 const apiKey = process.env.TMDB_API_KEY;
 
-export async function getPopularMovies(page: number = 1) {
+// function to get popular movies from the tmdb api
+export async function getPopularMovies(page: number = 1): Promise<PopularMovie[]> {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`,
   );
@@ -8,7 +9,10 @@ export async function getPopularMovies(page: number = 1) {
   return data.results;
 }
 
-export async function getPopularTVShows(page: number = 1) {
+// function to get popular tv shows from the tmdb api
+export async function getPopularTVShows(
+  page: number = 1,
+): Promise<PopularTVShow[]> {
   const response = await fetch(
     `https://api.themoviedb.org/3/tv/popular?api_key=${apiKey}&language=en-US&page=${page}`,
   );
@@ -17,7 +21,7 @@ export async function getPopularTVShows(page: number = 1) {
 }
 
 // make a request to the tmdb api to get recommendations for a movie
-export async function getRecommendations(movieId: string) {
+export async function getMovieRecommendations(movieId: string) {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${apiKey}&language=en-US&page=1`,
   );
@@ -34,9 +38,29 @@ export async function getTVRecommendations(tvId: string) {
   return data.results;
 }
 
+// make a request to the tmdb api to get details for a movie
+export async function getMovieDetails(movieId: string): Promise<MovieDetails> {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`,
+  );
+  const data = await response.json();
+  return data;
+}
+
+// make a request to the tmdb api to get details for a tv show
+export async function getTVDetails(tvId: string): Promise<TVShowDetails> {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/tv/${tvId}?api_key=${apiKey}&language=en-US`,
+  );
+  const data = await response.json();
+  return data;
+}
+
+// ============================
+
 interface Movie {
   id: number;
-  title: string;
+  title?: string;
   vote_average: number;
   vote_count: number;
 }
@@ -61,18 +85,40 @@ function calculateWeightedRating(movie: Movie): number {
   return weightedRating;
 }
 
-// Function to get recommended content by weighted rating
-function getRecommendedContent(contentList: Movie[]): Movie[] {
-  // Calculate the weighted rating for each movie
-  const moviesWithWeightedRating = contentList.map((movie) => ({
+// Function to get recommended movies based on the IMDb formula
+export async function getRecommendedMovies(): Promise<PopularMovie[]> {
+  // Fetch popular movies
+  const popularMovies = await getPopularMovies();
+
+  // Calculate weighted ratings for popular movies
+  const moviesWithWeightedRating = popularMovies.map((movie) => ({
     ...movie,
     weightedRating: calculateWeightedRating(movie),
   }));
 
-  // Sort the movies by weighted rating in descending order
-  const recommendedContent = moviesWithWeightedRating.sort(
+  // Sort movies by weighted rating in descending order
+  const recommendedMovies = moviesWithWeightedRating.sort(
     (a, b) => b.weightedRating - a.weightedRating,
   );
 
-  return recommendedContent;
+  return recommendedMovies;
+}
+
+// Function to get recommended TV shows based on the IMDb formula
+export async function getRecommendedTVShows(): Promise<PopularTVShow[]> {
+  // Fetch popular TV shows
+  const popularTVShows = await getPopularTVShows();
+
+  // Calculate weighted ratings for popular TV shows
+  const tvShowsWithWeightedRating = popularTVShows.map((tvShow) => ({
+    ...tvShow,
+    weightedRating: calculateWeightedRating(tvShow),
+  }));
+
+  // Sort TV shows by weighted rating in descending order
+  const recommendedTVShows = tvShowsWithWeightedRating.sort(
+    (a, b) => b.weightedRating - a.weightedRating,
+  );
+
+  return recommendedTVShows;
 }
