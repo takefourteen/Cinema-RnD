@@ -8,6 +8,7 @@ import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 import logo from "@/assets/images/netflix-logo.png";
+import smLogo from "@/assets/images/netflix-n-logo.png";
 import { Button } from "@/components/ui/button";
 import MobileMenu from "./MobileMenu";
 
@@ -52,7 +53,20 @@ const Navbar = () => {
 
       <div className="mr-4 flex items-center">
         <Link href="/">
-          <Image src={logo} alt="Netflix Logo" width={125} priority />
+          <Image
+            src={logo}
+            alt="Netflix Logo"
+            width={125}
+            priority
+            className="hidden md:inline"
+          />
+          <Image
+            src={smLogo}
+            alt="Netflix Logo"
+            width={50}
+            priority
+            className="inline md:hidden"
+          />
         </Link>
       </div>
 

@@ -9,8 +9,8 @@ import { BsArrowRight } from "react-icons/bs";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 
-const imageBaseUrl = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
-const orgininalImageBasePath = process.env.NEXT_PUBLIC_TMBD_IMG_PATH;
+const orgininalImageBasePath = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
+const imageBaseUrl = process.env.NEXT_PUBLIC_TMBD_IMG_PATH;
 
 type MediaItem = {
   id: number;
@@ -39,22 +39,22 @@ const PopularDisplay = ({
 
   return (
     <div className="flex flex-col gap-y-4">
-      <div className="flex flex-col items-start justify-start">
-        <h2 className="text-2xl font-bold capitalize text-white">
+      <div className="flex items-baseline justify-between px-4">
+        <h2 className="text-2xl font-bold capitalize text-white md:text-3xl">
           {sectionTitle}
         </h2>
         <Button
           asChild
           variant={"link"}
-          className=" group p-0 text-base text-white"
+          className=" group p-0  text-base text-white md:text-lg"
         >
-          <Link href={viewAllLink} className="">
-            View All{" "}
-            <BsArrowRight className="ml-2 h-4 w-4 font-bold group-hover:scale-110 group-hover:transition-all" />
+          <Link href={viewAllLink}>
+            View All
+            <BsArrowRight className="ml-2 h-4 w-4 font-bold group-hover:scale-[120%] group-hover:transition-all" />
           </Link>
         </Button>
       </div>
-      <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      <div className="grid grid-cols-2  gap-x-4 gap-y-8 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {data.slice(0, 6).map(
           (media) =>
             // Check if the media has a valid poster_path before rendering
@@ -81,7 +81,10 @@ const MediaCard = ({
   isLoading: boolean;
   handleImageLoad: () => void;
 }) => (
-  <div key={media.id} className="relative h-auto max-w-[200px]">
+  <div
+    key={media.id}
+    className="relative  h-auto  w-full max-w-[175px] justify-self-center lg:max-w-[200px]"
+  >
     {/* Show loading spinner while image loads */}
     {isLoading && (
       <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-70">
@@ -90,7 +93,7 @@ const MediaCard = ({
     )}
     <AspectRatio ratio={2 / 3}>
       <Image
-        src={`${imageBaseUrl}${media.poster_path}`}
+        src={`${orgininalImageBasePath}${media.poster_path}`}
         alt={media.original_title || media.original_name || "Media"}
         fill
         className="object-cover"
