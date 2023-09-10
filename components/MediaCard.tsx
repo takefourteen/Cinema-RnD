@@ -7,6 +7,7 @@ import { getMovieDetails } from "@/lib/tmdbApi";
 
 import { CgSpinner } from "react-icons/cg";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Skeleton from "./Skeleton";
 
 interface MediaCardProps {
   id: number;
@@ -14,6 +15,8 @@ interface MediaCardProps {
   original_title?: string;
   original_name?: string;
   aspect_ratio?: "16:9" | "9:16"; // Define aspect_ratio as a prop
+  loaderType?: "spinner" | "skeleton"; // Define loaderType as a prop
+  skeletonLoaderRows?: number; // Define loaderRows as a prop
 }
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
@@ -22,9 +25,13 @@ const orgininalImageBasePath = "https://image.tmdb.org/t/p/original";
 const MediaCard = ({
   data,
   aspect_ratio = "16:9",
+  loaderType = "spinner",
+  skeletonLoaderRows = 1,
 }: {
   data: MediaCardProps;
   aspect_ratio: "16:9" | "9:16";
+  loaderType: "spinner" | "skeleton";
+  skeletonLoaderRows: number;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const imageSrc =
@@ -44,12 +51,14 @@ const MediaCard = ({
     data.poster_path ? (
       <div className={aspect_ratio === "16:9" ? _16_9 : _9_16}>
         <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 9 / 16}>
-          {/* Display the loading spinner while the image is loading */}
-          {isLoading && (
+          {/* Display the loading spinner or skeleton while the image is loading */}
+          {isLoading && loaderType === "spinner" ? (
             <div className="absolute inset-0 flex items-center justify-center">
-              <CgSpinner className="h-10 w-10 animate-spin text-white" />
+              <CgSpinner className="h-10 w-10 animate-spin text-gray-500" />
             </div>
-          )}
+          ) : isLoading && loaderType === "skeleton" ? (
+            <Skeleton rows={skeletonLoaderRows} />
+          ) : null}
 
           {/* Display the image */}
           <Image

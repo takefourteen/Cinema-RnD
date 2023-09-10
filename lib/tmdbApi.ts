@@ -116,7 +116,6 @@ export async function searchAll(query: string, page: number = 1) {
   return sortedResults;
 }
 
-
 // ============================
 
 interface Movie {

@@ -1,14 +1,18 @@
-const Loader = () => {
+interface SkeletonProps {
+  rows?: number;
+}
+
+const Skeleton = ({ rows = 1 }: SkeletonProps) => {
   return (
-    <div className="w-[300px]">
+    <div className="h-full w-full">
       <div
-        className="h-24 w-full animate-pulse rounded-lg bg-slate-400"
+        className="h-full w-full animate-pulse rounded-lg bg-slate-400"
         style={{
           animationDuration: "1s",
         }}
       />
       <div className="mt-4 flex flex-col gap-3">
-        {Array.from({ length: 3 }, (_, i) => i + 1).map((_, i) => (
+        {Array.from({ length: rows }, (_, i) => i + 1).map((_, i) => (
           <div
             key={i}
             className="h-3 w-full animate-pulse rounded-lg bg-slate-300"
@@ -24,4 +28,4 @@ const Loader = () => {
   );
 };
 
-export default Loader;
+export default Skeleton;

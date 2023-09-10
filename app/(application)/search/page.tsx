@@ -23,9 +23,15 @@ const page = async ({ searchParams }: Props) => {
 
       <Separator className="mb-8 mt-4 h-[1px] bg-gray-800" />
 
-      <div className="grid grid-cols-1 gap-x-2 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+      <div className="grid grid-cols-1 gap-x-2 gap-y-12 lg:gap-y-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {results.map((media) => (
-          <MediaCard key={media.id} data={media} aspect_ratio="16:9" />
+          <MediaCard
+            key={media.id}
+            data={media}
+            aspect_ratio="9:16"
+            loaderType="skeleton"
+            skeletonLoaderRows={0}
+          />
         ))}
       </div>
     </section>
