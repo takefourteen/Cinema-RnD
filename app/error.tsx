@@ -28,9 +28,9 @@ export default function Error({
         <Button
           variant="destructive"
           className="bg-red-600 capitalize"
-          onClick={() => router.back()}
+          onClick={() => reset()}
         >
-          go back
+          try again
         </Button>
       </div>
     </div>
