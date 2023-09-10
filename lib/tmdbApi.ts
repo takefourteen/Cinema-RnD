@@ -1,7 +1,9 @@
 const apiKey = process.env.TMDB_API_KEY;
 
 // function to get popular movies from the tmdb api
-export async function getPopularMovies(page: number = 1): Promise<PopularMovie[]> {
+export async function getPopularMovies(
+  page: number = 1,
+): Promise<PopularMovie[]> {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=en-US&page=${page}`,
   );
@@ -20,7 +22,7 @@ export async function getPopularTVShows(
   return data.results;
 }
 
-// make a request to the tmdb api to get recommendations for a movie
+// function to get recommendations for a movie
 export async function getMovieRecommendations(movieId: string) {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=${apiKey}&language=en-US&page=1`,
@@ -29,7 +31,7 @@ export async function getMovieRecommendations(movieId: string) {
   return data.results;
 }
 
-// make a request to the tmdb api to get recommendations for a tv show
+// function to get recommendations for a tv show
 export async function getTVRecommendations(tvId: string) {
   const response = await fetch(
     `https://api.themoviedb.org/3/tv/${tvId}/recommendations?api_key=${apiKey}&language=en-US&page=1`,
@@ -38,7 +40,7 @@ export async function getTVRecommendations(tvId: string) {
   return data.results;
 }
 
-// make a request to the tmdb api to get details for a movie
+// function to get details for a movie
 export async function getMovieDetails(movieId: string): Promise<MovieDetails> {
   const response = await fetch(
     `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`,
@@ -47,13 +49,51 @@ export async function getMovieDetails(movieId: string): Promise<MovieDetails> {
   return data;
 }
 
-// make a request to the tmdb api to get details for a tv show
+// function to get details for a tv show
 export async function getTVDetails(tvId: string): Promise<TVShowDetails> {
   const response = await fetch(
     `https://api.themoviedb.org/3/tv/${tvId}?api_key=${apiKey}&language=en-US`,
   );
   const data = await response.json();
   return data;
+}
+
+// function to search for movies by a query
+export async function searchMovies(
+  query: string,
+): Promise<MovieSearchResult[]> {
+  // encode the query to make sure it's safe to send in a URL
+  const encodedQuery = encodeURIComponent(query);
+
+  // fetch the search results from the API
+  const response = await fetch(
+    `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${encodedQuery}&page=1&include_adult=false`,
+  );
+
+  // parse the response as JSON
+  const data = await response.json();
+
+  // return the results
+  return data.results;
+}
+
+// function to search for tv shows by a query
+export async function searchTVShows(
+  query: string,
+): Promise<TvShowSearchResult[]> {
+  // encode the query to make sure it's safe to send in a URL
+  const encodedQuery = encodeURIComponent(query);
+
+  // fetch the search results from the API
+  const response = await fetch(
+    `https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&language=en-US&page=1&query=${encodedQuery}&include_adult=false`,
+  );
+
+  // parse the response as JSON
+  const data = await response.json();
+
+  // return the results
+  return data.results;
 }
 
 // ============================
