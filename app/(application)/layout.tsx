@@ -7,9 +7,9 @@ export default function ApplicationLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section className="overflow-x-hidden bg-gradient-to-tr from-[#070739] via-black to-[#060212]">
+    <section className="flex min-h-screen flex-col overflow-x-hidden bg-gradient-to-tr from-[#070739] via-black to-[#060212]">
       <Navbar />
-      {children}
+      <main className="flex-1">{children}</main>
       <Footer />
     </section>
   );

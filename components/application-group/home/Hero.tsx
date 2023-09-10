@@ -9,16 +9,16 @@ type Props = {};
 
 function Hero({}: Props) {
   // get the screen width and always display it whenever the screen is resized
-  const [screenWidth, setScreenWidth] = React.useState(window.innerWidth);
+  // const [screenWidth, setScreenWidth] = React.useState(window.innerWidth);
 
-  React.useEffect(() => {
-    const handleResize = () => setScreenWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
+  // React.useEffect(() => {
+  //   const handleResize = () => setScreenWidth(window.innerWidth);
+  //   window.addEventListener("resize", handleResize);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []); // empty array means that this effect will only run once
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   return (
     <section className="relative min-h-[36rem] lg:min-h-[44rem] ">
@@ -34,7 +34,7 @@ function Hero({}: Props) {
         <p className="text-xl text-white lg:text-2xl">
           Watch anywhere. For free.
         </p>
- 
+
         {/* TESTING THE master-container CLASS */}
         {/* <div className="master-container w-full">
           <p className="test  w-full border text-center">{`Screen width is ${screenWidth}px`}</p>

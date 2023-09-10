@@ -27,10 +27,10 @@ export default function Error({
         <Button onClick={() => router.push("/")}>Go Home</Button>
         <Button
           variant="destructive"
-          className="bg-red-600"
-          onClick={() => reset()}
+          className="bg-red-600 capitalize"
+          onClick={() => router.back()}
         >
-          Try Again
+          go back
         </Button>
       </div>
     </div>
