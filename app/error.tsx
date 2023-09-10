@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 
 export default function Error({
@@ -10,6 +12,7 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
+  const router = useRouter();
   console.log(error.message);
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
@@ -21,9 +24,7 @@ export default function Error({
         We are sorry for the inconvenience. Please try again later.
       </div>
       <div className="mt-8 flex gap-4">
-        <Button asChild>
-          <Link href="/">Go Home</Link>
-        </Button>
+        <Button onClick={() => router.push("/")}>Go Home</Button>
         <Button
           variant="destructive"
           className="bg-red-600"

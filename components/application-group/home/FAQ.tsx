@@ -50,11 +50,11 @@ const FaqAccordion = () => {
 
 const FaqAccordionItem = ({ value, label, content }: FaqAccordionItemProps) => {
   return (
-    <AccordionItem value={value} className="bg-[#13151d] p-0  ">
-      <AccordionTrigger className="p-6 text-lg font-semibold text-[#F9F9F9] md:text-xl">
+    <AccordionItem value={value} className="border-b-1 bg-transparent p-0  ">
+      <AccordionTrigger className="px-0 py-6 text-base font-semibold tracking-wide text-[#F9F9F9] md:text-lg">
         {label}
       </AccordionTrigger>
-      <AccordionContent className="px-6 text-base text-[#C0C0C0] md:text-lg">
+      <AccordionContent className="px-0  text-base text-[#C0C0C0] lg:text-lg">
         {content}
       </AccordionContent>
     </AccordionItem>

@@ -15,7 +15,6 @@ Input Label: Font Weight: Regular
 Font Sizes (in pixels):
 
 Small Screen (sm):
-
 Large Title: 32px
 Title 1: 28px
 Title 2: 24px
@@ -24,8 +23,8 @@ Headline: 18px
 Body: 16px
 Subhead: 14px
 Input Label: 14px
-Medium Screen (md):
 
+Medium Screen (md):
 Large Title: 36px
 Title 1: 32px
 Title 2: 28px
@@ -34,8 +33,8 @@ Headline: 20px
 Body: 18px
 Subhead: 16px
 Input Label: 16px
-Large Screen (lg):
 
+Large Screen (lg):
 Large Title: 40px
 Title 1: 36px
 Title 2: 32px

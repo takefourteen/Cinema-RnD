@@ -47,11 +47,12 @@ const Discovery = async () => {
   const popularTVShows = (await getPopularTVShows()) as PopularTVShow[];
   return (
     <section className=" flex flex-col gap-y-20 px-10 py-20">
-      <div className="flex flex-col items-center justify-center gap-y-4 text-center">
-        <h2 className="text-3xl font-bold capitalize text-white lg:text-4xl">
+      {/* Section heading */}
+      <div className="flex flex-col items-center justify-center gap-y-2 text-center">
+        <h2 className="text-[28px] font-bold capitalize text-white md:text-[32px] lg:text-4xl">
           Discover what to watch next
         </h2>
-        <p className="max-w-lg text-base text-white/70 lg:text-lg">
+        <p className="max-w-lg text-base text-white/80 lg:text-lg">
           With a world of movies and TV shows at your fingertips, boredom is a
           thing of the past.
         </p>

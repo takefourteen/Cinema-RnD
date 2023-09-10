@@ -11,6 +11,7 @@ import {
   BsArrowRight,
 } from "react-icons/bs";
 import { Button } from "../ui/button";
+import { Separator } from "@/components/ui/separator";
 
 interface SliderProps {
   children: React.ReactNode;
@@ -90,6 +91,8 @@ const Slider: React.FC<SliderProps> = ({
           </Button>
         )}
       </div>
+
+      <Separator className="mb-6 mt-4 bg-white/30" />
 
       {/* Slider Body */}
       <div className="wrapper relative mt-8">

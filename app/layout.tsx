@@ -1,7 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+
 import Providers from "@/Providers/Providers";
+import Footer from "@/components/Footer";
 
 const maxSans = localFont({
   src: [
@@ -40,7 +42,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${maxSans.variable} font-sans`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+
+        </Providers>
       </body>
     </html>
   );

@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Navbar from "@/components/application-group/Navbar";
 
 export default function ApplicationLayout({
@@ -9,6 +10,7 @@ export default function ApplicationLayout({
     <section className="overflow-x-hidden bg-gradient-to-tr from-[#070739] via-black to-[#060212]">
       <Navbar />
       {children}
+      <Footer />
     </section>
   );
 }

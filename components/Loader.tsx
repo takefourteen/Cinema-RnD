@@ -1,19 +1,25 @@
 const Loader = () => {
   return (
-    <div className="h-full flex-col items-center justify-start gap-2">
-      {/* create an array of 10  */}
-      {Array.from({ length: 10 }, (_, i) => i + 1).map((_, i) => (
-        <div key={i} className="mt-4 flex gap-2">
-          {/* <div className="h-7 w-7 animate-pulse rounded-full bg-slate-300"></div> */}
+    <div className="w-[300px]">
+      <div
+        className="h-24 w-full animate-pulse rounded-lg bg-slate-400"
+        style={{
+          animationDuration: "1s",
+        }}
+      />
+      <div className="mt-4 flex flex-col gap-3">
+        {Array.from({ length: 3 }, (_, i) => i + 1).map((_, i) => (
           <div
-            className="h-10 w-full animate-pulse rounded-md bg-slate-300"
+            key={i}
+            className="h-3 w-full animate-pulse rounded-lg bg-slate-300"
             style={{
               animationDelay: `${i * 0.1}s`,
               animationDuration: "1s",
+              width: `${Math.floor(Math.random() * 71) + 30}%`, // Generates a random number between 30 and 100 (inclusive)
             }}
-          ></div>
-        </div>
-      ))}
+          />
+        ))}
+      </div>
     </div>
   );
 };
