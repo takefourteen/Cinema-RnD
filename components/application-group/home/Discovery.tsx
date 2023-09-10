@@ -1,13 +1,52 @@
+import Image from "next/image";
+
 import { getPopularMovies, getPopularTVShows } from "@/lib/tmdbApi";
 
 import Slider from "@/components/slider/Slider";
 import MediaCard from "@/components/MediaCard";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+
+// import images from assests/images/streaming-services folder
+import prime from "@/assets/images/streaming-services/amazon-prime.svg";
+import disney from "@/assets/images/streaming-services/disney-plus.svg";
+import hulu from "@/assets/images/streaming-services/hulu.webp";
+import netflix from "@/assets/images/netflix-logo.webp";
+import peacockWhite from "@/assets/images/streaming-services/peacock-white.svg";
+import peacockBlack from "@/assets/images/streaming-services/peacock-black.svg";
+import hbo from "@/assets/images/streaming-services/hbo.svg";
+
+const streamingServices = [
+  {
+    name: "Netflix",
+    image: netflix,
+  },
+  {
+    name: "Amazon Prime",
+    image: prime,
+  },
+  {
+    name: "Disney Plus",
+    image: disney,
+  },
+  {
+    name: "Hulu",
+    image: hulu,
+  },
+  {
+    name: "Peacock",
+    image: peacockWhite,
+  },
+  {
+    name: "HBO Max",
+    image: hbo,
+  },
+];
 
 const Discovery = async () => {
   const popularMovies = (await getPopularMovies()) as PopularMovie[];
   const popularTVShows = (await getPopularTVShows()) as PopularTVShow[];
   return (
-    <section className=" flex flex-col gap-y-16 px-10 py-20 md:gap-y-20">
+    <section className=" flex flex-col gap-y-20 px-10 py-20">
       <div className="flex flex-col items-center justify-center gap-y-4 text-center">
         <h2 className="text-3xl font-bold capitalize text-white lg:text-4xl">
           Discover what to watch next
@@ -44,6 +83,25 @@ const Discovery = async () => {
       >
         {popularMovies.map((movie) => (
           <MediaCard key={movie.id} media={movie} />
+        ))}
+      </Slider>
+
+      {/* Streaming Services */}
+      <Slider
+        sectionTitle="Streaming Services"
+        lengthOfList={streamingServices.length}
+      >
+        {streamingServices.map((service) => (
+          <div key={service.name} className="w-[150px] md:w-[200px]">
+            <AspectRatio ratio={4 / 3}>
+              <Image
+                src={service.image}
+                alt={service.name}
+                fill
+                className="object-contain"
+              />
+            </AspectRatio>
+          </div>
         ))}
       </Slider>
 

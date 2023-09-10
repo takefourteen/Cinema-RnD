@@ -7,8 +7,8 @@ import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-import logo from "@/assets/images/netflix-logo.png";
-import smLogo from "@/assets/images/netflix-n-logo.png";
+import logo from "@/assets/images/netflix-logo.webp";
+import smLogo from "@/assets/images/netflix-n-logo.webp";
 import { Button } from "@/components/ui/button";
 import MobileMenu from "./MobileMenu";
 
@@ -44,7 +44,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed left-0 right-0 top-0 z-50 flex items-center px-4 py-4 transition-colors md:px-10 ${
+      className={`fixed left-0 right-0 top-0 z-[99999] flex items-center px-4 py-4 transition-colors md:px-10 ${
         scroll ? "bg-black bg-opacity-90" : ""
       }`}
     >

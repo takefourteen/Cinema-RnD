@@ -75,22 +75,26 @@ const Slider: React.FC<SliderProps> = ({
         <h2 className="text-2xl font-bold capitalize text-white md:text-3xl">
           {sectionTitle}
         </h2>
-        <Button
-          asChild
-          variant={"link"}
-          className=" group p-0  text-base text-white md:text-lg"
-        >
-          <Link href={viewAllLink || "#"}>
-            View All
-            <BsArrowRight className="ml-2 h-4 w-4 font-bold group-hover:scale-[120%] group-hover:transition-all" />
-          </Link>
-        </Button>
+
+        {/* Show the View All Button if the viewAllLink is provided */}
+        {viewAllLink && (
+          <Button
+            asChild
+            variant={"link"}
+            className=" group p-0  text-base text-white md:text-lg"
+          >
+            <Link href={viewAllLink || "#"}>
+              View All
+              <BsArrowRight className="ml-2 h-4 w-4 font-bold group-hover:scale-[120%] group-hover:transition-all" />
+            </Link>
+          </Button>
+        )}
       </div>
 
       {/* Slider Body */}
-      <div className="wrapper relative">
+      <div className="wrapper relative mt-8">
         <ChevronLeft
-          className="sliderArrow left"
+          className="sliderArrow left h-8 w-8 md:h-10 md:w-10"
           onClick={() => handleClick("left")}
           style={{
             display: slideNumber === 0 ? "none" : undefined,
@@ -107,7 +111,7 @@ const Slider: React.FC<SliderProps> = ({
           {children}
         </div>
         <ChevronRight
-          className="sliderArrow right"
+          className="sliderArrow right h-8 w-8 md:h-10 md:w-10"
           onClick={() => handleClick("right")}
           style={{
             display:

@@ -29,7 +29,7 @@ const MediaCard = ({ media }: { media: MediaCardProps }) => {
   return (
     <div
       key={media.id}
-      className="relative h-auto w-full min-w-[175px] justify-self-center lg:min-w-[200px]"
+      className="relative h-auto w-[125px] justify-self-center md:w-[175px] lg:w-[200px]"
     >
       <AspectRatio ratio={2 / 3}>
         {/* Display the loading spinner while the image is loading */}
