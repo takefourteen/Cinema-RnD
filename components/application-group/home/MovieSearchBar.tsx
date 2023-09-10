@@ -24,7 +24,7 @@ const MovieSearchBar = () => {
     // if there is a search query, redirect to search page
     if (searchQuery) {
       // Navigate to the search route with the search term as a query parameter
-      router.push(`/search?term=${encodeURIComponent(searchQuery)}`);
+      router.push(`/search?term=${encodeURIComponent(searchQuery)}&page=1`);
     }
   }
 

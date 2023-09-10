@@ -17,11 +17,11 @@ interface MediaCardProps {
 }
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
-const orgininalImageBasePath = "https://image.tmdb.org/t/p/w500";
+const orgininalImageBasePath = "https://image.tmdb.org/t/p/original";
 
 const MediaCard = ({
   data,
-  aspect_ratio,
+  aspect_ratio = "16:9",
 }: {
   data: MediaCardProps;
   aspect_ratio: "16:9" | "9:16";
@@ -36,14 +36,12 @@ const MediaCard = ({
   };
 
   // define styles for 16:9(horizontal) and 9:16(vertical) aspect ratios
-  const _16_9 =
-    "relative h-auto w-[175px] justify-self-center md:w-[200px] lg:w-[250px] xl:w-[300px]";
-  const _9_16 =
-    "relative h-auto w-[125px] justify-self-center md:w-[175px] lg:w-[200px]";
+  const _16_9 = "relative h-auto flex-1 ";
+  const _9_16 = "relative h-auto flex-1 ";
 
   return (
     // only render if there is a poster_path
-    data.poster_path && (
+    data.poster_path ? (
       <div className={aspect_ratio === "16:9" ? _16_9 : _9_16}>
         <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 9 / 16}>
           {/* Display the loading spinner while the image is loading */}
@@ -68,7 +66,7 @@ const MediaCard = ({
           {data.original_title || data.original_name || "Unknown Title"}
         </p>
       </div>
-    )
+    ) : null
   );
 };
 
