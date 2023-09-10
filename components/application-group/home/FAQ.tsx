@@ -22,7 +22,7 @@ bg-gradient-to-r from-[#070739] via-transparent to-[#060212]
 
 const FAQ = () => {
   return (
-    <section className="flex flex-col items-center overflow-x-hidden  px-4 py-16">
+    <section className="master-container flex flex-col items-center overflow-x-hidden py-16">
       <h2 className="text-center text-4xl font-bold text-white lg:text-5xl">
         Frequently Asked Questions
       </h2>

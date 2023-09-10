@@ -44,7 +44,7 @@ const MovieSearchBar = () => {
             <Input
               type="text"
               placeholder="Find movies, TV shows, and more..."
-              className="h-12 rounded-lg bg-black/30 px-6 py-3 text-lg lg:text-2xl font-semibold text-white placeholder:text-[#a3a3a3] placeholder:text-lg"
+              className="h-12 w-[200px] md:w-[300px] lg:w-[400px]  tracking-wide rounded-lg bg-black/30 px-3 py-3 text-lg lg:text-2xl font-semibold text-white placeholder:text-[#a3a3a3] placeholder:text-lg"
               value={searchQuery}
               onChange={handleSearch}
             />
@@ -58,7 +58,7 @@ const MovieSearchBar = () => {
 
         <Button
           type="submit"
-          className={` h-12 min-w-max bg-[#e50914] px-6 py-3 text-lg lg:text-xl font-semibold text-white  hover:bg-[#c11119] `}
+          className={` h-12 min-w-max bg-[#e50914] md:px-6 md:py-3 text-base md:text-lg lg:text-xl font-semibold text-white  hover:bg-[#c11119] `}
         >
           Search <IoSearchOutline className="ml-2 h-5 w-5 lg:h-6 lg:w-6" />
         </Button>

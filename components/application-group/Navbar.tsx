@@ -53,6 +53,7 @@ const Navbar = () => {
 
       <div className="mr-4 flex items-center">
         <Link href="/">
+          {/* show lg logo on lg screens */}
           <Image
             src={logo}
             alt="Netflix Logo"
@@ -60,6 +61,8 @@ const Navbar = () => {
             priority
             className="hidden md:inline"
           />
+
+          {/* show sm logo on sm screens */}
           <Image
             src={smLogo}
             alt="Netflix Logo"

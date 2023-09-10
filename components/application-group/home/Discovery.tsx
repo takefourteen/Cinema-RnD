@@ -46,7 +46,7 @@ const Discovery = async () => {
   const popularMovies = (await getPopularMovies()) as PopularMovie[];
   const popularTVShows = (await getPopularTVShows()) as PopularTVShow[];
   return (
-    <section className=" flex flex-col gap-y-20 px-10 py-20">
+    <section className=" master-container flex flex-col gap-y-20 py-20">
       {/* Section heading */}
       <div className="flex flex-col items-center justify-center gap-y-2 text-center">
         <h2 className="text-[28px] font-bold capitalize text-white md:text-[32px] lg:text-4xl">
