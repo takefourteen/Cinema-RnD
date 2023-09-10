@@ -7,7 +7,7 @@ const Footer = (props: Props) => {
   // get the current year
   const year = new Date().getFullYear();
   return (
-    <footer className="mt-6  border-t border-gray-600 bg-transparent py-2">
+    <footer className="mt-6  border-t border-gray-800 bg-transparent py-2">
       <div className="mb-2 mt-4 flex items-center justify-center ">
         <Link
           href={"https://ismailshaikhnag.vercel.app/"}

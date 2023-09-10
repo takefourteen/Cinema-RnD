@@ -34,11 +34,11 @@ function Hero({}: Props) {
         <p className="text-xl text-white lg:text-2xl">
           Watch anywhere. For free.
         </p>
-
+ 
         {/* TESTING THE master-container CLASS */}
-        <div className="master-container w-full">
+        {/* <div className="master-container w-full">
           <p className="test  w-full border text-center">{`Screen width is ${screenWidth}px`}</p>
-        </div>
+        </div> */}
 
         {/* <HeroSignUpForm /> */}
 
