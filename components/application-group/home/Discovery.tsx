@@ -58,12 +58,23 @@ const Discovery = async () => {
         </p>
       </div>
 
-      {/* Originals */}
-      {/* <Slider>
-        {popularMovies.map((movie) => (
-          <Item movie={movie} key={movie.id} />
-        ))}
-      </Slider> */}
+      {/* popular movies */}
+      <Slider
+        lengthOfList={popularMovies.length}
+        sectionTitle="Popular Movies"
+        viewAllLink="/movies"
+      >
+        <div className="flex gap-x-2">
+          {popularMovies.map((movie) => (
+            <MediaCard
+              key={movie.id}
+              data={movie}
+              aspect_ratio="9:16"
+              loaderType="skeleton"
+            />
+          ))}
+        </div>
+      </Slider>
 
       {/* popular tv shows */}
       <Slider
@@ -75,19 +86,6 @@ const Discovery = async () => {
           {popularTVShows.map((tvShow) => (
             <MediaCard key={tvShow.id} data={tvShow} aspect_ratio="9:16" />
           ))}
-        </div>
-      </Slider>
-
-      {/* popular movies */}
-      <Slider
-        lengthOfList={popularMovies.length}
-        sectionTitle="Popular Movies"
-        viewAllLink="/movies"
-      >
-         <div className="flex gap-x-2">
-        {popularMovies.map((movie) => (
-          <MediaCard key={movie.id} data={movie} aspect_ratio="9:16" />
-        ))}
         </div>
       </Slider>
 

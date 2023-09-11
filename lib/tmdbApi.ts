@@ -58,6 +58,15 @@ export async function getTVDetails(tvId: string): Promise<TVShowDetails> {
   return data;
 }
 
+// function to get searh using the multi search endpoint
+export async function searchMulti(query: string, page: number = 1, language: string = 'en-US'): Promise<MultiSearchResult[]> {
+  const response = await fetch(
+    `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=${language}&query=${query}&page=${page}&include_adult=false`,
+  );
+  const data = await response.json();
+  return data.results;
+}
+
 // Define constants for API base URL and API key
 const API_BASE_URL = "https://api.themoviedb.org/3";
 

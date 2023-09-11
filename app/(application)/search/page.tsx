@@ -29,8 +29,7 @@ const page = async ({ searchParams }: Props) => {
             key={media.id}
             data={media}
             aspect_ratio="9:16"
-            loaderType="skeleton"
-            skeletonLoaderRows={0}
+            loaderType="spinner"
           />
         ))}
       </div>

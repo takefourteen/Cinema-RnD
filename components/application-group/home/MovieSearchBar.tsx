@@ -52,7 +52,7 @@ const MovieSearchBar = () => {
           <Input
             type="text"
             placeholder="Find movies, TV shows, and more..."
-            className="h-12 w-[200px] rounded-lg bg-black/30  px-3 py-3 text-lg font-semibold tracking-wide text-white placeholder:text-lg placeholder:text-[#a3a3a3] md:w-[300px] lg:w-[400px] lg:text-2xl"
+            className="h-12 w-[200px] leading-[1.5] rounded-lg bg-black/30  px-3 py-3 text-lg font-semibold tracking-wide text-white placeholder:text-lg placeholder:text-[rgba(163,163,163,0.70)] md:w-[300px] lg:w-[400px] lg:text-2xl"
             value={searchQuery}
             onChange={handleSearch}
           />

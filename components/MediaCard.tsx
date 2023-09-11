@@ -14,9 +14,6 @@ interface MediaCardProps {
   poster_path: string | null;
   original_title?: string;
   original_name?: string;
-  aspect_ratio?: "16:9" | "9:16"; // Define aspect_ratio as a prop
-  loaderType?: "spinner" | "skeleton"; // Define loaderType as a prop
-  skeletonLoaderRows?: number; // Define loaderRows as a prop
 }
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
@@ -26,12 +23,12 @@ const MediaCard = ({
   data,
   aspect_ratio = "16:9",
   loaderType = "spinner",
-  skeletonLoaderRows = 1,
+  skeletonLoaderRows = 0,
 }: {
   data: MediaCardProps;
-  aspect_ratio: "16:9" | "9:16";
-  loaderType: "spinner" | "skeleton";
-  skeletonLoaderRows: number;
+  aspect_ratio?: "16:9" | "9:16";
+  loaderType?: "spinner" | "skeleton";
+  skeletonLoaderRows?: number;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const imageSrc =
