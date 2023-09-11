@@ -27,7 +27,7 @@ const page = async ({ searchParams }: Props) => {
 
       <Separator className="mb-8 mt-4 h-[1px] bg-gray-800" />
 
-      <div className="grid grid-cols-1 gap-x-2 gap-y-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:gap-y-16 xl:grid-cols-5">
+      <div className="grid grid-cols-2 gap-x-2 gap-y-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 lg:gap-y-16 xl:grid-cols-6">
         {sortedResults.map((media) => (
           <MediaCard
             key={media.id}
