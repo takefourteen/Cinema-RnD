@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 import logo from "@/assets/images/netflix-logo.webp";
 import smLogo from "@/assets/images/netflix-n-logo.webp";
@@ -16,6 +16,10 @@ const Navbar = () => {
   const { data: session, status } = useSession();
   const [scroll, setScroll] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+
+
+  const isHomeScreen = pathname === "/";
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -39,14 +43,18 @@ const Navbar = () => {
     }
   }
 
-  // define classes based on the scroll state. the navbar will remain fixed at the top of the page when the user scrolls down
-  // const navbarClasses = ;
+  // Define classes based on the scroll state and isHomeScreen
+  const homeScreenNavbarClasses = `fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4 transition-all duration-300 ease-in-out ${
+    scroll ? "bg-black" : "bg-transparent"
+  }`;
+
+  const otherScreenNavbarClasses = `fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4 transition-all duration-300 ease-in-out bg-black/90`;
 
   return (
     <nav
-      className={`fixed left-0 right-0 top-0 z-[99999] flex items-center px-4 py-4 transition-colors md:px-10 ${
-        scroll ? "bg-black bg-opacity-90" : ""
-      }`}
+      className={
+        isHomeScreen ? homeScreenNavbarClasses : otherScreenNavbarClasses
+      }
     >
       {/* Mobile menu for sm screens */}
       <MobileMenu />

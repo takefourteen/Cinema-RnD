@@ -59,12 +59,44 @@ export async function getTVDetails(tvId: string): Promise<TVShowDetails> {
 }
 
 // function to get searh using the multi search endpoint
-export async function searchMulti(query: string, page: number = 1, language: string = 'en-US'): Promise<MultiSearchResult[]> {
+export async function searchMulti(
+  query: string,
+  page: number = 1,
+  language: string = "en-US",
+): Promise<MultiSearchResult[]> {
   const response = await fetch(
     `https://api.themoviedb.org/3/search/multi?api_key=${API_KEY}&language=${language}&query=${query}&page=${page}&include_adult=false`,
   );
   const data = await response.json();
+
+  // filter out results that are not movies or tv shows
+  data.results = data.results.filter((result: MultiSearchResult) => {
+    return result.media_type === "movie" || result.media_type === "tv";
+  });
+
   return data.results;
+}
+
+// function that sorts the multi search results by popularity, or by vote average, or by vote count
+export function sortMultiSearchResults(
+  results: MultiSearchResult[],
+  sortBy: "popularity" | "vote_average" | "vote_count",
+) {
+  if (sortBy === "popularity") {
+    return results.sort((a: MultiSearchResult, b: MultiSearchResult) => {
+      return b.popularity - a.popularity;
+    });
+  } else if (sortBy === "vote_average") {
+    return results.sort((a: MultiSearchResult, b: MultiSearchResult) => {
+      return b.vote_average - a.vote_average;
+    });
+  } else if (sortBy === "vote_count") {
+    return results.sort((a: MultiSearchResult, b: MultiSearchResult) => {
+      return b.vote_count - a.vote_count;
+    });
+  } else {
+    return results;
+  }
 }
 
 // Define constants for API base URL and API key
