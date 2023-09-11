@@ -99,6 +99,31 @@ export function sortMultiSearchResults(
   }
 }
 
+// function that sorts any array of movies or tv shows by popularity, or by vote average, or by vote count
+export function sortResults<
+  T extends {
+    popularity: number;
+    vote_average: number;
+    vote_count: number;
+  },
+>(results: T[], sortBy: "popularity" | "vote_average" | "vote_count") {
+  if (sortBy === "popularity") {
+    return results.sort((a: T, b: T) => {
+      return b.popularity - a.popularity;
+    });
+  } else if (sortBy === "vote_average") {
+    return results.sort((a: T, b: T) => {
+      return b.vote_average - a.vote_average;
+    });
+  } else if (sortBy === "vote_count") {
+    return results.sort((a: T, b: T) => {
+      return b.vote_count - a.vote_count;
+    });
+  } else {
+    return results;
+  }
+}
+
 // Define constants for API base URL and API key
 const API_BASE_URL = "https://api.themoviedb.org/3";
 
