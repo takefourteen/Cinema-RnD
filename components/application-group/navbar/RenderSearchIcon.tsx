@@ -15,7 +15,7 @@ const RenderSearchIcon: React.FC<{
       <Button
         variant="ghost"
         size={"icon"}
-        className="hover:bg-[#40445999] hover:text-white"
+        className="hover:bg-[#40445999] rounded-full w-12 h-12 flex items-center justify-center hover:text-white"
         onClick={handleSearchClick}
       >
         <SearchIcon className="h-5 w-5" />
@@ -28,7 +28,7 @@ const RenderSearchIcon: React.FC<{
       <Button
         variant="ghost"
         size={"icon"}
-        className="hover:bg-[#40445999] hover:text-white"
+        className="hover:bg-[#40445999] rounded-full w-12 h-12 flex items-center justify-center hover:text-white"
         onClick={handleSearchClick}
       >
         <SearchIcon className="h-5 w-5" />

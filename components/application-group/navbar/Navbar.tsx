@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import logo from "@/assets/images/netflix-logo.webp";
 import smLogo from "@/assets/images/netflix-n-logo.webp";
 import MobileMenu from "../MobileMenu";
-import NavbarSearchBar from "../NavbarSearchBar";
+import NavbarSearchBar from "./NavbarSearchBar";
 import RenderSearchIcon from "./RenderSearchIcon";
 import NavLink from "./NavLink";
 
@@ -54,11 +54,11 @@ const Navbar = () => {
   }
 
   // Define classes based on the scroll state and isHomeScreen
-  const homeScreenNavbarClasses = `fixed   top-0 left-0 right-0 z-[99999]  px-4 py-4 transition-all duration-300 ease-in-out ${
+  const homeScreenNavbarClasses = `fixed   top-0 left-0 right-0 z-[99999] transition-all duration-300 ease-in-out ${
     scroll ? "bg-black" : "bg-transparent"
   }`;
 
-  const otherScreenNavbarClasses = `fixed  top-0 left-0 right-0 z-[99999] px-4 py-4 transition-all duration-300 ease-in-out bg-black/90`;
+  const otherScreenNavbarClasses = `fixed  top-0 left-0 right-0 z-[99999] transition-all duration-300 ease-in-out bg-black/90`;
 
   return (
     <nav
@@ -66,7 +66,7 @@ const Navbar = () => {
         isHomeScreen ? homeScreenNavbarClasses : otherScreenNavbarClasses
       }
     >
-      <section className=" flex items-center justify-between">
+      <section className="master-container flex items-center justify-between px-4 py-4">
         {/* Mobile menu for sm screens */}
         <MobileMenu />
 
