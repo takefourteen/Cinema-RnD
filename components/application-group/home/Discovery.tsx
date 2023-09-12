@@ -4,47 +4,12 @@ import { getPopularMovies, getPopularTVShows } from "@/lib/tmdbApi";
 
 import Slider from "@/components/slider/Slider";
 import MediaCard from "@/components/MediaCard";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-
-// import images from assests/images/streaming-services folder
-import prime from "@/assets/images/streaming-services/amazon-prime.svg";
-import disney from "@/assets/images/streaming-services/disney-plus.svg";
-import hulu from "@/assets/images/streaming-services/hulu.webp";
-import netflix from "@/assets/images/netflix-logo.webp";
-import peacockWhite from "@/assets/images/streaming-services/peacock-white.svg";
-import peacockBlack from "@/assets/images/streaming-services/peacock-black.svg";
-import hbo from "@/assets/images/streaming-services/hbo.svg";
-
-const streamingServices = [
-  {
-    name: "Netflix",
-    image: netflix,
-  },
-  {
-    name: "Amazon Prime",
-    image: prime,
-  },
-  {
-    name: "Disney Plus",
-    image: disney,
-  },
-  {
-    name: "Hulu",
-    image: hulu,
-  },
-  {
-    name: "Peacock",
-    image: peacockWhite,
-  },
-  {
-    name: "HBO Max",
-    image: hbo,
-  },
-];
+import StreamingServiceDisplay from "./StreamingServiceDisplay";
 
 const Discovery = async () => {
   const popularMovies = (await getPopularMovies()) as PopularMovie[];
   const popularTVShows = (await getPopularTVShows()) as PopularTVShow[];
+
   return (
     <section className=" master-container flex flex-col gap-y-20 py-20">
       {/* Section heading */}
@@ -69,8 +34,8 @@ const Discovery = async () => {
             <MediaCard
               key={movie.id}
               data={movie}
-              aspect_ratio="9:16"
-              loaderType="skeleton"
+              aspect_ratio="16:9"
+              loaderType="spinner"
             />
           ))}
         </div>
@@ -82,7 +47,7 @@ const Discovery = async () => {
         sectionTitle="Popular TV Shows"
         viewAllLink="/tv-shows"
       >
-        <div className="flex gap-x-2">
+        <div className="flex gap-x-6">
           {popularTVShows.map((tvShow) => (
             <MediaCard key={tvShow.id} data={tvShow} aspect_ratio="9:16" />
           ))}
@@ -90,23 +55,7 @@ const Discovery = async () => {
       </Slider>
 
       {/* Streaming Services */}
-      <Slider
-        sectionTitle="Streaming Services"
-        lengthOfList={streamingServices.length}
-      >
-        {streamingServices.map((service) => (
-          <div key={service.name} className="w-[150px] md:w-[200px]">
-            <AspectRatio ratio={4 / 3}>
-              <Image
-                src={service.image}
-                alt={service.name}
-                fill
-                className="object-contain"
-              />
-            </AspectRatio>
-          </div>
-        ))}
-      </Slider>
+      <StreamingServiceDisplay />
 
       {/* <video
         src="https://de492ki.video-delivery.net/u5kj77fpxthlsdgge6zwgoixlo2cy72tloizag4xepwgixg4a5fux34bhmtq/muuu9012x1~b5RBgKPy8q?token=h4y9ugkaqt7frgdsfm7metji&expiry=1694279665558"
