@@ -3,31 +3,42 @@ import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Separator } from "@/components/ui/separator";
 import { streamingServices } from "@/constants";
+import Slider from "@/components/slider/Slider";
 
 const StreamingServiceDisplay = () => {
   return (
     <section>
-      <header>
-        <h2 className="text-2xl font-bold capitalize text-white md:text-3xl">
-          Streaming Services
-        </h2>
-        <Separator className="mb-6 mt-4 bg-white/30" />
-      </header>
+      <Slider
+        lengthOfList={streamingServices.length}
+        sectionTitle="Streaming Services"
+      >
+        <div className="flex gap-x-2">
+          {streamingServices.map((service, index) => (
+            <div
+              key={service.name}
+              className="relative h-auto min-w-[150px] flex-1 sm:min-w-[175px] md:min-w-[200px] lg:min-w-[250px] xl:min-w-[300px] "
+            >
+              <AspectRatio ratio={4 / 3}>
+                <Image
+                  src={service.image}
+                  alt={service.name}
+                  fill
+                  className="z-10 object-contain "
+                />
+              </AspectRatio>
 
-      <div className="grid grid-cols-3 gap-x-8 gap-y-12 md:grid-cols-3 lg:grid-cols-6 lg:gap-y-16 ">
-        {streamingServices.map((service) => (
-          <div key={service.name} className=" flex-1 ">
-            <AspectRatio ratio={16 / 9}>
-              <Image
-                src={service.image}
-                alt={service.name}
-                fill
-                className="object-contain"
+              {/* div with an image background fro service.poster */}
+              <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat "
+                style={{
+                  backgroundImage: `url("./posters/poster-${index + 1}.webp")`,
+                  filter: "grayscale(50%)  brightness(50%) blur(1px)",
+                }}
               />
-            </AspectRatio>
-          </div>
-        ))}
-      </div>
+            </div>
+          ))}
+        </div>
+      </Slider>
     </section>
   );
 };

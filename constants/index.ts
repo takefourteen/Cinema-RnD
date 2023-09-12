@@ -1,6 +1,5 @@
-
 // import images from assests/images/streaming-services folder
-import prime from "@/assets/images/streaming-services/amazon-prime.svg";
+import prime from "@/assets/images/streaming-services/prime.svg";
 import disney from "@/assets/images/streaming-services/disney-plus.webp";
 import hulu from "@/assets/images/streaming-services/hulu.webp";
 import netflix from "@/assets/images/netflix-logo.webp";
@@ -30,7 +29,7 @@ export const streamingServices = [
   {
     name: "Disney Plus",
     image: disney,
-    poster: poster3,
+    poster: poster6,
   },
   {
     name: "Peacock",
@@ -45,6 +44,6 @@ export const streamingServices = [
   {
     name: "HBO Max",
     image: hbo,
-    poster: poster6,
+    poster: poster3,
   },
 ];

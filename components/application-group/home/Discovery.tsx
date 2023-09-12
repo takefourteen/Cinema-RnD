@@ -34,7 +34,7 @@ const Discovery = async () => {
             <MediaCard
               key={movie.id}
               data={movie}
-              aspect_ratio="16:9"
+              aspect_ratio="9:16"
               loaderType="spinner"
             />
           ))}
