@@ -51,7 +51,7 @@ const MediaCard = ({
   return (
     // only render if there is a poster_path
     data.poster_path ? (
-      <div className={aspect_ratio === "16:9" ? _16_9 : _9_16}>
+      <li className={aspect_ratio === "16:9" ? _16_9 : _9_16}>
         <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 9 / 16}>
           {/* Display the loading spinner or skeleton while the image is loading */}
           {isLoading && loaderType === "spinner" ? (
@@ -76,7 +76,7 @@ const MediaCard = ({
         <p className="mt-2 text-start text-sm text-white md:text-base">
           {data.original_title || data.original_name || "Unknown Title"}
         </p>
-      </div>
+      </li>
     ) : null
   );
 };

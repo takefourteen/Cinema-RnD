@@ -141,7 +141,7 @@ const Navbar = () => {
       </section>
 
       {/* display Search bar below everything when search icon is clicked */}
-      {searchClicked && !isHomeScreen && (
+      {searchClicked && (
         <NavbarSearchBar onSearchClick={handleSearchClick} />
       )}
     </nav>

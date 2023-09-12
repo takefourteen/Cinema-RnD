@@ -24,7 +24,7 @@ const MovieSearchBar = () => {
     // if there is a search query, redirect to search page
     if (searchQuery) {
       // Navigate to the search route with the search term as a query parameter
-      router.push(`/search?term=${encodeURIComponent(searchQuery)}&page=1`);
+      router.push(`/search?term=${encodeURIComponent(searchQuery)}`);
     }
   }
 
@@ -50,9 +50,10 @@ const MovieSearchBar = () => {
       <div className="flex w-full items-center justify-center gap-x-4">
         <div className="relative">
           <Input
+            autoFocus
             type="text"
             placeholder="Find movies, TV shows, and more..."
-            className="h-12 w-[200px] leading-[1.5] rounded-lg bg-black/30  px-3 py-3 text-lg font-semibold tracking-wide text-white placeholder:text-lg placeholder:text-[rgba(163,163,163,0.70)] md:w-[300px] lg:w-[400px] lg:text-2xl"
+            className="h-12 w-[200px] rounded-lg bg-black/30 px-3  py-3 text-lg font-semibold leading-[1.5] tracking-wide text-white placeholder:text-lg placeholder:text-[rgba(163,163,163,0.70)] md:w-[300px] lg:w-[400px] lg:text-2xl"
             value={searchQuery}
             onChange={handleSearch}
           />

@@ -124,6 +124,13 @@ export function sortResults<
   }
 }
 
+// function that filters results to only return results where "original_language" is en
+export function filterResultsByLanguage<
+  T extends { original_language: string },
+>(results: T[], language: string = "en") {
+  return results.filter((result) => result.original_language === language);
+}
+
 // Define constants for API base URL and API key
 const API_BASE_URL = "https://api.themoviedb.org/3";
 

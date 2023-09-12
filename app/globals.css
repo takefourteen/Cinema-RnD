@@ -27,3 +27,20 @@
   @apply text-2xl text-red-500;
 }
 
+/* style the scroll bar to be red, rounded and slightly narrower, but still thick enoung to use */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #010105ff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e50914ff;
+  /* border-radius: 10px; */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e50914ff;
+}
