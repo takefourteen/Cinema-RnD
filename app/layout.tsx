@@ -41,11 +41,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${maxSans.variable} font-sans`}>
-        <Providers>
-          {children}
-
-        </Providers>
+      <body
+        className={`${maxSans.variable} bg-gradient-to-tr from-[#070739] via-black to-[#060212] font-sans`}
+      >
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
