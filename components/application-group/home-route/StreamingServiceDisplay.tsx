@@ -12,13 +12,13 @@ const StreamingServiceDisplay = () => {
         lengthOfList={streamingServices.length}
         sectionTitle="Streaming Services"
       >
-        <div className="flex gap-x-2">
+        <div className="flex gap-x-6">
           {streamingServices.map((service, index) => (
             <div
               key={service.name}
-              className="relative h-auto min-w-[150px] flex-1 sm:min-w-[175px] md:min-w-[200px] lg:min-w-[250px] xl:min-w-[300px] "
+              className="relative h-auto min-w-[175px] flex-1 sm:min-w-[200px] md:min-w-[240px] lg:min-w-[275px] xl:min-w-[350px] px-2"
             >
-              <AspectRatio ratio={4 / 3}>
+              <AspectRatio ratio={16/9}>
                 <Image
                   src={service.image}
                   alt={service.name}
