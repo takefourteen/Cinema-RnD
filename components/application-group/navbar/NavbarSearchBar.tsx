@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
@@ -13,6 +13,7 @@ interface NavbarSearchBarProps {
 
 const NavbarSearchBar = ({ onSearchClick }: NavbarSearchBarProps) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const {
     register,
     handleSubmit,
@@ -42,6 +43,7 @@ const NavbarSearchBar = ({ onSearchClick }: NavbarSearchBarProps) => {
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchQuery(e.target.value);
   }
+
   function handleClear() {
     // Clear search query if there is one
     if (searchQuery) {
@@ -49,12 +51,33 @@ const NavbarSearchBar = ({ onSearchClick }: NavbarSearchBarProps) => {
     }
   }
 
+  // Event listener to close the search bar when the user clicks outside of it
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        inputRef.current &&
+        !inputRef.current.contains(event.target as Node)
+      ) {
+        onSearchClick();
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Unbind the event listener on clean up
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [inputRef, onSearchClick]);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className=" relative w-full border-x-0 border-b-1 border-t-0 border-b-red-600  bg-red-600"
     >
       <Input
+        ref={inputRef} // for the event listener to close the search bar when the user clicks outside of it
         type="text"
         autoFocus
         placeholder="Search for movies, TV shows, and more..."

@@ -1,7 +1,7 @@
-import Hero from "@/components/application-group/home/Hero";
-import ColorFulBanner from "@/components/application-group/home/ColorFulBanner";
-import FAQ from "@/components/application-group/home/FAQ";
-import Discovery from "@/components/application-group/home/Discovery";
+import Hero from "@/components/application-group/home-route/Hero";
+import ColorFulBanner from "@/components/application-group/home-route/ColorFulBanner";
+import FAQ from "@/components/application-group/home-route/FAQ";
+import Discovery from "@/components/application-group/home-route/Discovery";
 
 export default function Page() {
   return (

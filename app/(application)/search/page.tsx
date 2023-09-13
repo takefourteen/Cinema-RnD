@@ -2,7 +2,7 @@ import React from "react";
 import { v4 as uuid } from "uuid";
 
 import { Separator } from "@/components/ui/separator";
-import InfiniteScrollSearchResults from "../../../components/application-group/search/InfiniteScrollSearchResults";
+import InfiniteScrollSearchResults from "../../../components/application-group/search-route/InfiniteScrollSearchResults";
 
 type Props = {
   searchParams: { [key: string]: string };
