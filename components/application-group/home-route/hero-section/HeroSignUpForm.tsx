@@ -4,9 +4,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 import { IoChevronForwardSharp } from "react-icons/io5";
-import { ErrorIcon } from "../../Icons";
-import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
+import { ErrorIcon } from "../../../Icons";
+import { Button } from "../../../ui/button";
+import { Input } from "../../../ui/input";
 
 interface FormData {
   email: string;
