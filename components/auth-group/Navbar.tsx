@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import logo from "@/assets/images/netflix-logo.webp";
 import smLogo from "@/assets/images/netflix-n-logo.webp";
 import { Button } from "../ui/button";
+import CustomButton from "../ui/CustomButton";
 import { Separator } from "../ui/separator";
 
 type Props = {};
@@ -40,21 +41,14 @@ const Navbar = (props: Props) => {
           </Link>
         </div>
 
-        {pathname === "/create-account" ? (
-          <Button
-            asChild
-            variant="ghost"
-            className="h-fit rounded-lg px-6 py-2 text-sm font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
-          >
-            <Link href="/login">Login</Link>
-          </Button>
+        {pathname === "/sign-up" ? (
+          <CustomButton asChild variant="outline">
+            <Link href="/login">Login In</Link>
+          </CustomButton>
         ) : (
-          <Button
-            asChild
-            className="h-fit w-max rounded-lg border-[#c11119] bg-[#e50914] px-6 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
-          >
-            <Link href="/create-account">Create Account</Link>
-          </Button>
+          <CustomButton asChild variant="default">
+            <Link href="/sign-up">Create Account</Link>
+          </CustomButton>
         )}
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-black/90 to-black/0" />

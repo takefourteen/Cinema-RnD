@@ -34,7 +34,7 @@ const Login = async () => {
         <p className="text-sm tracking-wide text-white lg:text-base">
           New to Netflix?{" "}
           <Link
-            href={"/create-account"}
+            href={"/sign-up"}
             className="text-red-500 hover:underline focus:underline"
           >
             Sign up now.

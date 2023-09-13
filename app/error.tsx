@@ -48,10 +48,12 @@ export default function Error({
       </p>
 
       <Button
-        onClick={() => router.push("/")}
+        asChild
         className="h-fit w-max rounded-lg border-[#c11119] bg-[#e50914] px-6 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
       >
-        <BiArrowBack className="mr-2 h-4 w-4" /> Go Back to Home
+        <Link href="/">
+          <BiArrowBack className="mr-2 h-4 w-4" /> Go Back to Home
+        </Link>
       </Button>
     </div>
   );

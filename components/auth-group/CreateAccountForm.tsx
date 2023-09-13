@@ -33,7 +33,7 @@ interface signInData {
 // function to create a new account
 async function createAccount(data: createAccountData) {
   try {
-    const res = await fetch("/api/auth/create-account", {
+    const res = await fetch("/api/auth/sign-up", {
       method: "POST",
       body: JSON.stringify(data),
     });

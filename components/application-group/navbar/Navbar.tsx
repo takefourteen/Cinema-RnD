@@ -14,6 +14,7 @@ import MobileMenu from "../MobileMenu";
 import NavbarSearchBar from "./NavbarSearchBar";
 import RenderSearchIcon from "./RenderSearchIcon";
 import NavLink from "./NavLink";
+import CustomButton from "@/components/ui/CustomButton";
 
 const Navbar = () => {
   const { data: session, status } = useSession();
@@ -100,7 +101,7 @@ const Navbar = () => {
           <NavLink href="/my-library">my library</NavLink>
         </div>
 
-        {/* display search icon and cta buttos */}
+        {/* display search icon, log in, and sign up buttons */}
         <div className="ml-auto flex items-center justify-center gap-x-4 text-white">
           {/* Search Icon */}
           <RenderSearchIcon
@@ -111,39 +112,30 @@ const Navbar = () => {
 
           {/* display log out if there is a user in session  */}
           {session?.user ? (
-            <React.Fragment>
-              <Button
-                onClick={signOutUser}
-                variant="ghost"
-                className="h-fit rounded-lg px-6 py-2 text-sm font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
-              >
-                Log Out
-              </Button>
-            </React.Fragment>
+            <>
+              {/* Log out Button, using custom btn */}
+              <CustomButton asChild variant="outline" onClick={signOutUser}>
+                <Link href="/">Log Out</Link>
+              </CustomButton>
+            </>
           ) : (
-            <React.Fragment>
-              <Button
-                asChild
-                variant="ghost"
-                className="h-fit rounded-lg px-6 py-2 text-sm font-bold uppercase text-white hover:bg-[#40445999] hover:text-white"
-              >
-                <Link href="/login">Login</Link>
-              </Button>
-              <Button
-                asChild
-                className="h-fit w-max rounded-lg border-[#c11119] bg-[#e50914] px-6 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
-              >
-                <Link href="/create-account">Create Account</Link>
-              </Button>
-            </React.Fragment>
+            <>
+              {/* Log in Button, using custom btn */}
+              <CustomButton asChild variant="outline">
+                <Link href="/login">Log In</Link>
+              </CustomButton>
+
+              {/* Sign up Button, using custom btn */}
+              <CustomButton asChild>
+                <Link href="/sign-up">Sign Up</Link>
+              </CustomButton>
+            </>
           )}
         </div>
       </section>
 
       {/* display Search bar below everything when search icon is clicked */}
-      {searchClicked && (
-        <NavbarSearchBar onSearchClick={handleSearchClick} />
-      )}
+      {searchClicked && <NavbarSearchBar onSearchClick={handleSearchClick} />}
     </nav>
   );
 };
