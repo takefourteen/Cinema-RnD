@@ -7,7 +7,6 @@ import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
 import logo from "@/assets/images/netflix-logo.webp";
 import smLogo from "@/assets/images/netflix-n-logo.webp";
 import MobileMenu from "../MobileMenu";
@@ -17,11 +16,11 @@ import NavLink from "./NavLink";
 import CustomButton from "@/components/ui/CustomButton";
 
 const Navbar = () => {
+  const router = useRouter();
+  const pathname = usePathname();
   const { data: session, status } = useSession();
   const [scroll, setScroll] = useState(false);
   const [searchClicked, setsearchClicked] = useState<boolean>(false);
-  const router = useRouter();
-  const pathname = usePathname();
   const isHomeScreen = pathname === "/";
   const scrollThreshold = 100; // Adjust this threshold as needed
 
@@ -95,10 +94,18 @@ const Navbar = () => {
 
         {/* navlinks for lg screens */}
         <div className="hidden items-center  uppercase lg:flex">
-          <NavLink href="#">movies</NavLink>
-          <NavLink href="#">tv shows</NavLink>
-          <NavLink href="#">documentaries</NavLink>
-          <NavLink href="/my-library">my library</NavLink>
+          <NavLink href="#" active={pathname === "/movies"}>
+            movies
+          </NavLink>
+          <NavLink href="#" active={pathname === "/tv-shows"}>
+            tv shows
+          </NavLink>
+          <NavLink href="#" active={pathname === "/documentaries"}>
+            documentaries
+          </NavLink>
+          <NavLink href="/my-library" active={pathname === "/my-library"}>
+            my library
+          </NavLink>
         </div>
 
         {/* display search icon, log in, and sign up buttons */}
