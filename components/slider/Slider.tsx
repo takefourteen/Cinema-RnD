@@ -92,19 +92,19 @@ const Slider: React.FC<SliderProps> = ({
         )}
       </div>
 
-      <Separator className="mb-6 mt-4 bg-white/30" />
+      <Separator className="mb-2 mt-1 bg-white/30 lg:mb-4 lg:mt-2" />
 
       {/* Slider Body */}
       <div className="wrapper relative mt-8">
         <ChevronLeft
-          className="sliderArrow left h-8 w-8 md:h-10 md:w-10"
+          className="sliderArrow left h-8  w-8 border-y-2 border-s-2 border-[#c11119] md:h-10 md:w-10"
           onClick={() => handleClick("left")}
           style={{
             display: slideNumber === 0 ? "none" : undefined,
           }}
         />
         <div
-          className="mt-4 flex w-max transform gap-10 overflow-hidden transition-transform duration-500 ease-in-out"
+          className="flex w-max transform gap-10 overflow-hidden py-4 transition-transform duration-500 ease-in-out"
           ref={listRef}
           style={{
             transform: `translateX(-${slideNumber * screenWidth}px)`,
@@ -114,7 +114,7 @@ const Slider: React.FC<SliderProps> = ({
           {children}
         </div>
         <ChevronRight
-          className="sliderArrow right h-8 w-8 md:h-10 md:w-10"
+          className="sliderArrow right h-8 w-8 border-y-2 border-e-2 border-[#c11119] md:h-10 md:w-10"
           onClick={() => handleClick("right")}
           style={{
             display:

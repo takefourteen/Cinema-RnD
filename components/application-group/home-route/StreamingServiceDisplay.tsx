@@ -16,9 +16,9 @@ const StreamingServiceDisplay = () => {
           {streamingServices.map((service, index) => (
             <div
               key={service.name}
-              className="relative h-auto min-w-[175px] flex-1 sm:min-w-[200px] md:min-w-[240px] lg:min-w-[275px] xl:min-w-[350px] px-2"
+              className="relative h-auto min-w-[175px] flex-1 px-2 sm:min-w-[200px] md:min-w-[240px] lg:min-w-[275px] xl:min-w-[350px]"
             >
-              <AspectRatio ratio={16/9}>
+              <AspectRatio ratio={1.85 / 1}>
                 <Image
                   src={service.image}
                   alt={service.name}
@@ -32,7 +32,7 @@ const StreamingServiceDisplay = () => {
                 className="absolute inset-0 bg-cover bg-center bg-no-repeat "
                 style={{
                   backgroundImage: `url("./posters/poster-${index + 1}.webp")`,
-                  filter: "grayscale(50%)  brightness(50%) blur(1px)",
+                  filter: "grayscale(100%)  brightness(50%) blur(1px)",
                 }}
               />
             </div>

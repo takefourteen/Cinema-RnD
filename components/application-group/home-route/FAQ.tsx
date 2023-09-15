@@ -21,8 +21,9 @@ bg-gradient-to-r from-[#070739] via-transparent to-[#060212]
 */
 
 const FAQ = () => {
+  // bg-gradient-to-r from-lime-600 via-yellow-300 to-red-600
   return (
-    <section className="master-container flex flex-col items-center overflow-x-hidden py-16">
+    <section className="master-container flex flex-col items-center overflow-x-hidden bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#070739] via-black/70 to-[#060212] py-20">
       <h2 className="text-center text-4xl font-bold text-white lg:text-5xl">
         Frequently Asked Questions
       </h2>

@@ -32,6 +32,9 @@ const MediaCard = ({
   skeletonLoaderRows?: number;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isTitleTruncated, setIsTitleTruncated] = useState<boolean>(true);
+  const fullTitle =
+    data.original_title || data.original_name || "Unknown Title";
   const imageSrc =
     aspect_ratio === "16:9" ? imageBaseUrl : orgininalImageBasePath;
   const poster =
@@ -46,12 +49,16 @@ const MediaCard = ({
   const _16_9 =
     "relative h-auto min-w-[150px] sm:min-w-[175px] md:min-w-[200px] lg:min-w-[250px] xl:min-w-[300px] flex-1 ";
   const _9_16 =
-    "relative h-auto min-w-[100px] sm:min-w-[125px] md:min-w-[150px] lg:min-w-[175px] xl:min-w-[200px] flex-1 ";
+    "relative h-auto min-w-[125px] sm:min-w-[150px] md:min-w-[175px] lg:min-w-[200px] xl:min-w-[225px] flex-1 cursor-pointer";
 
   return (
     // only render if there is a poster_path
     data.poster_path ? (
-      <li className={aspect_ratio === "16:9" ? _16_9 : _9_16}>
+      <li
+        className={`${aspect_ratio === "16:9" ? _16_9 : _9_16} `}
+        onMouseEnter={() => setIsTitleTruncated(false)}
+        onMouseLeave={() => setIsTitleTruncated(true)}
+      >
         <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 9 / 16}>
           {/* Display the loading spinner or skeleton while the image is loading */}
           {isLoading && loaderType === "spinner" ? (
@@ -67,15 +74,24 @@ const MediaCard = ({
             src={`${imageSrc}/${poster}`}
             alt={data.original_title || data.original_name || "Media"}
             fill
-            className="object-cover"
+            className="transform object-cover transition-transform  hover:scale-105"
             onLoad={handleImageLoad}
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
           />
         </AspectRatio>
-        {/* Display the media title */}
-        <p className="mt-2 text-start text-sm text-white md:text-base">
-          {data.original_title || data.original_name || "Unknown Title"}
-        </p>
+        {/* Display the media title with truncation */}
+        {/* <p
+          className={`mt-2 text-start text-xs font-normal tracking-wide text-white md:text-sm lg:text-base ${
+            isTitleTruncated
+              ? "truncate "
+              : ""
+          }`}
+        >
+          {isTitleTruncated
+            ? fullTitle.split(" ").slice(0, 3).join(" ") +
+              (fullTitle.length > 20 ? "..." : "") // add the ellipsis if the title is longer than 20 characters
+            : fullTitle}
+        </p> */}
       </li>
     ) : null
   );
