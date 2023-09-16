@@ -1,4 +1,4 @@
-import StreamingServiceDisplay from "./StreamingServiceDisplay";
+import StreamingServiceSlider from "./StreamingServiceSlider";
 import PopularTvShowsSlider from "./PopularTvShowsSlider";
 import PopularMoviesSlider from "./PopularMoviesSlider";
 
@@ -17,7 +17,7 @@ const Discovery = () => {
       </div>
 
       {/* Streaming Services */}
-      <StreamingServiceDisplay />
+      <StreamingServiceSlider />
 
       {/* popular movies */}
       <PopularMoviesSlider />

@@ -95,7 +95,7 @@ const Slider: React.FC<SliderProps> = ({
       <Separator className="mb-2 mt-1 bg-white/30 lg:mb-4 lg:mt-2" />
 
       {/* Slider Body */}
-      <div className="wrapper relative mt-8">
+      <div className={`wrapper relative mt-8 overflow-hidden `}>
         <ChevronLeft
           className="sliderArrow left h-8  w-8 border-y-2 border-s-2 border-[#c11119] md:h-10 md:w-10"
           onClick={() => handleClick("left")}
@@ -104,10 +104,11 @@ const Slider: React.FC<SliderProps> = ({
           }}
         />
         <div
-          className="flex w-max transform gap-10 overflow-hidden py-4 transition-transform duration-500 ease-in-out"
+          className="flex transform gap-10 overflow-hidden py-4 transition-transform duration-500 ease-in-out"
           ref={listRef}
           style={{
             transform: `translateX(-${slideNumber * screenWidth}px)`,
+            width: `${listWidth}px`,
           }}
         >
           {/* Slider Items */}

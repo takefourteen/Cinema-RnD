@@ -45,15 +45,15 @@ const MediaCard = ({
   };
 
   // define styles for 16:9(horizontal) and 9:16(vertical) aspect ratios
-  const _16_9 =
+  const style_16_9 =
     "relative h-auto min-w-[150px] sm:min-w-[175px] md:min-w-[200px] lg:min-w-[250px] xl:min-w-[300px] flex-1 ";
-  const _9_16 =
+  const style_9_16 =
     "relative h-auto min-w-[125px] sm:min-w-[150px] md:min-w-[175px] lg:min-w-[200px] xl:min-w-[225px] flex-1 cursor-pointer";
 
   return (
     // only render if there is a poster_path
     data.poster_path ? (
-      <li className={`${aspect_ratio === "16:9" ? _16_9 : _9_16} `}>
+      <li className={`${aspect_ratio === "16:9" ? style_16_9 : style_9_16} `}>
         <Link
           href={`/movie/${data.id}`}
           className=" group transition-colors focus-visible:outline-none"
