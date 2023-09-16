@@ -1,19 +1,12 @@
-import Image from "next/image";
-
-import { getPopularMovies, getPopularTVShows } from "@/lib/tmdbApi";
-
-import Slider from "@/components/slider/Slider";
-import MediaCard from "@/components/MediaCard";
 import StreamingServiceDisplay from "./StreamingServiceDisplay";
+import PopularTvShowsSlider from "./PopularTvShowsSlider";
+import PopularMoviesSlider from "./PopularMoviesSlider";
 
-const Discovery = async () => {
-  const popularMovies = (await getPopularMovies()) as PopularMovie[];
-  const popularTVShows = (await getPopularTVShows()) as PopularTVShow[];
-
+const Discovery = () => {
   return (
     <section className=" master-container flex  flex-col gap-y-10 pt-20 lg:gap-y-20">
       {/* Section heading */}
-      <div className="flex flex-col bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#070739] via-black/70 to-[#060212] items-center justify-center gap-y-2 text-center">
+      <div className="flex flex-col items-center justify-center gap-y-2 text-center">
         <h2 className="text-[28px] font-bold capitalize text-white md:text-[32px] lg:text-4xl">
           Discover what to watch next
         </h2>
@@ -27,35 +20,10 @@ const Discovery = async () => {
       <StreamingServiceDisplay />
 
       {/* popular movies */}
-      <Slider
-        lengthOfList={popularMovies.length}
-        sectionTitle="Popular Movies"
-        viewAllLink="/movies"
-      >
-        <ul className="flex gap-x-2">
-          {popularMovies.map((movie) => (
-            <MediaCard
-              key={movie.id}
-              data={movie}
-              aspect_ratio="9:16"
-              loaderType="spinner"
-            />
-          ))}
-        </ul>
-      </Slider>
+      <PopularMoviesSlider />
 
       {/* popular tv shows */}
-      <Slider
-        lengthOfList={popularTVShows.length}
-        sectionTitle="Popular TV Shows"
-        viewAllLink="/tv-shows"
-      >
-        <ul className="flex gap-x-2">
-          {popularTVShows.map((tvShow) => (
-            <MediaCard key={tvShow.id} data={tvShow} aspect_ratio="9:16" />
-          ))}
-        </ul>
-      </Slider>
+      <PopularTvShowsSlider />
 
       {/* <video
         src="https://de492ki.video-delivery.net/u5kj77fpxthlsdgge6zwgoixlo2cy72tloizag4xepwgixg4a5fux34bhmtq/muuu9012x1~b5RBgKPy8q?token=h4y9ugkaqt7frgdsfm7metji&expiry=1694279665558"

@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import { getMovieDetails } from "@/lib/tmdbApi";
 
 import { CgSpinner } from "react-icons/cg";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Skeleton from "./Skeleton";
+import { Button } from "./ui/button";
 
 interface MediaCardProps {
   id: number;
@@ -32,9 +34,6 @@ const MediaCard = ({
   skeletonLoaderRows?: number;
 }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isTitleTruncated, setIsTitleTruncated] = useState<boolean>(true);
-  const fullTitle =
-    data.original_title || data.original_name || "Unknown Title";
   const imageSrc =
     aspect_ratio === "16:9" ? imageBaseUrl : orgininalImageBasePath;
   const poster =
@@ -54,44 +53,39 @@ const MediaCard = ({
   return (
     // only render if there is a poster_path
     data.poster_path ? (
-      <li
-        className={`${aspect_ratio === "16:9" ? _16_9 : _9_16} `}
-        onMouseEnter={() => setIsTitleTruncated(false)}
-        onMouseLeave={() => setIsTitleTruncated(true)}
-      >
-        <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 9 / 16}>
-          {/* Display the loading spinner or skeleton while the image is loading */}
-          {isLoading && loaderType === "spinner" ? (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <CgSpinner className="h-10 w-10 animate-spin text-gray-500" />
-            </div>
-          ) : isLoading && loaderType === "skeleton" ? (
-            <Skeleton rows={skeletonLoaderRows} />
-          ) : null}
-
-          {/* Display the image */}
-          <Image
-            src={`${imageSrc}/${poster}`}
-            alt={data.original_title || data.original_name || "Media"}
-            fill
-            className="transform object-cover transition-transform  hover:scale-105"
-            onLoad={handleImageLoad}
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-          />
-        </AspectRatio>
-        {/* Display the media title with truncation */}
-        {/* <p
-          className={`mt-2 text-start text-xs font-normal tracking-wide text-white md:text-sm lg:text-base ${
-            isTitleTruncated
-              ? "truncate "
-              : ""
-          }`}
+      <li className={`${aspect_ratio === "16:9" ? _16_9 : _9_16} `}>
+        <Link
+          href={`/movie/${data.id}`}
+          className=" group transition-colors focus-visible:outline-none"
         >
-          {isTitleTruncated
-            ? fullTitle.split(" ").slice(0, 3).join(" ") +
-              (fullTitle.length > 20 ? "..." : "") // add the ellipsis if the title is longer than 20 characters
-            : fullTitle}
-        </p> */}
+          <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 9 / 16}>
+            {/* Display the loading spinner or skeleton while the image is loading */}
+            {isLoading && loaderType === "spinner" ? (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <CgSpinner className="h-10 w-10 animate-spin text-gray-500" />
+              </div>
+            ) : isLoading && loaderType === "skeleton" ? (
+              <Skeleton rows={skeletonLoaderRows} />
+            ) : null}
+
+            {/* Display the image */}
+
+            <Image
+              src={`${imageSrc}/${poster}`}
+              alt={data.original_title || data.original_name || "Media"}
+              fill
+              className=" z-[99] transform  object-cover transition-transform delay-75 hover:scale-105 group-focus-visible:scale-105 group-focus-visible:ring-2  group-focus-visible:ring-white "
+              onLoad={handleImageLoad}
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+            />
+          </AspectRatio>
+          {/* Display the media title with truncation */}
+          <p
+            className={`mt-4 truncate text-start text-xs font-normal tracking-wide text-white group-focus-visible:underline md:text-sm lg:text-base `}
+          >
+            {data.original_title || data.original_name || "Unknown Title"}
+          </p>{" "}
+        </Link>
       </li>
     ) : null
   );
