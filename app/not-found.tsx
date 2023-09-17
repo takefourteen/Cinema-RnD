@@ -29,7 +29,7 @@ export default function NotFound() {
           href="/"
           className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#002be7ff] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
         >
-          <BsArrowUpLeft className="mr-2 h-4 w-4" /> Return to Homepage
+          <BsArrowUpLeft className="mr-2 h-4 w-4" /> Return Home
         </Link>
       </section>
 

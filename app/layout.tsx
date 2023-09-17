@@ -29,9 +29,9 @@ const maxSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Movie Streaming App",
+  title: "CozyCinema - Where Every Screen Feels Like Home",
   description:
-    "Welcome to the streaming platform where you can enjoy a vast selection of movies and TV series without any cost.",
+    "Welcome to CozyCinema, where the magic of movies and the comfort of your favorite couch come together. Explore a vast selection of movies and TV series, all designed to wrap you in the cozy embrace of entertainment. Enjoy the cinematic escape without any cost. Your comfort, our priority.",
 };
 
 export default function RootLayout({

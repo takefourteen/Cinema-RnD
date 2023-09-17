@@ -5,8 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import logo from "@/assets/images/netflix-logo.webp";
-import smLogo from "@/assets/images/netflix-n-logo.webp";
+// import logo from "@/assets/images/netflix-logo.webp";
+// import smLogo from "@/assets/images/netflix-n-logo.webp";
+import logo from "@/assets/images/cozycinema-logo.webp";
+import smLogo from "@/assets/images/cozycinema-logo-c.webp";
 import { Button } from "../ui/button";
 import CustomButton from "../ui/CustomButton";
 import { Separator } from "../ui/separator";

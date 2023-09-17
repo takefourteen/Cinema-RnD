@@ -41,7 +41,7 @@ const MovieSearchBar = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex w-[80%] flex-col items-center justify-center gap-y-4"
     >
-      <h3 className="mt-4 text-center text-base font-semibold tracking-wide text-white/70  lg:text-lg">
+      <h3 className="mt-4 text-center text-lg font-semibold tracking-wide text-white/70  lg:text-xl">
         Ready to watch? Find Your Favorite Shows and Movies!
       </h3>
 

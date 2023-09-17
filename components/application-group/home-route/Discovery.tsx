@@ -4,7 +4,7 @@ import PopularMoviesSlider from "./PopularMoviesSlider";
 
 const Discovery = () => {
   return (
-    <section className=" master-container flex  flex-col gap-y-10 pt-20 lg:gap-y-20">
+    <section className=" master-container flex  flex-col gap-y-[72px] py-[72px]">
       {/* Section heading */}
       {/* <div className="flex flex-col items-center justify-center gap-y-2 text-center">
         <h2 className="text-[28px] font-bold capitalize text-white md:text-[32px] lg:text-4xl">

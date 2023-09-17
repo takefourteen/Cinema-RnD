@@ -28,10 +28,10 @@ function Hero({}: Props) {
       <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/80 to-black/60" />
 
       <div className="master-container absolute inset-0 flex flex-col items-center justify-center gap-y-4">
-        <h1 className="text-center text-4xl font-bold text-white lg:text-5xl">
+        <h1 className="text-center text-[32px] font-bold text-white md:text-4xl lg:text-5xl xl:text-[56px]">
           Unlimited movies, TV shows, and more
         </h1>
-        <p className="text-xl font-semibold text-white lg:text-2xl">
+        <p className="text-xl font-semibold text-white lg:text-2xl xl:text-3xl">
           Watch anywhere. For free.
         </p>
 

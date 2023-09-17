@@ -7,8 +7,10 @@ import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 
-import logo from "@/assets/images/netflix-logo.webp";
-import smLogo from "@/assets/images/netflix-n-logo.webp";
+// import logo from "@/assets/images/netflix-logo.webp";
+// import smLogo from "@/assets/images/netflix-n-logo.webp";
+import logo from "@/assets/images/cozycinema-logo.webp";
+import smLogo from "@/assets/images/cozycinema-logo-c.webp";
 import MobileMenu from "../MobileMenu";
 import NavbarSearchBar from "./NavbarSearchBar";
 import RenderSearchIcon from "./RenderSearchIcon";
@@ -70,6 +72,7 @@ const Navbar = () => {
         {/* Mobile menu for sm screens */}
         <MobileMenu />
 
+        {/* display logo */}
         <div className="mr-4 flex items-center">
           <Link href="/">
             {/* show lg logo on lg screens */}
