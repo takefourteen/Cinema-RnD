@@ -3,110 +3,89 @@ import axios from "axios";
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
-interface ApiResponse<T> {
-  data: T | null;
-  error: string | null;
-}
-
-export async function searchTVShows(
+// Generic function to search for items by a query
+async function searchItems<T>(
   query: string,
-  page: number,
-): Promise<ApiResponse<SearchResults<TvShowSearchResult[]>>> {
-  const apiUrl = `${BASE_URL}/search/tv`;
-
-  const params = {
-    api_key: API_KEY,
-    query,
-    language: "en-US",
-    page,
-  };
-
-  const apiResponse: ApiResponse<SearchResults<TvShowSearchResult[]>> = {
-    data: null,
-    error: null,
-  };
-
+  page: number = 1,
+  itemType: "movie" | "tv",
+): Promise<SearchResults<T>> {
   try {
-    const response = await axios.get(apiUrl, { params });
-    apiResponse.data = response.data;
-  } catch (error) {
-    apiResponse.error = "Error searching TV shows.";
-  }
+    const encodedQuery = encodeURIComponent(query);
+    const response = await fetch(
+      `${BASE_URL}/search/${itemType}?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`,
+    );
 
-  return apiResponse;
+    if (!response.ok) {
+      throw new Error("Failed to fetch data");
+    }
+
+    const data: SearchResults<T> = await response.json();
+    return data;
+  } catch (error: any) {
+    throw new Error(`Error searching for ${itemType}s: ${error.message}`);
+  }
 }
 
+// Function to search for movies by a query
 export async function searchMovies(
   query: string,
-  page: number,
-  region: string = "US",
-): Promise<ApiResponse<SearchResults<MovieSearchResult[]>>> {
-  const apiUrl = `${BASE_URL}/search/movie`;
-
-  const params = {
-    api_key: API_KEY,
-    query,
-    include_adult: false,
-    language: "en-US",
-    page,
-    region,
-  };
-
-  const apiResponse: ApiResponse<SearchResults<MovieSearchResult[]>> = {
-    data: null,
-    error: null,
-  };
-
-  try {
-    const response = await axios.get(apiUrl, { params });
-    apiResponse.data = response.data;
-  } catch (error) {
-    apiResponse.error = "Error searching movies.";
-  }
-
-  return apiResponse;
+  page: number = 1,
+): Promise<MovieSearchResult[]> {
+  const results = await searchItems<MovieSearchResult>(query, page, "movie");
+  return results.results;
 }
 
-// Define the SearchResult type to represent both MovieSearchResult and TvShowSearchResult
-type SearchResult = MovieSearchResult[] | TvShowSearchResult[];
-
-export async function searchAll(
+// Function to search for TV shows by a query
+export async function searchTVShows(
   query: string,
-  page: number,
-  region: string = "US",
-): Promise<ApiResponse<SearchResults<SearchResult>>> {
-  const movieResults = await searchMovies(query, page, region);
+  page: number = 1,
+): Promise<TvShowSearchResult[]> {
+  const results = await searchItems<TvShowSearchResult>(query, page, "tv");
+  return results.results;
+}
+
+// Function to get all results for any search query
+export async function searchAll(query: string, page: number = 1) {
+  const movieResults = await searchMovies(query, page);
   const tvResults = await searchTVShows(query, page);
 
-  // Use optional chaining to safely access the 'data' property
-  const allMovieResults = movieResults?.data?.results || [];
-  const allTVResults = tvResults?.data?.results || [];
+  console.log(`Found ${movieResults.length} movies`);
+  console.log(`Found ${tvResults.length} TV shows`);
 
-  const allResults: SearchResult[] = [...allMovieResults, ...allTVResults];
+  // Combine movie and TV results
+  const allResults = [...movieResults, ...tvResults];
 
-  const searchResults: SearchResults<SearchResult> = {
-    page: 1,
-    results: allResults,
-    total_pages: 1,
-    total_results: allResults.length,
-  };
-
-  const apiResponse: ApiResponse<SearchResults<SearchResult>> = {
-    data: searchResults,
-    error: null,
-  };
-
-  return apiResponse;
+  return allResults;
 }
 
-// ==========================================================
-// ==========================================================
-// ==========================================================
-function filterResultsByLanguage<
-  T extends MovieSearchResult | TvShowSearchResult,
->(results: SearchResults<T>, language: string): SearchResults<T> {
-  const filteredResults: T[] = results.results.filter(
-    (result) => result.original_language === language,
-  );
-  return { ...results, results: filteredResults };
+// function that filters results to only return results where "original_language" is en
+export function filterResultsByLanguage<
+  T extends { original_language: string },
+>(results: T[], language: string = "en") {
+  return results.filter((result) => result.original_language === language);
+}
+
+// function that sorts any array of movies or tv shows by popularity, or by vote average, or by vote count
+export function sortResults<
+  T extends {
+    popularity: number;
+    vote_average: number;
+    vote_count: number;
+  },
+>(results: T[], sortBy: "popularity" | "vote_average" | "vote_count") {
+  if (sortBy === "popularity") {
+    return results.sort((a: T, b: T) => {
+      return b.popularity - a.popularity;
+    });
+  } else if (sortBy === "vote_average") {
+    return results.sort((a: T, b: T) => {
+      return b.vote_average - a.vote_average;
+    });
+  } else if (sortBy === "vote_count") {
+    return results.sort((a: T, b: T) => {
+      return b.vote_count - a.vote_count;
+    });
+  } else {
+    return results;
+  }
 }

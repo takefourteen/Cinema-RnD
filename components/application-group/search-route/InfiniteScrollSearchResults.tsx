@@ -3,8 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-import { sortResults } from "@/lib/tmdbApi";
-
 import { CgSpinner } from "react-icons/cg";
 import { fetchSearchResults } from "../../../lib/actions";
 import MediaCard from "@/components/MediaCard";
@@ -17,12 +15,10 @@ const InfiniteScrollSearchResults = ({
   searchParams,
 }: InfiniteScrollSearchResultsProps) => {
   const [page, setPage] = useState(1);
-  const [results, setResults] = useState<
+  const [searchResults, setSearchResults] = useState<
     (MovieSearchResult | TvShowSearchResult)[]
   >([]);
   const [ref, inView] = useInView();
-
-  const sortedResults = sortResults(results, "popularity");
 
   const loadMore = useCallback(async () => {
     const newPage = page + 1;
@@ -33,9 +29,9 @@ const InfiniteScrollSearchResults = ({
 
     if (newResults?.length) {
       setPage(newPage);
-      setResults([...sortedResults, ...newResults]);
+      setSearchResults([...searchResults, ...newResults]);
     }
-  }, [searchParams, page, sortedResults]);
+  }, [searchParams, page, searchResults]);
 
   useEffect(() => {
     if (inView) {
@@ -48,7 +44,7 @@ const InfiniteScrollSearchResults = ({
 
   return (
     <>
-      {sortedResults.map((media) => (
+      {searchResults.map((media) => (
         <MediaCard
           key={media.id}
           data={media}

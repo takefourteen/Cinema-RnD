@@ -1,3 +1,6 @@
+// Define the SearchResult type to represent both MovieSearchResult and TvShowSearchResult
+type SearchResult = MovieSearchResult | TvShowSearchResult;
+
 // Define interfaces for search results
 interface SearchResults<T> {
   page: number;
