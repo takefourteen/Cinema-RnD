@@ -68,7 +68,7 @@ const Navbar = () => {
         isHomeScreen ? homeScreenNavbarClasses : otherScreenNavbarClasses
       }
     >
-      <section className="master-container flex items-center justify-between px-4 py-4">
+      <section className="master-container flex items-center justify-between px-4 py-2">
         {/* Mobile menu for sm screens */}
         <MobileMenu />
 
@@ -95,7 +95,7 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* navlinks for lg screens */}
+        {/* menu for lg screens */}
         <div className="hidden items-center  uppercase lg:flex">
           <NavLink href="#" active={pathname === "/movies"}>
             movies
@@ -112,7 +112,7 @@ const Navbar = () => {
         </div>
 
         {/* display search icon, log in, and sign up buttons */}
-        <div className="ml-auto flex items-center justify-center gap-x-4 text-white">
+        <div className="ml-auto flex items-center justify-center gap-x-4 text-white lg:m-0">
           {/* Search Icon */}
           <RenderSearchIcon
             scroll={scroll}

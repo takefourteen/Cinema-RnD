@@ -71,6 +71,23 @@ const NavbarSearchBar = ({ onSearchClick }: NavbarSearchBarProps) => {
     };
   }, [inputRef, onSearchClick]);
 
+  // Event listener to close the search bar when the user presses the escape key
+  useEffect(() => {
+    function handleEscKey(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        onSearchClick();
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener("keydown", handleEscKey);
+
+    // Unbind the event listener on clean up
+    return () => {
+      document.removeEventListener("keydown", handleEscKey);
+    };
+  }, [onSearchClick]);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
