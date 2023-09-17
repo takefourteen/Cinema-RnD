@@ -51,40 +51,18 @@ const NavbarSearchBar = ({ onSearchClick }: NavbarSearchBarProps) => {
     }
   }
 
-  // Event listener to close the search bar when the user clicks outside of it
+  // Close the search bar when the user clicks the escape key
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        inputRef.current &&
-        !inputRef.current.contains(event.target as Node)
-      ) {
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") {
         onSearchClick();
       }
     }
 
-    // Bind the event listener
-    document.addEventListener("mousedown", handleClickOutside);
+    window.addEventListener("keydown", handleEscape);
 
-    // Unbind the event listener on clean up
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [inputRef, onSearchClick]);
-
-  // Event listener to close the search bar when the user presses the escape key
-  useEffect(() => {
-    function handleEscKey(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        onSearchClick();
-      }
-    }
-
-    // Bind the event listener
-    document.addEventListener("keydown", handleEscKey);
-
-    // Unbind the event listener on clean up
-    return () => {
-      document.removeEventListener("keydown", handleEscKey);
+      window.removeEventListener("keydown", handleEscape);
     };
   }, [onSearchClick]);
 
@@ -105,7 +83,7 @@ const NavbarSearchBar = ({ onSearchClick }: NavbarSearchBarProps) => {
 
       {searchQuery && (
         <MdOutlineClose
-          className="absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 transform cursor-pointer rounded-full text-white md:h-6 md:w-6 "
+          className="search-icon absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 transform cursor-pointer rounded-full text-white md:h-6 md:w-6 "
           onClick={handleClear}
         />
       )}

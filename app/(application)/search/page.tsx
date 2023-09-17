@@ -36,7 +36,7 @@ const page = ({ searchParams }: Props) => {
       <ul
         // this is a hack to force the component to re-render when the search term changes, otherwise the component will not re-render because of the router caching behavior in Next.js
         key={uuid()}
-        className="grid grid-cols-3 gap-x-2 gap-y-12 md:grid-cols-4 lg:grid-cols-5 lg:gap-y-16 xl:grid-cols-6"
+        className=""
       >
         <InfiniteScrollSearchResults searchParams={searchParams} />
       </ul>

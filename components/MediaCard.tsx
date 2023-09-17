@@ -90,3 +90,12 @@ const MediaCard = ({
 };
 
 export default MediaCard;
+
+/* 
+old styles:
+const style_16_9 =
+  "relative h-auto min-w-[150px] sm:min-w-[175px] md:min-w-[200px] lg:min-w-[250px] xl:min-w-[300px] flex-1 ";
+
+const style_9_16 =
+    "relative h-auto min-w-[125px] sm:min-w-[150px] md:min-w-[175px] lg:min-w-[200px] xl:min-w-[225px] flex-1 cursor-pointer";
+*/

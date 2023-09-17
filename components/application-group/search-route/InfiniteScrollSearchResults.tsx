@@ -53,15 +53,16 @@ const InfiniteScrollSearchResults = ({
 
   return (
     <>
-      {searchResults.map((media) => (
-        <MediaCard
-          key={media.id}
-          data={media}
-          aspect_ratio="9:16"
-          loaderType="spinner"
-        />
-      ))}
-
+      <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-3 lg:grid-cols-4 lg:gap-y-16 xl:grid-cols-5">
+        {searchResults.map((media) => (
+          <MediaCard
+            key={media.id}
+            data={media}
+            aspect_ratio="9:16"
+            loaderType="spinner"
+          />
+        ))}
+      </div>
       {/* loading spinner */}
       {showSpinner && (
         <div
