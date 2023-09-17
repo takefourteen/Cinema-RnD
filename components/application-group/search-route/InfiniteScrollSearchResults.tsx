@@ -27,7 +27,7 @@ const InfiniteScrollSearchResults = ({
   const loadMore = useCallback(async () => {
     const newPage = page + 1;
     const newResults = await fetchSearchResults(
-      searchParams.term || "something",
+      searchParams.term || "game of thrones",
       newPage,
     );
 
@@ -39,7 +39,10 @@ const InfiniteScrollSearchResults = ({
 
   useEffect(() => {
     if (inView) {
-      loadMore();
+      // load more after a delay
+      const timeout = setTimeout(() => {
+        loadMore();
+      }, 500);
     }
   }, [inView, loadMore]);
 
