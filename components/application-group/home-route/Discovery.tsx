@@ -6,7 +6,7 @@ const Discovery = () => {
   return (
     <section className=" master-container flex  flex-col gap-y-10 pt-20 lg:gap-y-20">
       {/* Section heading */}
-      <div className="flex flex-col items-center justify-center gap-y-2 text-center">
+      {/* <div className="flex flex-col items-center justify-center gap-y-2 text-center">
         <h2 className="text-[28px] font-bold capitalize text-white md:text-[32px] lg:text-4xl">
           Discover what to watch next
         </h2>
@@ -14,7 +14,7 @@ const Discovery = () => {
           With a world of movies and TV shows at your fingertips, boredom is a
           thing of the past.
         </p>
-      </div>
+      </div> */}
 
       {/* Streaming Services */}
       <StreamingServiceSlider />

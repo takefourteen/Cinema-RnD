@@ -21,17 +21,17 @@ function Hero({}: Props) {
   // }, []);
 
   return (
-    <section className="relative min-h-[36rem] lg:min-h-[44rem] ">
+    <section className="relative min-h-[40rem] lg:min-h-[40rem] ">
       <div className="absolute inset-0 bg-[url('/imdb-hero-bg.jpg')] bg-cover bg-center" />
 
       {/* adds dark overlay, over bg img */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/70 to-black/50" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/80 to-black/60" />
 
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-y-4">
+      <div className="master-container absolute inset-0 flex flex-col items-center justify-center gap-y-4">
         <h1 className="text-center text-4xl font-bold text-white lg:text-5xl">
           Unlimited movies, TV shows, and more
         </h1>
-        <p className="text-xl text-white lg:text-2xl">
+        <p className="text-xl font-semibold text-white lg:text-2xl">
           Watch anywhere. For free.
         </p>
 

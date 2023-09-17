@@ -19,8 +19,6 @@ const MovieSearchBar = () => {
   const router = useRouter();
 
   function onSubmit() {
-    console.log("searchQuery", searchQuery);
-
     // if there is a search query, redirect to search page
     if (searchQuery) {
       // Navigate to the search route with the search term as a query parameter
@@ -41,19 +39,19 @@ const MovieSearchBar = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center justify-center gap-y-4"
+      className="flex w-[80%] flex-col items-center justify-center gap-y-4"
     >
-      <h3 className="mt-4 text-center text-base text-white  lg:text-lg">
+      <h3 className="mt-4 text-center text-base font-semibold tracking-wide text-white/70  lg:text-lg">
         Ready to watch? Find Your Favorite Shows and Movies!
       </h3>
 
-      <div className="flex w-full items-center justify-center gap-x-4">
-        <div className="relative">
+      <div className="flex w-full flex-col items-center justify-center gap-x-4 gap-y-4 md:flex-row">
+        <div className="relative w-[80%] lg:w-[70%] xl:w-[60%]">
           <Input
             autoFocus
             type="text"
             placeholder="Find movies, TV shows, and more..."
-            className="h-12 w-[200px] rounded-full bg-black/30 px-4  py-3 text-lg font-semibold leading-[1.5] tracking-wide text-white placeholder:pb-1 placeholder:text-lg placeholder:text-[rgba(163,163,163,0.70)] md:w-[300px] lg:w-[400px] lg:text-2xl"
+            className="mx-auto h-12  rounded-lg bg-black/30 px-4 py-3  text-lg font-semibold leading-[1.5] tracking-wide text-white placeholder:pb-1 placeholder:text-lg placeholder:text-[rgba(163,163,163,0.70)] md:mx-0  lg:text-2xl"
             value={searchQuery}
             onChange={handleSearch}
           />
@@ -67,7 +65,7 @@ const MovieSearchBar = () => {
 
         <Button
           type="submit"
-          className={` h-12 min-w-max rounded-full bg-[#e50914] text-base font-semibold text-white hover:bg-[#c11119] md:px-6 md:py-3 md:text-lg  lg:text-xl `}
+          className={` h-12 min-w-max  rounded-lg bg-[#e50914] text-base font-semibold text-white hover:bg-[#c11119] md:px-6 md:py-3 md:text-lg  lg:text-xl `}
         >
           Search <IoSearchOutline className="ml-2 h-5 w-5 lg:h-6 lg:w-6" />
         </Button>

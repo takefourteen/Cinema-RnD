@@ -8,14 +8,14 @@ const ColorFulBanner = () => {
       </div>
 
       <div className="flex flex-col gap-y-2">
-        <p className="text-xl font-bold md:text-2xl">
+        <p className="text-xl font-bold md:text-2xl lg:text-3xl">
           Discover the Ultimate Streaming Experience
         </p>
 
-        <p className="text-sm md:text-base">
+        <p className="text-sm md:text-base lg:text-lg">
           Stream anytime, anywhere, on any device.
         </p>
-        <p className="text-sm md:text-base">
+        <p className="text-sm md:text-base lg:text-lg">
           Start watching now, no subscription required.
         </p>
       </div>

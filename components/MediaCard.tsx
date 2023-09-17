@@ -4,8 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { getMovieDetails } from "@/lib/tmdbApi";
-
 import { CgSpinner } from "react-icons/cg";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Skeleton from "./Skeleton";
