@@ -51,7 +51,7 @@ const InfiniteScrollSearchResults = ({
 
   console.log("searchResults", searchResults.length);
 
-  return searchResults ? (
+  return (
     <>
       {searchResults.map((media) => (
         <MediaCard
@@ -66,17 +66,18 @@ const InfiniteScrollSearchResults = ({
       {showSpinner && (
         <div
           ref={ref}
-          className=" 
-      col-span-3 flex items-center justify-center md:col-span-4 lg:col-span-5 lg:gap-y-16 xl:col-span-6
-    "
+          className="col-span-3 flex items-center justify-center md:col-span-4 lg:col-span-5 lg:gap-y-16 xl:col-span-6"
         >
           <CgSpinner className="h-10 w-10 animate-spin text-gray-500" />
           <span className="sr-only">Loading...</span>
         </div>
       )}
+
+      {/* no results message */}
+      {!showSpinner && !searchResults.length && (
+        <NoResultsMessage searchTerm={searchParams.term} />
+      )}
     </>
-  ) : (
-    <NoResultsMessage searchTerm={searchParams.term} />
   );
 };
 
