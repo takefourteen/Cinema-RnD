@@ -8,7 +8,6 @@ import { CgSpinner } from "react-icons/cg";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Skeleton from "./Skeleton";
 import { Button } from "./ui/button";
-
 interface MediaCardProps {
   id: number;
   poster_path: string | null;
@@ -20,17 +19,21 @@ interface MediaCardProps {
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 const orgininalImageBasePath = "https://image.tmdb.org/t/p/original";
 
+interface MediaCardComponentProps {
+  data: MediaCardProps;
+  aspect_ratio?: "16:9" | "9:16";
+  loaderType?: "spinner" | "skeleton";
+  skeletonLoaderRows?: number;
+}
+
 const MediaCard = ({
   data,
   aspect_ratio = "16:9",
   loaderType = "spinner",
   skeletonLoaderRows = 0,
-}: {
-  data: MediaCardProps;
-  aspect_ratio?: "16:9" | "9:16";
-  loaderType?: "spinner" | "skeleton";
-  skeletonLoaderRows?: number;
-}) => {
+}: MediaCardComponentProps) => {
+  // determine if this is a movie or tv show
+  const isMovie = data.original_title ? true : false;
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const imageSrc =
     aspect_ratio === "16:9" ? imageBaseUrl : orgininalImageBasePath;
@@ -53,7 +56,7 @@ const MediaCard = ({
     data.poster_path ? (
       <li className={`${aspect_ratio === "16:9" ? style_16_9 : style_9_16} `}>
         <Link
-          href={`/movie/${data.id}`}
+          href={isMovie ? `/movie/${data.id}` : `/tv/${data.id}`}
           className=" group transition-colors focus-visible:outline-none"
         >
           <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 9 / 16}>
