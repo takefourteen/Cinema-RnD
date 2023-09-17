@@ -1,26 +1,5 @@
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
-// function to get popular movies from the tmdb api
-export async function getPopularMovies(
-  page: number = 1,
-): Promise<PopularMovie[]> {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&page=${page}`,
-  );
-  const data = await response.json();
-  return data.results;
-}
-
-// function to get popular tv shows from the tmdb api
-export async function getPopularTVShows(
-  page: number = 1,
-): Promise<PopularTVShow[]> {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/tv/popular?api_key=${API_KEY}&language=en-US&page=${page}`,
-  );
-  const data = await response.json();
-  return data.results;
-}
 
 // function to get recommendations for a movie
 export async function getMovieRecommendations(movieId: string) {
@@ -40,28 +19,12 @@ export async function getTVRecommendations(tvId: string) {
   return data.results;
 }
 
-// function to get details for a movie
-export async function getMovieDetails(movieId: string): Promise<MovieDetails> {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-US`,
-  );
-  const data = await response.json();
-  return data;
-}
 
-// function to get details for a tv show
-export async function getTVDetails(tvId: string): Promise<TVShowDetails> {
-  const response = await fetch(
-    `https://api.themoviedb.org/3/tv/${tvId}?api_key=${API_KEY}&language=en-US`,
-  );
-  const data = await response.json();
-  return data;
-}
 
 // ===============================================================================
 // ===============================================================================
 // ===============================================================================
-
+/*
 interface Movie {
   id: number;
   title?: string;
@@ -126,3 +89,5 @@ export async function getRecommendedTVShows(): Promise<PopularTVShow[]> {
 
   return recommendedTVShows;
 }
+
+*/

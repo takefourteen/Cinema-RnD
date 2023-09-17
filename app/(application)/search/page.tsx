@@ -24,7 +24,7 @@ const page = ({ searchParams }: Props) => {
   // const filteredResults = filterResultsByLanguage(sortedResults, "en");
 
   return (
-    <section className="master-container relative top-[80px] pb-[80px] pt-10 text-white">
+    <section className="master-container relative top-[70px] pb-[80px] pt-10 text-white lg:top-[90px]">
       <h1 className=" text-3xl font-bold md:text-4xl lg:text-5xl">
         Search Results for:{" "}
         <span className="text-red-600">&quot;{term}&quot;</span>

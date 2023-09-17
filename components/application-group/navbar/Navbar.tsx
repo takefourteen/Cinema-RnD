@@ -23,6 +23,7 @@ const Navbar = () => {
   const { data: session, status } = useSession();
   const [scroll, setScroll] = useState(false);
   const [searchClicked, setsearchClicked] = useState<boolean>(false);
+  const isSearchScreen = pathname === "/search";
   const isHomeScreen = pathname === "/";
   const scrollThreshold = 100; // Adjust this threshold as needed
 
@@ -56,16 +57,16 @@ const Navbar = () => {
   }
 
   // Define classes based on the scroll state and isHomeScreen
-  const homeScreenNavbarClasses = `fixed   top-0 left-0 right-0 z-[99999] transition-all duration-300 ease-in-out ${
+  const otherScreensNavbarClasses = `fixed   top-0 left-0 right-0 z-[99999] transition-all duration-300 ease-in-out ${
     scroll ? "bg-black" : "bg-transparent"
   }`;
 
-  const otherScreenNavbarClasses = `fixed  top-0 left-0 right-0 z-[99999] transition-all duration-300 ease-in-out bg-black/90`;
+  const searchScreenNavbarClasses = `fixed  top-0 left-0 right-0 z-[99999] transition-all duration-300 ease-in-out bg-black/90`;
 
   return (
     <nav
       className={
-        isHomeScreen ? homeScreenNavbarClasses : otherScreenNavbarClasses
+        isSearchScreen ? searchScreenNavbarClasses : otherScreensNavbarClasses
       }
     >
       <section className="master-container flex items-center justify-between px-4 py-2">
