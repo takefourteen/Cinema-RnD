@@ -3,45 +3,55 @@ import axios from "axios";
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
-// Generic function to search for items by a query
-async function searchItems<T>(
-  query: string,
-  page: number = 1,
-  itemType: "movie" | "tv",
-): Promise<SearchResults<T>> {
-  try {
-    const encodedQuery = encodeURIComponent(query);
-    const response = await fetch(
-      `${BASE_URL}/search/${itemType}?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`,
-    );
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch data");
-    }
-
-    const data: SearchResults<T> = await response.json();
-    return data;
-  } catch (error: any) {
-    throw new Error(`Error searching for ${itemType}s: ${error.message}`);
-  }
-}
-
 // Function to search for movies by a query
 export async function searchMovies(
   query: string,
   page: number = 1,
-): Promise<MovieSearchResult[]> {
-  const results = await searchItems<MovieSearchResult>(query, page, "movie");
-  return results.results;
+): Promise<SearchResults<MovieSearchResult[]>> {
+  try {
+    const encodedQuery = encodeURIComponent(query);
+    const response = await axios.get<SearchResults<MovieSearchResult[]>>(
+      `${BASE_URL}/search/movie`,
+      {
+        params: {
+          api_key: API_KEY,
+          language: "en-US",
+          query: encodedQuery,
+          page: page,
+          include_adult: false,
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error searching for movies: ${error}`);
+  }
 }
 
 // Function to search for TV shows by a query
 export async function searchTVShows(
   query: string,
   page: number = 1,
-): Promise<TvShowSearchResult[]> {
-  const results = await searchItems<TvShowSearchResult>(query, page, "tv");
-  return results.results;
+): Promise<SearchResults<TvShowSearchResult[]>> {
+  try {
+    const encodedQuery = encodeURIComponent(query);
+    const params = {
+      api_key: API_KEY,
+      language: "en-US",
+      query: encodedQuery,
+      page: page.toString(),
+      include_adult: "false",
+    };
+    const response = await axios.get<SearchResults<TvShowSearchResult[]>>(
+      `${BASE_URL}/search/tv`,
+      { params },
+    );
+
+    return response.data;
+  } catch (error) {
+    throw new Error(`Error searching for TV shows: ${error}`);
+  }
 }
 
 // Function to get all results for any search query
@@ -49,11 +59,12 @@ export async function searchAll(query: string, page: number = 1) {
   const movieResults = await searchMovies(query, page);
   const tvResults = await searchTVShows(query, page);
 
-  console.log(`Found ${movieResults.length} movies`);
-  console.log(`Found ${tvResults.length} TV shows`);
+  // console.log("Movie results: ", movieResults);
 
-  // Combine movie and TV results
-  const allResults = [...movieResults, ...tvResults];
+  //  combine movie and tv results into one array
+  const allResults = [...movieResults.results, ...tvResults.results];
+
+  // console.log("All results: ", allResults);
 
   return allResults;
 }
