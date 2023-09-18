@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 import { BiArrowBack } from "react-icons/bi";
+import { AiOutlineReload } from "react-icons/ai";
 // import logo from "@/assets/images/netflix-logo.webp";
 import logo from "@/assets/images/cozycinema-logo.webp";
 import smLogo from "@/assets/images/cozycinema-logo-c.webp";
@@ -43,13 +44,25 @@ export default function Error({
         {error.message}
       </p>
 
-      <Button
+      {/* return home btn */}
+      {/* <Button
         asChild
         className="h-fit w-max rounded-lg border-[#c11119] bg-[#e50914] px-6 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
       >
         <Link href="/">
           <BiArrowBack className="mr-2 h-4 w-4" /> Return Home
         </Link>
+      </Button> */}
+
+      {/* refresh screen btn */}
+      <Button
+        onClick={() => {
+          router.refresh();
+          reset();
+        }}
+        className="h-fit w-max rounded-lg border-[#c11119] bg-[#e50914] px-6 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
+      >
+        <AiOutlineReload className="mr-2 h-4 w-4" /> Refresh Screen
       </Button>
     </div>
   );
