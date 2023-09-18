@@ -10,7 +10,7 @@ import { usePathname } from "next/navigation";
 import logo from "@/assets/images/cozycinema-logo.webp";
 import smLogo from "@/assets/images/cozycinema-logo-c.webp";
 import { Button } from "../ui/button";
-import CustomButton from "../ui/CustomButton";
+import CustomButton from "../CustomButton";
 import { Separator } from "../ui/separator";
 
 type Props = {};

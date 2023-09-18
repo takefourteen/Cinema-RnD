@@ -1,9 +1,9 @@
 import React, { ReactNode, ButtonHTMLAttributes } from "react";
 import Link from "next/link";
 
-import { Button } from "./button";
+import { Button } from "./ui/button";
 
-interface CtaButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   // Extend the default HTML button props
   variant?: "outline" | "default";
   asChild: boolean;
@@ -22,7 +22,7 @@ const CustomButton = ({
   asChild = false,
   children,
   ...props // Spread any additional HTML button props here
-}: CtaButtonProps) => {
+}: ButtonProps) => {
   const baseStyles =
     "px-6 py-2 text-sm h-fit w-max rounded-full font-bold transition-colors uppercase text-white ";
 

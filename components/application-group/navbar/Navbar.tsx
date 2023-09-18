@@ -15,7 +15,7 @@ import MobileMenu from "../MobileMenu";
 import NavbarSearchBar from "./NavbarSearchBar";
 import RenderSearchIcon from "./RenderSearchIcon";
 import NavLink from "./NavLink";
-import CustomButton from "@/components/ui/CustomButton";
+import CustomButton from "@/components/CustomButton";
 
 const Navbar = () => {
   const router = useRouter();

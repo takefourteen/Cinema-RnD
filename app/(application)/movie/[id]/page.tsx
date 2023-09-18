@@ -2,6 +2,8 @@ import React from "react";
 
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 
+import MovieHeader from "@/components/application-group/movie-route/MovieHeader";
+
 type PageProps = {
   params: {
     id: string;
@@ -12,12 +14,17 @@ const page = async ({ params }: PageProps) => {
   const { id } = params;
   const { data: movieDetails, error } = await fetchMovieDetails(id);
 
+  if (error) {
+    return <div>Error</div>;
+  }
+
+  if (!movieDetails) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <section className="master-container relative top-[70px] pb-[80px] pt-10 text-white">
-      <h1>Movie Page</h1>
-      <pre>
-        <code>{JSON.stringify(movieDetails, null, 2)}</code>
-      </pre>
+    <section className="text-white">
+      <MovieHeader movieDetails={movieDetails} />
     </section>
   );
 };

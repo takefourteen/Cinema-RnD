@@ -13,7 +13,7 @@ export async function fetchMovieDetails(
 ): Promise<MovieDetailsApiResponse> {
   try {
     const response: AxiosResponse<MovieDetailsData> = await axios.get(
-      `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US`,
+      `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US&append_to_response=credits`,
     );
 
     return {
