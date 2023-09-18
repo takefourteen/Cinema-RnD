@@ -69,24 +69,26 @@ const NavbarSearchBar = ({ onSearchClick }: NavbarSearchBarProps) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className=" relative w-full border-x-0 border-b-1 border-t-0 border-b-red-600  bg-red-600"
+      className="w-full bg-[rgba(64,68,89,0.6)]"
     >
-      <Input
-        ref={inputRef} // for the event listener to close the search bar when the user clicks outside of it
-        type="text"
-        autoFocus
-        placeholder="Search for movies, TV shows, and more..."
-        className="master-container h-16 w-full rounded-none border-none bg-transparent  px-2 py-0 text-xl font-semibold leading-[5] tracking-wide text-white placeholder:text-xl placeholder:text-white/70 focus-visible:outline-none  focus-visible:ring-0  md:text-2xl md:placeholder:text-2xl"
-        value={searchQuery}
-        onChange={handleSearch}
-      />
-
-      {searchQuery && (
-        <MdOutlineClose
-          className="search-icon absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 transform cursor-pointer rounded-full text-white md:h-6 md:w-6 "
-          onClick={handleClear}
+      <div className="master-container relative h-full">
+        <Input
+          ref={inputRef} // for the event listener to close the search bar when the user clicks outside of it
+          type="text"
+          autoFocus
+          placeholder="Search for Movies and TV shows"
+          className=" h-16 w-full rounded-none border-none bg-transparent  px-2 py-0 text-xl font-semibold leading-[5] tracking-wide text-white placeholder:text-xl placeholder:text-[rgba(64,68,89,0.9)] focus-visible:outline-none  focus-visible:ring-0  md:text-2xl md:placeholder:text-2xl"
+          value={searchQuery}
+          onChange={handleSearch}
         />
-      )}
+
+        {searchQuery && (
+          <MdOutlineClose
+            className="search-icon absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 transform cursor-pointer rounded-full text-white md:h-6 md:w-6 "
+            onClick={handleClear}
+          />
+        )}
+      </div>
     </form>
   );
 };

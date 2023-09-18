@@ -49,30 +49,11 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent/10">
           <div className="master-container flex h-full flex-col justify-end pb-8 md:justify-center md:pb-0 lg:max-w-[80%]">
             <div className="text-start text-white">
-              {/* Display the image if it exists */}
-              {productionCompany?.logo_path ? (
-                <div>
-                  <div className="relative min-h-[40px] w-[150px] lg:h-[100px] lg:w-[200px]">
-                    <Image
-                      src={`${BASE_IMG_URL}${productionCompany.logo_path}`}
-                      alt={productionCompany.name}
-                      fill
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
-              ) : (
-                // Display the name if image doesn't exist
-                productionCompany?.name && (
-                  <h2 className="text-2xl font-bold">
-                    {productionCompany.name}
-                  </h2>
-                )
-              )}
+              {/* movie production company logo */}
+              {/* see below for code to display the production company logo */}
 
               {/* movie title with release year*/}
-              <h1 className="text-6xl font-bold md:text-7xl lg:text-[80px]">
+              <h1 className="text-4xl font-bold md:text-5xl lg:text-6xl">
                 {movieDetails.original_title}
                 {/* add space */}
                 &nbsp;
@@ -150,3 +131,27 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
 };
 
 export default MovieHeader;
+
+/* 
+ Display the image if it exists 
+{productionCompany?.logo_path ? (
+                <div>
+                  <div className="relative min-h-[40px] w-[150px] lg:h-[100px] lg:w-[200px]">
+                    <Image
+                      src={`${BASE_IMG_URL}${productionCompany.logo_path}`}
+                      alt={productionCompany.name}
+                      fill
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+              ) : (
+                // Display the name if image doesn't exist
+                productionCompany?.name && (
+                  <h2 className="text-2xl font-bold">
+                    {productionCompany.name}
+                  </h2>
+                )
+              )}
+*/

@@ -57,11 +57,11 @@ const Navbar = () => {
   }
 
   // Define classes based on the scroll state, and whether the search icon is clicked
-  const otherScreensNavbarClasses = `fixed   top-0 left-0 right-0 z-[99999] transition-all duration-300 ease-in-out ${
+  const otherScreensNavbarClasses = `fixed   top-0 left-0 right-0 z-[99999] ${
     scroll || searchClicked ? "bg-black" : "bg-transparent"
   }`;
 
-  const searchScreenNavbarClasses = `fixed  top-0 left-0 right-0 z-[99999] transition-all duration-300 ease-in-out bg-black/90`;
+  const searchScreenNavbarClasses = `fixed  top-0 left-0 right-0 z-[99999] bg-black/90`;
 
   return (
     <nav

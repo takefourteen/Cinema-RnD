@@ -17,7 +17,7 @@ const MovieOverview: React.FC<MovieOverviewProps> = ({ overview }) => {
   return (
     <div className="mt-6 md:w-[30rem] lg:w-[36rem] lg:tracking-wider">
       <p
-        className="cursor-pointer text-base tracking-wide text-white"
+        className="cursor-pointer text-base tracking-wide text-white lg:text-lg"
         onClick={toggleOverview}
       >
         {showFullOverview
@@ -26,7 +26,7 @@ const MovieOverview: React.FC<MovieOverviewProps> = ({ overview }) => {
               overview.length > maxOverviewLength ? "..." : ""
             }`}
         <span
-          className="ml-1 cursor-pointer text-sm text-gray-400"
+          className="ml-1 cursor-pointer text-sm text-gray-400 lg:text-base"
           onClick={toggleOverview}
         >
           {showFullOverview ? "Read less" : "Read more"}
