@@ -3,8 +3,8 @@ import {
   getPopularMovies,
 } from "@/lib/tmdb-api/popular";
 
-import Slider from "@/components/slider/Slider";
-import MediaCard from "@/components/MediaCard";
+// import { Slider as oldSlider } from "@/components/slider/Slider";
+import Slider from "@/components/slider-v-2.0/Slider";
 
 const PopularMoviesSlider = async () => {
   const page = 1;
@@ -20,22 +20,9 @@ const PopularMoviesSlider = async () => {
   }
 
   return (
-    <Slider
-      lengthOfList={popularMovies.length}
-      sectionTitle="Popular Movies"
-      viewAllLink="/movies"
-    >
-      <ul className="flex gap-x-2">
-        {popularMovies.map((movie) => (
-          <MediaCard
-            key={movie.id}
-            data={movie}
-            aspect_ratio="9:16"
-            loaderType="spinner"
-          />
-        ))}
-      </ul>
-    </Slider>
+    <>
+      <Slider sliderData={popularMovies} initData={popularMovies[0]} />
+    </>
   );
 };
 
