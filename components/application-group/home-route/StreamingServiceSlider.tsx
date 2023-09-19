@@ -57,7 +57,7 @@ const StreamingServiceItem = ({
             alt={service.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-            className="z-10 transform object-contain transition-transform delay-75 hover:scale-105 group-focus-visible:scale-105 group-focus-visible:ring-2  group-focus-visible:ring-white "
+            className="z-10 transform object-contain p-8  transition-transform delay-75 hover:scale-105  "
           />
         </AspectRatio>
 
