@@ -1,6 +1,11 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import React, {
+  useRef,
+  useState,
+  useEffect,
+  ButtonHTMLAttributes,
+} from "react";
 import Link from "next/link";
 
 import "./list.scss";
@@ -92,17 +97,10 @@ const Slider: React.FC<SliderProps> = ({
         )}
       </div>
 
-      <Separator className="mb-2 mt-1 bg-white/30 lg:mb-4 lg:mt-2" />
+      <Separator className="mb-2 mt-1 bg-white/30 lg:mb-4 lg:mt-2 " />
 
       {/* Slider Body */}
-      <div className={`wrapper relative mt-8 overflow-hidden `}>
-        <ChevronLeft
-          className="sliderArrow left h-8  w-8 border-y-2 border-s-2 border-[#c11119] md:h-10 md:w-10"
-          onClick={() => handleClick("left")}
-          style={{
-            display: slideNumber === 0 ? "none" : undefined,
-          }}
-        />
+      <div className={`wrapper relative overflow-hidden `}>
         <div
           className="flex transform gap-10 overflow-hidden py-4 transition-transform duration-500 ease-in-out"
           ref={listRef}
@@ -114,19 +112,66 @@ const Slider: React.FC<SliderProps> = ({
           {/* Slider Items */}
           {children}
         </div>
-        <ChevronRight
-          className="sliderArrow right h-8 w-8 border-y-2 border-e-2 border-[#c11119] md:h-10 md:w-10"
-          onClick={() => handleClick("right")}
-          style={{
-            display:
+        <div className=" flex items-center gap-3 px-0 py-3 md:px-1 md:py-5">
+          <SliderButton
+            disabled={slideNumber === 0 ? true : false}
+            style={{
+              display: `${slideNumber === 0 ? "none" : "flex"}`,
+            }}
+          >
+            <ChevronLeft
+              className="text-xl"
+              onClick={() => handleClick("left")}
+            />
+          </SliderButton>
+
+          <SliderButton
+            disabled={
               slideNumber >= Math.ceil(listWidth / screenWidth) - 1
-                ? "none"
-                : undefined,
-          }}
-        />
+                ? true
+                : false
+            }
+            style={{
+              display: `${
+                slideNumber >= Math.ceil(listWidth / screenWidth) - 1
+                  ? "none"
+                  : "flex"
+              }`,
+            }}
+          >
+            <ChevronRight
+              className="text-xl"
+              onClick={() => handleClick("right")}
+            />
+          </SliderButton>
+        </div>
       </div>
     </section>
   );
 };
 
 export default Slider;
+
+interface SliderButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+}
+
+const SliderButton = ({
+  children,
+  ...props // Spread any additional HTML button props here
+}: SliderButtonProps) => {
+  return (
+    <button
+      className="flex h-10 w-10 items-center justify-center rounded-full border-[1px] border-[#fdfdfd5f] transition duration-300 ease-in-out hover:bg-white
+hover:text-black md:h-14 md:w-14"
+      {...props} // Spread any additional HTML button props here
+    >
+      {children}
+    </button>
+  );
+};
+
+/* 
+flex h-14 w-14 items-center justify-center rounded-full border-[1px] border-[#fdfdfd5f] transition duration-300
+ease-in-out hover:bg-white hover:text-black
+*/

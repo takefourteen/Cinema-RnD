@@ -12,7 +12,7 @@ const StreamingServiceSlider = () => {
         lengthOfList={streamingServices.length}
         sectionTitle="Streaming Services"
       >
-        <ul className="flex gap-x-6">
+        <ul className="flex gap-x-2">
           {streamingServices.map((service, index) => (
             <StreamingServiceItem
               key={service.name}
@@ -45,7 +45,7 @@ const StreamingServiceItem = ({
   return (
     <li
       key={service.name}
-      className="relative h-auto min-w-[175px] flex-1 px-2 sm:min-w-[200px] md:min-w-[240px] lg:min-w-[275px] xl:min-w-[350px]"
+      className="relative h-auto min-w-[200px] flex-1 px-2 sm:min-w-[225px] md:min-w-[250px] lg:min-w-[275px] xl:min-w-[350px]"
     >
       <Link
         href={`/`}
@@ -66,7 +66,7 @@ const StreamingServiceItem = ({
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url("./posters/poster-${index + 1}.webp")`,
-            filter: "grayscale(100%) brightness(50%) blur(1px)",
+            filter: "grayscale(100%) brightness(50%) blur(0px)",
           }}
         />
       </Link>
