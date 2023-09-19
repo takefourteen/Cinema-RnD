@@ -14,7 +14,7 @@ function Progress({ curIndex, length }: Props) {
           style={{
             width: (((curIndex + 1) / length) * 100).toString() + "%",
           }}
-          className={` h-[1px] rounded-full bg-yellow-400  bg-opacity-50`}
+          className={` h-[1px] rounded-full bg-[#e50914ff]  bg-opacity-50`}
         ></div>
       </div>
       <span
