@@ -3,22 +3,24 @@ import axios, { AxiosResponse, AxiosError } from "axios";
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
-interface RecommendationsApiResponse<T> {
+interface SimilarApiResponse<T> {
   data: T | null;
   error: string | null;
 }
 
-// fetch recommendations for a movie
-export async function fetchMovieRecommendations(
+
+// fetch similar movies for a movie
+export async function fetchSimilarMovies(
   movieId: string,
-): Promise<RecommendationsApiResponse<RecommendedMovie[]>> {
-  const apiUrl = `${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US&page=1`;
+): Promise<SimilarApiResponse<SimilarMovie[]>> {
+  const apiUrl = `${BASE_URL}/movie/${movieId}/similar?api_key=${API_KEY}&language=en-US&page=1`;
 
   console.log("apiUrl", apiUrl);
 
   try {
-    const response: AxiosResponse<MovieRecommendationsResponse> =
-      await axios.get(apiUrl);
+    const response: AxiosResponse<SimilarMoviesResponse> = await axios.get(
+      apiUrl,
+    );
     return { data: response.data.results, error: null };
   } catch (error) {
     const axiosError = error as AxiosError;

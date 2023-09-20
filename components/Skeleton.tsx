@@ -1,17 +1,19 @@
 interface SkeletonProps {
   rows?: number;
+  mainItemHeight?: number;
 }
 
-const Skeleton = ({ rows = 1 }: SkeletonProps) => {
+const Skeleton = ({ rows = 1, mainItemHeight = 50 }: SkeletonProps) => {
   return (
-    <div className="h-full w-full">
+    <div className="flex flex-1 flex-col">
       <div
-        className="h-full w-full animate-pulse rounded-lg bg-slate-400"
+        className="w-full animate-pulse rounded-lg bg-slate-400"
         style={{
           animationDuration: "1s",
+          minHeight: `${mainItemHeight}px`,
         }}
       />
-      <div className="mt-4 flex flex-col gap-3">
+      <div className="mt-4 flex flex-col gap-2">
         {Array.from({ length: rows }, (_, i) => i + 1).map((_, i) => (
           <div
             key={i}

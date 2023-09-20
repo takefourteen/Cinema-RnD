@@ -24,11 +24,20 @@ const page = async ({ params }: PageProps) => {
   }
 
   return (
-    <section className="text-white">
+    <section className="pb-[70px] text-white">
       <MovieHeader movieDetails={movieDetails} />
 
       {/* Display Movie Recommendations */}
-      <MovieRecommendations movieId={id} />
+      <div className="master-container">
+
+        {/* Heading */}
+        <header className="mb-4 md:mb-6">
+          <h2 className="text-2xl font-bold capitalize text-white md:text-3xl ">
+            You may also enjoy...
+          </h2>
+        </header>
+        <MovieRecommendations movieId={id} />
+      </div>
     </section>
   );
 };
