@@ -7,6 +7,10 @@ import peacockWhite from "@/assets/images/streaming-services/peacock-white.svg";
 import peacockBlack from "@/assets/images/streaming-services/peacock-black.svg";
 import hbo from "@/assets/images/streaming-services/hbo-max-dark.svg";
 
+// image used for error display component
+import error1 from "@/assets/images/error/error1.webp";
+import error2 from "@/assets/images/error/error2.webp";
+
 // import poster images
 import poster1 from "@/assets/images/posters/poster-1.webp";
 import poster2 from "@/assets/images/posters/poster-2.webp";
@@ -47,3 +51,5 @@ export const streamingServices = [
     poster: poster3,
   },
 ];
+
+export const errorImages = [error1, error2];

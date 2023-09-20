@@ -10,15 +10,16 @@ type MovieRecommendationsProps = {
 };
 
 const MovieRecommendations = async ({ movieId }: MovieRecommendationsProps) => {
-  const { data: recommendedMovies, error } =
+  const { data: similarMovies, error: similarMoviesError } =
+    await fetchSimilarMovies(movieId);
+  const { data: recommendedMovies, error: recommendedMoviesError } =
     await fetchMovieRecommendations(movieId);
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (similarMoviesError && recommendedMoviesError) {
+    return <div>Error: {similarMoviesError || recommendedMoviesError}</div>;
   }
 
-  if (recommendedMovies?.length === 0) {
-    // Display a neat grid of skeletons while data is loading
+  if (!similarMovies && !recommendedMovies) {
     return (
       <div className="grid grid-cols-2 gap-x-4 gap-y-12  md:grid-cols-3 lg:grid-cols-4">
         {Array.from({ length: 8 }, (_, i) => i + 1).map((_, i) => (
@@ -39,16 +40,3 @@ const MovieRecommendations = async ({ movieId }: MovieRecommendationsProps) => {
 };
 
 export default MovieRecommendations;
-
-const SkeletonGrid: React.FC<{ rows: number; columns: number }> = ({
-  rows,
-  columns,
-}) => {
-  const skeletonItems = [];
-
-  for (let i = 0; i < rows * columns; i++) {
-    skeletonItems.push(<Skeleton rows={i} key={i} />);
-  }
-
-  return <div className="grid grid-cols-4 gap-4">{skeletonItems}</div>;
-};

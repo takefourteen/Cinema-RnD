@@ -24,12 +24,6 @@ export default function Error({
   console.log(error.message);
   return (
     <div className="flex h-screen flex-col items-center justify-center  text-white">
-      {/* <img
-      src="/your-logo.png" // Replace with your app's logo
-      alt="Logo"
-      className="mb-4 h-16"
-    /> */}
-
       <Image src={logo} alt="Logo" width={200} className="mb-10" />
 
       <h1 className="mb-2 text-3xl font-bold md:text-4xl lg:text-5xl">
@@ -45,17 +39,17 @@ export default function Error({
       </p>
 
       {/* return home btn */}
-      {/* <Button
+      <Button
         asChild
-        className="h-fit w-max rounded-lg border-[#c11119] bg-[#e50914] px-6 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2"
+        className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#454545] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
       >
         <Link href="/">
           <BiArrowBack className="mr-2 h-4 w-4" /> Return Home
         </Link>
-      </Button> */}
+      </Button>
 
       {/* refresh screen btn */}
-      <Button
+      {/* <Button
         onClick={() => {
           router.refresh();
           reset();
@@ -63,7 +57,7 @@ export default function Error({
         className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#454545] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
       >
         <AiOutlineReload className="mr-2 h-4 w-4" /> Reload
-      </Button>
+      </Button> */}
     </div>
   );
 }
