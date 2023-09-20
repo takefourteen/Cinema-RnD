@@ -1,4 +1,4 @@
-interface Movie {
+interface RecommendedMovie {
   adult: boolean;
   backdrop_path: string | null;
   id: number;
@@ -18,7 +18,7 @@ interface Movie {
 
 interface MovieRecommendationsResponse {
   page: number;
-  results: Movie[];
+  results: RecommendedMovie[];
   total_pages: number;
   total_results: number;
 }
