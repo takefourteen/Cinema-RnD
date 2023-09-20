@@ -3,15 +3,24 @@ import Navbar from "@/components/application-group/navbar/Navbar";
 import Footer from "@/components/Footer";
 
 import { BsArrowUpLeft } from "react-icons/bs";
-
+// bg-gradient-to-tr from-[#060212]  via-[rgba(6,2,18,8)] to-[#070739]
 export default function NotFound() {
   return (
-    <section className="flex h-screen w-full flex-col items-center justify-center gap-y-10 bg-gradient-to-tr from-[#060212] via-black/80 to-[#070739] text-white/50">
+    <section
+      className="flex h-screen w-full flex-col items-center justify-center gap-y-10  text-white/50"
+      style={{
+        background:
+          "radial-gradient(50% 50% at 50% 50%,#17003d 0%,#000000 100%)",
+      }}
+    >
       <Navbar />
       <section className="flex flex-1 flex-col items-center justify-center text-center">
         <h1
           className="mb-2 bg-cover bg-clip-text bg-center text-[60px] font-bold leading-none text-transparent md:text-[100px] lg:text-[120px]"
-          style={{ backgroundImage: `url("/not-found-bg.jpg")` }}
+          style={{
+            backgroundImage: `url("/not-found-bg.jpg")`,
+            objectFit: "fill",
+          }}
         >
           We Lost You!
         </h1>
