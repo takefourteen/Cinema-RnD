@@ -60,7 +60,7 @@ export default function Error({
           router.refresh();
           reset();
         }}
-        className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#002be7ff] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
+        className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#454545] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
       >
         <AiOutlineReload className="mr-2 h-4 w-4" /> Reload
       </Button>
