@@ -6,9 +6,8 @@ import React, {
   useEffect,
   ButtonHTMLAttributes,
 } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
-
-import "./list.scss";
 
 import {
   BsChevronRight as ChevronRight,
@@ -31,7 +30,7 @@ const Slider: React.FC<SliderProps> = ({
   viewAllLink,
   children,
 }) => {
-  const listRef = useRef<HTMLDivElement | null>(null);
+  const listRef = useRef<HTMLUListElement | null>(null);
   const [slideNumber, setSlideNumber] = useState<number>(0);
   const [listWidth, setListWidth] = useState<number>(0);
   const [screenWidth, setScreenWidth] = useState<number>(0);
@@ -54,19 +53,6 @@ const Slider: React.FC<SliderProps> = ({
   }, []);
 
   const handleClick = (direction: "left" | "right"): void => {
-    // Adjust the item width and factor as needed
-    const itemsPerPage = lengthOfList
-      ? Math.floor(screenWidth / lengthOfList)
-      : Math.floor(screenWidth / 200); // Adjust the item width as needed
-    const itemWidth = listWidth / lengthOfList;
-    const maxSlideNumber = Math.floor(listWidth / (itemsPerPage * itemWidth));
-
-    // console log slide number and screen width
-    console.log("slideNumber: ", slideNumber);
-    console.log("screenWidth: ", screenWidth);
-    console.log("listWidth: ", listWidth);
-    console.log("TranslateX: ", slideNumber * screenWidth);
-
     if (direction === "left" && slideNumber > 0) {
       setSlideNumber(slideNumber - 0.5);
     } else if (direction === "right" && slideNumber < lengthOfList - 1) {
@@ -75,7 +61,7 @@ const Slider: React.FC<SliderProps> = ({
   };
 
   return (
-    <section className="list">
+    <section className="w-full overflow-hidden">
       {/* Slider Header */}
       <div className="flex items-baseline justify-between ">
         <h2 className="text-2xl font-bold capitalize text-white md:text-3xl">
@@ -100,9 +86,9 @@ const Slider: React.FC<SliderProps> = ({
       <Separator className="mb-2 mt-1 bg-white/30 lg:mb-4 lg:mt-2 " />
 
       {/* Slider Body */}
-      <div className={`wrapper relative overflow-hidden `}>
-        <div
-          className="flex transform gap-10 overflow-hidden py-4 transition-transform duration-500 ease-in-out"
+      <div className={`relative `}>
+        <ul
+          className="flex transform py-4 transition-transform duration-500 ease-in-out"
           ref={listRef}
           style={{
             transform: `translateX(-${slideNumber * screenWidth}px)`,
@@ -111,7 +97,9 @@ const Slider: React.FC<SliderProps> = ({
         >
           {/* Slider Items */}
           {children}
-        </div>
+        </ul>
+
+        {/* Slider Buttons */}
         <div className=" flex items-center gap-3 px-0 py-3 md:px-1 md:py-5">
           <SliderButton
             onClick={() => handleClick("left")}
@@ -166,8 +154,3 @@ hover:text-black md:h-14 md:w-14"
     </button>
   );
 };
-
-/* 
-flex h-14 w-14 items-center justify-center rounded-full border-[1px] border-[#fdfdfd5f] transition duration-300
-ease-in-out hover:bg-white hover:text-black
-*/

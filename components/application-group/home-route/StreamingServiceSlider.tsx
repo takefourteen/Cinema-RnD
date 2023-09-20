@@ -12,15 +12,13 @@ const StreamingServiceSlider = () => {
         lengthOfList={streamingServices.length}
         sectionTitle="Streaming Services"
       >
-        <ul className="flex gap-x-2">
-          {streamingServices.map((service, index) => (
-            <StreamingServiceItem
-              key={service.name}
-              service={service}
-              index={index}
-            />
-          ))}
-        </ul>
+        {streamingServices.map((service, index) => (
+          <StreamingServiceItem
+            key={service.name}
+            service={service}
+            index={index}
+          />
+        ))}
       </Slider>
     </section>
   );

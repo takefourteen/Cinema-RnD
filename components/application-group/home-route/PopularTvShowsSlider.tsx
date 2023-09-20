@@ -4,7 +4,7 @@ import Slider from "@/components/slider/Slider";
 import MediaCard from "@/components/MediaCard";
 
 const PopularTvShowsSlider = async () => {
-  const { data: popularTVShows, error } = await getPopularTVShowsForPages(1);
+  const { data: popularTVShows, error } = await getPopularTVShowsForPages(5);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -21,7 +21,7 @@ const PopularTvShowsSlider = async () => {
       viewAllLink="/tv-shows"
     >
       <ul className="flex gap-x-2">
-        {popularTVShows.map((tvShow) => (
+        {popularTVShows.slice(0,10).map((tvShow) => (
           <MediaCard key={tvShow.id} data={tvShow} aspect_ratio="9:16" />
         ))}
       </ul>
