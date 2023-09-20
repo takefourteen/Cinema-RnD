@@ -14,8 +14,6 @@ export async function fetchMovieRecommendations(
 ): Promise<RecommendationsApiResponse<RecommendedMovie[]>> {
   const apiUrl = `${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US&page=1`;
 
-  console.log("apiUrl", apiUrl);
-
   try {
     const response: AxiosResponse<MovieRecommendationsResponse> =
       await axios.get(apiUrl);

@@ -3,6 +3,7 @@ import React from "react";
 import { fetchMovieRecommendations } from "@/lib/tmdb-api/recommendations";
 import { fetchSimilarMovies } from "@/lib/tmdb-api/similar";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
+import { filterResultsByLanguage } from "@/lib/tmdb-api/search";
 
 import Skeleton from "@/components/Skeleton";
 import RecommendedMovieImage from "./RecommendedMovieImage";
@@ -54,16 +55,31 @@ const MovieRecommendations = async ({ movieId }: MovieRecommendationsProps) => {
     );
   }
 
+  // =========================================
+  // Filter out movies that are not in english
+  // =========================================
+  const filteredSimilarMovies = filterResultsByLanguage(similarMovies, "en");
+  const filteredRecommendedMovies = filterResultsByLanguage(
+    recommendedMovies,
+    "en",
+  );
+
   // If both similarMovies and recommendedMovies are defined, return both
   return (
-    <div className="grid grid-cols-2 gap-x-4 gap-y-12  md:grid-cols-3 lg:grid-cols-4">
-      {recommendedMovies
-        ?.slice(0, 12)
-        .map((movie) => <div key={movie.id}>{movie.original_title}</div>)}
-      {similarMovies
-        ?.slice(0, 12)
-        .map((movie) => <div key={movie.id}>{movie.original_title}</div>)}
-    </div>
+    <ul className="grid grid-cols-2 gap-x-4 gap-y-12  md:grid-cols-3 lg:grid-cols-4">
+      {filteredRecommendedMovies.slice(0, 6).map((recommendedMovie) => (
+        <RecommendedMovieImage
+          key={recommendedMovie.id}
+          movieId={recommendedMovie.id.toString()}
+        />
+      ))}
+      {filteredSimilarMovies.slice(0, 6).map((similarMovie) => (
+        <RecommendedMovieImage
+          key={similarMovie.id}
+          movieId={similarMovie.id.toString()}
+        />
+      ))}
+    </ul>
   );
 };
 

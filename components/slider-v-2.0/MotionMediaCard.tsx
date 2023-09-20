@@ -40,6 +40,10 @@ const MotionMediaCard = ({
     aspect_ratio === "16:9" ? imageBaseUrl : orgininalImageBasePath;
   const poster =
     aspect_ratio === "16:9" ? data.backdrop_path : data.poster_path;
+  // prepare url path for the media page, depending on whether it is a movie or tv show. the structure is /movie/:id-nameofmovie or /tv/:id-nameoftvshow, the name is seperated by a dash
+  const mediaPageUrl = isMovie
+    ? `/movie/${data.id}-${data.original_title?.split(" ").join("-")}`
+    : `/tv/${data.id}-${data.original_name?.split(" ").join("-")}`;
 
   // Handle the image loading
   const handleImageLoad = () => {
@@ -74,7 +78,8 @@ const MotionMediaCard = ({
         }}
       >
         <Link
-          href={isMovie ? `/movie/${data.id}` : `/tv/${data.id}`}
+          // href={isMovie ? `/movie/${data.id}` : `/tv/${data.id}`}
+          href={mediaPageUrl}
           className=" group transition-colors "
         >
           <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 9 / 16}>

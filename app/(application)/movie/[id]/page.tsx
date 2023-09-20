@@ -15,6 +15,9 @@ const page = async ({ params }: PageProps) => {
   const { id } = params;
   const { data: movieDetails, error } = await fetchMovieDetails(id);
 
+  //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
+  const movieId = id.split("-")[0];
+
   if (error) {
     return <div>Error: {error}</div>;
   }
@@ -29,14 +32,13 @@ const page = async ({ params }: PageProps) => {
 
       {/* Display Movie Recommendations */}
       <div className="master-container">
-
         {/* Heading */}
         <header className="mb-4 md:mb-6">
           <h2 className="text-2xl font-bold capitalize text-white md:text-3xl ">
             You may also enjoy...
           </h2>
         </header>
-        <MovieRecommendations movieId={id} />
+        <MovieRecommendations movieId={movieId} />
       </div>
     </section>
   );

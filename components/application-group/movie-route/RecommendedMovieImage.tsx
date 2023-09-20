@@ -4,6 +4,7 @@ import Link from "next/link";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 
 import Skeleton from "@/components/Skeleton";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
@@ -14,19 +15,33 @@ gets the movie id, fetches the movie details and displays the movie image with a
 const RecommendedMovieImage = async ({ movieId }: { movieId: string }) => {
   const { data: movieDetails, error } = await fetchMovieDetails(movieId);
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  //   prepare url path for the movie details page, the structure is /movie/:id-nameofmovie, the name is seperated by a dash
+  const moviePageUrl = `/movie/${movieId}-${movieDetails?.original_title
+    .split(" ")
+    .join("-")}`;
+
+  //   only show images that have a backdrop_path || poster_path
+  if (!movieDetails?.backdrop_path && !movieDetails?.poster_path) {
+    return null;
   }
 
-  if (!movieDetails) {
-    return (
-      <div className="grid grid-cols-2 gap-x-4 gap-y-12  md:grid-cols-3 lg:grid-cols-4">
-        {Array.from({ length: 8 }, (_, i) => i + 1).map((_, i) => (
-          <Skeleton key={i} rows={2} />
-        ))}
-      </div>
-    );
-  }
+  return (
+    <li className="relative h-auto flex-1">
+      <Link href={moviePageUrl}>
+        <AspectRatio ratio={16 / 9}>
+          <Image
+            src={`${imageBaseUrl}${
+              movieDetails?.backdrop_path || movieDetails?.poster_path
+            }`}
+            alt={movieDetails?.original_title}
+            fill
+            className="rounded-md object-cover"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+          />
+        </AspectRatio>
+      </Link>
+    </li>
+  );
 };
 
 export default RecommendedMovieImage;
