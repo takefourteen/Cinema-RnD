@@ -114,18 +114,17 @@ const Slider: React.FC<SliderProps> = ({
         </div>
         <div className=" flex items-center gap-3 px-0 py-3 md:px-1 md:py-5">
           <SliderButton
+            onClick={() => handleClick("left")}
             disabled={slideNumber === 0 ? true : false}
             style={{
               display: `${slideNumber === 0 ? "none" : "flex"}`,
             }}
           >
-            <ChevronLeft
-              className="text-xl"
-              onClick={() => handleClick("left")}
-            />
+            <ChevronLeft className="text-xl" />
           </SliderButton>
 
           <SliderButton
+            onClick={() => handleClick("right")}
             disabled={
               slideNumber >= Math.ceil(listWidth / screenWidth) - 1
                 ? true
@@ -139,10 +138,7 @@ const Slider: React.FC<SliderProps> = ({
               }`,
             }}
           >
-            <ChevronRight
-              className="text-xl"
-              onClick={() => handleClick("right")}
-            />
+            <ChevronRight className="text-xl" />
           </SliderButton>
         </div>
       </div>
