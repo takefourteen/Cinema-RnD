@@ -5,16 +5,24 @@ import { AnimatePresence } from "framer-motion";
 
 import MediaCard from "../MediaCard";
 import MotionMediaCard from "./MotionMediaCard";
-import SliderHeader from "./SliderHeader";
 import SliderBody from "./SliderBody";
 import Controls from "./Controls";
 
 type SliderProps = {
   sliderData: MediaCardData[];
   initData: MediaCardData;
+  imageAspectRatio: "9:16" | "16:9";
+  imageLoaderType: "spinner" | "skeleton";
+  sliderHeaderComponent: React.ReactNode;
 };
 
-const Slider = ({ sliderData, initData }: SliderProps) => {
+const Slider = ({
+  sliderData,
+  initData,
+  imageAspectRatio = "9:16",
+  imageLoaderType = "spinner",
+  sliderHeaderComponent,
+}: SliderProps) => {
   const [data, setData] = React.useState<MediaCardData[]>(sliderData.slice(1));
   const [transitionData, setTransitionData] = React.useState<MediaCardData>(
     sliderData[0],
@@ -28,18 +36,16 @@ const Slider = ({ sliderData, initData }: SliderProps) => {
   return (
     <AnimatePresence>
       <div className=" flex h-full w-full grid-cols-10 flex-col md:grid">
-        <SliderHeader
-          sectionTitle="Popular Movies"
-          viewAllLink="/movies/popular"
-        />
+        {sliderHeaderComponent}
+
         <div className=" col-span-6 mt-4 flex h-full flex-1 flex-col justify-start md:justify-center lg:mt-6 ">
           <SliderBody>
             {data.map((data) => (
               <MotionMediaCard
                 key={data.id}
                 data={data}
-                aspect_ratio="9:16"
-                loaderType="spinner"
+                aspect_ratio={imageAspectRatio}
+                loaderType={imageLoaderType}
               />
             ))}
           </SliderBody>
