@@ -1,11 +1,10 @@
-
 import { getPopularTVShowsForPages } from "@/lib/tmdb-api/popular";
 
 import Slider from "@/components/slider/Slider";
 import MediaCard from "@/components/MediaCard";
 
 const PopularTvShowsSlider = async () => {
-  const { data: popularTVShows, error } = await getPopularTVShowsForPages(10);
+  const { data: popularTVShows, error } = await getPopularTVShowsForPages(1);
 
   if (error) {
     return <div>Error: {error}</div>;
