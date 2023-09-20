@@ -8,19 +8,15 @@ interface SimilarApiResponse<T> {
   error: string | null;
 }
 
-
 // fetch similar movies for a movie
 export async function fetchSimilarMovies(
   movieId: string,
 ): Promise<SimilarApiResponse<SimilarMovie[]>> {
   const apiUrl = `${BASE_URL}/movie/${movieId}/similar?api_key=${API_KEY}&language=en-US&page=1`;
 
-  console.log("apiUrl", apiUrl);
-
   try {
-    const response: AxiosResponse<SimilarMoviesResponse> = await axios.get(
-      apiUrl,
-    );
+    const response: AxiosResponse<SimilarMoviesResponse> =
+      await axios.get(apiUrl);
     return { data: response.data.results, error: null };
   } catch (error) {
     const axiosError = error as AxiosError;

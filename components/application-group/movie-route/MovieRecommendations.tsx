@@ -2,8 +2,10 @@ import React from "react";
 
 import { fetchMovieRecommendations } from "@/lib/tmdb-api/recommendations";
 import { fetchSimilarMovies } from "@/lib/tmdb-api/similar";
+import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 
 import Skeleton from "@/components/Skeleton";
+import RecommendedMovieImage from "./RecommendedMovieImage";
 
 type MovieRecommendationsProps = {
   movieId: string;
@@ -19,6 +21,7 @@ const MovieRecommendations = async ({ movieId }: MovieRecommendationsProps) => {
     return <div>Error: {similarMoviesError || recommendedMoviesError}</div>;
   }
 
+  // If both similarMovies and recommendedMovies are undefined, return a loading state
   if (!similarMovies && !recommendedMovies) {
     return (
       <div className="grid grid-cols-2 gap-x-4 gap-y-12  md:grid-cols-3 lg:grid-cols-4">
@@ -29,13 +32,38 @@ const MovieRecommendations = async ({ movieId }: MovieRecommendationsProps) => {
     );
   }
 
+  // If recommendedMovies is undefined, return similarMovies
+  if (!recommendedMovies) {
+    return (
+      <div className="grid grid-cols-2 gap-x-4 gap-y-12  md:grid-cols-3 lg:grid-cols-4">
+        {similarMovies
+          ?.slice(0, 12)
+          .map((movie) => <div key={movie.id}>{movie.original_title}</div>)}
+      </div>
+    );
+  }
+
+  // If similarMovies is undefined, return recommendedMovies
+  if (!similarMovies) {
+    return (
+      <div className="grid grid-cols-2 gap-x-4 gap-y-12  md:grid-cols-3 lg:grid-cols-4">
+        {recommendedMovies
+          ?.slice(0, 12)
+          .map((movie) => <div key={movie.id}>{movie.original_title}</div>)}
+      </div>
+    );
+  }
+
+  // If both similarMovies and recommendedMovies are defined, return both
   return (
-    <section className="master-container pt-[70px] md:pt-0">
-      {/*  quick test -  Display the title of the movie recommendations */}
+    <div className="grid grid-cols-2 gap-x-4 gap-y-12  md:grid-cols-3 lg:grid-cols-4">
       {recommendedMovies
         ?.slice(0, 12)
         .map((movie) => <div key={movie.id}>{movie.original_title}</div>)}
-    </section>
+      {similarMovies
+        ?.slice(0, 12)
+        .map((movie) => <div key={movie.id}>{movie.original_title}</div>)}
+    </div>
   );
 };
 
