@@ -9,12 +9,12 @@ type Props = {
 function Progress({ curIndex, length }: Props) {
   return (
     <>
-      <div className=" flex h-[1px] flex-1 items-center rounded-full bg-white bg-opacity-50">
+      <div className=" flex h-[2px] flex-1 items-center rounded-full bg-white/30 bg-opacity-50">
         <div
           style={{
             width: (((curIndex + 1) / length) * 100).toString() + "%",
           }}
-          className={` h-[1px] rounded-full bg-[#e50914ff]  bg-opacity-50`}
+          className={` h-[2px] rounded-full bg-[#e50914ff]  bg-opacity-50`}
         ></div>
       </div>
       <span
