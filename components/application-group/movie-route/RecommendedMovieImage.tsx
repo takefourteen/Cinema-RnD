@@ -1,10 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 
-import Skeleton from "@/components/Skeleton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import ImageWithLoader from "./ImageWithLoader";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
@@ -20,24 +19,22 @@ const RecommendedMovieImage = async ({ movieId }: { movieId: string }) => {
     .split(" ")
     .join("-")}`;
 
-  //   only show images that have a backdrop_path || poster_path
-  if (!movieDetails?.backdrop_path && !movieDetails?.poster_path) {
+  // prepare img src url
+  const imageSrc = `${imageBaseUrl}${movieDetails?.backdrop_path}`;
+
+  //   only show images that have a backdrop_path
+  if (!movieDetails?.backdrop_path) {
     return null;
   }
 
   return (
     <li className="relative h-auto flex-1">
-      <Link href={moviePageUrl}>
+      <Link href={moviePageUrl} className="group rounded-md">
         <AspectRatio ratio={16 / 9}>
-          <Image
-            src={`${imageBaseUrl}${
-              movieDetails?.backdrop_path || movieDetails?.poster_path
-            }`}
-            alt={movieDetails?.original_title}
-            fill
-            className="rounded-md object-cover"
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-          />
+          <ImageWithLoader src={imageSrc} alt={movieDetails?.original_title} />
+
+          {/* overlay the image with a grain texture */}
+          <div className="absolute inset-0 bg-[url('/grain-texture-image.svg')] opacity-30" />
         </AspectRatio>
       </Link>
     </li>
