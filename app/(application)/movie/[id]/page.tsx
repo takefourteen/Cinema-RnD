@@ -33,9 +33,9 @@ const page = async ({ params }: PageProps) => {
       {/* Display Movie Recommendations */}
       <div className="master-container ">
         {/* Heading */}
-        <header className="mb-4 mt-8 md:mb-6 md:mt-4">
+        <header className="mb-4 mt-8 md:mb-6 md:mt-8">
           <h2 className="text-2xl font-bold capitalize text-white md:text-3xl ">
-            You may also enjoy...
+            Movies on Your Radar
           </h2>
         </header>
         <MovieRecommendations movieId={movieId} />
