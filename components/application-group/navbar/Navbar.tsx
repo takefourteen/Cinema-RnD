@@ -82,22 +82,22 @@ const Navbar = () => {
               alt="Netflix Logo"
               width={125}
               priority
-              className="hidden md:inline"
+              className="w-[100px] lg:w-[125px] "
             />
 
             {/* show sm logo on sm screens */}
-            <Image
+            {/* <Image
               src={smLogo}
               alt="Netflix Logo"
               width={50}
               priority
               className="inline md:hidden"
-            />
+            /> */}
           </Link>
         </div>
 
         {/* menu for lg screens */}
-        <div className="hidden items-center  uppercase lg:flex">
+        <div className="hidden items-center  uppercase md:flex">
           <NavLink href="#" active={pathname === "/movies"}>
             movies
           </NavLink>
@@ -132,7 +132,11 @@ const Navbar = () => {
           ) : (
             <>
               {/* Log in Button, using custom btn */}
-              <CustomButton asChild variant="outline">
+              <CustomButton
+                asChild
+                variant="outline"
+                additionalStyles="hidden lg:flex"
+              >
                 <Link href="/login">Log In</Link>
               </CustomButton>
 

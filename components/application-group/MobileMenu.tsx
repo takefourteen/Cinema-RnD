@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from "react";
 import { HiMenuAlt4 as HamburgerMenuIcon } from "react-icons/hi";
 import { IoMdClose } from "react-icons/io";
 import { Button } from "../ui/button";
+import { Separator } from "../ui/separator";
 
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,7 +53,8 @@ const MobileMenu = () => {
   }, [isOpen]);
 
   return (
-    <div className="lg:hidden" ref={menuRef}>
+    <div className="md:hidden" ref={menuRef}>
+      {/* Hamburger and Close Menu Btn */}
       <button
         className={`mr-4 block rounded-full text-white transition-colors hover:bg-white/10`}
         onClick={toggleMenu}
@@ -69,10 +71,12 @@ const MobileMenu = () => {
           )}
         </div>
       </button>
+
+      {/* Menu */}
       {isOpen && (
         <>
-          <ul className="absolute left-0 top-[65px] z-50 overflow-hidden bg-black/90  p-4 shadow-md transition-all md:top-[90px]">
-            <li className="mt-4 px-10  hover:bg-[#40445999]">
+          <ul className="absolute left-0 right-0 top-[65px] z-50 overflow-hidden bg-black/90  px-4 py-6 shadow-md transition-all md:top-[90px]">
+            <li className=" px-10  hover:bg-[#40445999]">
               <NavLink href="#">movies</NavLink>
             </li>
             <li className="mt-4 px-10 hover:bg-[#40445999]">
@@ -83,6 +87,11 @@ const MobileMenu = () => {
             </li>
             <li className="mt-4 px-10 hover:bg-[#40445999]">
               <NavLink href="/my-library">my library</NavLink>
+            </li>
+            {/* separator line and then login that goes to /login */}
+            <Separator className="mt-2 bg-white/40" />
+            <li className="mt-2 px-10 hover:bg-[#40445999]">
+              <NavLink href="/login">login</NavLink>
             </li>
           </ul>
 

@@ -7,6 +7,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   // Extend the default HTML button props
   variant?: "outline" | "default";
   asChild: boolean;
+  additionalStyles?: string;
   children: ReactNode;
 }
 
@@ -21,6 +22,7 @@ const CustomButton = ({
   variant = "default",
   asChild = false,
   children,
+  additionalStyles,
   ...props // Spread any additional HTML button props here
 }: ButtonProps) => {
   const baseStyles =
@@ -31,7 +33,7 @@ const CustomButton = ({
       asChild={asChild}
       variant={variant}
       {...props} // Spread any additional HTML button props here
-      className={`${baseStyles} ${variantStyles[variant]}`}
+      className={`${baseStyles} ${variantStyles[variant]} ${additionalStyles}`}
     >
       {children}
     </Button>
