@@ -6,7 +6,6 @@ import React, {
   useEffect,
   ButtonHTMLAttributes,
 } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 
 import {
