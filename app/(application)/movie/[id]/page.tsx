@@ -36,6 +36,11 @@ const page = async ({ params }: PageProps) => {
         <header className="mb-4 mt-8 md:mb-6 md:mt-8">
           <h2 className="text-2xl font-bold capitalize text-white md:text-3xl ">
             Movies on Your Radar
+            {/*
+              - A Taste of Your Style
+              - Curated Selection for You
+              - A Taste of Your Style
+            */}
           </h2>
         </header>
         <MovieRecommendations movieId={movieId} />

@@ -71,7 +71,7 @@ const MobileMenu = () => {
       </button>
       {isOpen && (
         <>
-          <ul className="absolute left-0 top-[65px] z-50 overflow-hidden bg-black/80  p-4 shadow-md transition-all md:top-[90px]">
+          <ul className="absolute left-0 top-[65px] z-50 overflow-hidden bg-black/90  p-4 shadow-md transition-all md:top-[90px]">
             <li className="mt-4 px-10  hover:bg-[#40445999]">
               <NavLink href="#">movies</NavLink>
             </li>
