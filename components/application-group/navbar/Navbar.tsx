@@ -23,6 +23,7 @@ const Navbar = () => {
   const { data: session, status } = useSession();
   const [scroll, setScroll] = useState(false);
   const [searchClicked, setsearchClicked] = useState<boolean>(false);
+  const [darkenBackground, setDarkenBackground] = useState<boolean>(false);
   const isSearchScreen = pathname === "/search";
   const isHomeScreen = pathname === "/";
   const scrollThreshold = 100; // Adjust this threshold as needed
@@ -46,6 +47,10 @@ const Navbar = () => {
     setsearchClicked((prev) => !prev);
   }
 
+  function handleDarkenBackground() {
+    setDarkenBackground((prev) => !prev);
+  }
+
   // function to sign out the user
   async function signOutUser() {
     try {
@@ -56,12 +61,15 @@ const Navbar = () => {
     }
   }
 
-  // Define classes based on the scroll state, and whether the search icon is clicked
-  const otherScreensNavbarClasses = `fixed   top-0 left-0 right-0 z-[99999] ${
-    scroll || searchClicked ? "bg-black" : "bg-transparent"
+  /*
+    Define classes based on the scroll state, whether the search icon is clicked, and 
+    is darkenBackground is true or false
+  */
+  const otherScreensNavbarClasses = `fixed  transition-all top-0 left-0 right-0 z-[99999] ${
+    scroll || searchClicked || darkenBackground ? "bg-black" : "bg-transparent"
   }`;
 
-  const searchScreenNavbarClasses = `fixed  top-0 left-0 right-0 z-[99999] bg-black/90`;
+  const searchScreenNavbarClasses = `fixed transition-all top-0 left-0 right-0 z-[99999] bg-black/90`;
 
   return (
     <nav
@@ -71,7 +79,7 @@ const Navbar = () => {
     >
       <section className="master-container flex items-center justify-between px-4 py-2">
         {/* Mobile menu for sm screens */}
-        <MobileMenu />
+        <MobileMenu onDarkenBackground={handleDarkenBackground} />
 
         {/* display logo */}
         <div className="mr-4 flex items-center">
@@ -82,7 +90,7 @@ const Navbar = () => {
               alt="Netflix Logo"
               width={125}
               priority
-              className="w-[100px] lg:w-[125px] "
+              className="w-[100px] md:w-[125px] "
             />
 
             {/* show sm logo on sm screens */}
@@ -97,7 +105,7 @@ const Navbar = () => {
         </div>
 
         {/* menu for lg screens */}
-        <div className="hidden items-center  uppercase md:flex">
+        <div className="hidden items-center  uppercase lg:flex">
           <NavLink href="#" active={pathname === "/movies"}>
             movies
           </NavLink>

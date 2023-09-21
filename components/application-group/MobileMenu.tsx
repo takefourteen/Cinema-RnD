@@ -8,12 +8,17 @@ import { IoMdClose } from "react-icons/io";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 
-const MobileMenu = () => {
+type MobileMenuProps = {
+  onDarkenBackground: () => void;
+};
+
+const MobileMenu = ({ onDarkenBackground }: MobileMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+    onDarkenBackground(); // darken the background when the menu is open
   };
 
   // Event listener to close the menu when the user clicks outside of it
@@ -21,6 +26,7 @@ const MobileMenu = () => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsOpen(false);
+        onDarkenBackground(); // darken the background when the menu is open
       }
     };
 
@@ -32,7 +38,7 @@ const MobileMenu = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, onDarkenBackground]);
 
   // Event listener to close the menu when the user presses the escape key
   useEffect(() => {
@@ -53,7 +59,7 @@ const MobileMenu = () => {
   }, [isOpen]);
 
   return (
-    <div className="md:hidden" ref={menuRef}>
+    <div className="lg:hidden" ref={menuRef}>
       {/* Hamburger and Close Menu Btn */}
       <button
         className={`mr-4 block rounded-full text-white transition-colors hover:bg-white/10`}
@@ -75,7 +81,7 @@ const MobileMenu = () => {
       {/* Menu */}
       {isOpen && (
         <>
-          <ul className="absolute left-0 right-0 top-[65px] z-50 overflow-hidden bg-black/90  px-4 py-6 shadow-md transition-all md:top-[90px]">
+          <ul className="absolute left-0 right-0 top-[80px] z-50 overflow-hidden bg-black/90 px-6  py-6 shadow-md transition-all md:right-auto md:top-[90px]">
             <li className=" px-10  hover:bg-[#40445999]">
               <NavLink href="#">movies</NavLink>
             </li>

@@ -46,7 +46,7 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
         }}
       >
         {/* Overlay with movie details */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent/10">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/70 to-black/60">
           <div className="master-container flex h-full flex-col justify-end pb-8 md:justify-center md:pb-0 lg:max-w-[80%]">
             <div className="text-start text-white">
               {/* movie production company logo */}
