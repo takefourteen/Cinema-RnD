@@ -31,7 +31,7 @@ const page = async ({ params }: PageProps) => {
       <MovieHeader movieDetails={movieDetails} />
 
       {/* Display Movie Recommendations */}
-      <div className="master-container ">
+      <div className="master-container mx-auto lg:max-w-[80%]">
         {/* Heading */}
         <header className="mb-4 mt-8 md:mb-6 md:mt-8">
           <h2 className="text-2xl font-bold capitalize text-white md:text-3xl ">
