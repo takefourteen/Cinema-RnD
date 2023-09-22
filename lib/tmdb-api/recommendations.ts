@@ -12,21 +12,23 @@ interface RecommendationsApiResponse<T> {
 export async function fetchMovieRecommendations(
   movieId: string,
 ): Promise<RecommendationsApiResponse<RecommendedMovie[]>> {
-  const apiUrl = `${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US&page=1`;
+  const apiUrl = `${BASE_URL}/movie/${movieId}/recommendations?api_key=a${API_KEY}&language=en-US&page=1`;
 
   try {
     const response: AxiosResponse<MovieRecommendationsResponse> =
       await axios.get(apiUrl);
     return { data: response.data.results, error: null };
   } catch (error) {
-    const axiosError = error as AxiosError;
+    const axiosError = error as AxiosError | any;
 
     if (axiosError.response) {
-      // The request was made and the server responded with a status code that falls out of the range of 2xx
-      return {
-        data: null,
-        error: `Request failed with status code ${axiosError.response.status}`,
-      };
+       // Extract the error message from the response data
+       const errorMessage = axiosError.response.data.status_message || "Unknown error occurred";
+
+       return {
+         data: null,
+         error: `Request failed: ${errorMessage}`,
+       };
     } else if (axiosError.request) {
       // The request was made but no response was received
       return { data: null, error: "No response received from the server" };
