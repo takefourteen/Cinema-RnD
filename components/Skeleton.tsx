@@ -1,16 +1,22 @@
+import "./Skeleton.css";
+
 interface SkeletonProps {
   rows?: number;
   mainItemHeight?: number;
   showOverlay?: boolean;
 }
 
-const Skeleton = ({ rows = 1, mainItemHeight = 50, showOverlay = true }: SkeletonProps) => {
+const Skeleton = ({
+  rows = 1,
+  mainItemHeight = 50,
+  showOverlay = true,
+}: SkeletonProps) => {
   return (
     <div className="relative flex h-full flex-1 flex-col">
       <div
-        className="h-full w-full animate-pulse rounded-lg bg-slate-400"
+        className="gradientAnimation h-full w-full rounded-lg"
         style={{
-          animationDuration: "1s",
+          // animationDuration: "1s",
           minHeight: `${mainItemHeight}px`,
         }}
       />
@@ -19,10 +25,10 @@ const Skeleton = ({ rows = 1, mainItemHeight = 50, showOverlay = true }: Skeleto
           {Array.from({ length: rows }, (_, i) => i + 1).map((_, i) => (
             <div
               key={i}
-              className="h-3 w-full animate-pulse rounded-lg bg-slate-300"
+              className="gradientAnimation h-3 w-full rounded-lg"
               style={{
-                animationDelay: `${i * 0.1}s`,
-                animationDuration: "1s",
+                // animationDelay: `${i * 0.1}s`,
+                // animationDuration: "1s",
                 width: `${Math.floor(Math.random() * 71) + 30}%`, // Generates a random number between 30 and 100 (inclusive)
               }}
             />
