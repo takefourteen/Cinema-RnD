@@ -42,46 +42,52 @@ const MovieRecommendations = async ({ movieId }: MovieRecommendationsProps) => {
   // If both similarMovies and recommendedMovies are undefined, return a loading state
   if (!similarMovies && !recommendedMovies) {
     return (
-      <div className="grid grid-cols-2 gap-x-4 gap-y-12  md:grid-cols-3 lg:grid-cols-4">
+      <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
         {Array.from({ length: 8 }, (_, i) => i + 1).map((_, i) => (
           <Skeleton key={i} rows={0} mainItemHeight={100} />
         ))}
-      </div>
+      </ul>
     );
   }
 
   // If recommendedMovies is undefined, return similarMovies
   if (!recommendedMovies) {
     return (
-      <div className="grid grid-cols-2 gap-x-4 gap-y-12  md:grid-cols-3 lg:grid-cols-4">
-        {similarMovies
-          ?.slice(0, 12)
-          .map((movie) => <div key={movie.id}>{movie.original_title}</div>)}
-      </div>
+      <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
+        {filteredSimilarMovies.slice(0, 12).map((similarMovie) => (
+          <RecommendedMovieImage
+            key={similarMovie.id}
+            movieId={similarMovie.id.toString()}
+          />
+        ))}
+      </ul>
     );
   }
 
   // If similarMovies is undefined, return recommendedMovies
   if (!similarMovies) {
     return (
-      <div className="grid grid-cols-2 gap-x-4 gap-y-12  md:grid-cols-3 lg:grid-cols-4">
-        {recommendedMovies
-          ?.slice(0, 12)
-          .map((movie) => <div key={movie.id}>{movie.original_title}</div>)}
-      </div>
+      <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
+        {filteredRecommendedMovies.slice(0, 12).map((recommendedMovie) => (
+          <RecommendedMovieImage
+            key={recommendedMovie.id}
+            movieId={recommendedMovie.id.toString()}
+          />
+        ))}
+      </ul>
     );
   }
 
   // If both similarMovies and recommendedMovies are defined, return both
   return (
     <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
-      {filteredRecommendedMovies.slice(0, 10).map((recommendedMovie) => (
+      {filteredRecommendedMovies.slice(0, 8).map((recommendedMovie) => (
         <RecommendedMovieImage
           key={recommendedMovie.id}
           movieId={recommendedMovie.id.toString()}
         />
       ))}
-      {filteredSimilarMovies.slice(0, 10).map((similarMovie) => (
+      {filteredSimilarMovies.slice(0, 8).map((similarMovie) => (
         <RecommendedMovieImage
           key={similarMovie.id}
           movieId={similarMovie.id.toString()}
