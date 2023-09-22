@@ -18,8 +18,12 @@ const page = async ({ params }: PageProps) => {
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
   const movieId = id.split("-")[0];
 
+  /*
+    if there is an error fetching similarMovies and recommendedMovies, 
+    throw an error that will be caught by the ErrorBoundary (error.tsx)
+   */
   if (error) {
-    return <div>Error: {error}</div>;
+    throw new Error(`Error fetching movie details: ${error}`);
   }
 
   if (!movieDetails) {

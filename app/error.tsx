@@ -23,7 +23,7 @@ export default function Error({
   const router = useRouter();
   console.log(error.message);
   return (
-    <div className="flex h-screen flex-col items-center justify-center  text-white">
+    <div className="master-container mx-auto flex h-screen flex-col items-center justify-center text-white  lg:max-w-[80%]">
       <Image src={logo} alt="Logo" width={200} className="mb-10" />
 
       <h1 className="mb-2 text-3xl font-bold md:text-4xl lg:text-5xl">

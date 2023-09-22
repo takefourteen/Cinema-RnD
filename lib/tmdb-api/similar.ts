@@ -12,7 +12,7 @@ interface SimilarApiResponse<T> {
 export async function fetchSimilarMovies(
   movieId: string,
 ): Promise<SimilarApiResponse<SimilarMovie[]>> {
-  const apiUrl = `${BASE_URL}/movie/${movieId}/similar?api_key=4${API_KEY}&language=en-US&page=1`;
+  const apiUrl = `${BASE_URL}/movie/${movieId}/similar?api_key=${API_KEY}&language=en-US&page=1`;
 
   try {
     const response: AxiosResponse<SimilarMoviesResponse> =

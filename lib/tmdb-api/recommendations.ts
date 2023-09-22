@@ -12,7 +12,7 @@ interface RecommendationsApiResponse<T> {
 export async function fetchMovieRecommendations(
   movieId: string,
 ): Promise<RecommendationsApiResponse<RecommendedMovie[]>> {
-  const apiUrl = `${BASE_URL}/movie/${movieId}/recommendations?api_key=a${API_KEY}&language=en-US&page=1`;
+  const apiUrl = `${BASE_URL}/movie/${movieId}/recommendations?api_key=${API_KEY}&language=en-US&page=1`;
 
   try {
     const response: AxiosResponse<MovieRecommendationsResponse> =

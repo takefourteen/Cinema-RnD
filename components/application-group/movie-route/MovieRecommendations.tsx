@@ -17,15 +17,23 @@ const MovieRecommendations = async ({ movieId }: MovieRecommendationsProps) => {
   const { data: recommendedMovies, error: recommendedMoviesError } =
     await fetchMovieRecommendations(movieId);
 
+  /*
+    if there is an error fetching similarMovies and recommendedMovies, 
+    throw an error that will be caught by the ErrorBoundary (error.tsx)
+   */
   if (similarMoviesError && recommendedMoviesError) {
-    return <div>Error: {similarMoviesError || recommendedMoviesError}</div>;
+    throw new Error(
+      `Error fetching similar movies and recommended movies: ${similarMoviesError} and ${recommendedMoviesError}`,
+    );
   }
 
-  
   // =========================================
   // Filter out movies that are not in english
   // =========================================
-  const filteredSimilarMovies = filterResultsByLanguage(similarMovies || [], "en");
+  const filteredSimilarMovies = filterResultsByLanguage(
+    similarMovies || [],
+    "en",
+  );
   const filteredRecommendedMovies = filterResultsByLanguage(
     recommendedMovies || [],
     "en",
@@ -52,7 +60,6 @@ const MovieRecommendations = async ({ movieId }: MovieRecommendationsProps) => {
       </div>
     );
   }
-  
 
   // If similarMovies is undefined, return recommendedMovies
   if (!similarMovies) {
@@ -64,7 +71,6 @@ const MovieRecommendations = async ({ movieId }: MovieRecommendationsProps) => {
       </div>
     );
   }
-
 
   // If both similarMovies and recommendedMovies are defined, return both
   return (
