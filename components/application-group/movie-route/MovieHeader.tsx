@@ -63,7 +63,7 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
               </h1>
 
               {/* movie genres */}
-              <div className="flex flex-wrap">
+              <div className="flex lg:mt-1 flex-wrap">
                 {movieDetails.genres.map((genre, index) => (
                   <span
                     key={genre.id}
@@ -85,7 +85,7 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
 
               {/* movie starring, if there is a cast to display */}
               {cast && (
-                <div className="mt-6 flex flex-wrap items-baseline tracking-wide">
+                <div className="mt-6 lg:mt-8 flex flex-wrap items-baseline tracking-wide">
                   <h3 className=" font-bold">Starring: &nbsp;</h3>
                   {cast.map((castMember, index) => (
                     <span
@@ -103,7 +103,7 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
 
               {/* movie director, if there is a director to display */}
               {director && (
-                <div className="flex flex-wrap items-baseline tracking-wide">
+                <div className="flex lg:mt-1 flex-wrap items-baseline tracking-wide">
                   <h3 className=" font-bold">Director: &nbsp;</h3>
                   <span className="font-semibold  text-white/70">
                     {director.name}
@@ -112,7 +112,7 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
               )}
 
               {/* movie rating and movie duration */}
-              <div className="items-cemter mt-4 flex flex-wrap">
+              <div className="items-cemter mt-4 lg:mt-6 flex flex-wrap">
                 <span className="flex items-center tracking-wide text-white/70 ">
                   <AiFillStar className="mr-1 inline-block h-[14px] w-[14px] text-white/70" />{" "}
                   {movieDetails.vote_average}

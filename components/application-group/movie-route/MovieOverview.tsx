@@ -15,7 +15,7 @@ const MovieOverview: React.FC<MovieOverviewProps> = ({ overview }) => {
   };
 
   return (
-    <div className="mt-6 md:w-[30rem] lg:w-[36rem] lg:tracking-wider">
+    <div className="mt-6 lg:mt-8 md:w-[30rem] lg:w-[36rem] lg:tracking-wider">
       <p
         className="cursor-pointer text-base tracking-wide text-white lg:text-lg"
         onClick={toggleOverview}
