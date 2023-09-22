@@ -1,19 +1,33 @@
 import Image from "next/image";
 
-import { BsFillPlayFill } from "react-icons/bs";
+import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
+
 import { AiFillStar } from "react-icons/ai";
-import { Button } from "@/components/ui/button";
 import PlayButton from "@/components/PlayButton";
 import MovieOverview from "./MovieOverview";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface MovieHeaderProps {
-  movieDetails: MovieDetailsData;
+  movieId: string;
 }
 
 const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
-const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
+const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
+  const { data: movieDetails, error } = await fetchMovieDetails(movieId);
   // console.log(movieDetails);
+
+  /*
+    if there is an error fetching similarMovies and recommendedMovies, 
+    throw an error that will be caught by the ErrorBoundary (error.tsx)
+   */
+  if (error) {
+    throw new Error(`Error fetching movie details: ${error}`);
+  }
+
+  if (!movieDetails) {
+    return <div>Loading...</div>;
+  }
 
   // look for the first production company that has a logo path
   const productionCompany = movieDetails.production_companies.find(
@@ -24,20 +38,17 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
   const director = movieDetails.credits?.crew.find(
     (crew) => crew.job === "Director",
   );
-
   // get the first few cast members, if they exist
   const cast = movieDetails.credits?.cast.slice(0, 3);
-
   // round the vote average to the nearest 1 decimal place
   movieDetails.vote_average = Math.round(movieDetails.vote_average * 10) / 10;
-
   // change the time format from minutes to hours and minutes
   const runtime = `${Math.floor(movieDetails.runtime / 60)}h ${
     movieDetails.runtime % 60
   }m`;
 
   return (
-    <div className="relative h-[70dvh] md:h-[80dvh] lg:h-[90dvh]">
+    <div className="relative min-h-[85dvh] sm:h-[80dvh] md:h-[70dvh] lg:h-[90dvh]">
       {/* Backdrop image */}
       <div
         className={`absolute inset-0 bg-cover bg-center bg-no-repeat`}
@@ -46,9 +57,14 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
         }}
       >
         {/* Overlay with movie details */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/70 to-black/60">
-          <div className="master-container flex h-full flex-col justify-end pb-8 md:justify-center md:pb-0 lg:max-w-[80%]">
-            <div className="text-start text-white">
+        <div
+          className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/70 to-black/60
+           lg:from-black/90 lg:via-black/80 lg:to-black/70
+        "
+        >
+          <div className="master-container flex h-full flex-row items-end pb-12 md:items-center md:pb-0 lg:max-w-[80%] lg:justify-center lg:gap-x-8">
+            {/* Display relavent information about the movie */}
+            <div className="text-start text-white ">
               {/* movie production company logo */}
               {/* see below for code to display the production company logo */}
 
@@ -63,7 +79,7 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
               </h1>
 
               {/* movie genres */}
-              <div className="flex lg:mt-1 flex-wrap">
+              <div className="flex flex-wrap lg:mt-1">
                 {movieDetails.genres.map((genre, index) => (
                   <span
                     key={genre.id}
@@ -71,7 +87,7 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
                   >
                     {genre.name}
                     {index < movieDetails.genres.length - 1 ? (
-                      <span className="mx-2 text-white/70">&bull;</span>
+                      <span className="mx-2 text-white/70"> &#124;</span>
                     ) : null}
                   </span>
                 ))}
@@ -85,7 +101,7 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
 
               {/* movie starring, if there is a cast to display */}
               {cast && (
-                <div className="mt-6 lg:mt-8 flex flex-wrap items-baseline tracking-wide">
+                <div className="mt-6 flex flex-wrap items-baseline tracking-wide lg:mt-8">
                   <h3 className=" font-bold">Starring: &nbsp;</h3>
                   {cast.map((castMember, index) => (
                     <span
@@ -103,7 +119,7 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
 
               {/* movie director, if there is a director to display */}
               {director && (
-                <div className="flex lg:mt-1 flex-wrap items-baseline tracking-wide">
+                <div className="flex flex-wrap items-baseline tracking-wide lg:mt-1">
                   <h3 className=" font-bold">Director: &nbsp;</h3>
                   <span className="font-semibold  text-white/70">
                     {director.name}
@@ -112,7 +128,7 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
               )}
 
               {/* movie rating and movie duration */}
-              <div className="items-cemter mt-4 lg:mt-6 flex flex-wrap">
+              <div className="items-cemter mt-4 flex flex-wrap lg:mt-6">
                 <span className="flex items-center tracking-wide text-white/70 ">
                   <AiFillStar className="mr-1 inline-block h-[14px] w-[14px] text-white/70" />{" "}
                   {movieDetails.vote_average}
@@ -123,6 +139,21 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
                 </span>
               </div>
             </div>
+
+            {/* poster image on medium screen */}
+            <div className="hidden md:block">
+              <div className="relative mt-8 h-auto w-[200px] lg:w-[300px]">
+                <AspectRatio ratio={2 / 3}>
+                  <Image
+                    src={`${BASE_IMG_URL}${movieDetails.poster_path}`}
+                    alt={movieDetails.original_title}
+                    fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+                    className="object-contain"
+                  />
+                </AspectRatio>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -130,7 +161,7 @@ const MovieHeader: React.FC<MovieHeaderProps> = ({ movieDetails }) => {
   );
 };
 
-export default MovieHeader;
+export default MovieDetailsTop;
 
 /* 
  Display the image if it exists 

@@ -2,7 +2,13 @@ const loading = () => {
   // const loading = "...";
 
   return (
-    <div className="flex h-screen items-center justify-center  bg-[url('/dark-body-bg.jpg')] p-5">
+    <div
+      className="flex h-screen items-center justify-center p-5"
+      style={{
+        background:
+          "radial-gradient(50% 50% at 50% 50%,#17003d 0%,#000000 100%)",
+      }}
+    >
       <span className="ml-2  flex items-center space-x-2 ">
         <div className="h-5 w-5 animate-bounce rounded-full border-2 p-1 delay-100"></div>
         <div className="h-5 w-5 animate-bounce rounded-full border-2 p-1 delay-200"></div>

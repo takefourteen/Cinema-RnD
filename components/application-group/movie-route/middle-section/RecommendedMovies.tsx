@@ -7,11 +7,11 @@ import { filterResultsByLanguage } from "@/lib/tmdb-api/search";
 import Skeleton from "@/components/Skeleton";
 import RecommendedMovieImage from "./RecommendedMovieImage";
 
-type MovieRecommendationsProps = {
+type RecommendedMoviesProps = {
   movieId: string;
 };
 
-const MovieRecommendations = async ({ movieId }: MovieRecommendationsProps) => {
+const RecommendedMovies = async ({ movieId }: RecommendedMoviesProps) => {
   const { data: similarMovies, error: similarMoviesError } =
     await fetchSimilarMovies(movieId);
   const { data: recommendedMovies, error: recommendedMoviesError } =
@@ -97,4 +97,4 @@ const MovieRecommendations = async ({ movieId }: MovieRecommendationsProps) => {
   );
 };
 
-export default MovieRecommendations;
+export default RecommendedMovies;

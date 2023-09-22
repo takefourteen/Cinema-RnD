@@ -7,7 +7,7 @@ interface MovieOverviewProps {
 }
 
 const MovieOverview: React.FC<MovieOverviewProps> = ({ overview }) => {
-  const maxOverviewLength = 150; // Maximum length to display initially
+  const maxOverviewLength = 100; // Maximum length to display initially
   const [showFullOverview, setShowFullOverview] = useState(false);
 
   const toggleOverview = () => {
@@ -15,7 +15,7 @@ const MovieOverview: React.FC<MovieOverviewProps> = ({ overview }) => {
   };
 
   return (
-    <div className="mt-6 lg:mt-8 md:w-[30rem] lg:w-[36rem] lg:tracking-wider">
+    <div className="group mt-6 sm:w-[30rem] lg:mt-8 lg:w-[36rem] lg:tracking-wider">
       <p
         className="cursor-pointer text-base tracking-wide text-white lg:text-lg"
         onClick={toggleOverview}
@@ -26,7 +26,7 @@ const MovieOverview: React.FC<MovieOverviewProps> = ({ overview }) => {
               overview.length > maxOverviewLength ? "..." : ""
             }`}
         <span
-          className="ml-1 cursor-pointer text-sm text-gray-400 lg:text-base"
+          className="ml-1 cursor-pointer text-sm text-gray-400 group-hover:underline group-hover:underline-offset-1 lg:text-base"
           onClick={toggleOverview}
         >
           {showFullOverview ? "Read less" : "Read more"}

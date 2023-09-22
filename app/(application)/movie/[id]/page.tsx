@@ -1,9 +1,7 @@
 import React from "react";
 
-import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
-
-import MovieHeader from "@/components/application-group/movie-route/MovieHeader";
-import MovieRecommendations from "@/components/application-group/movie-route/MovieRecommendations";
+import MovieDetailsTop from "@/components/application-group/movie-route/top-section/MovieDetailsTop";
+import MovieDetailsMiddle from "@/components/application-group/movie-route/middle-section/MovieDetailsMiddle";
 
 type PageProps = {
   params: {
@@ -13,42 +11,17 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   const { id } = params;
-  const { data: movieDetails, error } = await fetchMovieDetails(id);
 
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
   const movieId = id.split("-")[0];
 
-  /*
-    if there is an error fetching similarMovies and recommendedMovies, 
-    throw an error that will be caught by the ErrorBoundary (error.tsx)
-   */
-  if (error) {
-    throw new Error(`Error fetching movie details: ${error}`);
-  }
-
-  if (!movieDetails) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <section className="pb-[70px] text-white">
-      <MovieHeader movieDetails={movieDetails} />
+      {/* Top Section */}
+      <MovieDetailsTop movieId={movieId} />
 
-      {/* Display Movie Recommendations */}
-      <div className="master-container mx-auto lg:max-w-[80%]">
-        {/* Heading */}
-        <header className="mb-4 mt-8 md:mb-6 md:mt-8">
-          <h2 className="text-2xl font-bold capitalize text-white md:text-3xl ">
-            Movies on Your Radar
-            {/*
-              - A Taste of Your Style
-              - Curated Selection for You
-              - A Taste of Your Style
-            */}
-          </h2>
-        </header>
-        <MovieRecommendations movieId={movieId} />
-      </div>
+      {/* Middle Section */}
+      <MovieDetailsMiddle movieId={movieId} />
     </section>
   );
 };
