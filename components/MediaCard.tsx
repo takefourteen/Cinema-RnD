@@ -86,11 +86,14 @@ const MediaCard = ({
             />
           </AspectRatio>
           {/* Display the media title with truncation */}
-          <p
-            className={`mt-4 truncate text-start text-xs font-normal tracking-wide text-white group-focus-visible:underline md:text-sm lg:text-base `}
-          >
-            {data.original_title || data.original_name || "Unknown Title"}
-          </p>{" "}
+          {/* only on 16:9 aspect ratios */}
+          {aspect_ratio === "16:9" ? (
+            <p
+              className={`mt-4 truncate text-start text-sm font-normal tracking-wide text-white group-focus-visible:underline md:text-sm lg:text-base `}
+            >
+              {data.original_title || data.original_name || "Unknown Title"}
+            </p>
+          ) : null}
         </Link>
       </li>
     ) : null
