@@ -67,7 +67,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({
               </h1>
 
               {/* movie genres */}
-              <div className="flex flex-wrap gap-1 lg:mt-1">
+              <div className="mt-1 flex flex-wrap gap-1">
                 {movieDetails.genres.map((genre, index) => (
                   <Chip key={genre.id}>{genre.name}</Chip>
                 ))}
