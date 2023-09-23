@@ -5,6 +5,7 @@ import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { AiFillStar } from "react-icons/ai";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageWithLoader from "./ImageWithLoader";
+import Chip from "../Chip";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
@@ -73,14 +74,5 @@ const RecommendedMovieImage = async ({ movieId }: { movieId: string }) => {
     </li>
   );
 };
-
-// chip component used in image overlay to display the movie rating or the release date
-const Chip = ({ children }: { children: React.ReactNode }) => (
-  <div className="m-1 flex  items-center justify-center rounded-full bg-black/30  px-2 py-1  text-white">
-    <div className="max-w-full flex-initial text-xs font-semibold leading-none tracking-wide xl:text-sm">
-      {children}
-    </div>
-  </div>
-);
 
 export default RecommendedMovieImage;

@@ -6,6 +6,7 @@ import { AiFillStar } from "react-icons/ai";
 import PlayButton from "@/components/PlayButton";
 import MovieOverview from "./MovieOverview";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Chip from "../Chip";
 
 interface MovieHeaderProps {
   movieId: string;
@@ -48,7 +49,8 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   }m`;
 
   return (
-    <div className="relative min-h-[85dvh] sm:h-[80dvh] md:h-[70dvh] lg:h-[90dvh]">
+    <div className="relative min-h-[100dvh] sm:min-h-[50rem] md:min-h-[40rem] lg:min-h-[50rem]">
+      {" "}
       {/* Backdrop image */}
       <div
         className={`absolute inset-0 bg-cover bg-center bg-no-repeat`}
@@ -79,17 +81,18 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
               </h1>
 
               {/* movie genres */}
-              <div className="flex flex-wrap lg:mt-1">
+              <div className="flex flex-wrap gap-1 lg:mt-1">
                 {movieDetails.genres.map((genre, index) => (
-                  <span
-                    key={genre.id}
-                    className="font-semibold tracking-wide text-white/70"
-                  >
-                    {genre.name}
-                    {index < movieDetails.genres.length - 1 ? (
-                      <span className="mx-2 text-white/70"> &#124;</span>
-                    ) : null}
-                  </span>
+                  <Chip key={genre.id}>{genre.name}</Chip>
+                  // <span
+                  //   key={genre.id}
+                  //   className="text-sm font-semibold tracking-wide text-white/70"
+                  // >
+                  //   {genre.name}
+                  //   {index < movieDetails.genres.length - 1 ? (
+                  //     <span className="mx-2 text-white/70"> &#124;</span>
+                  //   ) : null}
+                  // </span>
                 ))}
               </div>
 
@@ -162,27 +165,3 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
 };
 
 export default MovieDetailsTop;
-
-/* 
- Display the image if it exists 
-{productionCompany?.logo_path ? (
-                <div>
-                  <div className="relative min-h-[40px] w-[150px] lg:h-[100px] lg:w-[200px]">
-                    <Image
-                      src={`${BASE_IMG_URL}${productionCompany.logo_path}`}
-                      alt={productionCompany.name}
-                      fill
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-                      className="object-contain"
-                    />
-                  </div>
-                </div>
-              ) : (
-                // Display the name if image doesn't exist
-                productionCompany?.name && (
-                  <h2 className="text-2xl font-bold">
-                    {productionCompany.name}
-                  </h2>
-                )
-              )}
-*/
