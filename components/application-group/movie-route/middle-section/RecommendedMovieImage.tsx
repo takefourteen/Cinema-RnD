@@ -49,14 +49,16 @@ const RecommendedMovieImage = async ({ movieId }: { movieId: string }) => {
           {/* overlay the image with some info */}
           <div className="absolute inset-0 flex flex-col justify-between p-2">
             {/* the movie rating and release date as Chip components*/}
-            <div className="flex flex-wrap">
-              <Chip>
+            <div className="flex flex-wrap gap-1">
+              <Chip border={false}>
                 <span className="flex items-center">
                   <AiFillStar className="mr-1 inline-block" />
                   {movieDetails.vote_average}
                 </span>
               </Chip>
-              <Chip>{new Date(movieDetails.release_date).getFullYear()}</Chip>
+              <Chip border={false}>
+                {new Date(movieDetails.release_date).getFullYear()}
+              </Chip>
             </div>
 
             {/* the movie title and runtime */}
