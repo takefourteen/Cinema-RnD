@@ -1,7 +1,5 @@
 import Image from "next/image";
 
-import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
-
 import { AiFillStar } from "react-icons/ai";
 import PlayButton from "@/components/PlayButton";
 import MovieOverview from "./MovieOverview";
@@ -9,32 +7,18 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Chip from "../Chip";
 
 interface MovieHeaderProps {
-  movieId: string;
+  movieDetails: MovieDetailsData;
 }
 
 const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
-const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
-  const { data: movieDetails, error } = await fetchMovieDetails(movieId);
-  // console.log(movieDetails);
-
-  /*
-    if there is an error fetching similarMovies and recommendedMovies, 
-    throw an error that will be caught by the ErrorBoundary (error.tsx)
-   */
-  if (error) {
-    throw new Error(`Error fetching movie details: ${error}`);
-  }
-
-  if (!movieDetails) {
-    return <div>Loading...</div>;
-  }
-
+const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({
+  movieDetails,
+}) => {
   // look for the first production company that has a logo path
   const productionCompany = movieDetails.production_companies.find(
     (company) => company.logo_path,
   );
-
   // get the director name
   const director = movieDetails.credits?.crew.find(
     (crew) => crew.job === "Director",
@@ -84,15 +68,6 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
               <div className="flex flex-wrap gap-1 lg:mt-1">
                 {movieDetails.genres.map((genre, index) => (
                   <Chip key={genre.id}>{genre.name}</Chip>
-                  // <span
-                  //   key={genre.id}
-                  //   className="text-sm font-semibold tracking-wide text-white/70"
-                  // >
-                  //   {genre.name}
-                  //   {index < movieDetails.genres.length - 1 ? (
-                  //     <span className="mx-2 text-white/70"> &#124;</span>
-                  //   ) : null}
-                  // </span>
                 ))}
               </div>
 
