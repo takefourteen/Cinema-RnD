@@ -1,7 +1,6 @@
 import TabsNavigation from "./TabsNavigation";
 import RecommendedMovies from "@/components/application-group/movie-route/middle-section/RecommendedMovies";
 import AboutTheMovie from "./AboutTheMovie";
-import { Separator } from "@/components/ui/separator";
 
 type MovieDetailsMiddleProps = {
   movieId: string;
