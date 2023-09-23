@@ -3,9 +3,11 @@ import Image from "next/image";
 
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 
-import Chip from "../Chip";
 import { AiFillStar } from "react-icons/ai";
+import { IoMdAdd } from "react-icons/io";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { Button } from "@/components/ui/button";
+import Chip from "../Chip";
 
 type AboutTheMovieProps = {
   movieId: string;
@@ -49,17 +51,13 @@ const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
 
   return (
     <section>
-      <h2 className="mb-4 text-2xl font-bold text-white/70 md:text-3xl">
-        About this movie
-      </h2>
-
       <div className="flex h-full flex-row items-start justify-start  lg:gap-x-8">
         {/* -------------------------------------------- */}
         {/* Display relavent information about the movie */}
         {/* -------------------------------------------- */}
 
         {/* poster image on medium screens and above */}
-        <div className="hidden md:block">
+        <div className="hidden lg:block">
           <div className="relative h-auto w-[200px] lg:w-[300px]">
             <AspectRatio ratio={2 / 3}>
               <Image
@@ -71,37 +69,38 @@ const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
               />
             </AspectRatio>
           </div>
+
+          {/* add to library button */}
+          <div className="mt-6">
+            <Button
+              variant={"outline"}
+              className="flex w-full items-center justify-center rounded-sm text-base font-semibold text-white "
+            >
+              <IoMdAdd className="mr-2 inline-block h-5 w-5" /> Add to Library
+            </Button>
+          </div>
         </div>
 
         <div className="text-start text-white ">
-          {/* movie production company logo */}
-          {/* see below for code to display the production company logo */}
 
           {/* movie title with release year*/}
           <h1 className="text-2xl font-bold md:text-3xl">
             {movieDetails.original_title}
-            {/* add space */}
-            &nbsp;
-            <span className="ml-2  font-normal tracking-wide text-white/70">
-              {new Date(movieDetails.release_date).getFullYear()}
-            </span>
           </h1>
 
           {/* movie genres */}
-          <div className="flex flex-wrap gap-1 lg:mt-1">
+          <div className="mt-2 flex flex-wrap gap-1 text-white/70">
             {movieDetails.genres.map((genre, index) => (
               <Chip key={genre.id}>{genre.name}</Chip>
             ))}
           </div>
 
           {/* ------------------------------------------------ */}
-          {/* movie overview using the MovieOverview component */}
+          {/* movie overview */}
           {/* ------------------------------------------------ */}
           <p className="mt-6 text-base tracking-wide text-white lg:mt-8 lg:text-lg">
             {movieDetails.overview}
           </p>
-
-          {/* add to library button */}
 
           {/* movie starring, if there is a cast to display */}
           {cast && (
@@ -131,16 +130,30 @@ const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
             </div>
           )}
 
-          {/* movie rating and movie duration */}
+          {/* movie rating, movie duration, and release date */}
           <div className="items-cemter mt-4 flex flex-wrap lg:mt-6">
             <span className="flex items-center tracking-wide text-white/70 ">
               <AiFillStar className="mr-1 inline-block h-[14px] w-[14px] text-white/70" />{" "}
               {movieDetails.vote_average}
             </span>
             <span className="mx-2 text-white/70">&bull;</span>
+            <span className="font-normal tracking-wide text-white/70">
+              {new Date(movieDetails.release_date).getFullYear()}
+            </span>
+            <span className="mx-2 text-white/70">&bull;</span>
             <span className="font-semibold tracking-wide text-white/70">
               {runtime}
             </span>
+          </div>
+
+           {/* add to library button */}
+           <div className="mt-6 lg:hidden">
+            <Button
+              variant={"outline"}
+              className="flex w-full items-center justify-center rounded-sm text-base  font-semibold text-white "
+            >
+              <IoMdAdd className="mr-2 inline-block h-5 w-5" /> Add to Library
+            </Button>
           </div>
         </div>
       </div>

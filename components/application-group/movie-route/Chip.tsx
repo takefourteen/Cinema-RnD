@@ -8,7 +8,7 @@ const Chip = ({
   <div
     className={`${
       border ? "border border-white/10" : ""
-    } flex items-center justify-center rounded-full bg-black/30  px-2 py-1  text-white`}
+    } flex items-center justify-center rounded-full bg-black/30  px-2 py-1 `}
   >
     <div className="max-w-full flex-initial text-xs font-semibold leading-none tracking-wide xl:text-sm">
       {children}
