@@ -82,7 +82,6 @@ const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
         </div>
 
         <div className="text-start text-white ">
-
           {/* movie title with release year*/}
           <h1 className="text-2xl font-bold md:text-3xl">
             {movieDetails.original_title}
@@ -98,7 +97,7 @@ const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
           {/* ------------------------------------------------ */}
           {/* movie overview */}
           {/* ------------------------------------------------ */}
-          <p className="mt-6 text-base tracking-wide text-white lg:mt-8 lg:text-lg">
+          <p className="mt-6 text-base tracking-wide text-white lg:mt-8 lg:w-[36rem] lg:text-lg">
             {movieDetails.overview}
           </p>
 
@@ -146,8 +145,8 @@ const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
             </span>
           </div>
 
-           {/* add to library button */}
-           <div className="mt-6 lg:hidden">
+          {/* add to library button */}
+          <div className="mt-6 lg:hidden">
             <Button
               variant={"outline"}
               className="flex w-full items-center justify-center rounded-sm text-base  font-semibold text-white "

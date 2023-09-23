@@ -1,10 +1,12 @@
 import Image from "next/image";
 
 import { AiFillStar } from "react-icons/ai";
-import PlayButton from "@/components/PlayButton";
-import MovieOverview from "./MovieOverview";
+import { IoMdAdd } from "react-icons/io";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Chip from "../Chip";
+import { Button } from "@/components/ui/button";
+import PlayButton from "@/components/PlayButton";
+import MovieOverview from "./MovieOverview";
 
 interface MovieHeaderProps {
   movieDetails: MovieDetailsData;
@@ -74,8 +76,18 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({
               {/* movie overview using the MovieOverview component */}
               <MovieOverview overview={movieDetails.overview} />
 
-              {/* play button */}
-              <PlayButton>Play Movie</PlayButton>
+              <div className="flex gap-x-4">
+                {/* play button */}
+                <PlayButton>Play Movie</PlayButton>
+                {/* add to library button */}
+                <Button
+                  variant={"outline"}
+                  size={"icon"}
+                  className="mt-6 rounded-full text-base font-semibold  text-white lg:mt-8 "
+                >
+                  <IoMdAdd className=" inline-block h-5 w-5" />
+                </Button>
+              </div>
 
               {/* movie starring, if there is a cast to display */}
               {cast && (
