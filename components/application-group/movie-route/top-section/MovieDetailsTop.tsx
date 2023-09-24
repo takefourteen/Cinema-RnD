@@ -4,11 +4,9 @@ import {
   MovieDetailsApiResponse,
   fetchMovieDetails,
 } from "@/lib/tmdb-api/movies";
-import { getBase64 } from "@/lib/getLocalBase64";
 
 import { AiFillStar } from "react-icons/ai";
 import { IoMdAdd } from "react-icons/io";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import Chip from "../Chip";
 import PlayButton from "@/components/PlayButton";
@@ -57,9 +55,6 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   const runtime = `${Math.floor(movieDetails.runtime / 60)}h ${
     movieDetails.runtime % 60
   }m`;
-  const backdropBlurDataURL = await getBase64(`${BASE_IMG_URL}${movieDetails.backdrop_path}`);
-  const posterBlurDataURL = await getBase64(`${BASE_IMG_URL}${movieDetails.poster_path}`);
-
   return (
     <div className=" relative min-h-[40rem] bg-gradient-to-r from-black to-black sm:min-h-[50rem] md:min-h-[40rem] lg:min-h-[50rem]">
       {/* Image Display */}
@@ -67,8 +62,6 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
         poster_path={movieDetails.poster_path}
         backdrop_path={movieDetails.backdrop_path}
         alt={movieDetails.original_title}
-        backdropBlurDataURL={backdropBlurDataURL}
-        posterBlurDataURL={posterBlurDataURL}
       />
 
       {/* Overlay with movie details */}
@@ -153,20 +146,6 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
             </div>
           </div>
 
-          {/* poster image on medium screen */}
-          {/* <div className="hidden md:block">
-              <div className="relative mt-8 h-auto w-[200px] lg:w-[300px]">
-                <AspectRatio ratio={2 / 3}>
-                  <Image
-                    src={`${BASE_IMG_URL}${movieDetails.poster_path}`}
-                    alt={movieDetails.original_title}
-                    fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-                    className="object-contain"
-                  />
-                </AspectRatio>
-              </div>
-            </div> */}
         </div>
       </div>
     </div>
