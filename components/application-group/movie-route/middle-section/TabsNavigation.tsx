@@ -11,6 +11,9 @@ const TabsNavigation: React.FC<TabsNavigationProps> = ({
   RecommendedMoviesComponent,
   AboutTheMovieComponent,
 }) => {
+  const handleTabClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault(); // Prevent the default behavior (scrolling to the top)
+  };
   return (
     <div className="flex w-full flex-col">
       <Tabs
@@ -34,9 +37,13 @@ const TabsNavigation: React.FC<TabsNavigationProps> = ({
         <Tab
           key="recommended"
           title={
-            <h2 className="text-xl font-semibold tracking-wide md:text-2xl">
-              Movies You&apos;ll Love
-            </h2>
+            <a href="#recommended" onClick={handleTabClick}>
+              {" "}
+              {/* Add onClick handler */}
+              <h2 className="text-xl font-semibold tracking-wide md:text-2xl">
+                Movies You&apos;ll Love
+              </h2>
+            </a>
           }
         >
           <>{RecommendedMoviesComponent}</>
@@ -44,9 +51,13 @@ const TabsNavigation: React.FC<TabsNavigationProps> = ({
         <Tab
           key="details"
           title={
-            <h2 className="text-xl font-semibold tracking-wide md:text-2xl">
-              Details
-            </h2>
+            <a href="#details" onClick={handleTabClick}>
+              {" "}
+              {/* Add onClick handler */}
+              <h2 className="text-xl font-semibold tracking-wide md:text-2xl">
+                Details
+              </h2>
+            </a>
           }
         >
           <>{AboutTheMovieComponent}</>
