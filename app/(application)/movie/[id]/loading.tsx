@@ -3,7 +3,7 @@ const loading = () => {
 
   return (
     <div
-      className="flex h-screen items-center justify-center p-5"
+      className="absolute inset-0 flex items-center justify-center p-5"
       style={{
         background:
           "radial-gradient(50% 50% at 50% 50%,#17003d 0%,#000000 100%)",

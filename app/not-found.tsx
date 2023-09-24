@@ -10,7 +10,7 @@ export default function NotFound() {
       className="flex h-screen w-full flex-col items-center justify-center gap-y-10  text-white/50"
       style={{
         background:
-          "radial-gradient(50% 50% at 50% 50%,#17003d 0%,#000000 100%)",
+          "radial-gradient(75% 75% at 50% 50%,#17003d 0%,#000000 100%)",
       }}
     >
       <Navbar />
