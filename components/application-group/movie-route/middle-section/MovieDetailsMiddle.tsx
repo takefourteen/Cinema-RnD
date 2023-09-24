@@ -20,7 +20,7 @@ const MovieDetailsMiddle = ({ movieId }: MovieDetailsMiddleProps) => {
   > = fetchMovieRecommendations(movieId);
 
   return (
-    <div className="master-container mt-8 first-line:mx-auto md:mt-8 lg:max-w-[80%]">
+    <div className="master-container mt-8 mx-auto p-0 ">
       <TabsNavigation
         RecommendedMoviesComponent={<RecommendedMovies recommendedMoviesPromise={recommendedMoviesPromise} similarMoviesPromise={similarMoviesPromise}/>}
         AboutTheMovieComponent={<AboutTheMovie movieId={movieId} />}
@@ -36,6 +36,6 @@ export default MovieDetailsMiddle;
               - A Taste of Your Style
               - Curated Selection for You
               - A Taste of Your Style
-
+master-container flex h-full flex-row items-end pb-12 md:items-center md:pb-0 lg:max-w-[80%] lg:justify-center lg:gap-x-8
             
 */

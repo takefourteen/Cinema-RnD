@@ -15,7 +15,7 @@ const TabsNavigation: React.FC<TabsNavigationProps> = ({
     event.preventDefault(); // Prevent the default behavior (scrolling to the top)
   };
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex w-full flex-col "> 
       <Tabs
         aria-label="Options"
         color="primary"

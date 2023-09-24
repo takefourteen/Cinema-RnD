@@ -97,7 +97,7 @@ const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
           {/* ------------------------------------------------ */}
           {/* movie overview */}
           {/* ------------------------------------------------ */}
-          <p className="mt-6 text-base tracking-wide text-white lg:mt-8 lg:w-[36rem] lg:text-lg">
+          <p className="mt-6 text-base tracking-wide text-white lg:mt-8 lg:max-w-[36rem] lg:text-lg">
             {movieDetails.overview}
           </p>
 
