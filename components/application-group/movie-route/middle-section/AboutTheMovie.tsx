@@ -8,6 +8,7 @@ import { IoMdAdd } from "react-icons/io";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import Chip from "../Chip";
+import MoviePosterWithLoader from "./MoviePosterWithLoader";
 
 type AboutTheMovieProps = {
   movieId: string;
@@ -56,21 +57,18 @@ const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
         {/* Display relavent information about the movie */}
         {/* -------------------------------------------- */}
 
-        {/* poster image on medium screens and above */}
+        {/* poster image on large screens and above */}
         <div className="hidden lg:block">
           <div className="relative h-auto w-[200px] lg:w-[300px]">
             <AspectRatio ratio={2 / 3}>
-              <Image
-                src={`${BASE_IMG_URL}${movieDetails.poster_path}`}
+              <MoviePosterWithLoader
+                poster_path={movieDetails.poster_path}
                 alt={movieDetails.original_title}
-                fill
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-                className="object-contain"
               />
             </AspectRatio>
           </div>
 
-          {/* add to library button */}
+          {/* add to library button - shows on large screens */}
           <div className="mt-6">
             <Button
               variant={"outline"}
@@ -145,7 +143,7 @@ const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
             </span>
           </div>
 
-          {/* add to library button */}
+          {/* add to library button - shows on small screens */}
           <div className="mt-6 lg:hidden">
             <Button
               variant={"outline"}
