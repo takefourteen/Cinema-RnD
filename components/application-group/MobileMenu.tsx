@@ -89,7 +89,7 @@ const MobileMenu = ({ onDarkenBackground }: MobileMenuProps) => {
               <NavLink href="#">shows</NavLink>
             </li>
             <li className="mt-4 px-10 hover:bg-[#40445999]">
-              <NavLink href="#">documentaries</NavLink>
+              <NavLink href="/discovery">Discovery</NavLink>
             </li>
             <li className="mt-4 px-10 hover:bg-[#40445999]">
               <NavLink href="/my-library">my library</NavLink>

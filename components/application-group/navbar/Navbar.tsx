@@ -112,8 +112,8 @@ const Navbar = () => {
           <NavLink href="#" active={pathname === "/tv-shows"}>
             tv shows
           </NavLink>
-          <NavLink href="#" active={pathname === "/documentaries"}>
-            documentaries
+          <NavLink href="#" active={pathname === "/discovery"}>
+            discovery
           </NavLink>
           <NavLink href="/my-library" active={pathname === "/my-library"}>
             my library
