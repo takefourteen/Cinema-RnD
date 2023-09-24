@@ -1,21 +1,33 @@
-import React from "react";
+import { RecommendationsApiResponse } from "@/lib/tmdb-api/recommendations";
+import { SimilarApiResponse } from "@/lib/tmdb-api/similar";
 
-import { fetchMovieRecommendations } from "@/lib/tmdb-api/recommendations";
-import { fetchSimilarMovies } from "@/lib/tmdb-api/similar";
 import { filterResultsByLanguage } from "@/lib/tmdb-api/search";
 
 import Skeleton from "@/components/Skeleton";
 import RecommendedMovieImage from "./RecommendedMovieImage";
 
 type RecommendedMoviesProps = {
-  movieId: string;
+  recommendedMoviesPromise: Promise<
+    RecommendationsApiResponse<RecommendedMovie[]>
+  >;
+  similarMoviesPromise: Promise<SimilarApiResponse<SimilarMovie[]>>;
 };
 
-const RecommendedMovies = async ({ movieId }: RecommendedMoviesProps) => {
+const RecommendedMovies = async ({
+  recommendedMoviesPromise,
+  similarMoviesPromise,
+}: RecommendedMoviesProps) => {
+  // use promise.all to fetch similarMovies and recommendedMovies at the same time
+  const [similarMoviesResponse, recommendedMoviesResponse] = await Promise.all([
+    similarMoviesPromise,
+    recommendedMoviesPromise,
+  ]);
+
+  // destructure the data and error from the responses
   const { data: similarMovies, error: similarMoviesError } =
-    await fetchSimilarMovies(movieId);
+    similarMoviesResponse;
   const { data: recommendedMovies, error: recommendedMoviesError } =
-    await fetchMovieRecommendations(movieId);
+    recommendedMoviesResponse;
 
   /*
     if there is an error fetching similarMovies and recommendedMovies, 

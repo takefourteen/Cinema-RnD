@@ -1,22 +1,44 @@
 import Image from "next/image";
 
+
+import {
+  MovieDetailsApiResponse,
+  fetchMovieDetails,
+} from "@/lib/tmdb-api/movies";
+
 import { AiFillStar } from "react-icons/ai";
 import { IoMdAdd } from "react-icons/io";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Chip from "../Chip";
 import { Button } from "@/components/ui/button";
+import Chip from "../Chip";
 import PlayButton from "@/components/PlayButton";
 import MovieOverview from "./MovieOverview";
 
 interface MovieHeaderProps {
-  movieDetails: MovieDetailsData;
+  movieId: string;
 }
 
 const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
 const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({
-  movieDetails,
+  movieId,
 }) => {
+  const movieDetailsPromise: Promise<MovieDetailsApiResponse> = fetchMovieDetails(movieId);
+  const { data: movieDetails, error: movieDetailsError } =
+    await movieDetailsPromise;
+
+  /*
+    if there is an error fetching similarMovies and recommendedMovies, 
+    throw an error that will be caught by the ErrorBoundary (error.tsx)
+   */
+  if (movieDetailsError) {
+    throw new Error(`Error fetching movie details: ${movieDetailsError}`);
+  }
+
+  if (!movieDetails) {
+    return <div>Loading...</div>;
+  }
+
   // look for the first production company that has a logo path
   const productionCompany = movieDetails.production_companies.find(
     (company) => company.logo_path,

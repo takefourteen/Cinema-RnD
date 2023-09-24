@@ -1,3 +1,9 @@
+import { SimilarApiResponse, fetchSimilarMovies } from "@/lib/tmdb-api/similar";
+import {
+  RecommendationsApiResponse,
+  fetchMovieRecommendations,
+} from "@/lib/tmdb-api/recommendations";
+
 import TabsNavigation from "./TabsNavigation";
 import RecommendedMovies from "@/components/application-group/movie-route/middle-section/RecommendedMovies";
 import AboutTheMovie from "./AboutTheMovie";
@@ -7,19 +13,16 @@ type MovieDetailsMiddleProps = {
 };
 
 const MovieDetailsMiddle = ({ movieId }: MovieDetailsMiddleProps) => {
+  const similarMoviesPromise: Promise<SimilarApiResponse<SimilarMovie[]>> =
+    fetchSimilarMovies(movieId);
+  const recommendedMoviesPromise: Promise<
+    RecommendationsApiResponse<RecommendedMovie[]>
+  > = fetchMovieRecommendations(movieId);
+
   return (
     <div className="master-container mt-8 first-line:mx-auto md:mt-8 lg:max-w-[80%]">
-      {/* Heading */}
-      <header className=" hidden justify-between text-xl font-semibold tracking-wide md:mb-6 md:text-2xl">
-        <h2 className="w-max border-b-4 border-b-red-700 ps-2 capitalize  text-white ">
-          Movies You&apos;ll Love
-        </h2>
-
-        <h2 className="w-max  ps-2 capitalize  text-white/40">Details</h2>
-      </header>
-
       <TabsNavigation
-        RecommendedMoviesComponent={<RecommendedMovies movieId={movieId} />}
+        RecommendedMoviesComponent={<RecommendedMovies recommendedMoviesPromise={recommendedMoviesPromise} similarMoviesPromise={similarMoviesPromise}/>}
         AboutTheMovieComponent={<AboutTheMovie movieId={movieId} />}
       />
     </div>

@@ -1,5 +1,7 @@
 "use client";
 
+import { FormEventHandler, useState } from "react";
+
 import { Tabs, Tab } from "@nextui-org/react";
 
 type TabsNavigationProps = {
@@ -11,12 +13,23 @@ const TabsNavigation: React.FC<TabsNavigationProps> = ({
   RecommendedMoviesComponent,
   AboutTheMovieComponent,
 }) => {
+  const [activeTab, setActiveTab] = useState("details"); // State to store the active tab
+
+  const handleTabChange: FormEventHandler<HTMLDivElement> = (event) => {
+    // Get the selected tab key from the event
+    const tabKey = event.currentTarget.getAttribute("data-key");
+    if (tabKey) {
+      setActiveTab(tabKey);
+    }
+  };
+
   return (
     <div className="flex w-full flex-col">
       <Tabs
         aria-label="Options"
         color="primary"
         variant="underlined"
+        defaultSelectedKey={activeTab}
         classNames={{
           tabList:
             "gap-x-8 md:gap-x-10 w-full relative rounded-none p-0 border-b mb-8 border-b-gray-600 ",
@@ -28,10 +41,9 @@ const TabsNavigation: React.FC<TabsNavigationProps> = ({
             group-data-[hover-unselected=true]:text-white 
             transition-colors px-0 py-2  
             `,
-          base: "",
         }}
+        onChange={handleTabChange} // Call the handleTabChange function when a tab is clicked
       >
-        
         <Tab
           key="recommended"
           title={

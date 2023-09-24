@@ -3,7 +3,7 @@ import axios, { AxiosResponse, AxiosError } from "axios";
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
-interface SimilarApiResponse<T> {
+export interface SimilarApiResponse<T> {
   data: T | null;
   error: string | null;
 }
