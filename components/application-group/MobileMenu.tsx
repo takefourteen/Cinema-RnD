@@ -58,6 +58,12 @@ const MobileMenu = ({ onDarkenBackground }: MobileMenuProps) => {
     };
   }, [isOpen]);
 
+  // close the menu when the user clicks on a link
+  const handleNavLinkClick = () => {
+    setIsOpen(false);
+    onDarkenBackground();
+  };
+
   return (
     <div className="lg:hidden" ref={menuRef}>
       {/* Hamburger and Close Menu Btn */}
@@ -83,21 +89,31 @@ const MobileMenu = ({ onDarkenBackground }: MobileMenuProps) => {
         <>
           <ul className="absolute left-0 right-0 top-[80px] z-50 overflow-hidden bg-black/90 px-6  py-6 shadow-md transition-all md:right-auto md:top-[90px]">
             <li className=" px-10  hover:bg-[#40445999]">
-              <NavLink href="#">movies</NavLink>
+              <NavLink href="#" onClick={handleNavLinkClick}>
+                movies
+              </NavLink>
             </li>
             <li className="mt-4 px-10 hover:bg-[#40445999]">
-              <NavLink href="#">shows</NavLink>
+              <NavLink href="#" onClick={handleNavLinkClick}>
+                shows
+              </NavLink>
             </li>
             <li className="mt-4 px-10 hover:bg-[#40445999]">
-              <NavLink href="/discovery">Discovery</NavLink>
+              <NavLink href="/discovery" onClick={handleNavLinkClick}>
+                Discovery
+              </NavLink>
             </li>
             <li className="mt-4 px-10 hover:bg-[#40445999]">
-              <NavLink href="/my-library">my library</NavLink>
+              <NavLink href="/my-library" onClick={handleNavLinkClick}>
+                my library
+              </NavLink>
             </li>
             {/* separator line and then login that goes to /login */}
             <Separator className="mt-2 bg-white/40" />
             <li className="mt-2 px-10 hover:bg-[#40445999]">
-              <NavLink href="/login">login</NavLink>
+              <NavLink href="/login" onClick={handleNavLinkClick}>
+                login
+              </NavLink>
             </li>
           </ul>
 
@@ -113,16 +129,19 @@ const MobileMenu = ({ onDarkenBackground }: MobileMenuProps) => {
 type NavLinkProps = {
   href: string;
   children: React.ReactNode;
+  onClick: () => void;
 };
 
-const NavLink = ({ href, children }: NavLinkProps) => {
+const NavLink = ({ href, onClick, children }: NavLinkProps) => {
   return (
     <Button
       asChild
       variant="ghost"
       className="flex h-fit w-full justify-start rounded-lg px-[10px] py-[10px] text-sm font-bold uppercase text-white hover:bg-transparent hover:text-white"
     >
-      <Link href={`${href}`}>{children}</Link>
+      <Link href={`${href}`} onClick={onClick}>
+        {children}
+      </Link>
     </Button>
   );
 };
