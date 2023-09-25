@@ -26,8 +26,6 @@ const page = async () => {
 
   return (
     <section className="text-white">
-      <h1>Discovery</h1>
-
       <Slider data={filteredTrendingMovies} />
     </section>
   );
