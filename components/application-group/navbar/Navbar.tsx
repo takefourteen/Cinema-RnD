@@ -7,13 +7,10 @@ import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 
-// import logo from "@/assets/images/netflix-logo.webp";
-// import smLogo from "@/assets/images/netflix-n-logo.webp";
 import logo from "@/assets/images/cozycinema-logo.webp";
 import smLogo from "@/assets/images/cozycinema-logo-c.webp";
 import MobileMenu from "./MobileMenu";
 import SearchBar from "./SearchBar";
-import RenderSearchIcon from "./RenderSearchIcon";
 import NavLink from "./NavLink";
 import CustomButton from "@/components/CustomButton";
 
@@ -25,7 +22,6 @@ const Navbar = () => {
   const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
   const [darkenBackground, setDarkenBackground] = useState<boolean>(false);
   const isSearchScreen = pathname === "/search";
-  const isHomeScreen = pathname === "/";
   const scrollThreshold = 100; // Adjust this threshold as needed
 
   useEffect(() => {
@@ -41,10 +37,6 @@ const Navbar = () => {
     } else {
       setScroll(false);
     }
-  }
-
-  function toggleSearchBar() {
-    setSearchBarOpen((prev) => !prev);
   }
 
   function handleDarkenBackground() {
@@ -77,7 +69,7 @@ const Navbar = () => {
         isSearchScreen ? searchScreenNavbarClasses : otherScreensNavbarClasses
       }
     >
-      <section className="master-container flex items-center justify-between px-4 py-2">
+      <section className="master-container  flex items-center justify-between px-4 py-2">
         {/* Mobile menu for sm screens */}
         <MobileMenu onDarkenBackground={handleDarkenBackground} />
 
@@ -90,7 +82,7 @@ const Navbar = () => {
               alt="Netflix Logo"
               width={125}
               priority
-              className="w-[100px] md:w-[125px] "
+              className="w-[100px] lg:w-[125px] "
             />
 
             {/* show sm logo on sm screens */}
@@ -123,11 +115,7 @@ const Navbar = () => {
         {/* display search icon, log in, and sign up buttons */}
         <div className="ml-auto flex items-center justify-center gap-x-4 text-white lg:m-0">
           {/* Search Icon */}
-          <RenderSearchIcon
-            scroll={scroll}
-            isHomeScreen={isHomeScreen}
-            toggleSearchBar={toggleSearchBar}
-          />
+          <SearchBar onDarkenBackground={handleDarkenBackground} />
 
           {/* display log out if there is a user in session  */}
           {session?.user ? (
@@ -156,9 +144,6 @@ const Navbar = () => {
           )}
         </div>
       </section>
-
-      {/* display Search bar below everything when search icon is clicked */}
-      {searchBarOpen && <SearchBar toggleSearchBar={toggleSearchBar} />}
     </nav>
   );
 };

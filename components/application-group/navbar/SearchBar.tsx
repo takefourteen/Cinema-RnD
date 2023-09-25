@@ -1,24 +1,34 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { MdOutlineClose } from "react-icons/md";
+import { FaMagnifyingGlass as SearchIcon } from "react-icons/fa6";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface NavbarSearchBarProps {
-  toggleSearchBar: () => void;
+  onDarkenBackground: () => void;
 }
 
-const SearchBar = ({ toggleSearchBar }: NavbarSearchBarProps) => {
+const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
   const [searchQuery, setSearchQuery] = useState("");
+  const [isSearchBarOpen, setIsSearchBarOpen] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const router = useRouter();
+
+  // function that opens and closes the searchbar when the searh icon is clicked
+  // Define toggleSearchBar as a memoized callback
+  const toggleSearchBar = useCallback(() => {
+    setIsSearchBarOpen((prev) => !prev);
+    onDarkenBackground(); // darken the background when the search bar is open
+  }, [setIsSearchBarOpen, onDarkenBackground]);
 
   // Close the search bar when the user clicks the escape key
   useEffect(() => {
@@ -66,27 +76,42 @@ const SearchBar = ({ toggleSearchBar }: NavbarSearchBarProps) => {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="w-full bg-[rgba(64,68,89,0.6)]"
-    >
-      <div className="master-container relative h-full">
-        <Input
-          type="text"
-          autoFocus
-          placeholder="Search for Movies and TV shows"
-          className=" h-16 w-full rounded-none border-none bg-transparent  px-2 py-0 text-xl font-semibold leading-[5] tracking-wide text-white placeholder:text-xl placeholder:text-[rgba(64,68,89,0.9)] focus-visible:outline-none  focus-visible:ring-0  md:text-2xl md:placeholder:text-2xl"
-          value={searchQuery}
-          onChange={handleSearch}
-        />
-        {searchQuery && (
-          <MdOutlineClose
-            className="search-icon absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 transform cursor-pointer rounded-full text-white md:h-6 md:w-6 "
-            onClick={handleClear}
-          />
-        )}
-      </div>
-    </form>
+    <>
+      {/* search icon to toggle the input field */}
+      <Button
+        variant="ghost"
+        size={"icon"}
+        className="flex h-12 w-12 items-center justify-center rounded-full hover:bg-[#40445999] hover:text-white"
+        onClick={toggleSearchBar}
+      >
+        <SearchIcon className="h-5 w-5" />
+      </Button>
+
+      {/* search bar input*/}
+      {isSearchBarOpen && (
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="absolute left-0 right-0 top-[75px] z-50 w-full overflow-hidden bg-[rgba(0,42,231,0.5)] transition-all  lg:top-[90px]"
+        >
+          <div className="master-container relative h-full">
+            <Input
+              type="text"
+              autoFocus
+              placeholder="Search for Movies and TV shows"
+              className=" h-12 lg:h-14 w-full rounded-none border-none bg-transparent  px-2 py-0 text-xl font-semibold leading-[5] tracking-wide text-white placeholder:text-xl placeholder:text-[rgba(64,68,89,0.9)] focus-visible:outline-none  focus-visible:ring-0  md:text-2xl md:placeholder:text-2xl"
+              value={searchQuery}
+              onChange={handleSearch}
+            />
+            {searchQuery && (
+              <MdOutlineClose
+                className="search-icon absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 transform cursor-pointer rounded-full text-white md:h-6 md:w-6 "
+                onClick={handleClear}
+              />
+            )}
+          </div>
+        </form>
+      )}
+    </>
   );
 };
 
