@@ -70,6 +70,7 @@ const MobileMenu = ({ onDarkenBackground }: MobileMenuProps) => {
       <button
         className={`mr-4 block rounded-full text-white transition-colors hover:bg-white/10`}
         onClick={toggleMenu}
+        aria-label="Toggle menu"
       >
         <div
           className={` transform p-2 transition-transform ${
@@ -79,7 +80,7 @@ const MobileMenu = ({ onDarkenBackground }: MobileMenuProps) => {
           {isOpen ? (
             <IoMdClose className={`h-8 w-8`} />
           ) : (
-            <HamburgerMenuIcon className={`h-8 w-8 fill-[#e50914ff]`} />
+            <HamburgerMenuIcon className={`h-8 w-8`} />
           )}
         </div>
       </button>
