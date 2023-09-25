@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-import { MdOutlineClose } from "react-icons/md";
+import { MdOutlineClose as CloseIcon } from "react-icons/md";
 import { FaMagnifyingGlass as SearchIcon } from "react-icons/fa6";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -65,7 +65,9 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
   }
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
-    setSearchQuery(e.target.value);
+    setSearchQuery(
+      e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1), // capitalize the first letter
+    );
   }
 
   function handleClear() {
@@ -83,6 +85,7 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
         size={"icon"}
         className="flex h-12 w-12 items-center justify-center rounded-full hover:bg-[#40445999] hover:text-white"
         onClick={toggleSearchBar}
+        aria-label="Open search bar"
       >
         <SearchIcon className="h-5 w-5" />
       </Button>
@@ -91,22 +94,27 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
       {isSearchBarOpen && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="absolute left-0 right-0 top-[75px] z-50 w-full overflow-hidden bg-[rgba(0,42,231,0.5)] transition-all  lg:top-[90px]"
+          className=" absolute left-0 right-0 top-[75px] z-50 w-full overflow-hidden bg-[#ffffff] transition-all  lg:top-[90px]"
         >
           <div className="master-container relative h-full">
             <Input
               type="text"
               autoFocus
               placeholder="Search for Movies and TV shows"
-              className=" h-12 lg:h-14 w-full rounded-none border-none bg-transparent  px-2 py-0 text-xl font-semibold leading-[5] tracking-wide text-white placeholder:text-xl placeholder:text-[rgba(64,68,89,0.9)] focus-visible:outline-none  focus-visible:ring-0  md:text-2xl md:placeholder:text-2xl"
+              className=" h-12 w-full rounded-none border-none bg-transparent px-2  py-0 text-2xl font-semibold tracking-wide text-[#333] placeholder:pl-[1px] placeholder:text-2xl placeholder:text-[#999] focus-visible:outline-none focus-visible:ring-0  md:text-2xl  md:placeholder:text-2xl lg:h-14"
               value={searchQuery}
               onChange={handleSearch}
             />
             {searchQuery && (
-              <MdOutlineClose
-                className="search-icon absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 transform cursor-pointer rounded-full text-white md:h-6 md:w-6 "
+              <Button
+                variant="ghost"
+                size={"icon"}
+                className="absolute right-4 top-1/2 flex -translate-y-1/2  transform items-center justify-center rounded-full text-2xl text-black hover:bg-[#333] hover:text-[#ffffff]"
                 onClick={handleClear}
-              />
+                aria-label="Clear search query"
+              >
+                <CloseIcon className="h-6 w-6 md:h-8 md:w-8" />
+              </Button>
             )}
           </div>
         </form>
