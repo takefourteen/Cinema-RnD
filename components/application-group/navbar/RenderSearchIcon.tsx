@@ -8,14 +8,24 @@ import { Button } from "@/components/ui/button";
 const RenderSearchIcon: React.FC<{
   scroll: boolean;
   isHomeScreen: boolean;
-  handleSearchClick: () => void;
-}> = ({ scroll, isHomeScreen, handleSearchClick }) => {
+  toggleSearchBar: () => void;
+}> = ({ scroll, isHomeScreen,  toggleSearchBar }) => {
+  // function that opens and closes the searchbar when the searh icon is clicked
+  function handleSearchClick() {
+    /*
+    if the search bar is open do nothing, because it will close
+    when user clicks outside the searchbar anyways - (check NavbarSearhBar.tsx)
+    */
+
+    toggleSearchBar();
+  }
+
   if (scroll && isHomeScreen) {
     return (
       <Button
         variant="ghost"
         size={"icon"}
-        className="hover:bg-[#40445999] rounded-full w-12 h-12 flex items-center justify-center hover:text-white"
+        className="flex h-12 w-12 items-center justify-center rounded-full hover:bg-[#40445999] hover:text-white"
         onClick={handleSearchClick}
       >
         <SearchIcon className="h-5 w-5" />
@@ -28,7 +38,7 @@ const RenderSearchIcon: React.FC<{
       <Button
         variant="ghost"
         size={"icon"}
-        className="hover:bg-[#40445999] rounded-full w-12 h-12 flex items-center justify-center hover:text-white"
+        className="flex h-12 w-12 items-center justify-center rounded-full hover:bg-[#40445999] hover:text-white"
         onClick={handleSearchClick}
       >
         <SearchIcon className="h-5 w-5" />

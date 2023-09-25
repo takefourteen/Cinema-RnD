@@ -11,7 +11,7 @@ import { useRouter, usePathname } from "next/navigation";
 // import smLogo from "@/assets/images/netflix-n-logo.webp";
 import logo from "@/assets/images/cozycinema-logo.webp";
 import smLogo from "@/assets/images/cozycinema-logo-c.webp";
-import MobileMenu from "../MobileMenu";
+import MobileMenu from "./MobileMenu";
 import NavbarSearchBar from "./NavbarSearchBar";
 import RenderSearchIcon from "./RenderSearchIcon";
 import NavLink from "./NavLink";
@@ -22,7 +22,7 @@ const Navbar = () => {
   const pathname = usePathname();
   const { data: session, status } = useSession();
   const [scroll, setScroll] = useState(false);
-  const [searchClicked, setsearchClicked] = useState<boolean>(false);
+  const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
   const [darkenBackground, setDarkenBackground] = useState<boolean>(false);
   const isSearchScreen = pathname === "/search";
   const isHomeScreen = pathname === "/";
@@ -43,8 +43,8 @@ const Navbar = () => {
     }
   }
 
-  function handleSearchClick() {
-    setsearchClicked((prev) => !prev);
+  function toggleSearchBar() {
+    setSearchBarOpen((prev) => !prev);
   }
 
   function handleDarkenBackground() {
@@ -66,7 +66,7 @@ const Navbar = () => {
     is darkenBackground is true or false
   */
   const otherScreensNavbarClasses = `fixed  transition-all top-0 left-0 right-0 z-[99999] ${
-    scroll || searchClicked || darkenBackground ? "bg-black" : "bg-transparent"
+    scroll || searchBarOpen || darkenBackground ? "bg-black" : "bg-transparent"
   }`;
 
   const searchScreenNavbarClasses = `fixed transition-all top-0 left-0 right-0 z-[99999] bg-black/90`;
@@ -126,7 +126,7 @@ const Navbar = () => {
           <RenderSearchIcon
             scroll={scroll}
             isHomeScreen={isHomeScreen}
-            handleSearchClick={handleSearchClick}
+            toggleSearchBar={toggleSearchBar}
           />
 
           {/* display log out if there is a user in session  */}
@@ -158,7 +158,7 @@ const Navbar = () => {
       </section>
 
       {/* display Search bar below everything when search icon is clicked */}
-      {searchClicked && <NavbarSearchBar onSearchClick={handleSearchClick} />}
+      {searchBarOpen && <NavbarSearchBar toggleSearchBar={toggleSearchBar} />}
     </nav>
   );
 };

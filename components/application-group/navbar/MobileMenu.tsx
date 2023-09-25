@@ -5,8 +5,8 @@ import { useState, useEffect, useRef } from "react";
 
 import { HiMenuAlt4 as HamburgerMenuIcon } from "react-icons/hi";
 import { IoMdClose } from "react-icons/io";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
+import { Button } from "../../ui/button";
+import { Separator } from "../../ui/separator";
 
 type MobileMenuProps = {
   onDarkenBackground: () => void;
