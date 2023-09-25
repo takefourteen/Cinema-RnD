@@ -1,6 +1,7 @@
 "use server";
 
-import { searchAll, filterResultsByLanguage } from "@/lib/tmdb-api/search";
+import { searchAll } from "@/lib/tmdb-api/search";
+import { filterResultsByLanguage } from "./tmdb-api/filterResults";
 
 export async function fetchSearchResults(term: string, page: number = 1) {
   const results = await searchAll(term, page);

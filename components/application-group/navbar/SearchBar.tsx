@@ -137,6 +137,7 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
               <Button
                 variant="ghost"
                 size={"icon"}
+                type="button"
                 className="absolute right-4 top-1/2 flex -translate-y-1/2  transform items-center justify-center rounded-full text-2xl text-black hover:bg-[#333] hover:text-[#ffffff]"
                 onClick={handleClear}
                 aria-label="Clear search query"
