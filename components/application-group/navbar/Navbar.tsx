@@ -12,7 +12,7 @@ import { useRouter, usePathname } from "next/navigation";
 import logo from "@/assets/images/cozycinema-logo.webp";
 import smLogo from "@/assets/images/cozycinema-logo-c.webp";
 import MobileMenu from "./MobileMenu";
-import NavbarSearchBar from "./NavbarSearchBar";
+import SearchBar from "./SearchBar";
 import RenderSearchIcon from "./RenderSearchIcon";
 import NavLink from "./NavLink";
 import CustomButton from "@/components/CustomButton";
@@ -158,7 +158,7 @@ const Navbar = () => {
       </section>
 
       {/* display Search bar below everything when search icon is clicked */}
-      {searchBarOpen && <NavbarSearchBar toggleSearchBar={toggleSearchBar} />}
+      {searchBarOpen && <SearchBar toggleSearchBar={toggleSearchBar} />}
     </nav>
   );
 };

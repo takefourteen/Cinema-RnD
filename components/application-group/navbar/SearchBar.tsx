@@ -11,7 +11,7 @@ interface NavbarSearchBarProps {
   toggleSearchBar: () => void;
 }
 
-const NavbarSearchBar = ({ toggleSearchBar }: NavbarSearchBarProps) => {
+const SearchBar = ({ toggleSearchBar }: NavbarSearchBarProps) => {
   const [searchQuery, setSearchQuery] = useState("");
   const {
     register,
@@ -70,7 +70,7 @@ const NavbarSearchBar = ({ toggleSearchBar }: NavbarSearchBarProps) => {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full bg-[rgba(64,68,89,0.6)]"
     >
-      <div className="master-container relative h-full" >
+      <div className="master-container relative h-full">
         <Input
           type="text"
           autoFocus
@@ -90,4 +90,4 @@ const NavbarSearchBar = ({ toggleSearchBar }: NavbarSearchBarProps) => {
   );
 };
 
-export default NavbarSearchBar;
+export default SearchBar;
