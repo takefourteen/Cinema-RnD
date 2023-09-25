@@ -28,8 +28,6 @@ export async function fetchTrendingMovies(
 
     const data: TrendingMoviesResponse = await response.json();
 
-    console.log("trending movies data: ", data);
-
     return {
       data: data.results,
       error: null,
@@ -66,8 +64,6 @@ export async function fetchTrendingTVShows(
     }
 
     const data: TrendingTVShowsResponse = await response.json();
-
-    console.log("trending tv shows data: ", data);
 
     return {
       data: data.results,
