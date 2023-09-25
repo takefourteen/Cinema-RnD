@@ -8,18 +8,32 @@ import { MdOutlineClose } from "react-icons/md";
 import { Input } from "@/components/ui/input";
 
 interface NavbarSearchBarProps {
-  onSearchClick: () => void;
+  toggleSearchBar: () => void;
 }
 
-const NavbarSearchBar = ({ onSearchClick }: NavbarSearchBarProps) => {
+const NavbarSearchBar = ({ toggleSearchBar }: NavbarSearchBarProps) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const inputRef = useRef<HTMLInputElement>(null);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const router = useRouter();
+
+  // Close the search bar when the user clicks the escape key
+  useEffect(() => {
+    function handleEscape(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        toggleSearchBar();
+      }
+    }
+
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [toggleSearchBar]);
 
   function onSubmit() {
     console.log("searchQuery", searchQuery);
@@ -36,7 +50,7 @@ const NavbarSearchBar = ({ onSearchClick }: NavbarSearchBarProps) => {
       router.push(`/search?term=${encodeURIComponent(searchQuery)}`);
 
       // close the search bar
-      onSearchClick();
+      toggleSearchBar();
     }
   }
 
@@ -51,29 +65,13 @@ const NavbarSearchBar = ({ onSearchClick }: NavbarSearchBarProps) => {
     }
   }
 
-  // Close the search bar when the user clicks the escape key
-  useEffect(() => {
-    function handleEscape(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        onSearchClick();
-      }
-    }
-
-    window.addEventListener("keydown", handleEscape);
-
-    return () => {
-      window.removeEventListener("keydown", handleEscape);
-    };
-  }, [onSearchClick]);
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
       className="w-full bg-[rgba(64,68,89,0.6)]"
     >
-      <div className="master-container relative h-full">
+      <div className="master-container relative h-full" >
         <Input
-          ref={inputRef} // for the event listener to close the search bar when the user clicks outside of it
           type="text"
           autoFocus
           placeholder="Search for Movies and TV shows"
@@ -81,7 +79,6 @@ const NavbarSearchBar = ({ onSearchClick }: NavbarSearchBarProps) => {
           value={searchQuery}
           onChange={handleSearch}
         />
-
         {searchQuery && (
           <MdOutlineClose
             className="search-icon absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 transform cursor-pointer rounded-full text-white md:h-6 md:w-6 "
