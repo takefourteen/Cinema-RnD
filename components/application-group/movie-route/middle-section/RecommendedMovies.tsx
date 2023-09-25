@@ -1,7 +1,7 @@
 import { RecommendationsApiResponse } from "@/lib/tmdb-api/recommendations";
 import { SimilarApiResponse } from "@/lib/tmdb-api/similar";
 
-import { filterResultsByLanguage } from "@/lib/tmdb-api/search";
+import { filterResultsByLanguage } from "@/lib/tmdb-api/filterResults";
 
 import Skeleton from "@/components/Skeleton";
 import RecommendedMovieImage from "./RecommendedMovieImage";

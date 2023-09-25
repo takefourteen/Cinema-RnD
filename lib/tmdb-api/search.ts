@@ -73,11 +73,3 @@ export async function searchAll(query: string, page: number = 1) {
 
   return allResults;
 }
-
-// ============================================================
-// function that filters results to only return results where "original_language" is en
-export function filterResultsByLanguage<
-  T extends { original_language: string },
->(results: T[], language: string = "en") {
-  return results.filter((result) => result.original_language === language);
-}
