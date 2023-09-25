@@ -88,7 +88,7 @@ const MobileMenu = ({ onDarkenBackground }: MobileMenuProps) => {
       {/* Menu */}
       {isOpen && (
         <>
-          <ul className="absolute left-0 right-0 top-[80px] z-50 overflow-hidden bg-black/90 px-6  py-6 shadow-md transition-all md:right-auto md:top-[90px]">
+          <ul className="absolute left-0 right-0 top-[78px] z-50 overflow-hidden bg-black/90 px-6  py-6 shadow-md transition-all md:right-auto lg:top-[90px]">
             <li className=" px-10  hover:bg-[#40445999]">
               <NavLink href="#" onClick={handleNavLinkClick}>
                 movies

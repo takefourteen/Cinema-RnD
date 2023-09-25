@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
@@ -14,6 +14,7 @@ interface NavbarSearchBarProps {
 }
 
 const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
+  const searchContainerRef = useRef<HTMLFormElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchBarOpen, setIsSearchBarOpen] = useState<boolean>(false);
   const {
@@ -29,6 +30,32 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
     setIsSearchBarOpen((prev) => !prev);
     onDarkenBackground(); // darken the background when the search bar is open
   }, [setIsSearchBarOpen, onDarkenBackground]);
+
+  // function to close the search bar when the user clicks outside of the search bar
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target as Node)
+      ) {
+        setIsSearchBarOpen(false);
+        onDarkenBackground(); // darken the background when the search bar is open
+      }
+    },
+    [setIsSearchBarOpen, onDarkenBackground],
+  );
+
+  // Close the search bar when the user clicks outside of the search bar
+  useEffect(() => {
+    if (isSearchBarOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    // cleanup the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isSearchBarOpen, handleClickOutside]);
 
   // Close the search bar when the user clicks the escape key
   useEffect(() => {
@@ -93,8 +120,9 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
       {/* search bar input*/}
       {isSearchBarOpen && (
         <form
+          ref={searchContainerRef}
           onSubmit={handleSubmit(onSubmit)}
-          className=" absolute left-0 right-0 top-[75px] z-50 w-full overflow-hidden bg-[#ffffff] transition-all  lg:top-[90px]"
+          className=" absolute left-0 right-0 top-[78px] z-50 w-full overflow-hidden bg-[#ffffff] transition-all  lg:top-[90px]"
         >
           <div className="master-container relative h-full">
             <Input
