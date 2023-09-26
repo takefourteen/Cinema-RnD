@@ -6,8 +6,8 @@ export interface TvSeriesApiResponse {
   error: string | null;
 }
 
-export async function fetchTvSeries(
-  tvSeriesId: string,
+export async function fetchTvSeriesDetails(
+  tvSeriesId: string | number,
 ): Promise<TvSeriesApiResponse> {
   try {
     const response = await fetch(
@@ -40,4 +40,11 @@ export async function fetchTvSeries(
       error: errorMessage,
     };
   }
+}
+/* is a type guard function that checks if a given object is of type 
+TVSeriesData. */
+export function isTVSeriesDetails(
+  data: TVSeriesData | MovieDetailsData,
+): data is TVSeriesData {
+  return (data as TVSeriesData).number_of_episodes !== undefined;
 }

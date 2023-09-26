@@ -8,7 +8,7 @@ export interface MovieDetailsApiResponse {
 
 
 export async function fetchMovieDetails(
-  movieId: string,
+  movieId: string | number,
 ): Promise<MovieDetailsApiResponse> {
   try {
     const response = await fetch(
@@ -41,4 +41,11 @@ export async function fetchMovieDetails(
       error: errorMessage,
     };
   }
+}
+
+/*
+type guard function that checks if a given object is of type MovieDetailsData.
+*/
+export function isMovieDetails(data: TVSeriesData | MovieDetailsData): data is MovieDetailsData {
+  return (data as MovieDetailsData).original_title !== undefined;
 }
