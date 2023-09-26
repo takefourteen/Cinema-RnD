@@ -83,7 +83,7 @@ const CarouselItem = async ({ data, activeSlide, type }: CarouselItemProps) => {
               Play
             </PlayButton>
             {/* info button */}
-            <Button
+            <Button 
               variant={"outline"}
               size={"icon"}
               className="text-white rounded-full text-base  font-bold"
