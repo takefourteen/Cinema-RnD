@@ -45,6 +45,14 @@ module.exports = {
       boxShadow: {
         "box-shadow": "0px -8px 25px rgba(0, 0, 0, 0.5)",
       },
+      colors: {
+        primaryBlue: "#0e1b4f",
+        primaryRed: "#e50914",
+        primaryYellow: "#ff9900",
+        primaryGray: "#000413",
+        primaryWhite: "#ffffff",
+        primaryBlack: "#000000",
+      },
     },
   },
   darkMode: "class",

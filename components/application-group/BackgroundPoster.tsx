@@ -5,25 +5,24 @@ import Image from "next/image";
 
 import Skeleton from "@/components/Skeleton";
 
-type ImageDisplayProps = {
-  backdrop_path: string | null;
+type BackgroundPosterProps = {
   poster_path: string | null;
+  backdrop_path: string | null;
   alt: string;
   priority?: boolean;
+  imageClassNames?: string;
 };
 
-const BASE_IMG_URL = "https://image.tmdb.org/t/p/original";
-
-const ImageDisplay = ({
-  backdrop_path,
+const BackgroundPoster = ({
   poster_path,
+  backdrop_path,
   alt,
-  priority = true,
-}: ImageDisplayProps) => {
+  priority,
+  imageClassNames,
+}: BackgroundPosterProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleImageLoad = () => {
-    // set isLoading to false after a delay
     setIsLoading(false);
   };
 
@@ -41,13 +40,13 @@ const ImageDisplay = ({
       <div className="hidden md:flex">
         {backdrop_path ? (
           <Image
-            src={`${BASE_IMG_URL}${backdrop_path}`}
+            src={`${process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH}${backdrop_path}`}
             alt={alt}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority={priority}
             onLoad={handleImageLoad}
-            className="absolute inset-0 bg-no-repeat object-cover object-center md:object-left-top"
+            className={`absolute inset-0 bg-no-repeat ${imageClassNames}`}
           />
         ) : (
           <div className="absolute inset-0 bg-gradient-to-r from-black to-black"></div>
@@ -57,17 +56,17 @@ const ImageDisplay = ({
       {/* show the poster_path img on smaller screens */}
       <div className="md:hidden">
         <Image
-          src={`${BASE_IMG_URL}${poster_path}`}
+          src={`${process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH}${poster_path}`}
           alt={alt}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          priority
+          priority={priority}
           onLoad={handleImageLoad}
-          className="absolute inset-0 bg-no-repeat object-cover object-center md:object-left-top"
+          className={`absolute inset-0 bg-no-repeat ${imageClassNames}`}
         />
       </div>
     </>
   );
 };
 
-export default ImageDisplay;
+export default BackgroundPoster;

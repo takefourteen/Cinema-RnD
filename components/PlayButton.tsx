@@ -5,19 +5,53 @@ import { BsFillPlayFill } from "react-icons/bs";
 import { Button } from "./ui/button";
 
 interface PlayButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  // Extend the default HTML button props
   children: ReactNode;
+  size?: "sm" | "lg";
+  asLink?: boolean;
+  href?: string;
 }
 
-const PlayButton = ({ children, ...props }: PlayButtonProps) => {
+const PlayButton = ({
+  children,
+  size = "lg",
+  className = "",
+  asLink = false,
+  href,
+  ...props
+}: PlayButtonProps) => {
+  const baseClassName =
+    "bg-white text-black hover:bg-gray-200 flex items-center justify-start rounded-sm  text-lg font-semibold tracking-wide shadow-md transition duration-300 ease-in-out";
+  const sizeClassName =
+    size === "sm" ? "px-6 py-2 lg:px-8 lg:py-2" : "px-8 py-2";
+  const finalClassName = `${baseClassName} ${sizeClassName} ${className}`;
+
   return (
     <Button
-      {...props} // Spread any additional HTML button props here
-      className="mt-6 lg:mt-8 flex items-center justify-center rounded-sm bg-white px-8 py-3 text-lg font-semibold tracking-wide text-black shadow-md transition duration-300 ease-in-out hover:bg-gray-200 lg:text-xl"
+      {...props}
+      className={finalClassName}
       type="button"
+      asChild={asLink}
     >
-      <BsFillPlayFill className="mr-2 h-4 w-4 lg:h-6 lg:w-6" />
-      {children}
+      {/* if asLink is true wrap icon and children aroung Link */}
+      {asLink ? (
+        <Link href={`${href}`}>
+          <BsFillPlayFill
+            className={`mr-2 h-6 w-6 ${
+              size === "sm" ? "lg:h-5 lg:w-5" : "lg:h-8 lg:w-8"
+            }`}
+          />
+          {children}
+        </Link>
+      ) : (
+        <>
+          <BsFillPlayFill
+            className={`mr-2 h-6 w-6 ${
+              size === "sm" ? "lg:h-5 lg:w-5" : "lg:h-8 lg:w-8"
+            }`}
+          />
+          {children}
+        </>
+      )}
     </Button>
   );
 };

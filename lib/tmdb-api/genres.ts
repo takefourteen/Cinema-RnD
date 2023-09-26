@@ -1,18 +1,19 @@
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
-export interface TrendingApiResponse<T> {
+export interface GenreListApiResponse<T> {
   data: T | null;
   error: string | null;
 }
 
-export async function fetchTrendingMovies(
-  page: number = 1,
-  timeWindow: "day" | "week" = "week",
-): Promise<TrendingApiResponse<TrendingMovie[]>> {
+// function that gets the genres from https://api.themoviedb.org/3/genre/tv/list?api_key=<<api_key>>&language=en-US
+
+export async function getTvGenres(): Promise<
+  GenreListApiResponse<GenreListResponse>
+> {
   try {
     const response = await fetch(
-      `${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`,
+      `${BASE_URL}/genre/tv/list?api_key=${API_KEY}&language=en-US`,
       {
         cache: "force-cache",
       },
@@ -26,12 +27,12 @@ export async function fetchTrendingMovies(
       throw new Error(errorMessage);
     }
 
-    const data: TrendingMoviesResponse = await response.json();
+    const data: GenreListResponse = await response.json();
 
-    // console.log("Trending movies data", data);
+    // console.log("TV genres data", data);
 
     return {
-      data: data.results,
+      data: data,
       error: null,
     };
   } catch (error) {
@@ -45,13 +46,14 @@ export async function fetchTrendingMovies(
   }
 }
 
-export async function fetchTrendingTVShows(
-  page: number = 1,
-  timeWindow: "day" | "week" = "week",
-): Promise<TrendingApiResponse<TrendingTVShow[]>> {
+// function that gets the genres from https://api.themoviedb.org/3/genre/movie/list?api_key=<<api_key>>&language=en-US
+
+export async function getMovieGenres(): Promise<
+  GenreListApiResponse<GenreListResponse>
+> {
   try {
     const response = await fetch(
-      `${BASE_URL}/trending/tv/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`,
+      `${BASE_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`,
       {
         cache: "force-cache",
       },
@@ -65,12 +67,12 @@ export async function fetchTrendingTVShows(
       throw new Error(errorMessage);
     }
 
-    const data: TrendingTVShowsResponse = await response.json();
+    const data: GenreListResponse = await response.json();
 
-    // console.log("Trending TV shows data", data);
+    // console.log("Movie genres data", data);
 
     return {
-      data: data.results,
+      data: data,
       error: null,
     };
   } catch (error) {

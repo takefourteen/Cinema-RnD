@@ -25,8 +25,6 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   const { data: movieDetails, error: movieDetailsError } =
     await movieDetailsPromise;
 
-   
-
   /*
     if there is an error fetching similarMovies and recommendedMovies, 
     throw an error that will be caught by the ErrorBoundary (error.tsx)
@@ -56,7 +54,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
     movieDetails.runtime % 60
   }m`;
   return (
-    <div className=" relative min-h-[40rem] bg-gradient-to-r from-black to-black sm:min-h-[50rem] md:min-h-[40rem] lg:min-h-[50rem]">
+    <div className=" from-black to-black relative min-h-[40rem] bg-gradient-to-r sm:min-h-[50rem] md:min-h-[40rem] lg:min-h-[50rem]">
       {/* Image Display */}
       <ImageDisplay
         poster_path={movieDetails.poster_path}
@@ -65,10 +63,10 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
       />
 
       {/* Overlay with movie details */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80  via-black/60 to-black/20  md:bg-gradient-to-r">
+      <div className="from-black/80 via-black/60 to-black/20 absolute  inset-0 bg-gradient-to-t  md:bg-gradient-to-r">
         <div className="master-container flex h-full items-end pb-8 sm:items-center sm:p-0 lg:max-w-[80%]">
           {/* Display relavent information about the movie */}
-          <div className="text-start text-white ">
+          <div className="text-white text-start ">
             {/* movie production company logo */}
             {/* see below for code to display the production company logo */}
 
@@ -77,7 +75,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
               {movieDetails.original_title}
               {/* add space */}
               &nbsp;
-              <span className="ml-2  font-normal tracking-wide text-white/70">
+              <span className="text-white/70  ml-2 font-normal tracking-wide">
                 {new Date(movieDetails.release_date).getFullYear()}
               </span>
             </h1>
@@ -94,12 +92,12 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
 
             <div className="flex gap-x-4">
               {/* play button */}
-              <PlayButton>Play Movie</PlayButton>
+              <PlayButton className="mt-6 lg:mt-8">Play Movie</PlayButton>
               {/* add to library button */}
               <Button
                 variant={"outline"}
                 size={"icon"}
-                className="mt-6 rounded-full text-base font-semibold  text-white lg:mt-8 "
+                className="text-white mt-6 rounded-full text-base  font-semibold lg:mt-8 "
               >
                 <IoMdAdd className=" inline-block h-5 w-5" />
               </Button>
@@ -112,7 +110,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
                 {cast.map((castMember, index) => (
                   <span
                     key={castMember.id}
-                    className="font-semibold  text-white/70"
+                    className="text-white/70  font-semibold"
                   >
                     {castMember.name}
                     {index < cast.length - 1 ? (
@@ -127,7 +125,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
             {director && (
               <div className="flex flex-wrap items-baseline tracking-wide lg:mt-1">
                 <h3 className=" font-bold">Director: &nbsp;</h3>
-                <span className="font-semibold  text-white/70">
+                <span className="text-white/70  font-semibold">
                   {director.name}
                 </span>
               </div>
@@ -135,17 +133,16 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
 
             {/* movie rating and movie duration */}
             <div className="items-cemter mt-4 flex flex-wrap lg:mt-6">
-              <span className="flex items-center tracking-wide text-white/70 ">
-                <AiFillStar className="mr-1 inline-block h-[14px] w-[14px] text-white/70" />{" "}
+              <span className="text-white/70 flex items-center tracking-wide ">
+                <AiFillStar className="text-white/70 mr-1 inline-block h-[14px] w-[14px]" />{" "}
                 {movieDetails.vote_average}
               </span>
-              <span className="mx-2 text-white/70">&bull;</span>
-              <span className="font-semibold tracking-wide text-white/70">
+              <span className="text-white/70 mx-2">&bull;</span>
+              <span className="text-white/70 font-semibold tracking-wide">
                 {runtime}
               </span>
             </div>
           </div>
-
         </div>
       </div>
     </div>

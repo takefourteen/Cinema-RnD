@@ -4,7 +4,7 @@ import {
 } from "@/lib/tmdb-api/trending";
 import { filterResultsByLanguage } from "@/lib/tmdb-api/filterResults";
 
-import Slider from "@/components/application-group/discovery-route/Slider";
+import Carousel from "@/components/application-group/discovery-route/carousel/Carousel";
 
 const page = async () => {
   const trendingMoviesPromise = fetchTrendingMovies();
@@ -26,7 +26,7 @@ const page = async () => {
 
   return (
     <section className="text-white">
-      <Slider data={filteredTrendingMovies} />
+      <Carousel data={filteredTrendingMovies.slice(0, 5)} />
     </section>
   );
 };
