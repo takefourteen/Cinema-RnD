@@ -1,13 +1,16 @@
+import React from "react";
 import Link from "next/link";
 
 import { getTvGenres, getMovieGenres } from "@/lib/tmdb-api/genres";
+import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 
 import { IoMdAdd as AddIcon } from "react-icons/io";
 import { AiOutlineInfo as InfoIcon } from "react-icons/ai";
+import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import BackgroundPoster from "../../BackgroundPoster";
 import PlayButton from "@/components/PlayButton";
-import React from "react";
+import { DetailsButton } from "@/components/DetailsButton";
 
 type CarouselContentProps = {
   id: number;
@@ -43,7 +46,7 @@ const CarouselItem = async ({ data, activeSlide, type }: CarouselItemProps) => {
       />
 
       {/* Overlay with Poster details */}
-      <div className="from-black/80 via-black/70 to-black/20 absolute  inset-0 bg-gradient-to-t  md:bg-gradient-to-r">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80  via-black/70 to-black/20  md:bg-gradient-to-r">
         <div className="master-container flex h-full flex-col items-center justify-end gap-y-2 pb-8 text-center  lg:max-w-[80%] ">
           {/* Title */}
           <h1 className="text-center text-[32px] font-bold md:text-[36px] lg:text-[40px]">
@@ -55,13 +58,13 @@ const CarouselItem = async ({ data, activeSlide, type }: CarouselItemProps) => {
             {data.genre_ids.slice(0, 3).map((genre) => (
               <span
                 key={genre}
-                className="text-primaryWhite/70 flex items-center gap-1.5"
+                className="flex items-center gap-1.5 text-primaryWhite/70"
               >
                 <span>
                   {genreData?.genres?.find((g) => g.id === genre)?.name}
                 </span>
                 {genre !== data.genre_ids[2] && (
-                  <span className="bg-primaryRed border-primaryRed h-[5px] w-[5px] rounded-full"></span>
+                  <span className="h-[5px] w-[5px] rounded-full border-primaryRed bg-primaryRed"></span>
                 )}
               </span>
             ))}
@@ -70,26 +73,36 @@ const CarouselItem = async ({ data, activeSlide, type }: CarouselItemProps) => {
           {/* add, play and info btns */}
           <div className="mt-2 flex h-max items-center justify-center gap-4 lg:mt-4 ">
             {/* add to library button */}
-            <Button
+            <DetailsButton
               variant={"outline"}
               size={"icon"}
-              className="text-white  rounded-full border-none text-base  font-semibold  "
+              className="rounded-full border-none p-0"
             >
-              <AddIcon className=" inline-block h-8 w-8" />
-            </Button>
+              <AddIcon className=" h-8 w-8" />
+            </DetailsButton>
+
             {/* play button */}
-            <PlayButton asLink={true} size="sm" href={`/${type}/${data.id}`}>
-              {/* if its a movie, href is movie/:id, if tv, href is tv/:id */}
-              Play
-            </PlayButton>
+            {/* if its a movie, href is movie/:id, if tv, href is tv/:id */}
+            <DetailsButton asChild>
+              <Link
+                href={`/${type}/${data.id}`}
+                className="text-lg font-semibold"
+              >
+                <PlayIcon className="mr-1 h-7 w-7" /> Play
+              </Link>
+            </DetailsButton>
+
             {/* info button */}
-            <Button
+            <DetailsButton
+              asChild
               variant={"outline"}
               size={"icon"}
-              className="text-white rounded-full text-base  font-bold"
+              className="rounded-full p-0"
             >
-              <InfoIcon className=" inline-block h-5 w-5" />
-            </Button>
+              <Link href={`/${type}/${data.id}`}>
+                <InfoIcon className="h-6 w-6" />
+              </Link>
+            </DetailsButton>
           </div>
         </div>
       </div>
