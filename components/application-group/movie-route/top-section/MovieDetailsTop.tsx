@@ -17,8 +17,6 @@ interface MovieHeaderProps {
   movieId: string;
 }
 
-const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
-
 const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   const movieDetailsPromise: Promise<MovieDetailsApiResponse> =
     fetchMovieDetails(movieId);
@@ -150,3 +148,27 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
 };
 
 export default MovieDetailsTop;
+
+/* 
+ Display the image if it exists 
+{productionCompany?.logo_path ? (
+                <div>
+                  <div className="relative min-h-[40px] w-[150px] lg:h-[100px] lg:w-[200px]">
+                    <Image
+                      src={`${BASE_IMG_URL}${productionCompany.logo_path}`}
+                      alt={productionCompany.name}
+                      fill
+                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+              ) : (
+                // Display the name if image doesn't exist
+                productionCompany?.name && (
+                  <h2 className="text-2xl font-bold">
+                    {productionCompany.name}
+                  </h2>
+                )
+              )}
+*/
