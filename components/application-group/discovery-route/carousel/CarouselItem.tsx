@@ -8,7 +8,7 @@ import {
   isTVSeriesDetails,
 } from "@/lib/tmdb-api/tv-series";
 
-import BackgroundPoster from "../../BackgroundPoster";
+import ResponsiveBackgroundPoster from "../../ResponsiveBackgroundPoster";
 
 import ShowDetailsSmallScreen from "./ShowDetailsSmallScreen";
 
@@ -40,33 +40,33 @@ const CarouselItem = async ({ showId, type }: CarouselItemProps) => {
       ? await fetchMovieDetails(showId)
       : await fetchTvSeriesDetails(showId);
 
-  console.log("carousel item data", {data});
-
   // if there is an error, throw it
   if (error) {
     throw new Error(error);
   }
 
-  // if there is no data, return loading
+  // if there is no data, throw an error with a creative ux message
   if (!data) {
-    return <div>Loading...</div>;
+    throw new Error(
+      `Oops! We couldn't find the details for this ${
+        type === "movie" ? "movie" : "tv show"
+      }. Please try again later.`,
+    );
   }
 
   return (
     <div className="">
       {/* Carousel Image */}
-      <Suspense fallback={<div>Loading...</div>}>
-        <BackgroundPoster
-          poster_path={data.poster_path}
-          backdrop_path={data.backdrop_path}
-          alt={`${
-            isMovieDetails(data)
-              ? data.original_title + " slider image"
-              : data.original_name + " slider image"
-          }`}
-          imageClassNames="object-cover object-center"
-        />
-      </Suspense>
+      <ResponsiveBackgroundPoster
+        poster_path={data.poster_path}
+        backdrop_path={data.backdrop_path}
+        alt={`${
+          isMovieDetails(data)
+            ? data.original_title + " slider image"
+            : data.original_name + " slider image"
+        }`}
+        imageClassNames="object-cover object-center"
+      />
 
       {/* Overlay with Poster details */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80  via-black/70 to-black/20  md:bg-gradient-to-r">

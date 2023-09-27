@@ -28,27 +28,26 @@ const Carousel = ({ data }: CarouselProps) => {
     setActiveSlide(newIndex);
   };
 
+  // fetch the first five carousel items and store them in an array
+  const carouselItems = data.map((item) => {
+    return <CarouselItem key={item.id} showId={item.id} type={item.media_type} />;
+  });
+
   return (
     <div className="relative min-h-[30rem] sm:min-h-[30rem] md:min-h-[35rem] lg:min-h-[40rem]">
-      {/* Carousel Image with Content */}
-      <CarouselItem
-        showId={data[activeSlide].id}
-        type={data[activeSlide].media_type}
-      />
-
-      
+      {carouselItems[activeSlide]}
 
       {/* slider btns */}
       <button
         onClick={nextSlide}
-        className="carousel-btn-switch-card-left carousel-btn-switch-card hidden"
+        className="carousel-btn-switch-card-left carousel-btn-switch-card "
       >
         <IoIosArrowBack />
       </button>
 
       <button
         onClick={prevSlide}
-        className="carousel-btn-switch-card-right carousel-btn-switch-card hidden"
+        className="carousel-btn-switch-card-right carousel-btn-switch-card "
       >
         <IoIosArrowBack
           style={{
