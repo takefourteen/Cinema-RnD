@@ -1,16 +1,16 @@
 import React from "react";
-import Link from "next/link";
+import { Suspense } from "react";
 
 import { getTvGenres, getMovieGenres } from "@/lib/tmdb-api/genres";
-import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
+import { fetchMovieDetails, isMovieDetails } from "@/lib/tmdb-api/movies";
+import {
+  fetchTvSeriesDetails,
+  isTVSeriesDetails,
+} from "@/lib/tmdb-api/tv-series";
 
-import { IoMdAdd as AddIcon } from "react-icons/io";
-import { AiOutlineInfo as InfoIcon } from "react-icons/ai";
-import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
-import { Button } from "@/components/ui/button";
 import BackgroundPoster from "../../BackgroundPoster";
-import PlayButton from "@/components/PlayButton";
-import { DetailsButton } from "@/components/DetailsButton";
+
+import ShowDetailsSmallScreen from "./ShowDetailsSmallScreen";
 
 type CarouselContentProps = {
   id: number;
@@ -25,92 +25,60 @@ type CarouselContentProps = {
 };
 
 type CarouselItemProps = {
-  data: CarouselContentProps;
-  activeSlide: number;
-  type: "movie" | "tv";
+  showId: number;
+  type: string;
 };
 
-const CarouselItem = async ({ data, activeSlide, type }: CarouselItemProps) => {
+const CarouselItem = async ({ showId, type }: CarouselItemProps) => {
   // get the genres for the movie or tv show
-  const { data: genreData, error } =
-    type === "movie" ? await getMovieGenres() : await getTvGenres();
+  // const { data: genreData, error } =
+  //   type === "movie" ? await getMovieGenres() : await getTvGenres();
+
+  // fetch the movie or tv show details based on the type
+  const { data, error } =
+    type === "movie"
+      ? await fetchMovieDetails(showId)
+      : await fetchTvSeriesDetails(showId);
+
+  console.log("carousel item data", {data});
+
+  // if there is an error, throw it
+  if (error) {
+    throw new Error(error);
+  }
+
+  // if there is no data, return loading
+  if (!data) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="">
       {/* Carousel Image */}
-      <BackgroundPoster
-        poster_path={data.poster_path}
-        backdrop_path={data.backdrop_path}
-        alt={"Slider Image"}
-        imageClassNames="object-cover object-center"
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <BackgroundPoster
+          poster_path={data.poster_path}
+          backdrop_path={data.backdrop_path}
+          alt={`${
+            isMovieDetails(data)
+              ? data.original_title + " slider image"
+              : data.original_name + " slider image"
+          }`}
+          imageClassNames="object-cover object-center"
+        />
+      </Suspense>
 
       {/* Overlay with Poster details */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80  via-black/70 to-black/20  md:bg-gradient-to-r">
-        <div className="master-container flex h-full flex-col items-center justify-end gap-y-2 pb-8 text-center  lg:max-w-[80%] ">
-          {/* Title */}
-          <h1 className="text-center text-[32px] font-bold md:text-[36px] lg:text-[40px]">
-            {data.original_title || data.original_name}
-          </h1>
-
-          {/* Genres with a dot between them */}
-          <div className=" flex flex-wrap items-center justify-center gap-1">
-            {data.genre_ids.slice(0, 3).map((genre) => (
-              <span
-                key={genre}
-                className="flex items-center gap-1.5 text-primaryWhite/70"
-              >
-                <span>
-                  {genreData?.genres?.find((g) => g.id === genre)?.name}
-                </span>
-                {genre !== data.genre_ids[2] && (
-                  <span className="h-[5px] w-[5px] rounded-full border-primaryRed bg-primaryRed"></span>
-                )}
-              </span>
-            ))}
-          </div>
-
-          {/* add, play and info btns */}
-          <div className="mt-2 flex h-max items-center justify-center gap-4 lg:mt-4 ">
-            {/* add to library button */}
-            <DetailsButton
-              variant={"outline"}
-              size={"icon"}
-              className="rounded-full border-none p-0"
-            >
-              <AddIcon className=" h-8 w-8" />
-            </DetailsButton>
-
-            {/* play button */}
-            {/* if its a movie, href is movie/:id, if tv, href is tv/:id */}
-            <DetailsButton asChild>
-              <Link
-                href={`/${type}/${data.id}`}
-                className="text-lg font-semibold"
-              >
-                <PlayIcon className="mr-1 h-7 w-7" /> Play
-              </Link>
-            </DetailsButton>
-
-            {/* info button */}
-            <DetailsButton
-              asChild
-              variant={"outline"}
-              size={"icon"}
-              className="rounded-full p-0"
-            >
-              <Link href={`/${type}/${data.id}`}>
-                <InfoIcon className="h-6 w-6" />
-              </Link>
-            </DetailsButton>
-          </div>
-        </div>
+        <ShowDetailsSmallScreen data={data} type={type} />
       </div>
     </div>
   );
 };
 
 export default CarouselItem;
+
+// Poster details component for small screens
 
 // const CarouselItemPlayButton: React.FC = () => {
 
