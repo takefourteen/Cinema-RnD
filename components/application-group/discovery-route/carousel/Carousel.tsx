@@ -32,9 +32,8 @@ const Carousel = ({ data }: CarouselProps) => {
     <div className="relative min-h-[30rem] sm:min-h-[30rem] md:min-h-[35rem] lg:min-h-[40rem]">
       {/* Carousel Image with Content */}
       <CarouselItem
-        data={data[activeSlide]}
-        activeSlide={activeSlide}
-        type="movie"
+        showId={data[activeSlide].id}
+        type={data[activeSlide].media_type}
       />
 
       
