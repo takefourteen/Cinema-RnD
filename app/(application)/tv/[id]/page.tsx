@@ -1,6 +1,6 @@
 import React from "react";
 
-import { fetchTvSeries } from "@/lib/tmdb-api/tv-series";
+import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 
 type PageProps = {
   params: {
@@ -13,7 +13,7 @@ const page = async ({ params: { id } }: PageProps) => {
   const tvSeriesId = id.split("-")[0];
 
   // fetch the tv series data
-  const { data: tvSeriesData, error } = await fetchTvSeries(tvSeriesId);
+  const { data: tvSeriesData, error } = await fetchTvSeriesDetails(tvSeriesId);
 
   return (
     <section className="master-container relative top-[70px] pb-[80px] pt-10 text-white">
