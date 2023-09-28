@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useCallback } from "react";
 import {
   BsChevronRight as ChevronRight,
   BsChevronLeft as ChevronLeft,
@@ -19,19 +22,32 @@ export default function SliderPagination({
   const maxIndicator =
     length > maxIndicatorVisible ? maxIndicatorVisible : length;
 
+  const intervalRef = useRef<NodeJS.Timeout>();
+
+  // function that sets the slideNumber to the index of the indicator that was clicked, wrapped in useCallback
+  const handleRightClick = useCallback(() => {
+    if (activeIndex === length - 1) {
+      onSetActiveIndex(0);
+    } else {
+      onSetActiveIndex(activeIndex + 1);
+    }
+  }, [activeIndex, length, onSetActiveIndex]);
+
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      handleRightClick();
+    }, 3000);
+
+    return () => {
+      clearInterval(intervalRef.current!);
+    };
+  }, [handleRightClick]);
+
   function handleLeftClick() {
     if (activeIndex === 0) {
       onSetActiveIndex(length - 1);
     } else {
       onSetActiveIndex(activeIndex - 1);
-    }
-  }
-
-  function handleRightClick() {
-    if (activeIndex === length - 1) {
-      onSetActiveIndex(0);
-    } else {
-      onSetActiveIndex(activeIndex + 1);
     }
   }
 
