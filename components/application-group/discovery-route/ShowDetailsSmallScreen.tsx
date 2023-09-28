@@ -6,7 +6,8 @@ import { Suspense } from "react";
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 
 import { IoMdAdd as AddIcon } from "react-icons/io";
-import { AiOutlineInfo as InfoIcon } from "react-icons/ai";
+// import { AiOutlineInfo as InfoIcon } from "react-icons/ai";
+import { IoInformation as InfoIcon } from "react-icons/io5";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { DetailsButton } from "@/components/DetailsButton";
 
@@ -38,19 +39,25 @@ const ShowDetailsSmallScreen = ({
   }`;
 
   //   get the runtime for the movie or tv show in the format of 1h 30m, or 1h, or 30m
-  let runtime = "";
+  let runtime;
   if (isMovieDetails(movieOrTvShowDetails)) {
-    const hours = Math.floor(movieOrTvShowDetails.runtime / 60);
-    const minutes = movieOrTvShowDetails.runtime % 60;
-    runtime = `${hours}h ${minutes}m`;
+    // if the runtime is NaN, set it to an empty string
+    runtime = isNaN(movieOrTvShowDetails.runtime)
+      ? ""
+      : `${Math.floor(movieOrTvShowDetails.runtime / 60)}h ${
+          movieOrTvShowDetails.runtime % 60
+        }m`;
   } else {
-    const hours = Math.floor(movieOrTvShowDetails.episode_run_time[0] / 60);
-    const minutes = movieOrTvShowDetails.episode_run_time[0] % 60;
-    runtime = `${hours}h ${minutes}m`;
+    // if the runtime is NaN, set it to an empty string
+    runtime = isNaN(movieOrTvShowDetails.episode_run_time[0])
+      ? ""
+      : `${Math.floor(movieOrTvShowDetails.episode_run_time[0] / 60)}h ${
+          movieOrTvShowDetails.episode_run_time[0] % 60
+        }m`;
   }
 
   return (
-    <div className="master-container flex h-full flex-col items-start justify-end gap-y-2 pb-8 text-center  lg:max-w-[80%] ">
+    <div className="master-container flex h-full flex-col items-center justify-end gap-y-2 pb-12 text-center  lg:max-w-[80%] ">
       {/* Production company logo */}
       {productionCompany?.logo_path ? (
         <div>
@@ -76,59 +83,63 @@ const ShowDetailsSmallScreen = ({
       {/* Title and add to library button */}
       <div className="flex items-center gap-x-2">
         {/* Title */}
-        <h1 className="max-w-[32rem] text-start text-[32px] font-bold md:text-[36px] lg:text-[40px]">
+        <h1 className="max-w-[32rem] text-[32px] font-bold md:text-[36px] lg:text-[40px]">
           {movieOrTvShowTitle}
         </h1>
       </div>
 
       {/* Genres and runtime with a dot between them */}
       <div className=" flex flex-wrap items-center justify-center gap-1">
-        {movieOrTvShowDetails.genres.slice(0, 2).map((genre) => (
+        {movieOrTvShowDetails.genres.slice(0, 2).map((genre, index) => (
           <span
             key={genre.id}
             className="flex items-center gap-1.5 text-primaryWhite/70"
           >
             <span>{genre.name}</span>
-            <span className="h-[5px] w-[5px] rounded-full border-primaryRed bg-primaryRed"></span>
+            {/* add a dot decoration after the genre, except for the last  */}
+            {index !== movieOrTvShowDetails.genres.slice(0, 2).length - 1 && (
+              <span className="h-[5px] w-[5px] rounded-full border-white/70 bg-white/70" />
+            )}
           </span>
         ))}
 
-        {/* runtime */}
-        <span className="flex items-center gap-1.5 text-primaryWhite">
-          <span>{runtime}</span>
-        </span>
+        {/* display runtime, if it is not NaN*/}
+        {runtime && (
+          <span className="flex items-center gap-1.5 text-primaryWhite">
+            <span className="h-[5px] w-[5px] rounded-full border-primaryRed bg-primaryRed" />
+            <span>{runtime}</span>
+          </span>
+        )}
       </div>
 
       {/* play and info btns */}
-      <div className="mt-2 flex h-max  items-center justify-center gap-4 lg:mt-4 ">
+      <div className="mt-2 flex h-max  items-center justify-center gap-x-8 lg:mt-4 ">
         {/* add to library button */}
         <DetailsButton
           variant={"outline"}
-          size={"icon"}
-          className="rounded-full border-white/70 p-0 "
+          className="flex flex-col items-center justify-center gap-y-1 border-none p-0   text-white transition-colors hover:bg-transparent hover:text-white/70"
         >
-          <AddIcon className=" h-6 w-6" />
+          <AddIcon className=" h-6 w-6" /> <span>Library</span>
         </DetailsButton>
 
         {/* play button */}
         {/* if its a movie, href is movie/:id, if tv, href is tv/:id */}
         <DetailsButton asChild className="text-lg font-semibold">
-          <Link href={linkHref}>
+          <Link href={`${linkHref}`}>
             <PlayIcon className="mr-1 h-7 w-7" /> Play
           </Link>
         </DetailsButton>
 
         {/* info button */}
-        <DetailsButton
-          asChild
-          variant={"outline"}
-          size={"icon"}
-          className=" rounded-full border-white/70 "
-        >
-          <Link href={linkHref}>
-            <InfoIcon className="h-8 w-8" />
-          </Link>
-        </DetailsButton>
+        <Link href={`${linkHref}`}>
+          <DetailsButton
+            variant={"outline"}
+            className="flex flex-col items-center justify-center gap-y-1 border-none p-0   text-white transition-colors hover:bg-transparent hover:text-white/70"
+          >
+            <InfoIcon className=" h-7 w-7 border-2 border-white/70 rounded-full " />{" "}
+            <span>Info</span>
+          </DetailsButton>
+        </Link>
       </div>
     </div>
   );

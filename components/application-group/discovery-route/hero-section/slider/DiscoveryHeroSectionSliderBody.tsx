@@ -1,13 +1,15 @@
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 
-import ResponsiveBackgroundPoster from "@/components/application-group/ResponsiveBackgroundPoster"; 
+import ResponsiveBackgroundPoster from "@/components/application-group/ResponsiveBackgroundPoster";
 import ShowDetailsSmallScreen from "../../ShowDetailsSmallScreen";
 
 type DiscoveryHeroSectionSliderBodyProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
 };
 
-const DiscoveryHeroSectionSliderBody = ({ movieOrTvShowDetails }: DiscoveryHeroSectionSliderBodyProps) => {
+const DiscoveryHeroSectionSliderBody = ({
+  movieOrTvShowDetails,
+}: DiscoveryHeroSectionSliderBodyProps) => {
   const movieOrTvShowTitle = isMovieDetails(movieOrTvShowDetails)
     ? movieOrTvShowDetails.original_title
     : movieOrTvShowDetails.original_name;
@@ -23,7 +25,7 @@ const DiscoveryHeroSectionSliderBody = ({ movieOrTvShowDetails }: DiscoveryHeroS
       />
 
       {/* Overlay with Poster details */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80  via-black/70 to-black/20  md:bg-gradient-to-r">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90  via-black/80 to-black/20  md:bg-gradient-to-r">
         <ShowDetailsSmallScreen movieOrTvShowDetails={movieOrTvShowDetails} />
       </div>
     </li>

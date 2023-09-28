@@ -25,28 +25,25 @@ const ResponsiveBackgroundPoster = ({
       {/* check for backdrop_path, then render lg screen image with loader
        or a div with an overlay color if backdrop_path is null
       */}
-      <div className="hidden md:flex">
-        {backdrop_path ? (
-          <LargeScreenImage
-            backdrop_path={backdrop_path}
-            alt={alt}
-            priority={priority}
-            imageClassNames={imageClassNames}
-          />
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-r from-black to-black"></div>
-        )}
-      </div>
 
-      {/* Small Screen Image component with loader */}
-      <div className="md:hidden">
-        <SmallScreenImage
-          poster_path={poster_path}
+      {backdrop_path ? (
+        <LargeScreenImage
+          backdrop_path={backdrop_path}
           alt={alt}
           priority={priority}
-          imageClassNames={imageClassNames}
+          imageClassNames={`hidden md:block ${imageClassNames}`}
         />
-      </div>
+      ) : (
+        <div className="absolute inset-0 hidden bg-gradient-to-r from-black to-black md:block" />
+      )}
+
+      {/* Small Screen Image component with loader */}
+      <SmallScreenImage
+        poster_path={poster_path}
+        alt={alt}
+        priority={priority}
+        imageClassNames={`md:hidden ${imageClassNames}`}
+      />
     </>
   );
 };
