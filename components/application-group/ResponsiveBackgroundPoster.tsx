@@ -13,7 +13,7 @@ type BackgroundPosterProps = {
   imageClassNames?: string;
 };
 
-const BackgroundPoster = ({
+const ResponsiveBackgroundPoster = ({
   poster_path,
   backdrop_path,
   alt,
@@ -133,4 +133,4 @@ const LargeScreenImage = ({
   );
 };
 
-export default BackgroundPoster;
+export default ResponsiveBackgroundPoster;

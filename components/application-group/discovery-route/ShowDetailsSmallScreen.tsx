@@ -11,30 +11,41 @@ import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { DetailsButton } from "@/components/DetailsButton";
 
 type ShowDetailsSmallScreenProps = {
-  data: MovieDetailsData | TVSeriesData;
-  type: string;
+  movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
 };
 
 const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
 const ShowDetailsSmallScreen = ({
-  data,
-  type,
+  movieOrTvShowDetails,
 }: ShowDetailsSmallScreenProps) => {
   // look for the first production company that has a logo path
-  const productionCompany = data.production_companies.find(
+  const productionCompany = movieOrTvShowDetails.production_companies.find(
     (company) => company.logo_path,
   );
 
+  /*
+  use type guard functions to determine if the data is of movieDetails.
+  then get the title of the movie or tv show 
+  */
+  const movieOrTvShowTitle = isMovieDetails(movieOrTvShowDetails)
+    ? movieOrTvShowDetails.original_title
+    : movieOrTvShowDetails.original_name;
+
+  // link href to the details page of the movie or tv show
+  const linkHref = `/${isMovieDetails(movieOrTvShowDetails) ? "movie" : "tv"}/${
+    movieOrTvShowDetails.id
+  }`;
+
   //   get the runtime for the movie or tv show in the format of 1h 30m, or 1h, or 30m
   let runtime = "";
-  if (isMovieDetails(data)) {
-    const hours = Math.floor(data.runtime / 60);
-    const minutes = data.runtime % 60;
+  if (isMovieDetails(movieOrTvShowDetails)) {
+    const hours = Math.floor(movieOrTvShowDetails.runtime / 60);
+    const minutes = movieOrTvShowDetails.runtime % 60;
     runtime = `${hours}h ${minutes}m`;
   } else {
-    const hours = Math.floor(data.episode_run_time[0] / 60);
-    const minutes = data.episode_run_time[0] % 60;
+    const hours = Math.floor(movieOrTvShowDetails.episode_run_time[0] / 60);
+    const minutes = movieOrTvShowDetails.episode_run_time[0] % 60;
     runtime = `${hours}h ${minutes}m`;
   }
 
@@ -65,24 +76,14 @@ const ShowDetailsSmallScreen = ({
       {/* Title and add to library button */}
       <div className="flex items-center gap-x-2">
         {/* Title */}
-        <h1 className="text-center text-[32px] font-bold md:text-[36px] lg:text-[40px]">
-          {/* use type guard functions to determine if the data is of movieDetails, then use original_title, otherwise
-                use original_name */}
-          {isMovieDetails(data) ? data.original_title : data.original_name}
+        <h1 className="max-w-[32rem] text-start text-[32px] font-bold md:text-[36px] lg:text-[40px]">
+          {movieOrTvShowTitle}
         </h1>
-        {/* add to library button */}
-        <DetailsButton
-          variant={"outline"}
-          size={"icon"}
-          className="rounded-full border-white/70 p-0 "
-        >
-          <AddIcon className=" h-6 w-6" />
-        </DetailsButton>
       </div>
 
       {/* Genres and runtime with a dot between them */}
       <div className=" flex flex-wrap items-center justify-center gap-1">
-        {data.genres.slice(0, 2).map((genre) => (
+        {movieOrTvShowDetails.genres.slice(0, 2).map((genre) => (
           <span
             key={genre.id}
             className="flex items-center gap-1.5 text-primaryWhite/70"
@@ -99,11 +100,20 @@ const ShowDetailsSmallScreen = ({
       </div>
 
       {/* play and info btns */}
-      <div className="mt-2 grid h-max grid-cols-2 items-center justify-center gap-4 lg:mt-4 ">
+      <div className="mt-2 flex h-max  items-center justify-center gap-4 lg:mt-4 ">
+        {/* add to library button */}
+        <DetailsButton
+          variant={"outline"}
+          size={"icon"}
+          className="rounded-full border-white/70 p-0 "
+        >
+          <AddIcon className=" h-6 w-6" />
+        </DetailsButton>
+
         {/* play button */}
         {/* if its a movie, href is movie/:id, if tv, href is tv/:id */}
         <DetailsButton asChild className="text-lg font-semibold">
-          <Link href={`/${type}/${data.id}`}>
+          <Link href={linkHref}>
             <PlayIcon className="mr-1 h-7 w-7" /> Play
           </Link>
         </DetailsButton>
@@ -112,9 +122,12 @@ const ShowDetailsSmallScreen = ({
         <DetailsButton
           asChild
           variant={"outline"}
-          className="text-lg font-semibold"
+          size={"icon"}
+          className=" rounded-full border-white/70 "
         >
-          <Link href={`/${type}/${data.id}`}>Details</Link>
+          <Link href={linkHref}>
+            <InfoIcon className="h-8 w-8" />
+          </Link>
         </DetailsButton>
       </div>
     </div>
