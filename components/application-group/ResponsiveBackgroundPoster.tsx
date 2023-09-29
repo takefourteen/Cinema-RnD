@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 import Skeleton from "@/components/Skeleton";
+import { AspectRatio } from "../ui/aspect-ratio";
 
 type BackgroundPosterProps = {
   poster_path: string | null;
@@ -39,17 +40,19 @@ const ResponsiveBackgroundPoster = ({
       {/* show the backdrop_path img on larger screens or a div with an
         overlay color if backdrop_path is null
       */}
-      <div className="hidden md:flex">
+      <div className="relative hidden h-[30rem] sm:h-[30rem] md:flex md:h-[35rem] lg:h-[40rem] w-[60%] ml-auto">
         {backdrop_path ? (
-          <Image
-            src={`${BASE_IMG_URL}${backdrop_path}`}
-            alt={alt}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority={priority}
-            onLoad={handleImageLoad}
-            className={`absolute inset-0 bg-no-repeat ${imageClassNames}`}
-          />
+          <AspectRatio ratio={16 / 9}>
+            <Image
+              src={`${BASE_IMG_URL}${backdrop_path}`}
+              alt={alt}
+              fill
+              sizes="(width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority={priority}
+              onLoad={handleImageLoad}
+              className={` object-cover`}
+            />
+          </AspectRatio>
         ) : (
           <div className="absolute inset-0 bg-gradient-to-r from-black to-black"></div>
         )}
