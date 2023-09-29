@@ -30,9 +30,15 @@ const DiscoveryHeroSectionSliderBody = ({
         />
       </Suspense>
 
+      {/* Overlay gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-black/20  md:bg-gradient-to-r md:from-black md:via-black md:to-transparent md:w-[80%]" />
+
       {/* Overlay with Poster details */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90  via-black/80 to-black/20  lg:bg-gradient-to-r">
+      <div className="absolute inset-0 ">
+        {/* Poster details component for small screens */}
         <ShowDetailsSmallScreen movieOrTvShowDetails={movieOrTvShowDetails} />
+
+        {/* Poster details component for large screens */}
         <ShowDetailsLargeScreen movieOrTvShowDetails={movieOrTvShowDetails} />
       </div>
     </li>
