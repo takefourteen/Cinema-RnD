@@ -5,11 +5,14 @@ import { Suspense } from "react";
 
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 
+import imdbImg from "@/assets/images/imdb-1.svg";
+
 import { IoMdAdd as AddIcon } from "react-icons/io";
 // import { AiOutlineInfo as InfoIcon } from "react-icons/ai";
 import { IoInformation as InfoIcon } from "react-icons/io5";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { DetailsButton } from "@/components/DetailsButton";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 type ShowDetailsSmallScreenProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
@@ -56,6 +59,9 @@ const ShowDetailsSmallScreen = ({
         }m`;
   }
 
+  // vote average rounded to one decimal place
+  const voteAverage = Math.round(movieOrTvShowDetails.vote_average * 10) / 10;
+
   return (
     <div className="master-container flex h-full flex-col items-center justify-end gap-y-2 pb-12 text-center  lg:max-w-[80%] ">
       {/* Production company logo */}
@@ -88,8 +94,15 @@ const ShowDetailsSmallScreen = ({
         </h1>
       </div>
 
-      {/* Genres and runtime with a dot between them */}
-      <div className=" flex flex-wrap items-center justify-center gap-1">
+      <div className=" flex flex-wrap items-center justify-center gap-1 tracking-wide">
+        {/* imdb rating with img */}
+        <div className="flex items-center gap-1">
+          <Image src={imdbImg} alt="imdb logo" width={40} />
+          <span className="font-semibold  text-white">{voteAverage}</span>
+          <span className="h-[5px] w-[5px] rounded-full border-primaryRed bg-primaryRed" />
+        </div>
+
+        {/* Genres and runtime with a dot between them */}
         {movieOrTvShowDetails.genres.slice(0, 2).map((genre, index) => (
           <span
             key={genre.id}
@@ -105,7 +118,7 @@ const ShowDetailsSmallScreen = ({
 
         {/* display runtime, if it is not NaN*/}
         {runtime && (
-          <span className="flex items-center gap-1.5 text-primaryWhite">
+          <span className="flex items-center gap-1.5 font-semibold text-primaryWhite">
             <span className="h-[5px] w-[5px] rounded-full border-primaryRed bg-primaryRed" />
             <span>{runtime}</span>
           </span>
@@ -136,7 +149,7 @@ const ShowDetailsSmallScreen = ({
             variant={"outline"}
             className="flex flex-col items-center justify-center gap-y-1 border-none p-0   text-white transition-colors hover:bg-transparent hover:text-white/70"
           >
-            <InfoIcon className=" h-7 w-7 border-2 border-white/70 rounded-full " />{" "}
+            <InfoIcon className=" h-7 w-7 rounded-full border-2 border-white/70 " />{" "}
             <span>Info</span>
           </DetailsButton>
         </Link>

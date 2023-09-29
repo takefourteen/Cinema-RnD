@@ -26,7 +26,7 @@ const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
     if (!isPaused) {
       interval = setInterval(() => {
         setSlideNumber((slideNumber + 1) % lengthOfList);
-      }, 2000);
+      }, 15000);
     }
     return () => clearInterval(interval);
   }, [slideNumber, isPaused, lengthOfList]);
