@@ -36,6 +36,14 @@ const ShowDetailsSmallScreen = ({
     ? movieOrTvShowDetails.original_title
     : movieOrTvShowDetails.original_name;
 
+  /* 
+    use type guard functions to determine if the data is of movieDetails.
+    then get the release date in the format of 2021
+    */
+  const releaseDate = isMovieDetails(movieOrTvShowDetails)
+    ? movieOrTvShowDetails.release_date
+    : movieOrTvShowDetails.first_air_date;
+
   // link href to the details page of the movie or tv show
   const linkHref = `/${isMovieDetails(movieOrTvShowDetails) ? "movie" : "tv"}/${
     movieOrTvShowDetails.id
@@ -94,25 +102,40 @@ const ShowDetailsSmallScreen = ({
         </h1>
       </div>
 
-      <div className=" flex flex-wrap items-center justify-center gap-1 tracking-wide">
-        {/* Rating */}
-        <ImdbRating rating={voteAverage} />
+      {/* Year, runtime, and Rating */}
+      <div className=" flex flex-wrap items-center justify-center gap-2 tracking-wide">
+        {/* Year */}
+        <p className="rounded-sm border border-white/30 px-1 text-primaryWhite">
+          {new Date(releaseDate).getFullYear()}
+        </p>
 
-        {/* dot for seperation */}
-        <span className="mx-1 h-[5px] w-[5px] rounded-full bg-white/80" />
-
-        {/* Genres and runtime with a dot between them */}
-        {movieOrTvShowDetails.genres.slice(0, 2).map((genre, index) => (
-          <Chip key={genre.id}>{genre.name}</Chip>
-        ))}
-
-        {/* display runtime, if it is not NaN*/}
+        {/* display runtime, if it is not NaN, */}
         {runtime && (
-          <span className="flex items-center gap-1.5 ">
-            <span className="mx-1 h-[5px] w-[5px] rounded-full bg-white/80" />
-            <p className="text-primaryWhite">{runtime}</p>
+          <span className="flex items-center gap-2">
+            <span className=" h-[5px] w-[5px] rounded-full bg-white/80" />
+            <p className="rounded-sm border border-white/30 px-1 text-primaryWhite">
+              {runtime}
+            </p>
           </span>
         )}
+
+        {/* if it is a series, display no. of seasons */}
+        {!isMovieDetails(movieOrTvShowDetails) && (
+          <span className="flex items-center gap-2">
+            <span className=" h-[5px] w-[5px] rounded-full bg-white/80" />
+            <p className="rounded-sm border border-white/30 px-1 text-primaryWhite">
+              {/* 1 Season or Seasons if more than 1 */}
+              {movieOrTvShowDetails.number_of_seasons}{" "}
+              {movieOrTvShowDetails.number_of_seasons > 1
+                ? "Seasons"
+                : "Season"}
+            </p>
+          </span>
+        )}
+
+        {/* Rating */}
+        <span className=" h-[5px] w-[5px] rounded-full bg-white/80" />
+        <ImdbRating rating={voteAverage} />
       </div>
 
       {/* play and info btns */}
@@ -139,7 +162,7 @@ const ShowDetailsSmallScreen = ({
             variant={"outline"}
             className="flex flex-col items-center justify-center gap-y-1 border-none p-0   text-white transition-colors hover:bg-transparent hover:text-white/70"
           >
-            <InfoIcon className=" h-7 w-7 rounded-full border-2 border-white/70 " />{" "}
+            <InfoIcon className=" h-6 w-6 rounded-full border-1 border-white/70 p-0.5 " />{" "}
             <span>Info</span>
           </DetailsButton>
         </Link>
@@ -149,3 +172,11 @@ const ShowDetailsSmallScreen = ({
 };
 
 export default ShowDetailsSmallScreen;
+
+/*
+<span className="mx-1 h-[5px] w-[5px] rounded-full bg-white/80" />
+
+{movieOrTvShowDetails.genres.slice(0, 2).map((genre, index) => (
+  <Chip key={genre.id}>{genre.name}</Chip>
+))}
+*/
