@@ -8,7 +8,7 @@ import {
 import { AiFillStar } from "react-icons/ai";
 import { IoMdAdd } from "react-icons/io";
 import { Button } from "@/components/ui/button";
-import Chip from "../Chip";
+import Chip from "../../Chip";
 import PlayButton from "@/components/PlayButton";
 import MovieOverview from "./MovieOverview";
 import ImageDisplay from "./ImageDisplay";
@@ -52,7 +52,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
     movieDetails.runtime % 60
   }m`;
   return (
-    <div className=" from-black to-black relative min-h-[40rem] bg-gradient-to-r sm:min-h-[50rem] md:min-h-[40rem] lg:min-h-[50rem]">
+    <div className=" relative min-h-[40rem] bg-gradient-to-r from-black to-black sm:min-h-[50rem] md:min-h-[40rem] lg:min-h-[50rem]">
       {/* Image Display */}
       <ImageDisplay
         poster_path={movieDetails.poster_path}
@@ -61,10 +61,10 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
       />
 
       {/* Overlay with movie details */}
-      <div className="from-black/80 via-black/60 to-black/20 absolute  inset-0 bg-gradient-to-t  md:bg-gradient-to-r">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80  via-black/60 to-black/20  md:bg-gradient-to-r">
         <div className="master-container flex h-full items-end pb-8 sm:items-center sm:p-0 lg:max-w-[80%]">
           {/* Display relavent information about the movie */}
-          <div className="text-white text-start ">
+          <div className="text-start text-white ">
             {/* movie production company logo */}
             {/* see below for code to display the production company logo */}
 
@@ -73,7 +73,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
               {movieDetails.original_title}
               {/* add space */}
               &nbsp;
-              <span className="text-white/70  ml-2 font-normal tracking-wide">
+              <span className="ml-2  font-normal tracking-wide text-white/70">
                 {new Date(movieDetails.release_date).getFullYear()}
               </span>
             </h1>
@@ -95,7 +95,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
               <Button
                 variant={"outline"}
                 size={"icon"}
-                className="text-white mt-6 rounded-full text-base  font-semibold lg:mt-8 "
+                className="mt-6 rounded-full text-base font-semibold  text-white lg:mt-8 "
               >
                 <IoMdAdd className=" inline-block h-5 w-5" />
               </Button>
@@ -108,7 +108,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
                 {cast.map((castMember, index) => (
                   <span
                     key={castMember.id}
-                    className="text-white/70  font-semibold"
+                    className="font-semibold  text-white/70"
                   >
                     {castMember.name}
                     {index < cast.length - 1 ? (
@@ -123,7 +123,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
             {director && (
               <div className="flex flex-wrap items-baseline tracking-wide lg:mt-1">
                 <h3 className=" font-bold">Director: &nbsp;</h3>
-                <span className="text-white/70  font-semibold">
+                <span className="font-semibold  text-white/70">
                   {director.name}
                 </span>
               </div>
@@ -131,12 +131,12 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
 
             {/* movie rating and movie duration */}
             <div className="items-cemter mt-4 flex flex-wrap lg:mt-6">
-              <span className="text-white/70 flex items-center tracking-wide ">
-                <AiFillStar className="text-white/70 mr-1 inline-block h-[14px] w-[14px]" />{" "}
+              <span className="flex items-center tracking-wide text-white/70 ">
+                <AiFillStar className="mr-1 inline-block h-[14px] w-[14px] text-white/70" />{" "}
                 {movieDetails.vote_average}
               </span>
-              <span className="text-white/70 mx-2">&bull;</span>
-              <span className="text-white/70 font-semibold tracking-wide">
+              <span className="mx-2 text-white/70">&bull;</span>
+              <span className="font-semibold tracking-wide text-white/70">
                 {runtime}
               </span>
             </div>

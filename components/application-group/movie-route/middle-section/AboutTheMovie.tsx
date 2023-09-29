@@ -7,7 +7,7 @@ import { AiFillStar } from "react-icons/ai";
 import { IoMdAdd } from "react-icons/io";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
-import Chip from "../Chip";
+import Chip from "../../Chip";
 import MoviePosterWithLoader from "./MoviePosterWithLoader";
 
 type AboutTheMovieProps = {

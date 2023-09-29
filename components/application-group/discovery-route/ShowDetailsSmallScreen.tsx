@@ -5,14 +5,14 @@ import { Suspense } from "react";
 
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 
-import imdbImg from "@/assets/images/imdb-1.svg";
-
 import { IoMdAdd as AddIcon } from "react-icons/io";
 // import { AiOutlineInfo as InfoIcon } from "react-icons/ai";
 import { IoInformation as InfoIcon } from "react-icons/io5";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { DetailsButton } from "@/components/DetailsButton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import ImdbRating from "../ImdbRating";
+import Chip from "../Chip";
 
 type ShowDetailsSmallScreenProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
@@ -95,32 +95,22 @@ const ShowDetailsSmallScreen = ({
       </div>
 
       <div className=" flex flex-wrap items-center justify-center gap-1 tracking-wide">
-        {/* imdb rating with img */}
-        <div className="flex items-center gap-1">
-          <Image src={imdbImg} alt="imdb logo" width={40} />
-          <span className="font-semibold  text-white">{voteAverage}</span>
-          <span className="h-[5px] w-[5px] rounded-full border-primaryRed bg-primaryRed" />
-        </div>
+        {/* Rating */}
+        <ImdbRating rating={voteAverage} />
+
+        {/* dot for seperation */}
+        <span className="mx-1 h-[5px] w-[5px] rounded-full bg-white/80" />
 
         {/* Genres and runtime with a dot between them */}
         {movieOrTvShowDetails.genres.slice(0, 2).map((genre, index) => (
-          <span
-            key={genre.id}
-            className="flex items-center gap-1.5 text-primaryWhite/70"
-          >
-            <span>{genre.name}</span>
-            {/* add a dot decoration after the genre, except for the last  */}
-            {index !== movieOrTvShowDetails.genres.slice(0, 2).length - 1 && (
-              <span className="h-[5px] w-[5px] rounded-full border-white/70 bg-white/70" />
-            )}
-          </span>
+          <Chip key={genre.id}>{genre.name}</Chip>
         ))}
 
         {/* display runtime, if it is not NaN*/}
         {runtime && (
-          <span className="flex items-center gap-1.5 font-semibold text-primaryWhite">
-            <span className="h-[5px] w-[5px] rounded-full border-primaryRed bg-primaryRed" />
-            <span>{runtime}</span>
+          <span className="flex items-center gap-1.5 ">
+            <span className="mx-1 h-[5px] w-[5px] rounded-full bg-white/80" />
+            <p className="text-primaryWhite">{runtime}</p>
           </span>
         )}
       </div>

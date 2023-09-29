@@ -5,7 +5,7 @@ import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { AiFillStar } from "react-icons/ai";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageWithLoader from "./ImageWithLoader";
-import Chip from "../Chip";
+import Chip from "../../Chip";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
