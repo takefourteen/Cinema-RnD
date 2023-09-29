@@ -1,8 +1,11 @@
+import { Suspense } from "react";
+
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 
 import ResponsiveBackgroundPoster from "@/components/application-group/ResponsiveBackgroundPoster";
 import ShowDetailsSmallScreen from "../../ShowDetailsSmallScreen";
 import ShowDetailsLargeScreen from "../../ShowDetailsLargeScreen";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 type DiscoveryHeroSectionSliderBodyProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
@@ -18,12 +21,14 @@ const DiscoveryHeroSectionSliderBody = ({
   return (
     <li className="relative  min-h-[30rem] min-w-[100vw] flex-1 sm:min-h-[30rem] md:min-h-[35rem] lg:min-h-[40rem] ">
       {/* Carousel Image */}
-      <ResponsiveBackgroundPoster
-        poster_path={movieOrTvShowDetails.poster_path}
-        backdrop_path={movieOrTvShowDetails.backdrop_path}
-        alt={movieOrTvShowTitle}
-        imageClassNames="object-cover object-center"
-      />
+      <Suspense fallback={<LoadingSpinner />}>
+        <ResponsiveBackgroundPoster
+          poster_path={movieOrTvShowDetails.poster_path}
+          backdrop_path={movieOrTvShowDetails.backdrop_path}
+          alt={movieOrTvShowTitle}
+          imageClassNames="object-cover object-center"
+        />
+      </Suspense>
 
       {/* Overlay with Poster details */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90  via-black/80 to-black/20  lg:bg-gradient-to-r">

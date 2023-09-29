@@ -52,7 +52,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
     movieDetails.runtime % 60
   }m`;
   return (
-    <div className=" relative min-h-[40rem] bg-gradient-to-r from-black to-black sm:min-h-[50rem] md:min-h-[40rem] lg:min-h-[50rem]">
+    <div className=" relative min-h-[40rem] bg-gradient-to-r from-black to-black sm:min-h-[50rem] md:min-h-[40rem] lg:min-h-[50rem] ">
       {/* Image Display */}
       <ImageDisplay
         poster_path={movieDetails.poster_path}
@@ -62,7 +62,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
 
       {/* Overlay with movie details */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80  via-black/60 to-black/20  md:bg-gradient-to-r">
-        <div className="master-container flex h-full items-end pb-8 sm:items-center sm:p-0 lg:max-w-[80%]">
+        <div className="master-container flex h-full items-end pb-8 sm:items-center sm:p-0 lg:mr-auto lg:max-w-[80%] xl:max-w-[50%]">
           {/* Display relavent information about the movie */}
           <div className="text-start text-white ">
             {/* movie production company logo */}

@@ -10,6 +10,7 @@ import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import DiscoverySlider from "@/components/application-group/discovery-route/hero-section/slider/DiscoverySlider";
 import DiscoveryHeroSectionSliderBody from "@/components/application-group/discovery-route/hero-section/slider/DiscoveryHeroSectionSliderBody";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const page = async () => {
   const trendingMoviesPromise = fetchTrendingMovies();
@@ -65,7 +66,7 @@ const page = async () => {
   return (
     <section className="text-white">
       {/* map through the movieAndTvShowDetails and render a acrouselItem */}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
         <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
           <div className="flex gap-x-0">
             {movieAndTvShowDetails.map((item) => (
