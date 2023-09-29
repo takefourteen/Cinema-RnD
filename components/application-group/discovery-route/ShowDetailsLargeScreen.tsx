@@ -72,7 +72,7 @@ const ShowDetailsLargeScreen = ({
   const voteAverage = Math.round(movieOrTvShowDetails.vote_average * 10) / 10;
 
   return (
-    <div className="master-container hidden h-full flex-col items-center justify-center gap-y-2 pb-12 text-center sm:items-start  sm:text-start md:flex lg:mr-auto lg:max-w-[80%] xl:max-w-[50%]">
+    <div className="master-container hidden flex-col items-center justify-end gap-y-2 h-[85%] text-center sm:items-start  sm:text-start md:flex lg:mr-auto lg:max-w-[80%]">
       {/* Title and add to library button */}
       <div className="flex items-center gap-x-2">
         {/* Title */}
