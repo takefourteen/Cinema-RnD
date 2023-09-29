@@ -1,7 +1,5 @@
-
 import MovieDetailsTop from "@/components/application-group/movie-route/top-section/MovieDetailsTop";
 import MovieDetailsMiddle from "@/components/application-group/movie-route/middle-section/MovieDetailsMiddle";
-
 
 type PageProps = {
   params: {
