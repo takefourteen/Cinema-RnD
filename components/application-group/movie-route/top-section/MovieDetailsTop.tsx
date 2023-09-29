@@ -10,7 +10,7 @@ import { IoMdAdd } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import Chip from "../../Chip";
 import PlayButton from "@/components/PlayButton";
-import MovieOverview from "./MovieOverview";
+import Overview from "../../Overview";
 import ImageDisplay from "./ImageDisplay";
 
 interface MovieHeaderProps {
@@ -86,7 +86,9 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
             </div>
 
             {/* movie overview using the MovieOverview component */}
-            <MovieOverview overview={movieDetails.overview} />
+            <div className="mt-6 lg:mt-8">
+              <Overview overview={movieDetails.overview} />
+            </div>
 
             <div className="flex gap-x-4">
               {/* play button */}

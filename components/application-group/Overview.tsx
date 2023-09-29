@@ -2,12 +2,15 @@
 
 import { useState } from "react";
 
-interface MovieOverviewProps {
+interface OverviewProps {
   overview: string;
+  intialOverviewLength?: number;
 }
 
-const MovieOverview: React.FC<MovieOverviewProps> = ({ overview }) => {
-  const maxOverviewLength = 100; // Maximum length to display initially
+const Overview: React.FC<OverviewProps> = ({
+  overview,
+  intialOverviewLength = 100, // max overview length to display initially
+}) => {
   const [showFullOverview, setShowFullOverview] = useState(false);
 
   const toggleOverview = () => {
@@ -15,15 +18,15 @@ const MovieOverview: React.FC<MovieOverviewProps> = ({ overview }) => {
   };
 
   return (
-    <div className="group mt-6 sm:w-[30rem] lg:mt-8 lg:w-[36rem] lg:tracking-wider">
+    <div className="group  sm:w-[30rem]  lg:w-[36rem] lg:tracking-wider">
       <p
         className="cursor-pointer text-base tracking-wide text-white lg:text-lg"
         onClick={toggleOverview}
       >
         {showFullOverview
           ? overview
-          : `${overview.slice(0, maxOverviewLength)}${
-              overview.length > maxOverviewLength ? "..." : ""
+          : `${overview.slice(0, intialOverviewLength)}${
+              overview.length > intialOverviewLength ? "..." : ""
             }`}
         <span
           className="ml-1 cursor-pointer text-sm text-gray-400 group-hover:underline group-hover:underline-offset-1 lg:text-base"
@@ -36,4 +39,4 @@ const MovieOverview: React.FC<MovieOverviewProps> = ({ overview }) => {
   );
 };
 
-export default MovieOverview;
+export default Overview;
