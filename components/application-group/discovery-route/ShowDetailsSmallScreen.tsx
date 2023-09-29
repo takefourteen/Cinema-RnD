@@ -71,7 +71,7 @@ const ShowDetailsSmallScreen = ({
   const voteAverage = Math.round(movieOrTvShowDetails.vote_average * 10) / 10;
 
   return (
-    <div className="master-container flex h-full flex-col items-center justify-end gap-y-2 pb-12 text-center  lg:max-w-[80%] ">
+    <div className="master-container flex h-full flex-col items-center justify-end gap-y-2 pb-12 text-center sm:items-start sm:text-start  md:hidden ">
       {/* Production company logo */}
       {productionCompany?.logo_path ? (
         <div>
