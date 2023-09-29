@@ -40,7 +40,7 @@ const ResponsiveBackgroundPoster = ({
       {/* show the backdrop_path img on larger screens or a div with an
         overlay color if backdrop_path is null
       */}
-      <div className="relative hidden h-[30rem] sm:h-[30rem] md:flex md:h-[35rem] lg:h-[40rem] w-[60%] ml-auto">
+      <div className="ml-auto hidden h-full w-[60%] md:flex">
         {backdrop_path ? (
           <AspectRatio ratio={16 / 9}>
             <Image
