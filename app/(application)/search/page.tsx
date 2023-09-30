@@ -1,7 +1,9 @@
 import React from "react";
+import { Suspense } from "react";
 import { v4 as uuid } from "uuid";
 
 import { Separator } from "@/components/ui/separator";
+import LoadingSpinner from "@/components/LoadingSpinner";
 import InfiniteScrollSearchResults from "../../../components/application-group/search-route/InfiniteScrollSearchResults";
 
 type Props = {
@@ -36,9 +38,11 @@ const page = ({ searchParams }: Props) => {
       <ul
         // this is a hack to force the component to re-render when the search term changes, otherwise the component will not re-render because of the router caching behavior in Next.js
         key={uuid()}
-        className=""
+        className="relative"
       >
-        <InfiniteScrollSearchResults searchParams={searchParams} />
+        <Suspense fallback={<LoadingSpinner />}>
+          <InfiniteScrollSearchResults searchParams={searchParams} />
+        </Suspense>
       </ul>
     </section>
   );

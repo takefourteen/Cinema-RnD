@@ -17,11 +17,23 @@ const page = async ({ params: { id } }: PageProps) => {
   return (
     <section className="pb-[70px] text-white">
       {/* Top Section */}
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense
+        fallback={
+          <div className="absolute inset-0 flex items-center justify-center">
+            <LoadingSpinner />
+          </div>
+        }
+      >
         <MovieDetailsTop movieId={movieId} />
       </Suspense>
       {/* Middle Section */}
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense
+        fallback={
+          <div className="absolute inset-0 flex items-center justify-center">
+            <LoadingSpinner />
+          </div>
+        }
+      >
         <MovieDetailsMiddle movieId={movieId} />
       </Suspense>
     </section>

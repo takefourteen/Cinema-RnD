@@ -7,6 +7,7 @@ import { CgSpinner } from "react-icons/cg";
 import { fetchSearchResults } from "../../../lib/actions";
 import MediaCard from "@/components/MediaCard";
 import NoResultsMessage from "./NoResultsMessage";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 interface InfiniteScrollSearchResultsProps {
   searchParams: { [key: string]: string };
@@ -56,7 +57,7 @@ const InfiniteScrollSearchResults = ({
           <MediaCard
             key={media.id}
             data={media}
-            aspect_ratio="9:16"
+            aspect_ratio="2:3"
             loaderType="spinner"
           />
         ))}
@@ -65,9 +66,9 @@ const InfiniteScrollSearchResults = ({
       {showSpinner && (
         <div
           ref={ref}
-          className="col-span-3 flex items-center justify-center md:col-span-4 lg:col-span-5 lg:gap-y-16 xl:col-span-6"
+          className="col-span-full mt-8 flex items-end justify-center "
         >
-          <CgSpinner className="h-10 w-10 animate-spin text-gray-500" />
+          <LoadingSpinner />
           <span className="sr-only">Loading...</span>
         </div>
       )}
