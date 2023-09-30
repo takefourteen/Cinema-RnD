@@ -1,18 +1,12 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { Suspense } from "react";
 
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 
-import { IoMdAdd as AddIcon } from "react-icons/io";
-// import { IoInformation as InfoIcon } from "react-icons/io5";
 import { AiOutlineInfoCircle as InfoIcon } from "react-icons/ai";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { DetailsButton } from "@/components/DetailsButton";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImdbRating from "../ImdbRating";
-import Chip from "../Chip";
 import Overview from "../Overview";
 
 type ShowDetailsLargeScreenProps = {
@@ -24,11 +18,6 @@ const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 const ShowDetailsLargeScreen = ({
   movieOrTvShowDetails,
 }: ShowDetailsLargeScreenProps) => {
-  // look for the first production company that has a logo path
-  const productionCompany = movieOrTvShowDetails.production_companies.find(
-    (company) => company.logo_path,
-  );
-
   /*
   use type guard functions to determine if the data is of movieDetails.
   then get the title of the movie or tv show 
@@ -72,14 +61,13 @@ const ShowDetailsLargeScreen = ({
   const voteAverage = Math.round(movieOrTvShowDetails.vote_average * 10) / 10;
 
   return (
-    <div className="master-container hidden flex-col items-center justify-end gap-y-2 h-[85%] text-center sm:items-start  sm:text-start md:flex lg:mr-auto lg:max-w-[80%]">
+    <div className="master-container hidden h-[85%] flex-col items-center justify-end gap-y-2 text-center sm:items-start  sm:text-start md:flex lg:mr-auto lg:max-w-[80%]">
       {/* Title and add to library button */}
       <div className="flex items-center gap-x-2">
         {/* Title */}
         <h1 className="max-w-[32rem] text-[32px] font-bold md:text-[36px] lg:text-[40px]">
           {movieOrTvShowTitle}
         </h1>
-
       </div>
 
       {/* Year, runtime, and Rating */}
@@ -140,23 +128,6 @@ const ShowDetailsLargeScreen = ({
             <span>Details</span>
           </DetailsButton>
         </Link>
-
-        {/* Production company logo */}
-        {productionCompany?.logo_path && (
-          <div className="relative   ml-auto w-[150px]">
-            <Suspense>
-              <AspectRatio ratio={16 / 9}>
-                <Image
-                  src={`${BASE_IMG_URL}${productionCompany.logo_path}`}
-                  alt={productionCompany.name}
-                  fill
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-                  className="object-contain"
-                />
-              </AspectRatio>
-            </Suspense>
-          </div>
-        )}
       </div>
     </div>
   );

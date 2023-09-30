@@ -14,6 +14,7 @@ const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
   const [slideNumber, setSlideNumber] = useState<number>(0);
   const [listWidth, setListWidth] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
+  const autoScrollInterval = 5000;
 
   useEffect(() => {
     if (listRef.current) {
@@ -26,7 +27,7 @@ const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
     if (!isPaused) {
       interval = setInterval(() => {
         setSlideNumber((slideNumber + 1) % lengthOfList);
-      }, 15000);
+      }, autoScrollInterval);
     }
     return () => clearInterval(interval);
   }, [slideNumber, isPaused, lengthOfList]);
