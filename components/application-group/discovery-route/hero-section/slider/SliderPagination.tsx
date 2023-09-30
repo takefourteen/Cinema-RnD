@@ -1,4 +1,3 @@
-
 import {
   BsChevronRight as ChevronRight,
   BsChevronLeft as ChevronLeft,
@@ -47,6 +46,10 @@ export default function SliderPagination({
       <button
         onClick={handleLeftClick}
         className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition duration-300 hover:scale-110 "
+        title="Previous slide"
+        aria-label="Previous slide"
+        role="button"
+        tabIndex={0}
       >
         <ChevronLeft className="mr-2 text-xl" />
       </button>
@@ -57,12 +60,16 @@ export default function SliderPagination({
           <div
             key={index}
             className={`h-2 w-2 cursor-pointer rounded-full  transition-all duration-500 hover:h-[10px] hover:w-[10px]  hover:opacity-100
-            ${
-              activeIndex === index
-                ? "h-[10px] w-[10px] bg-white/80 opacity-100 "
-                : "w-2 bg-gray-400 opacity-50"
-            }`}
+          ${
+            activeIndex === index
+              ? "h-[10px] w-[10px] bg-white/80 opacity-100 "
+              : "w-2 bg-gray-400 opacity-50"
+          }`}
             onClick={() => handleSetActiveIndex(index)}
+            aria-controls="slider"
+            aria-current={activeIndex === index ? "true" : undefined}
+            tabIndex={0}
+            role="button"
           ></div>
         );
       })}
@@ -71,6 +78,10 @@ export default function SliderPagination({
       <button
         className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition duration-300 hover:scale-110 "
         onClick={handleRightClick}
+        title="Next slide"
+        aria-label="Next slide"
+        role="button"
+        tabIndex={0}
       >
         <ChevronRight className="ml-2 text-xl" />
       </button>

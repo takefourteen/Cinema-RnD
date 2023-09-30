@@ -73,14 +73,14 @@ const page = async () => {
        */}
       <Suspense fallback={<LoadingSpinner />}>
         <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
-          <div className="flex gap-x-0">
+          <ul className="flex gap-x-0">
             {movieAndTvShowDetails.map((item) => (
               <DiscoveryHeroSectionSliderBody
                 key={item.id}
                 movieOrTvShowDetails={item}
               />
             ))}
-          </div>
+          </ul>
         </DiscoverySlider>
       </Suspense>
 

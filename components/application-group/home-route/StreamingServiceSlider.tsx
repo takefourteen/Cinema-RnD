@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -31,7 +31,7 @@ const StreamingServiceSlider = () => {
 interface StreamingServiceItemProps {
   service: {
     name: string;
-    image: string;
+    image: StaticImageData;
   };
   index: number;
 }

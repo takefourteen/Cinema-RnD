@@ -22,7 +22,7 @@ const PopularTvShowsSlider = async () => {
     >
       <ul className="flex gap-x-2">
         {popularTVShows.slice(0, 10).map((tvShow) => (
-          <MediaCard key={tvShow.id} data={tvShow} aspect_ratio="9:16" />
+          <MediaCard key={tvShow.id} data={tvShow} aspect_ratio="2:3" />
         ))}
       </ul>
     </Slider>

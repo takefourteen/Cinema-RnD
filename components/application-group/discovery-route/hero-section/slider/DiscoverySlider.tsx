@@ -10,7 +10,7 @@ interface SliderProps {
 }
 
 const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
-  const listRef = useRef<HTMLUListElement | null>(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
   const [slideNumber, setSlideNumber] = useState<number>(0);
   const [listWidth, setListWidth] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
@@ -50,7 +50,7 @@ const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <ul
+      <div
         className="flex  transform transition-transform duration-500 ease-in-out"
         ref={listRef}
         style={{
@@ -60,7 +60,7 @@ const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
       >
         {/* Slider Items */}
         {children}
-      </ul>
+      </div>
 
       {/* Pagination */}
       <div className="master-container relative opacity-0 transition-opacity  group-hover:opacity-100">
