@@ -29,10 +29,15 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        scroll: {
+          "0%": { transform: "translateX(-110%)" },
+          "100%": { transform: "translateX(0%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        scroll: "scroll 30s linear infinite",
       },
       fontFamily: {
         sans: ["var(--font-max-sans)", "sans-serif"],

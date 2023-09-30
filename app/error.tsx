@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 import { BiArrowBack } from "react-icons/bi";
 import { AiOutlineReload } from "react-icons/ai";
 // import logo from "@/assets/images/netflix-logo.webp";
-import logo from "@/assets/images/cozycinema-logo.webp";
-import smLogo from "@/assets/images/cozycinema-logo-c.webp";
+import logo from "@/assets/images/logos/cozycinema-logo.webp";
+import smLogo from "@/assets/images/logos/cozycinema-logo-c.webp";
 
 import { Button } from "@/components/ui/button";
 

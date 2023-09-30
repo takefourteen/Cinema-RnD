@@ -1,11 +1,10 @@
 // import images from assests/images/streaming-services folder
-import prime from "@/assets/images/streaming-services/prime.svg";
+import prime from "@/assets/images/streaming-services/prime.webp";
 import disney from "@/assets/images/streaming-services/disney-plus.webp";
-import hulu from "@/assets/images/streaming-services/hulu.webp";
+import hulu from "@/assets/images/streaming-services/hulu.png";
 import netflix from "@/assets/images/logos/netflix-logo.webp";
-import peacockWhite from "@/assets/images/streaming-services/peacock-white.svg";
-import peacockBlack from "@/assets/images/streaming-services/peacock-black.svg";
-import hbo from "@/assets/images/streaming-services/hbo-max-dark.svg";
+import peacock from "@/assets/images/streaming-services/peacock.webp";
+import hbo from "@/assets/images/streaming-services/hbo-max.webp";
 
 // image used for error display component
 import error1 from "@/assets/images/error/error1.webp";
@@ -37,7 +36,7 @@ export const streamingServices = [
   },
   {
     name: "Peacock",
-    image: peacockWhite,
+    image: peacock,
     poster: poster4,
   },
   {

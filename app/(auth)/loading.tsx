@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import logo from "@/assets/images/cozycinema-logo.webp";
-import logoC from "@/assets/images/cozycinema-logo-c.webp";
+import logo from "@/assets/images/logos/cozycinema-logo.webp";
+import logoC from "@/assets/images/logos/cozycinema-logo-c.webp";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const loading = () => {

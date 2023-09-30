@@ -7,8 +7,8 @@ import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { useRouter, usePathname } from "next/navigation";
 
-import logo from "@/assets/images/cozycinema-logo.webp";
-import smLogo from "@/assets/images/cozycinema-logo-c.webp";
+import logo from "@/assets/images/logos/cozycinema-logo.webp";
+import smLogo from "@/assets/images/logos/cozycinema-logo-c.webp";
 import MobileMenu from "./MobileMenu";
 import SearchBar from "./SearchBar";
 import NavLink from "./NavLink";

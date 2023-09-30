@@ -11,8 +11,8 @@ import { AiOutlineReload } from "react-icons/ai";
 import { errorImages } from "@/constants/index"; // array of error images
 import { Button } from "@/components/ui/button";
 
-import logo from "@/assets/images/cozycinema-logo.webp";
-import smLogo from "@/assets/images/cozycinema-logo-c.webp";
+import logo from "@/assets/images/logos/cozycinema-logo.webp";
+import smLogo from "@/assets/images/logos/cozycinema-logo-c.webp";
 
 //   RANDOM NUMBER GENERATOR
 function getRandomInt(max: number) {

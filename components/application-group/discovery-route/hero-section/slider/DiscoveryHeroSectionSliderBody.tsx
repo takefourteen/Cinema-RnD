@@ -47,19 +47,3 @@ const DiscoveryHeroSectionSliderBody = ({
 
 export default DiscoveryHeroSectionSliderBody;
 
-// Poster details component for small screens
-
-// const CarouselItemPlayButton: React.FC = () => {
-
-// }
-
-/* 
-display chips
- <div className="flex flex-wrap items-center space-x-4">
-                {data.genre_ids.slice(0, 3).map((genre) => (
-                  <Chip key={genre}>
-                    {genreData?.genres?.find((g) => g.id === genre)?.name}
-                  </Chip>
-                ))}
-              </div>
-*/
