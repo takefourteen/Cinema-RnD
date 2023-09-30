@@ -5,7 +5,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const StreamingServicesSlideShow = () => {
   return (
-    <section className=" flex">
+    <section className="mt-4 flex lg:mt-8">
       <ul className="flex animate-scroll gap-x-2 md:gap-x-3 lg:gap-x-4">
         {streamingServices.map((service, index) => (
           <li
