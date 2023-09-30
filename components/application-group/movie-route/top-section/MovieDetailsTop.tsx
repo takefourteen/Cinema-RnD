@@ -110,17 +110,17 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
 
           {/* movie rating, movie duration and Year */}
           <div className="items-cemter mt-2 flex flex-wrap lg:mt-4">
-            {/* movie duration */}
+            {/* movie year */}
             <span className="font-semibold tracking-wide text-white/70">
-              {runtime}
+              {new Date(movieDetails.release_date).getFullYear()}
             </span>
             <span className="mx-2 text-white/70">&bull;</span>
             {/* movie rating */}
             <ImdbRating rating={movieDetails.vote_average} />
             <span className="mx-2 text-white/70">&bull;</span>
-            {/* movie year */}
-            <span className="tracking-wide text-white/70">
-              {new Date(movieDetails.release_date).getFullYear()}
+            {/* movie duration */}
+            <span className="font-semibold tracking-wide text-white/70">
+              {runtime}
             </span>
           </div>
 
@@ -172,7 +172,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
           )}
 
           {/* movie genres */}
-          <div className="mt-6 lg:mt-8 flex flex-wrap gap-1 font-semibold">
+          <div className="mt-6 flex flex-wrap gap-1 font-semibold lg:mt-8">
             {movieDetails.genres.map((genre, index) => (
               <Chip key={genre.id}>{genre.name}</Chip>
             ))}
