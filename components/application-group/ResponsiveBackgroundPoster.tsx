@@ -47,7 +47,7 @@ const ResponsiveBackgroundPoster = ({
               src={`${BASE_IMG_URL}${backdrop_path}`}
               alt={alt}
               fill
-              sizes="500px"
+              sizes="100vw"
               priority={priority}
               onLoad={handleImageLoad}
               className={`absolute inset-0 bg-no-repeat object-cover ${imageClassNames}`}
@@ -64,7 +64,7 @@ const ResponsiveBackgroundPoster = ({
           src={`${BASE_IMG_URL}${poster_path}`}
           alt={alt}
           fill
-          sizes="300px"
+          sizes="100vw"
           priority={priority}
           onLoad={handleImageLoad}
           className={`absolute inset-0 bg-no-repeat object-cover  ${imageClassNames}`}
