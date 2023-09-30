@@ -10,12 +10,12 @@ type PageProps = {
   };
 };
 
-const page = async ({ params: { id } }: PageProps) => {
+const page = ({ params: { id } }: PageProps) => {
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
   const movieId = id.split("-")[0];
 
   return (
-    <section className="pb-[70px] text-white">
+    <section className=" text-white">
       {/* Top Section */}
       <Suspense
         fallback={
@@ -26,6 +26,7 @@ const page = async ({ params: { id } }: PageProps) => {
       >
         <MovieDetailsTop movieId={movieId} />
       </Suspense>
+      
       {/* Middle Section */}
       <Suspense
         fallback={

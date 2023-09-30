@@ -37,7 +37,7 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        scroll: "scroll 35s linear infinite",
+        scroll: "scroll 40s linear infinite",
       },
       fontFamily: {
         sans: ["var(--font-max-sans)", "sans-serif"],

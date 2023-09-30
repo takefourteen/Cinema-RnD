@@ -3,6 +3,7 @@ import {
   MovieDetailsApiResponse,
   fetchMovieDetails,
 } from "@/lib/tmdb-api/movies";
+import { fetchImages, ImagesApiResponse } from "@/lib/tmdb-api/images";
 
 import { IoMdAdd } from "react-icons/io";
 import { Button } from "@/components/ui/button";
@@ -18,10 +19,23 @@ interface MovieHeaderProps {
 }
 
 const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
+  // fetch the movie details and images
   const movieDetailsPromise: Promise<MovieDetailsApiResponse> =
     fetchMovieDetails(movieId);
-  const { data: movieDetails, error: movieDetailsError } =
-    await movieDetailsPromise;
+  const imagesPromise: Promise<ImagesApiResponse> = fetchImages(
+    movieId,
+    "movie",
+  );
+
+  // wait for both promises to resolve
+  const [movieDetailsResponse, imagesResponse] = await Promise.all([
+    movieDetailsPromise,
+    imagesPromise,
+  ]);
+
+  // destructure the data and error from the responses
+  const { data: movieDetails, error: movieDetailsError } = movieDetailsResponse;
+  const { data: images, error: imagesError } = imagesResponse;
 
   /*
     if there is an error fetching similarMovies and recommendedMovies, 
@@ -31,7 +45,11 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
     throw new Error(`Error fetching movie details: ${movieDetailsError}`);
   }
 
-  if (!movieDetails) {
+  if (imagesError) {
+    throw new Error(`Error fetching images: ${imagesError}`);
+  }
+
+  if (!movieDetails || !images) {
     return <div>Loading...</div>;
   }
 
@@ -39,6 +57,10 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   const productionCompany = movieDetails.production_companies.find(
     (company) => company.logo_path,
   );
+
+  // look for the first images.logos with a file_path
+  const titleLogo = images.logos.find((logo) => logo.file_path);
+
   // get the director name
   const director = movieDetails.credits?.crew.find(
     (crew) => crew.job === "Director",
@@ -54,17 +76,12 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   return (
     <div className="relative h-[40rem] flex-1 bg-gradient-to-r from-black to-black sm:h-[50rem] md:h-[40rem] lg:h-[50rem] ">
       {/* Image Display */}
-      {/* <ImageDisplay
-        poster_path={movieDetails.poster_path}
-        backdrop_path={movieDetails.backdrop_path}
-        alt={movieDetails.original_title}
-      /> */}
       <Suspense fallback={<LoadingSpinner />}>
-        <ResponsiveBackgroundPoster
-          poster_path={movieDetails.poster_path}
-          backdrop_path={movieDetails.backdrop_path}
-          alt={movieDetails.original_title}
-        />
+          <ResponsiveBackgroundPoster
+            poster_path={movieDetails.poster_path}
+            backdrop_path={movieDetails.backdrop_path}
+            alt={movieDetails.original_title}
+          />
       </Suspense>
 
       {/* Overlay gradient */}

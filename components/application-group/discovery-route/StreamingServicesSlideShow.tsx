@@ -1,71 +1,46 @@
 import Image from "next/image";
-
 import { streamingServices } from "@/constants";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+
+const renderStreamingServicesList = () => {
+  return (
+    <ul className="flex animate-scroll gap-x-2 md:gap-x-3 lg:gap-x-4">
+      {streamingServices.map((service, index) => (
+        <li
+          key={service.name}
+          className="relative flex h-auto w-[200px] flex-1 items-center justify-center px-2 sm:w-[210px] md:w-[215px] lg:w-[225px]"
+        >
+          <AspectRatio ratio={21 / 9}>
+            <Image
+              src={service.image}
+              alt={service.name}
+              fill
+              placeholder="blur"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+              className="z-10 transform object-contain px-2 py-1 brightness-50 transition-transform delay-75 hover:scale-105"
+            />
+          </AspectRatio>
+
+          {/* div with an image background for service.poster */}
+          {/* <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: `url("./posters/poster-${index + 1}.webp")`,
+              filter: "grayscale(100%) brightness(50%) blur(2px)",
+            }}
+          /> */}
+        </li>
+      ))}
+    </ul>
+  );
+};
 
 const StreamingServicesSlideShow = () => {
   return (
     <section className="mt-4 flex lg:mt-8">
-      <ul className="flex animate-scroll gap-x-2 md:gap-x-3 lg:gap-x-4">
-        {streamingServices.map((service, index) => (
-          <li
-            key={service.name}
-            className="relative flex h-auto  w-[200px] flex-1 items-center justify-center px-2 sm:w-[210px] md:w-[215px] lg:w-[225px] "
-          >
-            <AspectRatio ratio={21 / 9}>
-              <Image
-                src={service.image}
-                alt={service.name}
-                fill
-                placeholder="blur"
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-                className="z-10 transform object-contain px-2 py-1 brightness-75  transition-transform delay-75 hover:scale-105  "
-              />
-            </AspectRatio>
-
-            {/* div with an image background for service.poster */}
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{
-                backgroundImage: `url("./posters/poster-${index + 1}.webp")`,
-                filter: "grayscale(100%) brightness(50%) blur(2px)",
-                //   borderRadius: "0.375rem",
-              }}
-            />
-          </li>
-        ))}
-      </ul>
-
-      {/*  duplicate the list to create an infinite slide show */}
-      <ul className="flex animate-scroll gap-x-2 md:gap-x-3 lg:gap-x-4">
-        {streamingServices.map((service, index) => (
-          <li
-            key={service.name}
-            className="relative flex h-auto  w-[200px] flex-1 items-center justify-center px-2 sm:w-[210px] md:w-[215px] lg:w-[225px] "
-          >
-            <AspectRatio ratio={21 / 9}>
-              <Image
-                src={service.image}
-                alt={service.name}
-                fill
-                placeholder="blur"
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-                className="z-10 transform object-contain px-2 py-1  brightness-75  transition-transform delay-75 hover:scale-105  "
-              />
-            </AspectRatio>
-
-            {/* div with an image background for service.poster */}
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{
-                backgroundImage: `url("./posters/poster-${index + 1}.webp")`,
-                filter: "grayscale(100%) brightness(50%) blur(2px)",
-                //   borderRadius: "0.375rem",
-              }}
-            />
-          </li>
-        ))}
-      </ul>
+      {renderStreamingServicesList()}
+      {/* duplicate the list to create an infinite slide show */}
+      {renderStreamingServicesList()}
     </section>
   );
 };
