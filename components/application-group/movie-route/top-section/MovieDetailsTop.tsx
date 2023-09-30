@@ -1,9 +1,12 @@
 import { Suspense } from "react";
+import Image from "next/image";
+
 import {
   MovieDetailsApiResponse,
   fetchMovieDetails,
 } from "@/lib/tmdb-api/movies";
 import { fetchImages, ImagesApiResponse } from "@/lib/tmdb-api/images";
+import { convertAspectRatioToFraction } from "@/helpers/convertAspectRatioToFraction";
 
 import { IoMdAdd } from "react-icons/io";
 import { Button } from "@/components/ui/button";
@@ -13,6 +16,7 @@ import Overview from "../../Overview";
 import ResponsiveBackgroundPoster from "../../ResponsiveBackgroundPoster";
 import ImdbRating from "../../ImdbRating";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import TitleLogo from "../../TitleLogo";
 
 interface MovieHeaderProps {
   movieId: string;
@@ -53,11 +57,6 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
     return <div>Loading...</div>;
   }
 
-  // look for the first production company that has a logo path
-  const productionCompany = movieDetails.production_companies.find(
-    (company) => company.logo_path,
-  );
-
   // look for the first images.logos with a file_path
   const titleLogo = images.logos.find((logo) => logo.file_path);
 
@@ -74,18 +73,19 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
     movieDetails.runtime % 60
   }m`;
   return (
-    <div className="relative h-[40rem] flex-1 bg-gradient-to-r from-black to-black sm:h-[50rem] md:h-[40rem] lg:h-[50rem] ">
+    <div className="relative h-[40rem] flex-1 sm:h-[50rem] md:h-[40rem] lg:h-[50rem] ">
       {/* Image Display */}
       <Suspense fallback={<LoadingSpinner />}>
-          <ResponsiveBackgroundPoster
-            poster_path={movieDetails.poster_path}
-            backdrop_path={movieDetails.backdrop_path}
-            alt={movieDetails.original_title}
-          />
+        <ResponsiveBackgroundPoster
+          poster_path={movieDetails.poster_path}
+          backdrop_path={movieDetails.backdrop_path}
+          alt={movieDetails.original_title}
+        />
       </Suspense>
 
       {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-black/20  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent" />
+
       {/* Overlay with movie details */}
       <div className="master-container absolute inset-0 flex h-full items-end pb-8 sm:items-center sm:p-0 lg:mr-auto lg:max-w-[80%] ">
         {/* Display relavent information about the movie */}
@@ -93,21 +93,35 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
           {/* movie production company logo */}
           {/* see below for code to display the production company logo */}
 
-          {/* movie title with release year*/}
-          <h1 className="text-[32px] font-bold md:text-[36px] lg:text-[40px]">
-            {movieDetails.original_title}
-            {/* add space */}
-            &nbsp;
-            <span className="ml-2  font-normal tracking-wide text-white/70">
+          {/* movie title logo or Normal title*/}
+          {titleLogo?.file_path ? (
+            <Suspense>
+              <TitleLogo
+                logoData={titleLogo}
+                alt={movieDetails.original_title}
+              />
+            </Suspense>
+          ) : (
+            // movie title
+            <h1 className="text-[32px] font-bold md:text-[36px] lg:text-[40px]">
+              {movieDetails.original_title}
+            </h1>
+          )}
+
+          {/* movie rating, movie duration and Year */}
+          <div className="items-cemter mt-2 flex flex-wrap lg:mt-4">
+            {/* movie duration */}
+            <span className="font-semibold tracking-wide text-white/70">
+              {runtime}
+            </span>
+            <span className="mx-2 text-white/70">&bull;</span>
+            {/* movie rating */}
+            <ImdbRating rating={movieDetails.vote_average} />
+            <span className="mx-2 text-white/70">&bull;</span>
+            {/* movie year */}
+            <span className="tracking-wide text-white/70">
               {new Date(movieDetails.release_date).getFullYear()}
             </span>
-          </h1>
-
-          {/* movie genres */}
-          <div className="mt-1 flex flex-wrap gap-1">
-            {movieDetails.genres.map((genre, index) => (
-              <Chip key={genre.id}>{genre.name}</Chip>
-            ))}
           </div>
 
           {/* movie overview using the MovieOverview component */}
@@ -115,6 +129,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
             <Overview overview={movieDetails.overview} />
           </div>
 
+          {/* Btns */}
           <div className="flex gap-x-4">
             {/* play button */}
             <PlayButton className="mt-6 lg:mt-8">Play Movie</PlayButton>
@@ -156,18 +171,19 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
             </div>
           )}
 
-          {/* movie rating and movie duration */}
-          <div className="items-cemter mt-4 flex flex-wrap lg:mt-6">
-            {/* movie duration */}
-            <span className="font-semibold tracking-wide text-white/70">
-              {runtime}
-            </span>
-            <span className="mx-2 text-white/70">&bull;</span>
-            {/* movie rating */}
-            <ImdbRating rating={movieDetails.vote_average} />
+          {/* movie genres */}
+          <div className="mt-6 lg:mt-8 flex flex-wrap gap-1 font-semibold">
+            {movieDetails.genres.map((genre, index) => (
+              <Chip key={genre.id}>{genre.name}</Chip>
+            ))}
           </div>
         </div>
       </div>
+
+      {/* 
+        short dark overlay at the bottom of the image
+      */}
+      <div className="absolute inset-x-0 bottom-0 hidden h-1/4 bg-gradient-to-t from-black to-transparent md:flex" />
     </div>
   );
 };
