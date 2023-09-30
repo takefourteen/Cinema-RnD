@@ -66,10 +66,9 @@ export default function SliderPagination({
               : "w-2 bg-gray-400 opacity-50"
           }`}
             onClick={() => handleSetActiveIndex(index)}
-            aria-controls="slider"
-            aria-current={activeIndex === index ? "true" : undefined}
             tabIndex={0}
             role="button"
+            aria-label={`Slide ${index + 1}`}
           ></div>
         );
       })}
