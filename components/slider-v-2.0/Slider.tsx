@@ -36,7 +36,7 @@ const Slider = ({
 
   return (
     <AnimatePresence>
-      <section className=" master-container py-[64px] lg:py-[72px]">
+      <section className=" master-container pt-[64px] lg:pt-[72px]">
         <div className="flex h-full w-full grid-cols-10 flex-col md:grid">
           {sliderHeaderComponent}
 

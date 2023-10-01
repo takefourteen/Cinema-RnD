@@ -57,7 +57,7 @@ function Controls({
   };
 
   return (
-    <div className="flex items-center gap-3 px-0 py-3 md:px-1 md:py-5">
+    <div className="mt-4 flex items-center gap-3 px-0 md:px-1 lg:mt-6">
       <SliderButton handleClick={handlePrev} aria-label="previous slide">
         <IoIosArrowBack className=" text-xl" />
       </SliderButton>

@@ -41,11 +41,11 @@ export default function SliderPagination({
   }
 
   return (
-    <div className="absolute bottom-1 left-1/2  flex  h-5 w-max -translate-x-1/2 transform items-center justify-center space-x-2">
+    <div className="absolute bottom-3 left-1/2  hidden  h-5 w-max -translate-x-1/2 transform items-center justify-center space-x-2 md:flex">
       {/* left button */}
       <button
         onClick={handleLeftClick}
-        className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition duration-300 hover:scale-110 "
+        className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-white transition duration-300 hover:scale-110 "
         title="Previous slide"
         aria-label="Previous slide"
         role="button"
@@ -75,7 +75,7 @@ export default function SliderPagination({
 
       {/* right button */}
       <button
-        className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full transition duration-300 hover:scale-110 "
+        className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-white transition duration-300 hover:scale-110 "
         onClick={handleRightClick}
         title="Next slide"
         aria-label="Next slide"

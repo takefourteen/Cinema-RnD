@@ -23,7 +23,7 @@ interface TrendingMoviesResponse {
   total_results: number;
 }
 
-interface TrendingTVShow {
+interface TrendingTVSeries {
   adult: boolean;
   backdrop_path: string | null;
   id: number;
@@ -43,7 +43,7 @@ interface TrendingTVShow {
 
 interface TrendingTVShowsResponse {
   page: number;
-  results: TrendingTVShow[];
+  results: TrendingTVSeries[];
   total_pages: number;
   total_results: number;
 }

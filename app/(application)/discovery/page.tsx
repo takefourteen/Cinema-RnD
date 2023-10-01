@@ -14,6 +14,7 @@ import DiscoveryHeroSectionSliderBody from "@/components/application-group/disco
 import LoadingSpinner from "@/components/LoadingSpinner";
 import StreamingServicesSlideShow from "@/components/application-group/discovery-route/StreamingServicesSlideShow";
 import TrendingMoviesSlider from "@/components/application-group/discovery-route/TrendingMoviesSlider";
+import TrendingTVShowsSlider from "@/components/application-group/discovery-route/TrendingTvSeriesSlider";
 
 // ===================================
 // Time-based Revalidation in Next.js
@@ -60,7 +61,7 @@ const page = async () => {
   }
 
   // mix the movies and tv shows together into one array. only 2 of each
-  const mixedTrending: (TrendingMovie | TrendingTVShow)[] = [];
+  const mixedTrending: (TrendingMovie | TrendingTVSeries)[] = [];
   for (let i = 0; i < 2; i++) {
     mixedTrending.push(trendingMoviesData[i]);
     mixedTrending.push(trendingTVShowsData[i]);
@@ -125,6 +126,13 @@ const page = async () => {
         --------------
        */}
       <TrendingMoviesSlider trendingMovies={trendingMoviesData} />
+
+      {/*
+        -----------------
+        Trending TV Series 
+        -----------------
+       */}
+      <TrendingTVShowsSlider trendingTvSeries={trendingTVShowsData} />
     </section>
   );
 };

@@ -10,7 +10,7 @@ export interface TrendingApiResponse<T> {
 
 export async function fetchTrendingMovies(
   page: number = 1,
-  timeWindow: "day" | "week" = "week",
+  timeWindow: "day" | "week" = "day",
 ): Promise<TrendingApiResponse<TrendingMovie[]>> {
   try {
     const response = await fetch(
@@ -49,8 +49,8 @@ export async function fetchTrendingMovies(
 
 export async function fetchTrendingTVShows(
   page: number = 1,
-  timeWindow: "day" | "week" = "week",
-): Promise<TrendingApiResponse<TrendingTVShow[]>> {
+  timeWindow: "day" | "week" = "day",
+): Promise<TrendingApiResponse<TrendingTVSeries[]>> {
   try {
     const response = await fetch(
       `${BASE_URL}/trending/tv/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`,
@@ -119,8 +119,8 @@ export async function fetchMultipleTrendingMoviesPages(
 
 export async function fetchMultipleTrendingTVShowsPages(
   numPages: number,
-): Promise<TrendingApiResponse<TrendingTVShow[]>> {
-  let finalResults: TrendingTVShow[] = [];
+): Promise<TrendingApiResponse<TrendingTVSeries[]>> {
+  let finalResults: TrendingTVSeries[] = [];
 
   let finalError: string = "";
 
@@ -147,4 +147,3 @@ export async function fetchMultipleTrendingTVShowsPages(
     error: finalError,
   };
 }
-
