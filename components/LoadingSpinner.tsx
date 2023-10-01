@@ -1,6 +1,6 @@
 "use client";
 
-import { Spinner } from "@nextui-org/react";
+import { Spinner } from "@nextui-org/spinner";
 
 const LoadingSpinner = () => {
   return <Spinner color="default" />;

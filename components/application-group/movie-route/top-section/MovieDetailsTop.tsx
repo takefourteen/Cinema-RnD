@@ -138,6 +138,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
               variant={"outline"}
               size={"icon"}
               className="mt-6 rounded-full text-base font-semibold  text-white lg:mt-8 "
+              aria-label="Add to library"
             >
               <IoMdAdd className=" inline-block h-5 w-5" />
             </Button>

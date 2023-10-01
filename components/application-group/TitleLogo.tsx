@@ -5,8 +5,8 @@ import { useState } from "react";
 
 import { convertAspectRatioToFraction } from "@/helpers/convertAspectRatioToFraction";
 
+import { Spinner } from "@nextui-org/spinner";
 import { AspectRatio } from "../ui/aspect-ratio";
-import LoadingSpinner from "../LoadingSpinner";
 
 type Props = {
   logoData: {
@@ -38,7 +38,11 @@ const TitleLogo = ({ logoData, alt }: Props) => {
 
   return (
     <>
-      {isLoading && <LoadingSpinner />}
+      {isLoading && (
+        <div className="flex items-center ">
+          <Spinner color="default" />
+        </div>
+      )}
 
       <div className="relative w-[300px] md:w-[325px] lg:w-[350px]">
         <AspectRatio
