@@ -60,7 +60,7 @@ const Slider: React.FC<SliderProps> = ({
   };
 
   return (
-    <section className="w-full overflow-hidden">
+    <section className="master-container pt-[64px] lg:pt-[72px]">
       {/* Slider Header */}
       <div className="flex items-baseline justify-between ">
         <h2 className="text-2xl font-bold capitalize text-white md:text-3xl">

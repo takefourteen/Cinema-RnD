@@ -13,7 +13,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import StreamingServicesSlideShow from "@/components/application-group/discovery-route/StreamingServicesSlideShow";
 import TrendingMoviesSlider from "@/components/application-group/discovery-route/TrendingMoviesSlider";
 import TrendingTVShowsSlider from "@/components/application-group/discovery-route/TrendingTvSeriesSlider";
-import Collections from "@/components/application-group/discovery-route/collections/Collections";
+import CollectionsSlideShow from "@/components/application-group/discovery-route/collections/CollectionsSlideShow";
 
 // ===================================
 // Time-based Revalidation in Next.js
@@ -117,7 +117,7 @@ const page = async () => {
         Collections 
         -----------------
        */}
-      <Collections />
+      <CollectionsSlideShow />
 
       {/*
         -----------------------------------------------------
