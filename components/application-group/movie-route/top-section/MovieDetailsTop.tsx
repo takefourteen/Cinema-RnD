@@ -185,7 +185,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
         short dark overlay at the bottom of the image to blend into the 
         next section
       */}
-      <div className="absolute inset-x-0 bottom-0 hidden h-1/4 bg-gradient-to-t from-black to-transparent md:flex" />
+      <div className="absolute inset-x-0 bottom-0 hidden h-4 bg-gradient-to-t from-black to-transparent md:flex" />
     </div>
   );
 };
