@@ -1,8 +1,6 @@
 import { Suspense } from "react";
 
 import {
-  fetchTrendingMovies,
-  fetchTrendingTVShows,
   fetchMultipleTrendingMoviesPages,
   fetchMultipleTrendingTVShowsPages,
 } from "@/lib/tmdb-api/trending";
@@ -15,6 +13,7 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import StreamingServicesSlideShow from "@/components/application-group/discovery-route/StreamingServicesSlideShow";
 import TrendingMoviesSlider from "@/components/application-group/discovery-route/TrendingMoviesSlider";
 import TrendingTVShowsSlider from "@/components/application-group/discovery-route/TrendingTvSeriesSlider";
+import Collections from "@/components/application-group/discovery-route/collections/Collections";
 
 // ===================================
 // Time-based Revalidation in Next.js
@@ -112,6 +111,13 @@ const page = async () => {
           </ul>
         </DiscoverySlider>
       </Suspense>
+
+      {/*
+        -----------------
+        Collections 
+        -----------------
+       */}
+      <Collections />
 
       {/*
         -----------------------------------------------------
