@@ -13,6 +13,7 @@ import DiscoverySlider from "@/components/application-group/discovery-route/hero
 import DiscoveryHeroSectionSliderBody from "@/components/application-group/discovery-route/hero-section/slider/DiscoveryHeroSectionSliderBody";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import StreamingServicesSlideShow from "@/components/application-group/discovery-route/StreamingServicesSlideShow";
+import TrendingMoviesSlider from "@/components/application-group/discovery-route/TrendingMoviesSlider";
 
 // ===================================
 // Time-based Revalidation in Next.js
@@ -92,7 +93,7 @@ const page = async () => {
   const movieAndTvShowDetails = await Promise.all(movieAndTvShowDetailsPromise);
 
   return (
-    <section className="text-white">
+    <section>
       {/*
         -----------
         Hero Section 
@@ -120,9 +121,10 @@ const page = async () => {
 
       {/*
         --------------
-        Latest Movies 
+        Trending Movies 
         --------------
        */}
+      <TrendingMoviesSlider trendingMovies={trendingMoviesData} />
     </section>
   );
 };

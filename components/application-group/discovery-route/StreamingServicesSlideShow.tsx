@@ -8,7 +8,7 @@ const renderStreamingServicesList = () => {
       {streamingServices.map((service, index) => (
         <li
           key={service.name}
-          className="relative flex h-auto w-[200px] flex-1 items-center justify-center px-2 sm:w-[210px] md:w-[215px] lg:w-[225px]"
+          className="relative flex h-auto w-[150px] flex-1 items-center justify-center px-2 lg:w-[175px]"
         >
           <AspectRatio ratio={21 / 9}>
             <Image
@@ -37,7 +37,7 @@ const renderStreamingServicesList = () => {
 
 const StreamingServicesSlideShow = () => {
   return (
-    <section className="mt-4 flex lg:mt-8">
+    <section className="flex">
       {renderStreamingServicesList()}
       {/* duplicate the list to create an infinite slide show */}
       {renderStreamingServicesList()}

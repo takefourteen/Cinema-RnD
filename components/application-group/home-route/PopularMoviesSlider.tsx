@@ -32,7 +32,7 @@ const PopularMoviesSlider = async () => {
         sliderData={popularMovies}
         initData={popularMovies[0]}
         sliderHeaderComponent={sliderHeaderComponent}
-        imageAspectRatio="9:16"
+        imageAspectRatio="4:3"
         imageLoaderType="spinner"
       />
     </>

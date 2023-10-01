@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { CgSpinner } from "react-icons/cg";
+import LoadingSpinner from "../LoadingSpinner";
 import { AspectRatio } from "../ui/aspect-ratio";
 import Skeleton from "../Skeleton";
 import { Button } from "../ui/button";
@@ -22,7 +23,7 @@ const orgininalImageBasePath = "https://image.tmdb.org/t/p/original";
 
 interface MediaCardComponentProps {
   data: MediaCardProps;
-  aspect_ratio?: "16:9" | "9:16";
+  aspect_ratio?: "16:9" | "4:3";
   loaderType?: "spinner" | "skeleton";
   skeletonLoaderRows?: number;
 }
@@ -50,7 +51,7 @@ const MotionMediaCard = ({
     setIsLoading(false);
   };
 
-  // define styles for 16:9(horizontal) and 9:16(vertical) aspect ratios
+  // define styles for 16:9(horizontal) and 4:3(vertical) aspect ratios
   const style_16_9 =
     "relative h-auto min-w-[150px] sm:min-w-[175px] md:min-w-[200px] lg:min-w-[250px] xl:min-w-[300px] flex-1 ";
   const style_9_16 =
@@ -82,11 +83,11 @@ const MotionMediaCard = ({
           href={mediaPageUrl}
           className=" group transition-colors "
         >
-          <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 9 / 16}>
+          <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 2 / 3}>
             {/* Display the loading spinner or skeleton while the image is loading */}
             {isLoading && loaderType === "spinner" ? (
               <div className="absolute inset-0 flex items-center justify-center">
-                <CgSpinner className="h-10 w-10 animate-spin text-gray-500" />
+                <LoadingSpinner />
               </div>
             ) : isLoading && loaderType === "skeleton" ? (
               <Skeleton rows={skeletonLoaderRows} />

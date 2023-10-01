@@ -7,11 +7,12 @@ import MediaCard from "../MediaCard";
 import MotionMediaCard from "./MotionMediaCard";
 import SliderBody from "./SliderBody";
 import Controls from "./Controls";
+import LoadingSpinner from "../LoadingSpinner";
 
 type SliderProps = {
   sliderData: MediaCardData[];
   initData: MediaCardData;
-  imageAspectRatio: "9:16" | "16:9";
+  imageAspectRatio: "16:9" | "4:3";
   imageLoaderType: "spinner" | "skeleton";
   sliderHeaderComponent: React.ReactNode;
 };
@@ -19,7 +20,7 @@ type SliderProps = {
 const Slider = ({
   sliderData,
   initData,
-  imageAspectRatio = "9:16",
+  imageAspectRatio = "4:3",
   imageLoaderType = "spinner",
   sliderHeaderComponent,
 }: SliderProps) => {
@@ -35,33 +36,35 @@ const Slider = ({
 
   return (
     <AnimatePresence>
-      <div className=" flex h-full w-full grid-cols-10 flex-col md:grid">
-        {sliderHeaderComponent}
+      <section className=" master-container py-[64px] lg:py-[72px]">
+        <div className="flex h-full w-full grid-cols-10 flex-col md:grid">
+          {sliderHeaderComponent}
 
-        <div className=" col-span-6 mt-4 flex h-full flex-1 flex-col justify-start md:justify-center lg:mt-6 ">
-          <SliderBody>
-            {data.map((data) => (
-              <MotionMediaCard
-                key={data.id}
-                data={data}
-                aspect_ratio={imageAspectRatio}
-                loaderType={imageLoaderType}
-              />
-            ))}
-          </SliderBody>
+          <div className=" col-span-6 mt-4 flex h-full flex-1 flex-col justify-start md:justify-center lg:mt-6 ">
+            <SliderBody>
+              {data.map((data) => (
+                <MotionMediaCard
+                  key={data.id}
+                  data={data}
+                  aspect_ratio={imageAspectRatio}
+                  loaderType={imageLoaderType}
+                />
+              ))}
+            </SliderBody>
 
-          <Controls
-            currentSlideData={currentSlideData}
-            data={data}
-            transitionData={transitionData}
-            initData={initData}
-            handleData={setData}
-            handleTransitionData={setTransitionData}
-            handleCurrentSlideData={setCurrentSlideData}
-            sliderData={sliderData}
-          />
+            <Controls
+              currentSlideData={currentSlideData}
+              data={data}
+              transitionData={transitionData}
+              initData={initData}
+              handleData={setData}
+              handleTransitionData={setTransitionData}
+              handleCurrentSlideData={setCurrentSlideData}
+              sliderData={sliderData}
+            />
+          </div>
         </div>
-      </div>
+      </section>
     </AnimatePresence>
   );
 };

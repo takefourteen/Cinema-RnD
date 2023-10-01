@@ -33,7 +33,7 @@ function Controls({
     handleCurrentSlideData({
       data: transitionData ? transitionData : sliderData[0],
       index: sliderData.findIndex(
-        (ele) => ele.poster_path === data[data.length - 1].poster_path
+        (ele) => ele.poster_path === data[data.length - 1].poster_path,
       ),
     });
     handleTransitionData(data[data.length - 1]);
@@ -44,7 +44,7 @@ function Controls({
     handleCurrentSlideData({
       data: transitionData ? transitionData : initData,
       index: sliderData.findIndex(
-        (ele) => ele.poster_path === data[0].poster_path
+        (ele) => ele.poster_path === data[0].poster_path,
       ),
     });
     handleTransitionData(data[0]);
@@ -58,10 +58,10 @@ function Controls({
 
   return (
     <div className="flex items-center gap-3 px-0 py-3 md:px-1 md:py-5">
-      <SliderButton handleClick={handlePrev}>
+      <SliderButton handleClick={handlePrev} aria-label="previous slide">
         <IoIosArrowBack className=" text-xl" />
       </SliderButton>
-      <SliderButton handleClick={handleNext}>
+      <SliderButton handleClick={handleNext} aria-label="next slide">
         <IoIosArrowForward className=" text-xl" />
       </SliderButton>
       <Progress curIndex={currentSlideData.index} length={sliderData.length} />
@@ -74,16 +74,18 @@ export default Controls;
 const SliderButton = ({
   children,
   handleClick,
+  ...props
 }: {
   children: React.ReactNode;
   handleClick: () => void;
 }) => {
   return (
     <button
-      className=" flex h-14 w-14 items-center justify-center rounded-full border-[1px] border-[#fdfdfd5f] transition duration-300
-ease-in-out hover:bg-white hover:text-black
+      className=" flex h-10 w-10 items-center justify-center rounded-full border-[1px] border-[#fdfdfd5f] text-white transition duration-300 ease-in-out hover:bg-white hover:text-black md:h-12
+md:w-12 lg:h-14 lg:w-14
 "
       onClick={handleClick}
+      {...props}
     >
       {children}
     </button>

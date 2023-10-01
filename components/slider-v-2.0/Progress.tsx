@@ -9,7 +9,7 @@ type Props = {
 function Progress({ curIndex, length }: Props) {
   return (
     <>
-      <div className=" flex h-[2px] flex-1 items-center rounded-full bg-white/30 bg-opacity-50">
+      <div className=" flex h-[2px] flex-1 items-center rounded-full bg-white/30 bg-opacity-50 text-white">
         <div
           style={{
             width: (((curIndex + 1) / length) * 100).toString() + "%",
@@ -36,7 +36,7 @@ function Progress({ curIndex, length }: Props) {
             duration: 0.6,
             ease: "easeInOut",
           }}
-          className=" flex items-center text-4xl font-medium "
+          className=" flex items-center lg:text-4xl text-3xl font-medium text-white/70"
         >
           {curIndex + 1 < 10 ? `0${curIndex + 1}` : curIndex + 1}
         </motion.div>

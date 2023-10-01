@@ -6,7 +6,7 @@ type Props = {
 
 function SliderBody({ children }: Props) {
   return (
-    <ul className="flex w-full gap-x-6">
+    <ul className="flex w-full gap-x-2">
       {/* Slider Header -- See Below */}
 
       {children}
