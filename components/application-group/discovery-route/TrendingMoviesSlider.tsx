@@ -1,5 +1,3 @@
-
-
 // import { Slider as oldSlider } from "@/components/slider/Slider";
 import Slider from "@/components/slider-v-2.0/Slider";
 import SliderHeader from "@/components/slider-v-2.0/SliderHeader";
@@ -21,7 +19,7 @@ const TrendingMoviesSlider = ({
         sliderData={trendingMovies}
         initData={trendingMovies[0]}
         sliderHeaderComponent={sliderHeaderComponent}
-        imageAspectRatio="4:3"
+        imageAspectRatio="2:3"
         imageLoaderType="spinner"
       />
     </>

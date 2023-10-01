@@ -23,7 +23,7 @@ const orgininalImageBasePath = "https://image.tmdb.org/t/p/original";
 
 interface MediaCardComponentProps {
   data: MediaCardProps;
-  aspect_ratio?: "16:9" | "4:3";
+  aspect_ratio?: "16:9" | "2:3";
   loaderType?: "spinner" | "skeleton";
   skeletonLoaderRows?: number;
 }
@@ -51,7 +51,7 @@ const MotionMediaCard = ({
     setIsLoading(false);
   };
 
-  // define styles for 16:9(horizontal) and 4:3(vertical) aspect ratios
+  // define styles for 16:9(horizontal) and 2:3(vertical) aspect ratios
   const style_16_9 =
     "relative h-auto min-w-[150px] sm:min-w-[175px] md:min-w-[200px] lg:min-w-[250px] xl:min-w-[300px] flex-1 ";
   const style_9_16 =

@@ -12,7 +12,7 @@ import LoadingSpinner from "../LoadingSpinner";
 type SliderProps = {
   sliderData: MediaCardData[];
   initData: MediaCardData;
-  imageAspectRatio: "16:9" | "4:3";
+  imageAspectRatio: "16:9" | "2:3";
   imageLoaderType: "spinner" | "skeleton";
   sliderHeaderComponent: React.ReactNode;
 };
@@ -20,7 +20,7 @@ type SliderProps = {
 const Slider = ({
   sliderData,
   initData,
-  imageAspectRatio = "4:3",
+  imageAspectRatio = "2:3",
   imageLoaderType = "spinner",
   sliderHeaderComponent,
 }: SliderProps) => {
