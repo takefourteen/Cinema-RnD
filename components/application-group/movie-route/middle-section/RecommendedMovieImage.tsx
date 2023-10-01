@@ -44,7 +44,7 @@ const RecommendedMovieImage = async ({ movieId }: { movieId: string }) => {
           <ImageWithLoader src={imageSrc} alt={movieDetails?.original_title} />
 
           {/* overlay the image with a grain texture */}
-          <div className="absolute inset-0 bg-[url('/grain-texture-image.svg')] opacity-30" />
+          {/* <div className="absolute inset-0 bg-[url('/grain-texture-image.svg')] opacity-30" /> */}
 
           {/* overlay the image with some info */}
           <div className="absolute inset-0 flex flex-col justify-between p-2">
