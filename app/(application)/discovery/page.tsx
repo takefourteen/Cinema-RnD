@@ -3,39 +3,66 @@ import { Suspense } from "react";
 import {
   fetchTrendingMovies,
   fetchTrendingTVShows,
+  fetchMultipleTrendingMoviesPages,
+  fetchMultipleTrendingTVShowsPages,
 } from "@/lib/tmdb-api/trending";
-import { filterResultsByLanguage } from "@/lib/tmdb-api/filterResults";
-
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
+
 import DiscoverySlider from "@/components/application-group/discovery-route/hero-section/slider/DiscoverySlider";
 import DiscoveryHeroSectionSliderBody from "@/components/application-group/discovery-route/hero-section/slider/DiscoveryHeroSectionSliderBody";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import StreamingServicesSlideShow from "@/components/application-group/discovery-route/StreamingServicesSlideShow";
 
+// ===================================
+// Time-based Revalidation in Next.js
+// ===================================
+export const revalidate = 3600 * 24; // 24 hours
+
 const page = async () => {
-  const trendingMoviesPromise = fetchTrendingMovies();
-  const trendingTVShowsPromise = fetchTrendingTVShows();
+  const trendingMoviesPromise = fetchMultipleTrendingMoviesPages(2);
+  const trendingTVShowsPromise = fetchMultipleTrendingTVShowsPages(2);
 
   const [trendingMoviesResponse, trendingTVShowsResponse] = await Promise.all([
     trendingMoviesPromise,
     trendingTVShowsPromise,
   ]);
 
-  const filteredTrendingMovies = filterResultsByLanguage(
-    trendingMoviesResponse.data || [],
-    "en",
-  );
-  const filteredTrendingTVShows = filterResultsByLanguage(
-    trendingTVShowsResponse.data || [],
-    "en",
-  );
+  // destructuring the data from the response
+  const { data: trendingMoviesData } = trendingMoviesResponse;
+  const { data: trendingTVShowsData } = trendingTVShowsResponse;
+
+  // ==============================
+  // if there is an error, throw it
+  // ==============================
+  if (trendingMoviesResponse.error) {
+    throw new Error(trendingMoviesResponse.error);
+  }
+
+  if (trendingTVShowsResponse.error) {
+    throw new Error(trendingTVShowsResponse.error);
+  }
+
+  // ==============================================================
+  // if there is no data, throw an error with a creative ux message
+  // ==============================================================
+  if (!trendingMoviesData) {
+    throw new Error(
+      "Oops! We couldn't find the trending movies. Please try again later.",
+    );
+  }
+
+  if (!trendingTVShowsData) {
+    throw new Error(
+      "Oops! We couldn't find the trending tv shows. Please try again later.",
+    );
+  }
 
   // mix the movies and tv shows together into one array. only 2 of each
   const mixedTrending: (TrendingMovie | TrendingTVShow)[] = [];
   for (let i = 0; i < 2; i++) {
-    mixedTrending.push(filteredTrendingMovies[i]);
-    mixedTrending.push(filteredTrendingTVShows[i]);
+    mixedTrending.push(trendingMoviesData[i]);
+    mixedTrending.push(trendingTVShowsData[i]);
   }
 
   // fetch each movie or tv show details based on the mixedTrending.type, and store them in an array
@@ -90,6 +117,12 @@ const page = async () => {
         -----------------------------------------------------
        */}
       <StreamingServicesSlideShow />
+
+      {/*
+        --------------
+        Latest Movies 
+        --------------
+       */}
     </section>
   );
 };

@@ -1,6 +1,8 @@
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
+import { filterResultsByLanguage } from "./filterResults";
+
 export interface TrendingApiResponse<T> {
   data: T | null;
   error: string | null;
@@ -13,9 +15,6 @@ export async function fetchTrendingMovies(
   try {
     const response = await fetch(
       `${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`,
-      {
-        cache: "force-cache",
-      },
     );
 
     if (!response.ok) {
@@ -29,6 +28,9 @@ export async function fetchTrendingMovies(
     const data: TrendingMoviesResponse = await response.json();
 
     // console.log("Trending movies data", data);
+
+    // filter out movies that are not in English
+    data.results = filterResultsByLanguage(data.results || [], "en");
 
     return {
       data: data.results,
@@ -52,9 +54,6 @@ export async function fetchTrendingTVShows(
   try {
     const response = await fetch(
       `${BASE_URL}/trending/tv/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`,
-      {
-        cache: "force-cache",
-      },
     );
 
     if (!response.ok) {
@@ -68,6 +67,9 @@ export async function fetchTrendingTVShows(
     const data: TrendingTVShowsResponse = await response.json();
 
     // console.log("Trending TV shows data", data);
+
+    // filter out TV shows that are not in English
+    data.results = filterResultsByLanguage(data.results || [], "en");
 
     return {
       data: data.results,
@@ -83,3 +85,66 @@ export async function fetchTrendingTVShows(
     };
   }
 }
+
+export async function fetchMultipleTrendingMoviesPages(
+  numPages: number,
+): Promise<TrendingApiResponse<TrendingMovie[]>> {
+  let finalResults: TrendingMovie[] = [];
+
+  let finalError: string = "";
+
+  for (let page = 1; page <= numPages; page++) {
+    try {
+      const intialFetch = await fetchTrendingMovies(page);
+
+      if (intialFetch.error) {
+        finalError = intialFetch.error;
+        throw new Error(finalError);
+      }
+
+      if (intialFetch?.data) {
+        // put the intial fetch data into the final results
+        finalResults = [...finalResults, ...intialFetch.data];
+      }
+    } catch (error) {
+      console.error(`Error fetching data for page ${page}: ${error}`);
+    }
+  }
+
+  return {
+    data: finalResults,
+    error: finalError,
+  };
+}
+
+export async function fetchMultipleTrendingTVShowsPages(
+  numPages: number,
+): Promise<TrendingApiResponse<TrendingTVShow[]>> {
+  let finalResults: TrendingTVShow[] = [];
+
+  let finalError: string = "";
+
+  for (let page = 1; page <= numPages; page++) {
+    try {
+      const intialFetch = await fetchTrendingTVShows(page);
+
+      if (intialFetch.error) {
+        finalError = intialFetch.error;
+        throw new Error(finalError);
+      }
+
+      if (intialFetch?.data) {
+        // put the intial fetch data into the final results
+        finalResults = [...finalResults, ...intialFetch.data];
+      }
+    } catch (error) {
+      console.error(`Error fetching data for page ${page}: ${error}`);
+    }
+  }
+
+  return {
+    data: finalResults,
+    error: finalError,
+  };
+}
+
