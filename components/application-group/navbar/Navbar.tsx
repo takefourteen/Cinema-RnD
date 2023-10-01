@@ -57,11 +57,13 @@ const Navbar = () => {
     Define classes based on the scroll state, whether the search icon is clicked, and 
     is darkenBackground is true or false
   */
-  const otherScreensNavbarClasses = `fixed  transition-all top-0 left-0 right-0 z-[99999] ${
-    scroll || searchBarOpen || darkenBackground ? "bg-black" : "bg-transparent"
+  const otherScreensNavbarClasses = `fixed  transition-colors top-0 left-0 right-0 z-[99999] ${
+    scroll || searchBarOpen || darkenBackground
+      ? "bg-black"
+      : "bg-gradient-to-b from-black via-black/50 to-transparent"
   }`;
 
-  const searchScreenNavbarClasses = `fixed transition-all top-0 left-0 right-0 z-[99999] bg-black/90`;
+  const searchScreenNavbarClasses = `fixed transition-colors top-0 left-0 right-0 z-[99999] bg-black/90`;
 
   return (
     <nav
