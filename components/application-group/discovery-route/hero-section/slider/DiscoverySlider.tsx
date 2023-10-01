@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, memo } from "react";
 
 import SliderPagination from "./SliderPagination";
 
@@ -14,7 +14,7 @@ const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
   const [slideNumber, setSlideNumber] = useState<number>(0);
   const [listWidth, setListWidth] = useState<number>(0);
   const [isPaused, setIsPaused] = useState<boolean>(false);
-  const autoScrollInterval = 5000;
+  const autoScrollInterval = 3500;
 
   useEffect(() => {
     if (listRef.current) {
@@ -63,7 +63,7 @@ const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
       </div>
 
       {/* Pagination */}
-      <div className="master-container relative opacity-0 transition-opacity  group-hover:opacity-100">
+      <div className="master-container hidden h-full opacity-0 transition-opacity group-hover:opacity-100 md:flex">
         <SliderPagination
           activeIndex={slideNumber}
           length={lengthOfList}
@@ -74,4 +74,4 @@ const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
   );
 };
 
-export default DiscoverySlider;
+export default memo(DiscoverySlider);

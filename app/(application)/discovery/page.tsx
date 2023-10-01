@@ -118,7 +118,7 @@ const page = async () => {
         Infinite Slide show displaying all Streaming services 
         -----------------------------------------------------
        */}
-      <StreamingServicesSlideShow />
+      {/* <StreamingServicesSlideShow /> */}
 
       {/*
         --------------
