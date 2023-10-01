@@ -26,6 +26,7 @@ interface MediaCardComponentProps {
   aspect_ratio?: "16:9" | "2:3";
   loaderType?: "spinner" | "skeleton";
   skeletonLoaderRows?: number;
+  priority?: boolean;
 }
 
 const MotionMediaCard = ({
@@ -33,6 +34,7 @@ const MotionMediaCard = ({
   aspect_ratio = "16:9",
   loaderType = "spinner",
   skeletonLoaderRows = 0,
+  priority = false,
 }: MediaCardComponentProps) => {
   // determine if this is a movie or tv show
   const isMovie = data.original_title ? true : false;
@@ -99,9 +101,10 @@ const MotionMediaCard = ({
               src={`${imageBaseUrl}${poster}`}
               alt={data.original_title || data.original_name || "Media"}
               fill
-              className=" z-[99] transform  object-cover transition-transform delay-75 hover:scale-105  "
+              priority={priority}
               onLoad={handleImageLoad}
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+              sizes="(max-width: 640px) 300px, (max-width: 1024px) 300px, 250px"
+              className=" z-[99] transform  object-cover transition-transform delay-75 hover:scale-105  "
             />
           </AspectRatio>
           {/* Display the media title with truncation */}

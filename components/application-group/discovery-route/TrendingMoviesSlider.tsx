@@ -22,6 +22,7 @@ const TrendingMoviesSlider = ({
         sliderHeaderComponent={sliderHeaderComponent}
         imageAspectRatio="2:3"
         imageLoaderType="spinner"
+        loadPriority={true}
       />
     </>
   );

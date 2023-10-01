@@ -131,14 +131,16 @@ const page = async () => {
         Trending Movies 
         --------------
        */}
-      <TrendingMoviesSlider trendingMovies={trendingMoviesData} />
+      <TrendingMoviesSlider trendingMovies={trendingMoviesData.slice(0, 11)} />
 
       {/*
         -----------------
         Trending TV Series 
         -----------------
        */}
-      <TrendingTVShowsSlider trendingTvSeries={trendingTVShowsData} />
+      <TrendingTVShowsSlider
+        trendingTvSeries={trendingTVShowsData.slice(0, 11)}
+      />
     </section>
   );
 };

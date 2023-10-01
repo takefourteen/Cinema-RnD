@@ -1,9 +1,7 @@
-import React from "react";
 import Link from "next/link";
 
-type Props = {};
 
-const Footer = (props: Props) => {
+const Footer = () => {
   // get the current year
   const year = new Date().getFullYear();
   return (

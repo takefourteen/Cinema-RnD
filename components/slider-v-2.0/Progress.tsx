@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 
 type Props = {
@@ -7,6 +6,8 @@ type Props = {
 };
 
 function Progress({ curIndex, length }: Props) {
+  console.log("current index: ", curIndex);
+
   return (
     <>
       <div className=" flex h-[2px] flex-1 items-center rounded-full bg-white/30 bg-opacity-50 text-white">
@@ -36,9 +37,9 @@ function Progress({ curIndex, length }: Props) {
             duration: 0.6,
             ease: "easeInOut",
           }}
-          className=" flex items-center lg:text-4xl text-3xl font-medium text-white/70"
+          className=" flex items-center text-3xl font-medium text-white/70 lg:text-4xl"
         >
-          {curIndex + 1 < 10 ? `0${curIndex + 1}` : curIndex + 1}
+          {curIndex + 1 < 10 ? `0${curIndex + 1}` : `${curIndex + 1}`}
         </motion.div>
       </span>
     </>

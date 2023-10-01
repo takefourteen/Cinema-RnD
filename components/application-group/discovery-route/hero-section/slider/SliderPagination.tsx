@@ -50,7 +50,6 @@ const SliderPagination = ({
         className="absolute left-0 top-1/2  flex h-full w-12 -translate-y-1/2 transform cursor-pointer items-center justify-center text-white transition duration-300 hover:scale-125 "
         title="Previous slide"
         aria-label="Previous slide"
-        role="button"
         tabIndex={0}
       >
         <ChevronLeft className="h-8 w-8" />
@@ -68,8 +67,6 @@ const SliderPagination = ({
               : "w-2 bg-gray-400 opacity-50"
           }`}
               onClick={() => handleSetActiveIndex(index)}
-              tabIndex={0}
-              role="button"
               aria-label={`Slide ${index + 1}`}
             ></div>
           );
@@ -81,7 +78,6 @@ const SliderPagination = ({
         onClick={handleRightClick}
         title="Next slide"
         aria-label="Next slide"
-        role="button"
         tabIndex={0}
       >
         <ChevronRight className="h-8 w-8" />

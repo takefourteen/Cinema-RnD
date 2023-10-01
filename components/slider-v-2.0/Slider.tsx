@@ -14,6 +14,7 @@ type SliderProps = {
   initData: any;
   imageAspectRatio: "16:9" | "2:3";
   imageLoaderType: "spinner" | "skeleton";
+  loadPriority?: boolean;
   sliderHeaderComponent: React.ReactNode;
 };
 
@@ -23,6 +24,7 @@ const Slider = ({
   imageAspectRatio = "2:3",
   imageLoaderType = "spinner",
   sliderHeaderComponent,
+  loadPriority = false,
 }: SliderProps) => {
   const [data, setData] = React.useState<any[]>(sliderData.slice(1));
   const [transitionData, setTransitionData] = React.useState<any>(
@@ -48,6 +50,7 @@ const Slider = ({
                   data={data}
                   aspect_ratio={imageAspectRatio}
                   loaderType={imageLoaderType}
+                  priority={loadPriority}
                 />
               ))}
             </SliderBody>
