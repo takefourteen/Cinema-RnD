@@ -5,14 +5,14 @@ import Progress from "./Progress";
 type Props = {
   currentSlideData: CurrentSlideData;
   sliderData: any[];
-  data: MediaCardData[];
-  transitionData: MediaCardData;
-  handleData: React.Dispatch<React.SetStateAction<MediaCardData[]>>;
-  handleTransitionData: React.Dispatch<React.SetStateAction<MediaCardData>>;
+  data: any[];
+  transitionData: any;
+  handleData: React.Dispatch<React.SetStateAction<any[]>>;
+  handleTransitionData: React.Dispatch<React.SetStateAction<any>>;
   handleCurrentSlideData: React.Dispatch<
     React.SetStateAction<CurrentSlideData>
   >;
-  initData: MediaCardData;
+  initData: any;
 };
 
 function Controls({
@@ -32,9 +32,7 @@ function Controls({
     ]);
     handleCurrentSlideData({
       data: transitionData ? transitionData : sliderData[0],
-      index: sliderData.findIndex(
-        (ele) => ele.poster_path === data[data.length - 1].poster_path,
-      ),
+      index: sliderData.findIndex((ele) => ele.id === data[data.length - 1].id),
     });
     handleTransitionData(data[data.length - 1]);
   };
@@ -43,9 +41,7 @@ function Controls({
     handleData((prev) => prev.slice(1));
     handleCurrentSlideData({
       data: transitionData ? transitionData : initData,
-      index: sliderData.findIndex(
-        (ele) => ele.poster_path === data[0].poster_path,
-      ),
+      index: sliderData.findIndex((ele) => ele.id === data[0].id),
     });
     handleTransitionData(data[0]);
     setTimeout(() => {

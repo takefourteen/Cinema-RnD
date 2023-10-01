@@ -10,8 +10,8 @@ import Controls from "./Controls";
 import LoadingSpinner from "../LoadingSpinner";
 
 type SliderProps = {
-  sliderData: MediaCardData[];
-  initData: MediaCardData;
+  sliderData: any[];
+  initData: any;
   imageAspectRatio: "16:9" | "2:3";
   imageLoaderType: "spinner" | "skeleton";
   sliderHeaderComponent: React.ReactNode;
@@ -24,8 +24,8 @@ const Slider = ({
   imageLoaderType = "spinner",
   sliderHeaderComponent,
 }: SliderProps) => {
-  const [data, setData] = React.useState<MediaCardData[]>(sliderData.slice(1));
-  const [transitionData, setTransitionData] = React.useState<MediaCardData>(
+  const [data, setData] = React.useState<any[]>(sliderData.slice(1));
+  const [transitionData, setTransitionData] = React.useState<any>(
     sliderData[0],
   );
   const [currentSlideData, setCurrentSlideData] =
