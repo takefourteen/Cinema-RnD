@@ -1,13 +1,17 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
+import { Suspense } from "react";
 
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
+import { fetchImages, ImagesApiResponse } from "@/lib/tmdb-api/images";
 
 import { AiOutlineInfoCircle as InfoIcon } from "react-icons/ai";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { DetailsButton } from "@/components/DetailsButton";
 import ImdbRating from "../ImdbRating";
 import Overview from "../Overview";
+import TitleLogo from "../TitleLogo";
 
 type ShowDetailsLargeScreenProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
@@ -15,9 +19,33 @@ type ShowDetailsLargeScreenProps = {
 
 const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
-const ShowDetailsLargeScreen = ({
+const ShowDetailsLargeScreen = async ({
   movieOrTvShowDetails,
 }: ShowDetailsLargeScreenProps) => {
+  /* 
+  const type that determines if the data is of movieDetails or tvSeriesDetails
+  */
+  const type: "movie" | "tv" = isMovieDetails(movieOrTvShowDetails)
+    ? "movie"
+    : "tv";
+
+  // fetch the images for the movie or tv show
+  const imagesPromise: Promise<ImagesApiResponse> = fetchImages(
+    movieOrTvShowDetails.id,
+    type,
+  );
+
+  // wait for the promise to resolve
+  const { data: images, error: imagesError } = await imagesPromise;
+
+  // if there is an error fetching images, throw an error that will be caught by the ErrorBoundary (error.tsx)
+  if (imagesError) {
+    throw new Error(`Error fetching images: ${imagesError}`);
+  }
+
+  // look for the first images.logos with a file_path
+  const titleLogo = images?.logos.find((logo) => logo.file_path);
+
   /*
   use type guard functions to determine if the data is of movieDetails.
   then get the title of the movie or tv show 
@@ -62,16 +90,22 @@ const ShowDetailsLargeScreen = ({
 
   return (
     <div className="master-container hidden h-[85%] flex-col items-center justify-end gap-y-2 text-center sm:items-start  sm:text-start md:flex lg:mr-auto lg:max-w-[80%]">
-      {/* Title and add to library button */}
-      <div className="flex items-center gap-x-2">
-        {/* Title */}
+      {/*
+        -------------------------------------------- 
+        Title Text or Title Logo
+        -------------------------------------------- 
+        */}
+      {titleLogo ? (
+        <TitleLogo logoData={titleLogo} alt={movieOrTvShowTitle} />
+      ) : (
+        // Title
         <h1 className="max-w-[32rem] text-[32px] font-bold md:text-[36px] lg:text-[40px]">
           {movieOrTvShowTitle}
         </h1>
-      </div>
+      )}
 
       {/* Year, runtime, and Rating */}
-      <div className=" flex flex-wrap items-center justify-center gap-2 tracking-wide">
+      <div className="mt-2 lg:mt-4 flex flex-wrap items-center justify-center gap-2 tracking-wide">
         {/* Year */}
         <p className="rounded-sm border border-white/30 px-1 text-primaryWhite">
           {new Date(releaseDate).getFullYear()}
