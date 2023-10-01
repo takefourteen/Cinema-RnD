@@ -31,7 +31,7 @@ const DiscoveryHeroSectionSliderBody = ({
       </Suspense>
 
       {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-black/20  md:bg-gradient-to-r md:from-black md:via-black md:to-transparent md:w-[80%]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-black/20  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent" />
 
       {/* Overlay with Poster details */}
       <div className="absolute inset-0 ">
@@ -41,9 +41,14 @@ const DiscoveryHeroSectionSliderBody = ({
         {/* Poster details component for large screens */}
         <ShowDetailsLargeScreen movieOrTvShowDetails={movieOrTvShowDetails} />
       </div>
+
+      {/* 
+        short dark overlay at the bottom of the image to blend into the 
+        next section
+      */}
+      <div className="absolute inset-x-0 bottom-0 hidden h-4 bg-gradient-to-t from-black to-transparent md:flex" />
     </li>
   );
 };
 
 export default DiscoveryHeroSectionSliderBody;
-
