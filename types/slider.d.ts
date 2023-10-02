@@ -3,7 +3,7 @@ type CurrentSlideData = {
   index: number;
 };
 
-type MediaCardData = {
+type any = {
   id: number;
   poster_path: string | null;
   backdrop_path: string | null;

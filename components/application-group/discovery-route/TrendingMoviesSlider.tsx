@@ -1,5 +1,9 @@
-import Slider from "@/components/slider-v-2.0/Slider";
+"use client";
+
 import SliderHeader from "@/components/slider-v-2.0/SliderHeader";
+import SliderBody from "@/components/slider-v-3.0/SliderBody";
+import Slider from "@/components/slider-v-3.0/Slider";
+import MotionMediaCard from "@/components/slider-v-3.0/MotionMediaCard";
 
 interface TrendingMoviesSliderProps {
   trendingMovies: TrendingMovie[];
@@ -13,16 +17,30 @@ const TrendingMoviesSlider = ({
     <SliderHeader sectionTitle="Blockbuster Buzz" />
   );
 
-  // Render Slider with header component
+  // Define slider body component
+  const sliderBodyComponent = (
+    <SliderBody
+      sliderData={trendingMovies}
+      initData={trendingMovies[0]}
+      classNames={{
+        ulList: "gap-x-4",
+      }}
+      renderChild={(item) => (
+        <MotionMediaCard
+          key={item.id}
+          data={item}
+          aspect_ratio="2:3"
+          priority={true}
+        />
+      )}
+    />
+  );
+
   return (
     <>
       <Slider
-        sliderData={trendingMovies}
-        initData={trendingMovies[0]}
         sliderHeaderComponent={sliderHeaderComponent}
-        imageAspectRatio="2:3"
-        imageLoaderType="spinner"
-        loadPriority={true}
+        sliderBodyComponent={sliderBodyComponent}
       />
     </>
   );
