@@ -1,31 +1,23 @@
 "use client";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { useState } from "react";
 
 import { Spinner } from "@nextui-org/react";
 import Skeleton from "@/components/Skeleton";
 
-type ImageLoaderProps = {
+interface ImageLoaderProps
+  extends React.ComponentPropsWithoutRef<typeof Image> {
   loaderType?: "spinner" | "skeleton";
-  src: string;
+  src: StaticImageData | string;
   alt: string;
-  fill?: boolean;
-  priority?: boolean;
-  sizes?: string;
-  className?: string;
-  style?: React.CSSProperties;
-};
+}
 
 const ImageLoader = ({
   loaderType = "skeleton",
   src,
   alt,
-  fill,
-  priority,
-  sizes,
-  className,
-  style,
+  ...props
 }: ImageLoaderProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -47,14 +39,9 @@ const ImageLoader = ({
 
       <Image
         src={src}
-        alt={alt}
-        fill={fill}
-        priority={priority}
+        alt={alt !== "" ? alt : "image"}
         onLoad={handleImageLoad}
-        className={`${className}`}
-        style={{
-          ...style,
-        }}
+        {...props}
       />
     </>
   );

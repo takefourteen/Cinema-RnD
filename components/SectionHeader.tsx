@@ -1,15 +1,15 @@
 import Link from "next/link";
 
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 import { BsArrowRight } from "react-icons/bs";
-import { Separator } from "../ui/separator";
+import { Separator } from "./ui/separator";
 
-type SliderHeaderProps = {
+type SectionHeaderProps = {
   sectionTitle: string;
   viewAllLink?: string;
 };
 
-const SliderHeader = ({ sectionTitle, viewAllLink }: SliderHeaderProps) => {
+const SectionHeader = ({ sectionTitle, viewAllLink }: SectionHeaderProps) => {
   return (
     <div className="col-span-full">
       <div className=" flex items-baseline  justify-between ">
@@ -36,4 +36,4 @@ const SliderHeader = ({ sectionTitle, viewAllLink }: SliderHeaderProps) => {
   );
 };
 
-export default SliderHeader;
+export default SectionHeader;

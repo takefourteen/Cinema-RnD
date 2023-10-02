@@ -10,7 +10,7 @@ import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import DiscoverySlider from "@/components/application-group/discovery-route/hero-section/slider/DiscoverySlider";
 import DiscoveryHeroSectionSliderBody from "@/components/application-group/discovery-route/hero-section/slider/DiscoveryHeroSectionSliderBody";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import StreamingServicesSlideShow from "@/components/application-group/discovery-route/StreamingServicesSlideShow";
+import StreamingServicesSlideShow from "@/components/application-group/discovery-route/streaming-services/StreamingServicesSlideShow";
 import CollectionsSlideShow from "@/components/application-group/discovery-route/collections/CollectionsSlideShow";
 import TrendingSlider from "@/components/application-group/discovery-route/TrendingSlider";
 
@@ -119,13 +119,6 @@ const page = async () => {
       <CollectionsSlideShow />
 
       {/*
-        -----------------------------------------------------
-        Infinite Slide show displaying all Streaming services 
-        -----------------------------------------------------
-       */}
-      {/* <StreamingServicesSlideShow /> */}
-
-      {/*
         --------------
         Trending Movies 
         --------------
@@ -145,6 +138,13 @@ const page = async () => {
         trendingData={trendingTVShowsData.slice(0, 11)}
         sectionTitle="Binge-Worthy Picks"
       />
+
+      {/*
+        ------------------
+        Streaming services 
+        ------------------
+       */}
+      <StreamingServicesSlideShow />
     </section>
   );
 };

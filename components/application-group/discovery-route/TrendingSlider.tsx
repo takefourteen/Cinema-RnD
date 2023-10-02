@@ -1,6 +1,6 @@
 "use client";
 
-import SliderHeader from "@/components/slider-v-3.0/SliderHeader";
+import SectionHeader from "@/components/SectionHeader";
 import SliderBody from "@/components/slider-v-3.0/SliderBody";
 import Slider from "@/components/slider-v-3.0/Slider";
 import MotionMediaCard from "@/components/slider-v-3.0/MotionMediaCard";
@@ -20,7 +20,7 @@ const TrendingSlider = ({
 }: TrendingSliderProps) => {
   // Define slider header component
   const sliderHeaderComponent = (
-    <SliderHeader sectionTitle={sectionTitle} viewAllLink={viewAllLink} />
+    <SectionHeader sectionTitle={sectionTitle} viewAllLink={viewAllLink} />
   );
 
   // Define slider body component
