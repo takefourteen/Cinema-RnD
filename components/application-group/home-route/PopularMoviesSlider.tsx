@@ -3,9 +3,7 @@ import {
   getPopularMovies,
 } from "@/lib/tmdb-api/popular";
 
-// import { Slider as oldSlider } from "@/components/slider/Slider";
-import Slider from "@/components/slider-v-2.0/Slider";
-import SliderHeader from "@/components/slider-v-2.0/SliderHeader";
+import TrendingSlider from "../discovery-route/TrendingSlider";
 
 const PopularMoviesSlider = async () => {
   const page = 1;
@@ -20,22 +18,12 @@ const PopularMoviesSlider = async () => {
     return <div>No movies found</div>;
   }
 
-  // Define slider header component
-  const sliderHeaderComponent = (
-    <SliderHeader sectionTitle="Popular Movies" viewAllLink="/movies/popular" />
-  );
-
-  // Render Slider with header component
   return (
-    <>
-      <Slider
-        sliderData={popularMovies}
-        initData={popularMovies[0]}
-        sliderHeaderComponent={sliderHeaderComponent}
-        imageAspectRatio="2:3"
-        imageLoaderType="spinner"
-      />
-    </>
+    <TrendingSlider
+      trendingData={popularMovies.slice(0, 11)}
+      sectionTitle="Popular Movies"
+      viewAllLink="/movies/popular"
+    />
   );
 };
 

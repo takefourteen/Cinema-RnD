@@ -11,9 +11,8 @@ import DiscoverySlider from "@/components/application-group/discovery-route/hero
 import DiscoveryHeroSectionSliderBody from "@/components/application-group/discovery-route/hero-section/slider/DiscoveryHeroSectionSliderBody";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import StreamingServicesSlideShow from "@/components/application-group/discovery-route/StreamingServicesSlideShow";
-import TrendingMoviesSlider from "@/components/application-group/discovery-route/TrendingMoviesSlider";
-import TrendingTVShowsSlider from "@/components/application-group/discovery-route/TrendingTvSeriesSlider";
 import CollectionsSlideShow from "@/components/application-group/discovery-route/collections/CollectionsSlideShow";
+import TrendingSlider from "@/components/application-group/discovery-route/TrendingSlider";
 
 // ===================================
 // Time-based Revalidation in Next.js
@@ -131,15 +130,20 @@ const page = async () => {
         Trending Movies 
         --------------
        */}
-      <TrendingMoviesSlider trendingMovies={trendingMoviesData.slice(0, 11)} />
+      <TrendingSlider
+        trendingData={trendingMoviesData.slice(0, 11)}
+        sectionTitle="Blockbuster Buzz"
+        priority={true}
+      />
 
       {/*
         -----------------
         Trending TV Series 
         -----------------
-       */}
-      <TrendingTVShowsSlider
-        trendingTvSeries={trendingTVShowsData.slice(0, 11)}
+      */}
+      <TrendingSlider
+        trendingData={trendingTVShowsData.slice(0, 11)}
+        sectionTitle="Binge-Worthy Picks"
       />
     </section>
   );

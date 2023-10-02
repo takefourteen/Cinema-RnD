@@ -6,8 +6,6 @@ type Props = {
 };
 
 function Progress({ curIndex, length }: Props) {
-  console.log("current index: ", curIndex);
-
   return (
     <>
       <div className=" flex h-[2px] flex-1 items-center rounded-full bg-white/30 bg-opacity-50 text-white">

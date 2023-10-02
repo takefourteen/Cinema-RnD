@@ -4,6 +4,11 @@ import FAQ from "@/components/application-group/home-route/FAQ";
 import Discovery from "@/components/application-group/home-route/Discovery";
 import { Separator } from "@/components/ui/separator";
 
+// ===================================
+// Time-based Revalidation in Next.js
+// ===================================
+export const revalidate = 3600 * 24 * 7; // 1 week
+
 export default function Page() {
   return (
     <main className="text-white">

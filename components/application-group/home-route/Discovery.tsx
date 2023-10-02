@@ -2,6 +2,8 @@ import StreamingServiceSlider from "./StreamingServiceSlider";
 import PopularTvShowsSlider from "./PopularTvShowsSlider";
 import PopularMoviesSlider from "./PopularMoviesSlider";
 
+
+
 const Discovery = () => {
   return (
     <section className=" master-container flex  flex-col gap-y-[72px] py-[72px]">

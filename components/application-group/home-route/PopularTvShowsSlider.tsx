@@ -1,10 +1,9 @@
 import { getPopularTVShowsForPages } from "@/lib/tmdb-api/popular";
 
-import Slider from "@/components/slider/Slider";
-import MediaCard from "@/components/MediaCard";
+import TrendingSlider from "../discovery-route/TrendingSlider";
 
 const PopularTvShowsSlider = async () => {
-  const { data: popularTVShows, error } = await getPopularTVShowsForPages(5);
+  const { data: popularTVShows, error } = await getPopularTVShowsForPages(2);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -15,17 +14,11 @@ const PopularTvShowsSlider = async () => {
   }
 
   return (
-    <Slider
-      lengthOfList={popularTVShows.length}
-      sectionTitle="Popular TV Shows"
-      viewAllLink="/tv-shows"
-    >
-      <ul className="flex gap-x-2">
-        {popularTVShows.slice(0, 10).map((tvShow) => (
-          <MediaCard key={tvShow.id} data={tvShow} aspect_ratio="2:3" />
-        ))}
-      </ul>
-    </Slider>
+    <TrendingSlider
+      trendingData={popularTVShows.slice(0, 11)}
+      sectionTitle="Popular Tv Shows"
+      viewAllLink="/tv/popular"
+    />
   );
 };
 

@@ -1,7 +1,7 @@
 import { collections } from "@/constants/collections";
 
 import CollectionCard from "./CollectionCard";
-import SliderHeader from "@/components/slider-v-2.0/SliderHeader";
+import SliderHeader from "@/components/slider-v-3.0/SliderHeader";
 
 const renderCollectionsSlideShow = () => {
   return (

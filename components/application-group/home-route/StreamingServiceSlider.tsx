@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { streamingServices } from "@/constants";
-import Slider from "@/components/slider/Slider";
+import Slider from "@/components/basic-slider/Slider";
 
 const StreamingServiceSlider = () => {
   return (
