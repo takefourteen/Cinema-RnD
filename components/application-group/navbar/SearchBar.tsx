@@ -14,7 +14,7 @@ interface NavbarSearchBarProps {
 }
 
 const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
-  const searchContainerRef = useRef<HTMLFormElement>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchBarOpen, setIsSearchBarOpen] = useState<boolean>(false);
   const {
@@ -105,7 +105,7 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
   }
 
   return (
-    <>
+    <div ref={searchContainerRef}>
       {/* search icon to toggle the input field */}
       <Button
         variant="ghost"
@@ -120,7 +120,6 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
       {/* search bar input*/}
       {isSearchBarOpen && (
         <form
-          ref={searchContainerRef}
           onSubmit={handleSubmit(onSubmit)}
           className=" absolute left-0 right-0 top-[78px] z-50 w-full overflow-hidden bg-[#ffffff] transition-all  lg:top-[90px]"
         >
@@ -148,7 +147,7 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
           </div>
         </form>
       )}
-    </>
+    </div>
   );
 };
 
