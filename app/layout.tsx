@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-import Providers from "@/Providers/Providers";
+import Providers from "@/providers/Providers";
 import Footer from "@/components/Footer";
 
 const maxSans = localFont({
