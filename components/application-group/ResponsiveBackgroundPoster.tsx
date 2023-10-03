@@ -38,7 +38,7 @@ const ResponsiveBackgroundPoster = ({
             fill
             sizes="(min-width: 768px) 60vw, 100vw"
             priority={priority}
-            className={`absolute inset-0 bg-no-repeat object-cover ${imageClassNames}`}
+            className={`object-cover ${imageClassNames}`}
           />
         </AspectRatio>
       </div>
@@ -48,9 +48,9 @@ const ResponsiveBackgroundPoster = ({
         src={posterImgSrc}
         alt={alt}
         fill
-        sizes="(max-width: 640px) 100vw, 640px"
+        sizes="(max-width: 768px) 100vw, 640px"
         priority={priority}
-        className={`absolute inset-0 bg-no-repeat object-cover md:hidden  ${imageClassNames}`}
+        className={`object-cover md:hidden  ${imageClassNames}`}
       />
     </>
   );
