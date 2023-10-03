@@ -80,6 +80,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
           poster_path={movieDetails.poster_path}
           backdrop_path={movieDetails.backdrop_path}
           alt={movieDetails.original_title}
+          priority={true}
         />
       </Suspense>
 

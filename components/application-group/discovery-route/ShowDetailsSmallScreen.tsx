@@ -1,7 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { Suspense } from "react";
 
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages, ImagesApiResponse } from "@/lib/tmdb-api/images";
@@ -12,6 +10,7 @@ import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { DetailsButton } from "@/components/DetailsButton";
 import ImdbRating from "../ImdbRating";
 import TitleLogo from "../TitleLogo";
+import ImageLoader from "@/components/ImageLoader";
 
 type ShowDetailsSmallScreenProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
@@ -108,15 +107,13 @@ const ShowDetailsSmallScreen = async ({
           {productionCompany?.logo_path && (
             <div>
               <div className="relative min-h-[40px] w-[150px] lg:h-[100px] lg:w-[200px]">
-                <Suspense>
-                  <Image
-                    src={`${BASE_IMG_URL}${productionCompany.logo_path}`}
-                    alt={productionCompany.name}
-                    fill
-                    sizes="300px"
-                    className="object-contain"
-                  />
-                </Suspense>
+                <ImageLoader
+                  src={`${BASE_IMG_URL}${productionCompany.logo_path}`}
+                  alt={productionCompany.name}
+                  fill
+                  sizes="300px"
+                  className="object-contain"
+                />
               </div>
             </div>
           )}
