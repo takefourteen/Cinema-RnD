@@ -17,7 +17,9 @@ const CollectionCard = ({ image, videoPath, title }: Props) => {
       <AspectRatio ratio={16 / 9}>
         <ImageLoader
           src={image}
-          sizes="250px"
+          sizes="(max-width: 768px) 150px,
+                 (max-width: 1024px) 175px,
+                  200px,"
           alt={title}
           priority
           className=" absolute inset-0 z-20 h-full w-full object-contain p-4 brightness-75 lg:p-8"
