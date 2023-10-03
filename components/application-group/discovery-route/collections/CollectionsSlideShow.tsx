@@ -32,6 +32,8 @@ const CollectionsSlideShow = () => {
         {renderCollectionsSlideShow()}
         {/* duplicate the list to create an infinite slide show */}
         {renderCollectionsSlideShow()}
+        {/* dulicate again on lg screens */}
+        <span className="hidden lg:block">{renderCollectionsSlideShow()}</span>
       </div>
     </section>
   );

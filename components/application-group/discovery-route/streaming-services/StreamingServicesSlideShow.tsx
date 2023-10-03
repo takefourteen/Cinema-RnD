@@ -32,6 +32,8 @@ const StreamingServicesSlideShow = () => {
         {renderStreamingServicesList()}
         {/* duplicate the list to create an infinite slide show */}
         {renderStreamingServicesList()}
+        {/* dulicate again on lg screens */}
+        <span className="hidden lg:block">{renderStreamingServicesList()}</span>
       </div>
     </section>
   );
