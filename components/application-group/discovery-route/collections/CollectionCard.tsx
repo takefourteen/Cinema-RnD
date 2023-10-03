@@ -2,6 +2,7 @@ import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import ImageLoader from "@/components/ImageLoader";
 
 type Props = {
   title: string;
@@ -14,7 +15,7 @@ const CollectionCard = ({ image, videoPath, title }: Props) => {
     <li className="group relative h-auto w-[150px] border border-white/30 transition-colors hover:border-white md:w-[175px] lg:w-[200px] ">
       {/* <Link href={`/collection/${title.toLowerCase().replace(" ", "-")}`}> */}
       <AspectRatio ratio={16 / 9}>
-        <Image
+        <ImageLoader
           src={image}
           sizes="250px"
           alt={title}

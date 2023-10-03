@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator";
 // ===================================
 // Time-based Revalidation in Next.js
 // ===================================
-export const revalidate = 3600 * 24 * 7; // 1 week
+export const revalidate = 3600 * 24; // 1 day
 
 export default function Page() {
   return (

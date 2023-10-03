@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
 import {
   fetchMultipleTrendingMoviesPages,
@@ -10,9 +11,34 @@ import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import DiscoverySlider from "@/components/application-group/discovery-route/hero-section/slider/DiscoverySlider";
 import DiscoveryHeroSectionSliderBody from "@/components/application-group/discovery-route/hero-section/slider/DiscoveryHeroSectionSliderBody";
 import LoadingSpinner from "@/components/LoadingSpinner";
+
+// dynamically import the components
+const StreamingServicesSlideShow = dynamic(
+  () =>
+    import(
+      "@/components/application-group/discovery-route/streaming-services/StreamingServicesSlideShow"
+    ),
+  { ssr: false },
+);
+
+const TrendingSlider = dynamic(
+  () => import("@/components/application-group/discovery-route/TrendingSlider"),
+  { ssr: false },
+);
+
+const CollectionsSlideShow = dynamic(
+  () =>
+    import(
+      "@/components/application-group/discovery-route/collections/CollectionsSlideShow"
+    ),
+  { ssr: false },
+);
+
+/* 
 import StreamingServicesSlideShow from "@/components/application-group/discovery-route/streaming-services/StreamingServicesSlideShow";
 import CollectionsSlideShow from "@/components/application-group/discovery-route/collections/CollectionsSlideShow";
 import TrendingSlider from "@/components/application-group/discovery-route/TrendingSlider";
+*/
 
 // ===================================
 // Time-based Revalidation in Next.js
@@ -110,13 +136,12 @@ const page = async () => {
           </ul>
         </DiscoverySlider>
       </Suspense>
-
       {/*
-        -----------------
-        Collections 
-        -----------------
+        ------------------
+        Streaming services 
+        ------------------
        */}
-      <CollectionsSlideShow />
+      <StreamingServicesSlideShow />
 
       {/*
         --------------
@@ -140,11 +165,11 @@ const page = async () => {
       />
 
       {/*
-        ------------------
-        Streaming services 
-        ------------------
+        -----------------
+        Collections 
+        -----------------
        */}
-      <StreamingServicesSlideShow />
+      <CollectionsSlideShow />
     </section>
   );
 };
