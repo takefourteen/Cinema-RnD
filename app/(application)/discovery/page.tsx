@@ -170,6 +170,9 @@ const page = async () => {
         -----------------
        */}
       <CollectionsSlideShow />
+
+{/*       another api key = dc4e4b0d8f94c3f8d7d6833581388ddd */}
+      
     </section>
   );
 };
