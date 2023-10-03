@@ -1,16 +1,11 @@
-import { RecommendationsApiResponse } from "@/lib/tmdb-api/recommendations";
-import { SimilarApiResponse } from "@/lib/tmdb-api/similar";
-
 import { filterResultsByLanguage } from "@/lib/tmdb-api/filterResults";
 
 import Skeleton from "@/components/Skeleton";
 import RecommendedMovieImage from "./RecommendedMovieImage";
 
 type RecommendedMoviesProps = {
-  recommendedMoviesPromise: Promise<
-    RecommendationsApiResponse<RecommendedMovie[]>
-  >;
-  similarMoviesPromise: Promise<SimilarApiResponse<SimilarMovie[]>>;
+  recommendedMoviesPromise: Promise<RecommendedMovie[]>;
+  similarMoviesPromise: Promise<SimilarMovie[]>;
 };
 
 const RecommendedMovies = async ({
@@ -18,26 +13,10 @@ const RecommendedMovies = async ({
   similarMoviesPromise,
 }: RecommendedMoviesProps) => {
   // use promise.all to fetch similarMovies and recommendedMovies at the same time
-  const [similarMoviesResponse, recommendedMoviesResponse] = await Promise.all([
+  const [similarMovies, recommendedMovies] = await Promise.all([
     similarMoviesPromise,
     recommendedMoviesPromise,
   ]);
-
-  // destructure the data and error from the responses
-  const { data: similarMovies, error: similarMoviesError } =
-    similarMoviesResponse;
-  const { data: recommendedMovies, error: recommendedMoviesError } =
-    recommendedMoviesResponse;
-
-  /*
-    if there is an error fetching similarMovies and recommendedMovies, 
-    throw an error that will be caught by the ErrorBoundary (error.tsx)
-   */
-  if (similarMoviesError && recommendedMoviesError) {
-    throw new Error(
-      `Error fetching similar movies and recommended movies: ${similarMoviesError} and ${recommendedMoviesError}`,
-    );
-  }
 
   // =========================================
   // Filter out movies that are not in english
@@ -50,6 +29,7 @@ const RecommendedMovies = async ({
     recommendedMovies || [],
     "en",
   );
+
 
   // If both similarMovies and recommendedMovies are undefined, return a loading state
   if (!similarMovies && !recommendedMovies) {

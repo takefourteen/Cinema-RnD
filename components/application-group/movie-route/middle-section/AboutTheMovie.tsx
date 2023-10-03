@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 
@@ -8,25 +7,16 @@ import { IoMdAdd } from "react-icons/io";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import Chip from "../../Chip";
-import MoviePosterWithLoader from "./MoviePosterWithLoader";
+import ImageLoader from "@/components/ImageLoader";
 
 type AboutTheMovieProps = {
   movieId: string;
 };
 
-const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
+const BASE_IMG_URL = "https://image.tmdb.org/t/p/w500";
 
 const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
-  const { data: movieDetails, error } = await fetchMovieDetails(movieId);
-  // console.log(movieDetails);
-
-  /*
-    if there is an error fetching similarMovies and recommendedMovies, 
-    throw an error that will be caught by the ErrorBoundary (error.tsx)
-   */
-  if (error) {
-    throw new Error(`Error fetching movie details: ${error}`);
-  }
+  const movieDetails = await fetchMovieDetails(movieId);
 
   if (!movieDetails) {
     return <div>Loading...</div>;
@@ -61,9 +51,12 @@ const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
         <div className="hidden lg:block">
           <div className="relative h-auto w-[200px] lg:w-[300px]">
             <AspectRatio ratio={2 / 3}>
-              <MoviePosterWithLoader
-                poster_path={movieDetails.poster_path}
+              <ImageLoader
+                src={`${BASE_IMG_URL}${movieDetails.poster_path}`}
                 alt={movieDetails.original_title}
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+                className="object-contain"
               />
             </AspectRatio>
           </div>

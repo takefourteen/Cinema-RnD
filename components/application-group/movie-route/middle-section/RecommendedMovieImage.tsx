@@ -14,7 +14,7 @@ Movie image component used in the MovieRecommendations component
 gets the movie id, fetches the movie details and displays the movie image with a link to the movie page and some basic information about the movie
 */
 const RecommendedMovieImage = async ({ movieId }: { movieId: string }) => {
-  const { data: movieDetails, error } = await fetchMovieDetails(movieId);
+  const  movieDetails = await fetchMovieDetails(movieId);
 
   //   prepare url path for the movie details page, the structure is /movie/:id-nameofmovie, the name is seperated by a dash
   const moviePageUrl = `/movie/${movieId}-${movieDetails?.original_title
