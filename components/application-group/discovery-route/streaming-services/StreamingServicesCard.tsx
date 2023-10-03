@@ -19,7 +19,9 @@ const StreamingServicesCard = ({ service, index }: Props) => {
           src={service.image}
           alt={service.name}
           fill
-          sizes="250px"
+          sizes="(max-width: 768px) 150px,
+                 (max-width: 1024px) 175px,
+                  200px,"
           className="z-10 transform object-contain px-2 py-1 brightness-75 transition-transform delay-75 hover:scale-105"
         />
       </AspectRatio>
