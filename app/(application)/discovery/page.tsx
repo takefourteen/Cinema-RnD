@@ -8,9 +8,9 @@ import {
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 
+import LoadingSpinner from "@/components/LoadingSpinner";
 import DiscoverySlider from "@/components/application-group/discovery-route/hero-section/slider/DiscoverySlider";
 import DiscoveryHeroSectionSliderBody from "@/components/application-group/discovery-route/hero-section/slider/DiscoveryHeroSectionSliderBody";
-import LoadingSpinner from "@/components/LoadingSpinner";
 
 // dynamically import the components
 const StreamingServicesSlideShow = dynamic(
