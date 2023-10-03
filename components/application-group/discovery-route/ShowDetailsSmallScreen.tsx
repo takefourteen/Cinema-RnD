@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
-import { fetchImages, ImagesApiResponse } from "@/lib/tmdb-api/images";
+import { fetchImages } from "@/lib/tmdb-api/images";
 
 import { IoMdAdd as AddIcon } from "react-icons/io";
 import { IoInformation as InfoIcon } from "react-icons/io5";
@@ -29,18 +29,10 @@ const ShowDetailsSmallScreen = async ({
     : "tv";
 
   // fetch the images for the movie or tv show
-  const imagesPromise: Promise<ImagesApiResponse> = fetchImages(
-    movieOrTvShowDetails.id,
-    type,
-  );
+  const imagesPromise = fetchImages(movieOrTvShowDetails.id, type);
 
   // wait for the promise to resolve
-  const { data: images, error: imagesError } = await imagesPromise;
-
-  // if there is an error fetching images, throw an error that will be caught by the ErrorBoundary (error.tsx)
-  if (imagesError) {
-    throw new Error(`Error fetching images: ${imagesError}`);
-  }
+  const  images = await imagesPromise;
 
   // look for the first images.logos with a file_path
   const titleLogo = images?.logos.find((logo) => logo.file_path);
@@ -93,7 +85,7 @@ const ShowDetailsSmallScreen = async ({
   const voteAverage = Math.round(movieOrTvShowDetails.vote_average * 10) / 10;
 
   return (
-    <div className="master-container flex h-full flex-col items-center justify-end gap-y-2 pb-12 text-center sm:items-start sm:text-start  md:hidden ">
+    <div className="master-container text-white flex h-full flex-col items-center justify-end gap-y-2 pb-12 text-center sm:items-start sm:text-start  md:hidden ">
       {/*
         -------------------------------------------- 
         Production logo and Title Text or Title Logo

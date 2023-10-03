@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Suspense } from "react";
 
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
-import { fetchImages, ImagesApiResponse } from "@/lib/tmdb-api/images";
+import { fetchImages } from "@/lib/tmdb-api/images";
 
 import { AiOutlineInfoCircle as InfoIcon } from "react-icons/ai";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
@@ -30,18 +30,10 @@ const ShowDetailsLargeScreen = async ({
     : "tv";
 
   // fetch the images for the movie or tv show
-  const imagesPromise: Promise<ImagesApiResponse> = fetchImages(
-    movieOrTvShowDetails.id,
-    type,
-  );
+  const imagesPromise = fetchImages(movieOrTvShowDetails.id, type);
 
   // wait for the promise to resolve
-  const { data: images, error: imagesError } = await imagesPromise;
-
-  // if there is an error fetching images, throw an error that will be caught by the ErrorBoundary (error.tsx)
-  if (imagesError) {
-    throw new Error(`Error fetching images: ${imagesError}`);
-  }
+  const images = await imagesPromise;
 
   // look for the first images.logos with a file_path
   const titleLogo = images?.logos.find((logo) => logo.file_path);
@@ -105,7 +97,7 @@ const ShowDetailsLargeScreen = async ({
       )}
 
       {/* Year, runtime, and Rating */}
-      <div className="mt-2 lg:mt-4 flex flex-wrap items-center justify-center gap-2 tracking-wide">
+      <div className="mt-2 flex flex-wrap items-center justify-center gap-2 tracking-wide lg:mt-4">
         {/* Year */}
         <p className="rounded-sm border border-white/30 px-1 text-primaryWhite">
           {new Date(releaseDate).getFullYear()}

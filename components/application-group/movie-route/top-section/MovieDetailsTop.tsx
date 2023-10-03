@@ -1,11 +1,8 @@
 import { Suspense } from "react";
 import Image from "next/image";
 
-import {
-  MovieDetailsApiResponse,
-  fetchMovieDetails,
-} from "@/lib/tmdb-api/movies";
-import { fetchImages, ImagesApiResponse } from "@/lib/tmdb-api/images";
+import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
+import { fetchImages } from "@/lib/tmdb-api/images";
 import { convertAspectRatioToFraction } from "@/helpers/convertAspectRatioToFraction";
 
 import { IoMdAdd } from "react-icons/io";
@@ -24,12 +21,8 @@ interface MovieHeaderProps {
 
 const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   // fetch the movie details and images
-  const movieDetailsPromise: Promise<MovieDetailsApiResponse> =
-    fetchMovieDetails(movieId);
-  const imagesPromise: Promise<ImagesApiResponse> = fetchImages(
-    movieId,
-    "movie",
-  );
+  const movieDetailsPromise = fetchMovieDetails(movieId);
+  const imagesPromise = fetchImages(movieId, "movie");
 
   // wait for both promises to resolve
   const [movieDetailsResponse, imagesResponse] = await Promise.all([
@@ -38,24 +31,8 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   ]);
 
   // destructure the data and error from the responses
-  const { data: movieDetails, error: movieDetailsError } = movieDetailsResponse;
-  const { data: images, error: imagesError } = imagesResponse;
-
-  /*
-    if there is an error fetching similarMovies and recommendedMovies, 
-    throw an error that will be caught by the ErrorBoundary (error.tsx)
-   */
-  if (movieDetailsError) {
-    throw new Error(`Error fetching movie details: ${movieDetailsError}`);
-  }
-
-  if (imagesError) {
-    throw new Error(`Error fetching images: ${imagesError}`);
-  }
-
-  if (!movieDetails || !images) {
-    return <div>Loading...</div>;
-  }
+  const movieDetails = movieDetailsResponse;
+  const images = imagesResponse;
 
   // look for the first images.logos with a file_path
   const titleLogo = images.logos.find((logo) => logo.file_path);

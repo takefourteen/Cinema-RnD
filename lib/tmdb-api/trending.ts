@@ -3,15 +3,10 @@ const BASE_URL = "https://api.themoviedb.org/3";
 
 import { filterResultsByLanguage } from "./filterResults";
 
-export interface TrendingApiResponse<T> {
-  data: T | null;
-  error: string | null;
-}
-
 export async function fetchTrendingMovies(
   page: number = 1,
   timeWindow: "day" | "week" = "day",
-): Promise<TrendingApiResponse<TrendingMovie[]>> {
+): Promise<TrendingMovie[]> {
   try {
     const response = await fetch(
       `${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`,
@@ -32,25 +27,19 @@ export async function fetchTrendingMovies(
     // filter out movies that are not in English
     data.results = filterResultsByLanguage(data.results || [], "en");
 
-    return {
-      data: data.results,
-      error: null,
-    };
+    return data.results;
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
 
-    return {
-      data: null,
-      error: errorMessage,
-    };
+    return [];
   }
 }
 
 export async function fetchTrendingTVShows(
   page: number = 1,
   timeWindow: "day" | "week" = "day",
-): Promise<TrendingApiResponse<TrendingTVSeries[]>> {
+): Promise<TrendingTVSeries[]> {
   try {
     const response = await fetch(
       `${BASE_URL}/trending/tv/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`,
@@ -71,24 +60,18 @@ export async function fetchTrendingTVShows(
     // filter out TV shows that are not in English
     data.results = filterResultsByLanguage(data.results || [], "en");
 
-    return {
-      data: data.results,
-      error: null,
-    };
+    return data.results;
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
 
-    return {
-      data: null,
-      error: errorMessage,
-    };
+    return [];
   }
 }
 
 export async function fetchMultipleTrendingMoviesPages(
   numPages: number,
-): Promise<TrendingApiResponse<TrendingMovie[]>> {
+): Promise<TrendingMovie[]> {
   let finalResults: TrendingMovie[] = [];
 
   let finalError: string = "";
@@ -97,53 +80,31 @@ export async function fetchMultipleTrendingMoviesPages(
     try {
       const intialFetch = await fetchTrendingMovies(page);
 
-      if (intialFetch.error) {
-        finalError = intialFetch.error;
-        throw new Error(finalError);
-      }
-
-      if (intialFetch?.data) {
-        // put the intial fetch data into the final results
-        finalResults = [...finalResults, ...intialFetch.data];
-      }
+      // put the intial fetch data into the final results
+      finalResults = [...finalResults, ...intialFetch];
     } catch (error) {
-      console.error(`Error fetching data for page ${page}: ${error}`);
+      throw new Error(`Error fetching data for page ${page}: ${error}`);
     }
   }
 
-  return {
-    data: finalResults,
-    error: finalError,
-  };
+  return finalResults;
 }
 
 export async function fetchMultipleTrendingTVShowsPages(
   numPages: number,
-): Promise<TrendingApiResponse<TrendingTVSeries[]>> {
+): Promise<TrendingTVSeries[]> {
   let finalResults: TrendingTVSeries[] = [];
-
-  let finalError: string = "";
 
   for (let page = 1; page <= numPages; page++) {
     try {
       const intialFetch = await fetchTrendingTVShows(page);
 
-      if (intialFetch.error) {
-        finalError = intialFetch.error;
-        throw new Error(finalError);
-      }
-
-      if (intialFetch?.data) {
-        // put the intial fetch data into the final results
-        finalResults = [...finalResults, ...intialFetch.data];
-      }
+      // put the intial fetch data into the final results
+      finalResults = [...finalResults, ...intialFetch];
     } catch (error) {
-      console.error(`Error fetching data for page ${page}: ${error}`);
+      throw new Error(`Error fetching data for page ${page}: ${error}`);
     }
   }
 
-  return {
-    data: finalResults,
-    error: finalError,
-  };
+  return finalResults;
 }
