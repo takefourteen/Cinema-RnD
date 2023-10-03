@@ -1,12 +1,7 @@
-"use client";
-
-import Image from "next/image";
-import { useState } from "react";
-
 import { convertAspectRatioToFraction } from "@/helpers/convertAspectRatioToFraction";
 
-import { Spinner } from "@nextui-org/spinner";
 import { AspectRatio } from "../ui/aspect-ratio";
+import ImageLoader from "@/components/ImageLoader";
 
 type Props = {
   logoData: {
@@ -24,41 +19,37 @@ type Props = {
 const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
 const TitleLogo = ({ logoData, alt }: Props) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  
   const ratioNumerator = convertAspectRatioToFraction(
     logoData.aspect_ratio,
   ).numerator;
+  
   const ratioDenominator = convertAspectRatioToFraction(
     logoData.aspect_ratio,
   ).denominator;
 
-  const handleImageLoad = () => {
-    setIsLoading(false);
-  };
+  const imgAspectRatio = ratioNumerator && ratioDenominator
+              ? ratioNumerator / ratioDenominator
+              : 1.84 / 1
+
+  const titleLogoSrc = `${BASE_IMG_URL}${logoData.file_path}`;
+
 
   return (
     <>
-      {isLoading && (
-        <div className="flex items-center ">
-          <Spinner color="default" />
-        </div>
-      )}
-
       <div className="relative w-[300px] md:w-[325px] lg:w-[350px]">
         <AspectRatio
-          ratio={
-            ratioNumerator && ratioDenominator
-              ? ratioNumerator / ratioDenominator
-              : 1.84 / 1
-          }
+          ratio={imgAspectRatio}
         >
-          <Image
-            src={`${BASE_IMG_URL}${logoData.file_path}`}
+          <ImageLoader
+            loaderType="spinner"
+            src={titleLogoSrc}
             alt={alt}
             fill
-            sizes="400px"
-            onLoad={handleImageLoad}
-            className=" object-contain"
+            sizes="(max-width: 768px) 300px,
+                 (max-width: 1024px) 325px,
+                  350px,"
+            className="object-contain"
           />
         </AspectRatio>
       </div>
