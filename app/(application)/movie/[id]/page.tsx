@@ -26,17 +26,10 @@ const page = ({ params: { id } }: PageProps) => {
       >
         <MovieDetailsTop movieId={movieId} />
       </Suspense>
-      
+
       {/* Middle Section */}
-      <Suspense
-        fallback={
-          <div className="absolute inset-0 flex items-center justify-center">
-            <LoadingSpinner />
-          </div>
-        }
-      >
-        <MovieDetailsMiddle movieId={movieId} />
-      </Suspense>
+
+      <MovieDetailsMiddle movieId={movieId} />
     </section>
   );
 };
