@@ -141,9 +141,9 @@ const page = async () => {
         Colourful Banner 
         -----------------
        */}
-      <section className=" pt-[64px] text-white lg:pt-[72px]">
+      {/* <section className=" pt-[64px] text-white lg:pt-[72px]">
         <ColorFulBanner />
-      </section>
+      </section> */}
     </section>
   );
 };

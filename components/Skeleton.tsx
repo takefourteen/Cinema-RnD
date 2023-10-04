@@ -14,7 +14,7 @@ const Skeleton = ({
   return (
     <div className="relative flex h-full flex-1 flex-col">
       <div
-        className="gradientAnimation h-full w-full rounded-lg"
+        className="gradientAnimation h-full w-full"
         style={{
           // animationDuration: "1s",
           minHeight: `${mainItemHeight}px`,
@@ -25,7 +25,7 @@ const Skeleton = ({
           {Array.from({ length: rows }, (_, i) => i + 1).map((_, i) => (
             <div
               key={i}
-              className="gradientAnimation h-3 w-full rounded-lg"
+              className="gradientAnimation h-3 w-full"
               style={{
                 // animationDelay: `${i * 0.1}s`,
                 // animationDuration: "1s",

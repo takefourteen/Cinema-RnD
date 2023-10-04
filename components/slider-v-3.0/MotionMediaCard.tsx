@@ -1,15 +1,9 @@
 "use client";
-
-import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import Link from "next/link";
 
-import { CgSpinner } from "react-icons/cg";
-import LoadingSpinner from "../LoadingSpinner";
 import { AspectRatio } from "../ui/aspect-ratio";
-import Skeleton from "../Skeleton";
-import { Button } from "../ui/button";
+import ImageLoader from "../ImageLoader";
 interface MediaCardProps {
   id: number;
   poster_path: string | null;
@@ -38,7 +32,6 @@ const MotionMediaCard = ({
 }: MediaCardComponentProps) => {
   // determine if this is a movie or tv show
   const isMovie = data.original_title ? true : false;
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const imageSrc =
     aspect_ratio === "16:9" ? imageBaseUrl : orgininalImageBasePath;
   const poster =
@@ -47,11 +40,6 @@ const MotionMediaCard = ({
   const mediaPageUrl = isMovie
     ? `/movie/${data.id}-${data.original_title?.split(" ").join("-")}`
     : `/tv/${data.id}-${data.original_name?.split(" ").join("-")}`;
-
-  // Handle the image loading
-  const handleImageLoad = () => {
-    setIsLoading(false);
-  };
 
   // define styles for 16:9(horizontal) and 2:3(vertical) aspect ratios
   const style_16_9 =
@@ -86,23 +74,14 @@ const MotionMediaCard = ({
           className=" group transition-colors "
         >
           <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 2 / 3}>
-            {/* Display the loading spinner or skeleton while the image is loading */}
-            {isLoading && loaderType === "spinner" ? (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <LoadingSpinner />
-              </div>
-            ) : isLoading && loaderType === "skeleton" ? (
-              <Skeleton rows={skeletonLoaderRows} />
-            ) : null}
-
             {/* Display the image */}
 
-            <Image
+            <ImageLoader
+              loaderType={loaderType}
               src={`${imageBaseUrl}${poster}`}
               alt={data.original_title || data.original_name || "Media"}
               fill
               priority={priority}
-              onLoad={handleImageLoad}
               sizes="(max-width: 640px) 300px, (max-width: 1024px) 300px, 250px"
               className=" z-[99] transform  object-cover transition-transform delay-75 hover:scale-105  "
             />

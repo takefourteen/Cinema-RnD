@@ -28,9 +28,9 @@ const ImageLoader = ({
   return (
     <>
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0">
           {loaderType === "spinner" ? (
-            <Spinner color="default" />
+            <Spinner color="default" className="absolute inset-0" />
           ) : (
             <Skeleton rows={0} showOverlay={false} />
           )}
