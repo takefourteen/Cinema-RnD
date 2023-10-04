@@ -11,12 +11,16 @@ const buttonVariants = cva(
       variant: {
         default:
           "bg-white text-black hover:bg-gray-200 dark:bg-slate-900 dark:text-slate-50 dark:hover:bg-slate-800",
+        primary:
+          "bg-[#e50914] outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-1",
+        secondary: "bg-[#2B2B2D] hover:bg-[#2B2B2D]/70  hover:text-white/70",
         outline: "border text-white hover:bg-white/30 dark:hover:bg-white/30",
       },
       size: {
         default: "px-6 py-2",
         sm: "px-4 py-2",
         lg: "px-8 py-2",
+        rounded: "rounded-full px-6 py-2",
         icon: "h-10 w-10",
       },
     },
