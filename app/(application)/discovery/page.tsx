@@ -11,6 +11,8 @@ import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import DiscoverySlider from "@/components/application-group/discovery-route/hero-section/slider/DiscoverySlider";
 import DiscoveryHeroSectionSliderBody from "@/components/application-group/discovery-route/hero-section/slider/DiscoveryHeroSectionSliderBody";
+import YourLibrary from "@/components/application-group/discovery-route/YourLibrary";
+import ColorFulBanner from "@/components/application-group/home-route/ColorFulBanner";
 
 // dynamically import the components
 const StreamingServicesSlideShow = dynamic(
@@ -127,7 +129,21 @@ const page = async () => {
        */}
       <CollectionsSlideShow />
 
-      {/*       another api key = dc4e4b0d8f94c3f8d7d6833581388ddd */}
+      {/*
+        -----------------
+        Your Library 
+        -----------------
+       */}
+      <YourLibrary />
+
+      {/*
+        -----------------
+        Colourful Banner 
+        -----------------
+       */}
+       <section className=" pt-[64px] text-white lg:pt-[72px]">
+        <ColorFulBanner />
+       </section>
     </section>
   );
 };

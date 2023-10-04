@@ -1,3 +1,5 @@
+import "./Icons.css";
+
 export const ErrorIcon = () => {
   return (
     <svg
@@ -83,4 +85,92 @@ export const IconCross = () => (
       d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
     />
   </svg>
+);
+
+export const BookmarkIcon1 = () => (
+  <div
+    className="ipc-watchlist-ribbon ipc-focusable ipc-watchlist-ribbon--m ipc-watchlist-ribbon--baseAlt ipc-watchlist-ribbon--onImage ipc-poster__watchlist-ribbon poster-card-watchlist-ribbon"
+    aria-label="add to watchlist"
+    role="button"
+    tabIndex={0}
+  >
+    <svg
+      className="ipc-watchlist-ribbon__bg"
+      width="24px"
+      height="34px"
+      viewBox="0 0 24 34"
+      xmlns="http://www.w3.org/2000/svg"
+      role="presentation"
+    >
+      <polygon
+        className="ipc-watchlist-ribbon__bg-ribbon"
+        fill="#000000"
+        points="24 0 0 0 0 32 12.2436611 26.2926049 24 31.7728343"
+      ></polygon>
+      <polygon
+        className="ipc-watchlist-ribbon__bg-hover"
+        points="24 0 0 0 0 32 12.2436611 26.2926049 24 31.7728343"
+      ></polygon>
+      <polygon
+        className="ipc-watchlist-ribbon__bg-shadow"
+        points="24 31.7728343 24 33.7728343 12.2436611 28.2926049 0 34 0 32 12.2436611 26.2926049"
+      ></polygon>
+    </svg>
+    <div className="ipc-watchlist-ribbon__icon" role="presentation">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        className="ipc-icon ipc-icon--add ipc-icon--inline"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        role="presentation"
+      >
+        <path d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"></path>
+      </svg>
+    </div>
+  </div>
+);
+
+export const BookmarkIcon2 = () => (
+  <div
+    className="ipc-watchlist-ribbon  ipc-watchlist-ribbon--m ipc-watchlist-ribbon--baseAlt  "
+    aria-label="Sign in to access your Watchlist"
+  >
+    <svg
+      className="ipc-watchlist-ribbon__bg"
+      width="24px"
+      height="34px"
+      viewBox="0 0 24 34"
+      xmlns="http://www.w3.org/2000/svg"
+      role="presentation"
+    >
+      <polygon
+        className="ipc-watchlist-ribbon__bg-ribbon"
+        fill="#000000"
+        points="24 0 0 0 0 32 12.2436611 26.2926049 24 31.7728343"
+      ></polygon>
+      <polygon
+        className="ipc-watchlist-ribbon__bg-hover"
+        points="24 0 0 0 0 32 12.2436611 26.2926049 24 31.7728343"
+      ></polygon>
+      <polygon
+        className="ipc-watchlist-ribbon__bg-shadow"
+        points="24 31.7728343 24 33.7728343 12.2436611 28.2926049 0 34 0 32 12.2436611 26.2926049"
+      ></polygon>
+    </svg>
+    <div className="ipc-watchlist-ribbon__icon" role="presentation">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        className="ipc-icon ipc-icon--add ipc-icon--inline"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        role="presentation"
+      >
+        <path d="M18 13h-5v5c0 .55-.45 1-1 1s-1-.45-1-1v-5H6c-.55 0-1-.45-1-1s.45-1 1-1h5V6c0-.55.45-1 1-1s1 .45 1 1v5h5c.55 0 1 .45 1 1s-.45 1-1 1z"></path>
+      </svg>
+    </div>
+  </div>
 );

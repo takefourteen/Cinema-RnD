@@ -1,11 +1,10 @@
 import Link from "next/link";
 
-
 const Footer = () => {
   // get the current year
   const year = new Date().getFullYear();
   return (
-    <footer className="z-10 mt-6 border-t border-gray-800 bg-transparent py-2">
+    <footer className="z-10 border-t border-gray-800 bg-transparent py-2">
       <div className="mb-2 mt-4 flex items-center justify-center ">
         <Link
           href={"https://ismailshaikhnag.vercel.app/"}
