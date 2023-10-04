@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import CustomButton from "@/components/CustomButton";
 import { BookmarkIcon2 } from "@/components/Icons";
 import SectionHeader from "@/components/SectionHeader";
+import { DetailsButton } from "@/components/DetailsButton";
 
 const YourLibrary = () => {
   return (
@@ -12,7 +12,7 @@ const YourLibrary = () => {
         viewAllLink="my-library"
       />
 
-      <div className="mt-4 flex flex-col items-center justify-center lg:mt-6">
+      <div className="mt-6 flex flex-col items-center justify-center lg:mt-6">
         <BookmarkIcon2 />
 
         <div className="mb-8 mt-2 flex flex-col items-center justify-center">
@@ -24,9 +24,14 @@ const YourLibrary = () => {
           </p>
         </div>
 
-        <CustomButton asChild>
+        <DetailsButton
+          variant={"primary"}
+          size={"default"}
+          className="w-max text-sm font-bold uppercase hover:outline-none hover:ring-1 hover:ring-slate-950 hover:ring-offset-1"
+          asChild
+        >
           <Link href="/sign-up">Sign Up</Link>
-        </CustomButton>
+        </DetailsButton>
       </div>
     </section>
   );
