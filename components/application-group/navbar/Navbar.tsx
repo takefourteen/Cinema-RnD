@@ -13,6 +13,7 @@ import MobileMenu from "./MobileMenu";
 import SearchBar from "./SearchBar";
 import NavLink from "./NavLink";
 import CustomButton from "@/components/CustomButton";
+import { DetailsButton } from "@/components/DetailsButton";
 
 const Navbar = () => {
   const router = useRouter();
@@ -123,25 +124,37 @@ const Navbar = () => {
           {session?.user ? (
             <>
               {/* Log out Button, using custom btn */}
-              <CustomButton asChild variant="outline" onClick={signOutUser}>
+              <DetailsButton
+                variant="outline"
+                size={"rounded"}
+                className="hidden w-max text-sm font-bold uppercase lg:flex"
+                asChild
+                onClick={signOutUser}
+              >
                 <Link href="/">Log Out</Link>
-              </CustomButton>
+              </DetailsButton>
             </>
           ) : (
             <>
               {/* Log in Button, using custom btn */}
-              <CustomButton
-                asChild
+
+              <DetailsButton
                 variant="outline"
-                additionalStyles="hidden lg:flex"
+                size={"rounded"}
+                className="hidden w-max text-sm font-bold uppercase lg:flex"
+                asChild
               >
                 <Link href="/login">Log In</Link>
-              </CustomButton>
+              </DetailsButton>
 
-              {/* Sign up Button, using custom btn */}
-              <CustomButton asChild>
+              <DetailsButton
+                variant={"primary"}
+                size={"rounded"}
+                className="w-max text-sm font-bold uppercase"
+                asChild
+              >
                 <Link href="/sign-up">Sign Up</Link>
-              </CustomButton>
+              </DetailsButton>
             </>
           )}
         </div>
