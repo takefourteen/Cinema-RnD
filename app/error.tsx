@@ -44,7 +44,7 @@ export default function Error({
         className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#454545] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
       >
         <Link href="/">
-          <BiArrowBack className="mr-2 h-4 w-4" /> Return Home
+          <BiArrowBack className="mr-2 h-4 w-4 rotate-45" /> Return Home
         </Link>
       </Button>
 
