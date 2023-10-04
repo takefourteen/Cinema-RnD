@@ -102,6 +102,13 @@ const page = async () => {
       <StreamingServicesSlideShow />
 
       {/*
+        -----------------
+        Your Library 
+        -----------------
+       */}
+      <YourLibrary />
+
+      {/*
         --------------
         Trending Movies 
         --------------
@@ -131,19 +138,12 @@ const page = async () => {
 
       {/*
         -----------------
-        Your Library 
-        -----------------
-       */}
-      <YourLibrary />
-
-      {/*
-        -----------------
         Colourful Banner 
         -----------------
        */}
-       <section className=" pt-[64px] text-white lg:pt-[72px]">
+      <section className=" pt-[64px] text-white lg:pt-[72px]">
         <ColorFulBanner />
-       </section>
+      </section>
     </section>
   );
 };
