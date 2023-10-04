@@ -5,7 +5,7 @@ import SectionHeader from "@/components/SectionHeader";
 
 const renderCollectionsSlideShow = () => {
   return (
-    <ul className="flex transform animate-scroll gap-4 transition-all lg:gap-6">
+    <ul className="flex transform animate-scroll gap-4 py-1 transition-all lg:gap-6">
       {collections.map((collection) => (
         <CollectionCard
           key={collection.id}

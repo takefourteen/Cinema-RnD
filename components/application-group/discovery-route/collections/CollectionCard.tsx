@@ -12,14 +12,14 @@ type Props = {
 
 const CollectionCard = ({ image, videoPath, title }: Props) => {
   return (
-    <li className="group relative h-auto w-[150px] border border-white/30 transition-colors hover:border-white md:w-[175px] lg:w-[200px] ">
+    <li className="group relative mb-4 h-auto w-[200px] ring-1 ring-white/30 transition-colors  hover:ring-white  md:w-[225px] lg:w-[250px]">
       {/* <Link href={`/collection/${title.toLowerCase().replace(" ", "-")}`}> */}
       <AspectRatio ratio={16 / 9}>
         <ImageLoader
           src={image}
-          sizes="(max-width: 768px) 150px,
-                 (max-width: 1024px) 175px,
-                  200px,"
+          sizes="(max-width: 768px) 200px,
+                 (max-width: 1024px) 225px,
+                  250px,"
           alt={title}
           priority
           className=" absolute inset-0 z-20 h-full w-full object-contain p-4 brightness-75 lg:p-8"

@@ -100,7 +100,7 @@ const Navbar = () => {
         </div>
 
         {/* menu for lg screens */}
-        <div className="hidden items-center  uppercase lg:flex">
+        <div className="hidden items-center gap-x-2  uppercase lg:flex">
           <NavLink href="#" active={pathname === "/movies"}>
             movies
           </NavLink>
@@ -109,6 +109,9 @@ const Navbar = () => {
           </NavLink>
           <NavLink href="/discovery" active={pathname === "/discovery"}>
             discovery
+          </NavLink>
+          <NavLink href="/categories" active={pathname === "/categories"}>
+            categories
           </NavLink>
           <NavLink href="/my-library" active={pathname === "/my-library"}>
             my library

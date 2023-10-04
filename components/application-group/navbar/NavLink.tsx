@@ -11,7 +11,7 @@ const NavLink: React.FC<{
     <Button
       asChild
       variant="ghost"
-      className={` relative h-fit rounded-lg px-[10px] py-[10px] text-sm font-bold uppercase text-white hover:bg-[#40445999] hover:text-white`}
+      className={` relative h-fit rounded-none px-[10px] py-[8px] text-sm font-bold uppercase tracking-wide text-white hover:bg-[#40445999] hover:text-white`}
     >
       <Link href={`${href}`}>
         {children}
