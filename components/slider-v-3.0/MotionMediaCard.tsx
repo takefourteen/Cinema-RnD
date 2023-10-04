@@ -83,15 +83,15 @@ const MotionMediaCard = ({
               fill
               priority={priority}
               sizes="(max-width: 640px) 300px, (max-width: 1024px) 300px, 250px"
-              className=" z-[99] transform  object-cover transition-transform delay-75 hover:scale-105  "
+              className=" z-[99] transform  object-cover transition-transform delay-75 group-hover:scale-105  "
             />
           </AspectRatio>
           {/* Display the media title with truncation */}
           <p
-            className={`mt-4 truncate text-start text-xs font-normal tracking-wide text-white  md:text-sm lg:text-base `}
+            className={`mt-4 truncate text-start text-sm font-normal tracking-wide text-white   lg:text-base `}
           >
             {data.original_title || data.original_name || "Unknown Title"}
-          </p>{" "}
+          </p>
         </Link>
       </motion.li>
     ) : null
