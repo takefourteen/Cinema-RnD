@@ -87,19 +87,19 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
           )}
 
           {/* movie rating, movie duration and Year */}
-          <div className="items-cemter mt-2 flex flex-wrap lg:mt-4">
+          <div className="items-cemter mt-4 flex flex-wrap lg:mt-6">
             {/* movie year */}
-            <span className="font-semibold tracking-wide text-white/70">
+            <span className="font-semibold tracking-wide text-white/100">
               {new Date(movieDetails.release_date).getFullYear()}
+            </span>
+            <span className="mx-2 text-white/70">&bull;</span>
+            {/* movie duration */}
+            <span className="font-semibold tracking-wide text-white/100">
+              {runtime}
             </span>
             <span className="mx-2 text-white/70">&bull;</span>
             {/* movie rating */}
             <ImdbRating rating={movieDetails.vote_average} />
-            <span className="mx-2 text-white/70">&bull;</span>
-            {/* movie duration */}
-            <span className="font-semibold tracking-wide text-white/70">
-              {runtime}
-            </span>
           </div>
 
           {/* movie overview using the MovieOverview component */}
