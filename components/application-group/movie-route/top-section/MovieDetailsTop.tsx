@@ -34,6 +34,14 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   const movieDetails = movieDetailsResponse;
   const images = imagesResponse;
 
+  /*
+    check if the imagesData.backdrops array has at least 3 images
+    select the 3rd image from the array or the last image if there are less than 3 images
+     */
+  const backdropPath =
+    images.backdrops[2]?.file_path ||
+    images.backdrops[images.backdrops.length - 1]?.file_path;
+
   // look for the first images.logos with a file_path
   const titleLogo = images.logos.find((logo) => logo.file_path);
 
@@ -55,14 +63,14 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
       <Suspense fallback={<LoadingSpinner />}>
         <ResponsiveBackgroundPoster
           poster_path={movieDetails.poster_path}
-          backdrop_path={movieDetails.backdrop_path}
+          backdrop_path={backdropPath}
           alt={movieDetails.original_title}
           priority={true}
         />
       </Suspense>
 
       {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent lg:w-[70%]" />
 
       {/* Overlay with movie details */}
       <div className="master-container absolute inset-0 flex h-full items-end pb-8 sm:items-center sm:p-0 lg:mr-auto lg:max-w-[80%] ">
