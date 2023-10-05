@@ -5,8 +5,18 @@ import logoC from "@/assets/images/logos/cozycinema-logo-c.webp";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const page = () => {
-  const loading = "COZYCINEMA";
 
+  return (
+   <section>
+
+   </section>
+  );
+};
+
+export default page;
+
+const Loader = () => {
+  const loading = "COZYCINEMA";
   return (
     <div
       className="absolute inset-0 flex flex-col items-center justify-center gap-y-4 p-5 lg:gap-y-6"
@@ -56,43 +66,3 @@ const page = () => {
     </div>
   );
 };
-
-export default page;
-
-{
-  /* map through loading and display every letter animated with a delay */
-}
-{
-  /* <div className="flex gap-1 items-baseline">
-          {loading.split("").map((letter, i) => (
-            <span
-              key={i}
-              className={`animate-bounce text-4xl text-white/70`}
-              style={{ animationDelay: `${i * 100}ms` }}
-            >
-              {letter}
-            </span>
-          ))}
-        </div>
-        
-        
-        ORIGINAL LOADER
-        
-         <div
-      className="flex absolute inset-0 items-center justify-center p-5"
-      style={{
-        background:
-          "radial-gradient(50% 50% at 50% 50%,#17003d 0%,#000000 100%)",
-      }}
-    >
-      <span className="ml-2  flex items-center space-x-2 ">
-        <div className="h-5 w-5 animate-bounce rounded-full border-2 p-1 delay-100"></div>
-        <div className="h-5 w-5 animate-bounce rounded-full border-2 p-1 delay-200"></div>
-        <div className="h-5 w-5 animate-bounce rounded-full border-2 p-1 delay-300"></div>
-      </span>
-    </div>
-        
-        
-        
-        */
-}
