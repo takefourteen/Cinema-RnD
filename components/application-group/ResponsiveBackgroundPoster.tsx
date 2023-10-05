@@ -30,13 +30,14 @@ const ResponsiveBackgroundPoster = ({
          show the backdrop_path img on larger screens.
          if backdrop_path is null, use the poster_path
       */}
-      <div className="relative ml-auto hidden h-full w-[60%] md:flex">
+      <div className="relative ml-auto hidden h-full w-[60%] md:flex lg:w-[70%]">
         <AspectRatio ratio={16 / 9}>
           <ImageLoader
+            loaderType="skeleton"
             src={`${backdropImgSrc ? backdropImgSrc : posterImgSrc}`}
             alt={alt}
             fill
-            sizes="(min-width: 768px) 60vw, 100vw"
+            sizes="(min-width: 768px) 100vw"
             priority={priority}
             className={`object-cover ${imageClassNames}`}
           />
