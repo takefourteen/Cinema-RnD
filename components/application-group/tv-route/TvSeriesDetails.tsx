@@ -1,5 +1,7 @@
 import React from "react";
 
+import { getImagePathFromImagesData } from "@/helpers/getImagePathFromImagesData";
+
 import { IoMdAdd } from "react-icons/io";
 import { Button } from "@/components/ui/button";
 import ResponsiveBackgroundPoster from "../ResponsiveBackgroundPoster";
@@ -22,9 +24,17 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
     check if the imagesData.backdrops array has at least 3 images
     select the 3rd image from the array or the last image if there are less than 3 images
      */
-  const backdropPath =
-    imagesData.backdrops[2]?.file_path ||
-    imagesData.backdrops[imagesData.backdrops.length - 1]?.file_path;
+  //   const backdropPath =
+  //     imagesData.backdrops[2]?.file_path ||
+  //     imagesData.backdrops[imagesData.backdrops.length - 1]?.file_path;
+
+  const backdropPath = getImagePathFromImagesData(
+    "backdropPath",
+    imagesData,
+    0,
+  );
+
+  console.log("backdropPath", backdropPath);
 
   const titleLogo = imagesData.logos.find((logo) => logo.file_path);
 
@@ -32,8 +42,9 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
   const director = tvSeriesData.credits?.crew.find(
     (crew) => crew.job === "Director",
   );
-  const directorName =
-    director?.name || tvSeriesData.created_by[0].name || null;
+
+  console.log("data", tvSeriesData);
+  const directorName = director?.name;
   // get the first few cast members, if they exist
   const cast = tvSeriesData.credits?.cast.slice(0, 3);
   // round the vote average to the nearest 1 decimal place
@@ -51,7 +62,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
       />
 
       {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] lg:w-[70%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent lg:w-[70%]" />
 
       {/* Overlay with tv details */}
       <div className="master-container absolute inset-0 flex h-full items-end pb-8 sm:items-center sm:p-0 lg:mr-auto lg:max-w-[80%] ">

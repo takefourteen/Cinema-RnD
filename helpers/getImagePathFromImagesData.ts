@@ -1,13 +1,13 @@
-export function getImagesPathFromImagesData(
-                                      path: "backdropPath" | "posterPath", 
-                                      images: ImagesData,
-                                      imageIndex: number
-                                    ) {
-if (path === "backdropPath") {
-  return imagesData.backdrops[2]?.file_path ||
-    imagesData.backdrops[imagesData.backdrops.length - 1]?.file_path;
-}
-
-  return  imagesData.posters[2]?.file_path ||
-    imagesData.posters[imagesData.posters.length - 1]?.file_path;
+export function getImagePathFromImagesData(
+  path: "backdropPath" | "posterPath",
+  images: ImagesData,
+  imageIndex: number,
+) {
+  const imageArray =
+    path === "backdropPath" ? images.backdrops : images.posters;
+  const lastIndex = imageArray.length - 1;
+  const filePath =
+    imageArray[Math.max(imageIndex - 1, 0)]?.file_path ||
+    imageArray[lastIndex]?.file_path;
+  return filePath || ""; // Return an empty string if filePath is undefined or null
 }
