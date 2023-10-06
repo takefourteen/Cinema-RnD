@@ -100,6 +100,7 @@ const ShowDetailsSmallScreen = async ({
             <div>
               <div className="relative min-h-[40px] w-[150px] lg:h-[100px] lg:w-[200px]">
                 <ImageLoader
+                  loaderType="skeleton"
                   src={`${BASE_IMG_URL}${productionCompany.logo_path}`}
                   alt={productionCompany.name}
                   fill

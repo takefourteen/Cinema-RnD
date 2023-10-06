@@ -16,6 +16,7 @@ const CollectionCard = ({ image, videoPath, title }: Props) => {
       {/* <Link href={`/collection/${title.toLowerCase().replace(" ", "-")}`}> */}
       <AspectRatio ratio={16 / 9}>
         <ImageLoader
+          loaderType="skeleton"
           src={image}
           sizes="(max-width: 768px) 200px,
                  (max-width: 1024px) 225px,

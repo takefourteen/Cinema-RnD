@@ -16,6 +16,7 @@ const StreamingServicesCard = ({ service, index }: Props) => {
     <li className="group relative h-auto min-w-[150px] border border-white/30 transition-colors hover:border-white md:min-w-[175px] lg:min-w-[200px] ">
       <AspectRatio ratio={16 / 9}>
         <ImageLoader
+          loaderType="skeleton"
           src={service.image}
           alt={service.name}
           fill

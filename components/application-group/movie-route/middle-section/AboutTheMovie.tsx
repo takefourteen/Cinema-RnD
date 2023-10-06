@@ -52,6 +52,7 @@ const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
           <div className="relative h-auto w-[200px] lg:w-[300px]">
             <AspectRatio ratio={2 / 3}>
               <ImageLoader
+                loaderType="spinner"
                 src={`${BASE_IMG_URL}${movieDetails.poster_path}`}
                 alt={movieDetails.original_title}
                 fill

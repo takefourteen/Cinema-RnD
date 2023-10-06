@@ -33,7 +33,7 @@ const ResponsiveBackgroundPoster = ({
       <div className="relative ml-auto hidden h-full w-[60%] md:flex lg:w-[70%]">
         <AspectRatio ratio={16 / 9}>
           <ImageLoader
-            loaderType="skeleton"
+            loaderType="spinner"
             src={`${backdropImgSrc ? backdropImgSrc : posterImgSrc}`}
             alt={alt}
             fill
@@ -46,6 +46,7 @@ const ResponsiveBackgroundPoster = ({
 
       {/* show the poster_path img on smaller screens */}
       <ImageLoader
+        loaderType="spinner"
         src={posterImgSrc}
         alt={alt}
         fill

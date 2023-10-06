@@ -12,7 +12,6 @@ import smLogo from "@/assets/images/logos/cozycinema-logo-c.webp";
 import MobileMenu from "./MobileMenu";
 import SearchBar from "./SearchBar";
 import NavLink from "./NavLink";
-import CustomButton from "@/components/CustomButton";
 import { DetailsButton } from "@/components/DetailsButton";
 
 const Navbar = () => {

@@ -34,8 +34,6 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
     0,
   );
 
-  console.log("backdropPath", backdropPath);
-
   const titleLogo = imagesData.logos.find((logo) => logo.file_path);
 
   // get the director name
@@ -43,7 +41,6 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
     (crew) => crew.job === "Director",
   );
 
-  console.log("data", tvSeriesData);
   const directorName = director?.name;
   // get the first few cast members, if they exist
   const cast = tvSeriesData.credits?.cast.slice(0, 3);
