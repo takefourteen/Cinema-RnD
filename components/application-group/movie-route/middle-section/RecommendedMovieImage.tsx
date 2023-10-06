@@ -4,8 +4,8 @@ import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 
 import { AiFillStar } from "react-icons/ai";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import ImageWithLoader from "./ImageWithLoader";
 import Chip from "../../Chip";
+import ImageLoader from "@/components/ImageLoader";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
@@ -14,7 +14,7 @@ Movie image component used in the MovieRecommendations component
 gets the movie id, fetches the movie details and displays the movie image with a link to the movie page and some basic information about the movie
 */
 const RecommendedMovieImage = async ({ movieId }: { movieId: string }) => {
-  const  movieDetails = await fetchMovieDetails(movieId);
+  const movieDetails = await fetchMovieDetails(movieId);
 
   //   prepare url path for the movie details page, the structure is /movie/:id-nameofmovie, the name is seperated by a dash
   const moviePageUrl = `/movie/${movieId}-${movieDetails?.original_title
@@ -41,7 +41,16 @@ const RecommendedMovieImage = async ({ movieId }: { movieId: string }) => {
     <li className="relative h-auto flex-1">
       <Link href={moviePageUrl} className="group rounded-md">
         <AspectRatio ratio={16 / 9}>
-          <ImageWithLoader src={imageSrc} alt={movieDetails?.original_title} />
+          <ImageLoader
+            loaderType="skeleton"
+            src={imageSrc}
+            alt={movieDetails?.original_title}
+            fill
+            priority
+            className="rounded-md object-cover transition-all duration-300 ease-in-out group-hover:ring-4 group-hover:ring-slate-950 group-hover:ring-offset-2 group-focus-visible:ring-4  group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+            style={{ filter: "brightness(0.8)" }}
+          />
 
           {/* overlay the image with a grain texture */}
           {/* <div className="absolute inset-0 bg-[url('/grain-texture-image.svg')] opacity-30" /> */}
