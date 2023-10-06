@@ -3,15 +3,15 @@ import { filterResultsByLanguage } from "@/lib/tmdb-api/filterResults";
 import Skeleton from "@/components/Skeleton";
 import RecommendedMovieImage from "./RecommendedMovieImage";
 
-type RecommendedMoviesProps = {
+type RecommendedMoviesListProps = {
   recommendedMoviesPromise: Promise<RecommendedMovie[]>;
   similarMoviesPromise: Promise<SimilarMovie[]>;
 };
 
-const RecommendedMovies = async ({
+const RecommendedMoviesList = async ({
   recommendedMoviesPromise,
   similarMoviesPromise,
-}: RecommendedMoviesProps) => {
+}: RecommendedMoviesListProps) => {
   // use promise.all to fetch similarMovies and recommendedMovies at the same time
   const [similarMovies, recommendedMovies] = await Promise.all([
     similarMoviesPromise,
@@ -29,7 +29,6 @@ const RecommendedMovies = async ({
     recommendedMovies || [],
     "en",
   );
-
 
   // If both similarMovies and recommendedMovies are undefined, return a loading state
   if (!similarMovies && !recommendedMovies) {
@@ -89,4 +88,4 @@ const RecommendedMovies = async ({
   );
 };
 
-export default RecommendedMovies;
+export default RecommendedMoviesList;

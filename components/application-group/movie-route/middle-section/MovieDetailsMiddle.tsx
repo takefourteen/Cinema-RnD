@@ -2,7 +2,7 @@ import { fetchSimilarMovies } from "@/lib/tmdb-api/similar";
 import { fetchMovieRecommendations } from "@/lib/tmdb-api/recommendations";
 
 import TabsNavigation from "./TabsNavigation";
-import RecommendedMovies from "@/components/application-group/movie-route/middle-section/RecommendedMovies";
+import RecommendedMoviesList from "@/components/application-group/movie-route/middle-section/RecommendedMoviesList";
 import AboutTheMovie from "./AboutTheMovie";
 
 type MovieDetailsMiddleProps = {
@@ -19,7 +19,7 @@ const MovieDetailsMiddle = ({ movieId }: MovieDetailsMiddleProps) => {
     <div className="master-container mx-auto mt-8 p-0 ">
       <TabsNavigation
         RecommendedMoviesComponent={
-          <RecommendedMovies
+          <RecommendedMoviesList
             recommendedMoviesPromise={recommendedMoviesPromise}
             similarMoviesPromise={similarMoviesPromise}
           />
