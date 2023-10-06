@@ -3,13 +3,13 @@ import Image from "next/image";
 import logo from "@/assets/images/logos/cozycinema-logo.webp";
 import logoC from "@/assets/images/logos/cozycinema-logo-c.webp";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Tabs from "@/components/application-group/Tabs";
 
 const page = () => {
-
   return (
-   <section>
-
-   </section>
+    <section className="master-container flex  min-h-screen items-center justify-center">
+      <Tabs />
+    </section>
   );
 };
 
