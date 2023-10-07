@@ -43,3 +43,35 @@ Headline: 24px
 Body: 20px
 Subhead: 18px
 Input Label: 18px
+
+Extra Large Screen (xl):
+Large Title: 44px
+Title 1: 40px
+Title 2: 36px
+Title 3: 32px
+Headline: 28px
+Body: 24px
+Subhead: 20px
+Input Label: 20px
+
+================ UPDATE =================
+Font Sizes (in px)
+Headers
+H1: 48px (max-width: 640px), 52px (max-width: 768px), 56px (max-width: 1024px and higher)
+H2: 36px (max-width: 640px), 40px (max-width: 768px), 44px (max-width: 1024px and higher)
+H3: 24px (max-width: 640px), 28px (max-width: 768px and higher)
+H4: 20px (max-width: 640px), 24px (max-width: 768px and higher)
+H5: 18px (max-width: 640px), 20px (max-width: 768px and higher)
+Text
+Body: 16px (max-width: 640px), 18px (max-width: 768px and higher)
+Subtext/Captions: 14px (max-width: 640px), 16px (max-width: 768px and higher)
+
+Line Spacing
+Headers: 1.2 times the font size
+Text: 1.5 times the font size
+Buttons: 1.2 times the font size
+
+Letter Spacing
+Headers: 0.05em
+Text: 0.02em
+Buttons: 0.1em
