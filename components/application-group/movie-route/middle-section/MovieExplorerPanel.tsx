@@ -1,21 +1,23 @@
 import TabsNavigation from "./TabsNavigation";
 import RecommendedMediaList from "@/components/application-group/recommendations/RecommendedMediaList";
-import AboutTheMovie from "./AboutTheMovie";
+import DetailsAboutShowSection from "../../DetailsAboutShowSection";
 
-const MediaExplorerPanel = ({ mediaId }: { mediaId: string }) => {
+const MovieExplorerPanel = ({ mediaId }: { mediaId: string }) => {
   return (
     <div className="master-container mx-auto mt-8 p-0 ">
       <TabsNavigation
         RecommendedMoviesComponent={
           <RecommendedMediaList mediaId={mediaId} mediaType={"movie"} />
         }
-        AboutTheMovieComponent={<AboutTheMovie mediaId={mediaId} />}
+        AboutTheMovieComponent={
+          <DetailsAboutShowSection mediaId={mediaId} mediaType={"movie"} />
+        }
       />
     </div>
   );
 };
 
-export default MediaExplorerPanel;
+export default MovieExplorerPanel;
 
 /* 
 
