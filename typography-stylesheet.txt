@@ -55,23 +55,43 @@ Subhead: 20px
 Input Label: 20px
 
 ================ UPDATE =================
-Font Sizes (in px)
-Headers
-H1: 48px (max-width: 640px), 52px (max-width: 768px), 56px (max-width: 1024px and higher)
-H2: 36px (max-width: 640px), 40px (max-width: 768px), 44px (max-width: 1024px and higher)
-H3: 24px (max-width: 640px), 28px (max-width: 768px and higher)
-H4: 20px (max-width: 640px), 24px (max-width: 768px and higher)
-H5: 18px (max-width: 640px), 20px (max-width: 768px and higher)
-Text
-Body: 16px (max-width: 640px), 18px (max-width: 768px and higher)
-Subtext/Captions: 14px (max-width: 640px), 16px (max-width: 768px and higher)
+Font Sizes (in pixels):
+=== Max-width: 640px ===
+Header 1: 28px
+Header 2: 24px
+Header 3: 20px
+Body Text: 16px
+Button Text: 16px
+Small Text / Captions: 14px
 
-Line Spacing
-Headers: 1.2 times the font size
-Text: 1.5 times the font size
-Buttons: 1.2 times the font size
+=== Max-width: 768px ===
+Header 1: 32px
+Header 2: 28px
+Header 3: 22px
+Body Text: 18px
+Button Text: 18px
+Small Text / Captions: 14px
 
-Letter Spacing
-Headers: 0.05em
-Text: 0.02em
-Buttons: 0.1em
+=== Max-width: 1024px ===
+Header 1: 36px
+Header 2: 32px
+Header 3: 24px
+Body Text: 20px
+Button Text: 20px
+Small Text / Captions: 16px
+
+=== Max-width: 1280px ===
+Header 1: 40px
+Header 2: 36px
+Header 3: 28px
+Body Text: 22px
+Button Text: 22px
+Small Text / Captions: 18px
+
+=== Max-width: 1536px ===
+Header 1: 44px
+Header 2: 40px
+Header 3: 32px
+Body Text: 24px
+Button Text: 24px
+Small Text / Captions: 20px
