@@ -26,8 +26,6 @@ const ImageLoader = ({
     setIsLoading(false);
   };
 
-  console.log("loaderType", loaderType);
-
   return (
     <>
       {isLoading && (
