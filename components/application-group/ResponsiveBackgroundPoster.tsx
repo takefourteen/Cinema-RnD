@@ -30,7 +30,7 @@ const ResponsiveBackgroundPoster = ({
          show the backdrop_path img on larger screens.
          if backdrop_path is null, use the poster_path
       */}
-      <div className="relative ml-auto hidden h-full w-[60%] md:flex lg:w-[70%]">
+      <div className="relative ml-auto hidden h-full w-[60%] md:flex lg:w-[60%]">
         <AspectRatio ratio={16 / 9}>
           <ImageLoader
             loaderType="spinner"

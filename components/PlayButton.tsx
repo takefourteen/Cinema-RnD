@@ -20,7 +20,7 @@ const PlayButton = ({
   ...props
 }: PlayButtonProps) => {
   const baseClassName =
-    "bg-white text-black hover:bg-gray-200 flex items-center justify-start rounded-sm  text-lg font-semibold tracking-wide shadow-md transition duration-300 ease-in-out";
+    "bg-white text-black hover:bg-gray-200 flex items-center justify-start rounded-sm  font-button-text font-semibold tracking-wide shadow-md transition duration-300 ease-in-out";
   const sizeClassName =
     size === "sm" ? "px-6 py-2 lg:px-8 lg:py-2" : "px-8 py-2";
   const finalClassName = `${baseClassName} ${sizeClassName} ${className}`;

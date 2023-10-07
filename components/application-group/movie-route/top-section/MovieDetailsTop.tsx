@@ -1,18 +1,14 @@
-import { Suspense } from "react";
-import Image from "next/image";
-
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
-import { convertAspectRatioToFraction } from "@/helpers/convertAspectRatioToFraction";
 
 import { IoMdAdd } from "react-icons/io";
 import { Button } from "@/components/ui/button";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Chip from "../../Chip";
 import PlayButton from "@/components/PlayButton";
 import Overview from "../../Overview";
 import ResponsiveBackgroundPoster from "../../ResponsiveBackgroundPoster";
 import ImdbRating from "../../ImdbRating";
-import LoadingSpinner from "@/components/LoadingSpinner";
 import TitleLogo from "../../TitleLogo";
 
 interface MovieHeaderProps {
@@ -58,19 +54,17 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
     movieDetails.runtime % 60
   }m`;
   return (
-    <div className="relative h-[40rem] flex-1 sm:h-[50rem] md:h-[40rem] lg:h-[50rem] ">
+    <div className="relative h-[40rem] flex-1 sm:h-[42rem] md:h-[40rem] lg:h-[44rem] ">
       {/* Image Display */}
-      <Suspense fallback={<LoadingSpinner />}>
-        <ResponsiveBackgroundPoster
-          poster_path={movieDetails.poster_path}
-          backdrop_path={backdropPath}
-          alt={movieDetails.original_title}
-          priority={true}
-        />
-      </Suspense>
+      <ResponsiveBackgroundPoster
+        poster_path={movieDetails.poster_path}
+        backdrop_path={backdropPath}
+        alt={movieDetails.original_title}
+        priority={true}
+      />
 
       {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent lg:w-[70%]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent " />
 
       {/* Overlay with movie details */}
       <div className="master-container absolute inset-0 flex h-full items-end pb-8 sm:items-center sm:p-0 lg:mr-auto lg:max-w-[80%] ">
@@ -81,30 +75,23 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
 
           {/* movie title logo or Normal title*/}
           {titleLogo?.file_path ? (
-            <Suspense>
-              <TitleLogo
-                logoData={titleLogo}
-                alt={movieDetails.original_title}
-              />
-            </Suspense>
+            <TitleLogo logoData={titleLogo} alt={movieDetails.original_title} />
           ) : (
             // movie title
-            <h1 className="text-[32px] font-bold md:text-[36px] lg:text-[40px]">
-              {movieDetails.original_title}
-            </h1>
+            <h1 className="font-header-2">{movieDetails.original_title}</h1>
           )}
 
           {/* movie rating, movie duration and Year */}
-          <div className="items-cemter mt-4 flex flex-wrap lg:mt-6">
+          <div className="items-cemter font-small-text mt-4 flex flex-wrap lg:mt-6">
             {/* movie year */}
-            <span className="font-semibold tracking-wide text-white/100">
+            <p className="font-semibold tracking-wide text-white/100">
               {new Date(movieDetails.release_date).getFullYear()}
-            </span>
+            </p>
             <span className="mx-2 text-white/70">&bull;</span>
             {/* movie duration */}
-            <span className="font-semibold tracking-wide text-white/100">
+            <p className="font-semibold tracking-wide text-white/100">
               {runtime}
-            </span>
+            </p>
             <span className="mx-2 text-white/70">&bull;</span>
             {/* movie rating */}
             <ImdbRating rating={movieDetails.vote_average} />
@@ -123,7 +110,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
             <Button
               variant={"outline"}
               size={"icon"}
-              className="mt-6 rounded-full text-base font-semibold  text-white lg:mt-8 "
+              className="mt-6 rounded-full text-white lg:mt-8 "
               aria-label="Add to library"
             >
               <IoMdAdd className=" inline-block h-5 w-5" />
@@ -132,29 +119,24 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
 
           {/* movie starring, if there is a cast to display */}
           {cast && (
-            <div className="mt-6 flex flex-wrap items-baseline tracking-wide lg:mt-8">
-              <h3 className=" font-bold">Starring: &nbsp;</h3>
+            <div className="font-text-small mt-6 flex flex-wrap items-baseline tracking-wide lg:mt-8">
+              <h3 className="font-bold">Starring: &nbsp;</h3>
               {cast.map((castMember, index) => (
-                <span
-                  key={castMember.id}
-                  className="font-semibold  text-white/70"
-                >
+                <p key={castMember.id} className="font-semibold  text-white/70">
                   {castMember.name}
                   {index < cast.length - 1 ? (
                     <span className="text-white/70">, &nbsp;</span>
                   ) : null}
-                </span>
+                </p>
               ))}
             </div>
           )}
 
           {/* movie director, if there is a director to display */}
           {director && (
-            <div className="flex flex-wrap items-baseline tracking-wide lg:mt-1">
+            <div className="font-text-small flex flex-wrap items-baseline tracking-wide lg:mt-1">
               <h3 className=" font-bold">Director: &nbsp;</h3>
-              <span className="font-semibold  text-white/70">
-                {director.name}
-              </span>
+              <p className="font-semibold  text-white/70">{director.name}</p>
             </div>
           )}
 

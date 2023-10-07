@@ -48,7 +48,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
   tvSeriesData.vote_average = Math.round(tvSeriesData.vote_average * 10) / 10;
 
   return (
-    <div className="relative h-[40rem] flex-1 sm:h-[50rem] md:h-[40rem] lg:h-[50rem] ">
+    <div className="relative h-[40rem] flex-1 sm:h-[42rem] md:h-[40rem] lg:h-[44rem] ">
       {/* Image Display */}
 
       <ResponsiveBackgroundPoster
@@ -59,7 +59,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
       />
 
       {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent lg:w-[70%]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent " />
 
       {/* Overlay with tv details */}
       <div className="master-container absolute inset-0 flex h-full items-end pb-8 sm:items-center sm:p-0 lg:mr-auto lg:max-w-[80%] ">
@@ -70,22 +70,20 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
             <TitleLogo logoData={titleLogo} alt={tvSeriesData.original_name} />
           ) : (
             // tv title
-            <h1 className="text-[32px] font-bold md:text-[36px] lg:text-[40px]">
-              {tvSeriesData.original_name}
-            </h1>
+            <h1 className="font-header-2">{tvSeriesData.original_name}</h1>
           )}
 
           {/* tv rating, tv duration and Year */}
-          <div className="items-cemter mt-4 flex flex-wrap lg:mt-6">
+          <div className="items-cemter font-small-text mt-4 flex flex-wrap lg:mt-6">
             {/* tv year */}
-            <span className="font-semibold tracking-wide text-white/100">
+            <p className="font-semibold tracking-wide text-white/100">
               {new Date(tvSeriesData.first_air_date).getFullYear()}
-            </span>
+            </p>
             <span className="mx-2 text-white/70">&bull;</span>
             {/* Number of Seasons */}
-            <span className="font-semibold tracking-wide text-white/100">
+            <p className="font-semibold tracking-wide text-white/100">
               {tvSeriesData.number_of_seasons} Seasons
-            </span>
+            </p>
             <span className="mx-2 text-white/70">&bull;</span>
             {/* tv rating */}
             <ImdbRating rating={tvSeriesData.vote_average} />
@@ -104,7 +102,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
             <Button
               variant={"outline"}
               size={"icon"}
-              className="mt-6 rounded-full text-base font-semibold  text-white lg:mt-8 "
+              className="mt-6 rounded-full  text-white lg:mt-8 "
               aria-label="Add to library"
             >
               <IoMdAdd className=" inline-block h-5 w-5" />
@@ -113,7 +111,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
 
           {/* tv starring, if there is a cast to display */}
           {cast && (
-            <div className="mt-6 flex flex-wrap items-baseline tracking-wide lg:mt-8">
+            <div className="font-text-small mt-6 flex flex-wrap items-baseline tracking-wide lg:mt-8">
               <h3 className=" font-bold">Starring: &nbsp;</h3>
               {cast.map((castMember, index) => (
                 <span
@@ -131,7 +129,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
 
           {/* tv director, if there is a director to display */}
           {directorName && (
-            <div className="flex flex-wrap items-baseline tracking-wide lg:mt-1">
+            <div className="font-text-small flex flex-wrap items-baseline tracking-wide lg:mt-1">
               <h3 className=" font-bold">Director: &nbsp;</h3>
               <span className="font-semibold  text-white/70">
                 {directorName}

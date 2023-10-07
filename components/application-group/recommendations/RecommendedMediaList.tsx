@@ -6,8 +6,6 @@ import {
   fetchMovieRecommendations,
   fetchTVSeriesRecommendations,
 } from "@/lib/tmdb-api/recommendations";
-import { isMovieDetails } from "@/lib/tmdb-api/movies";
-import { isTVSeriesDetails } from "@/lib/tmdb-api/tv-series";
 
 import Skeleton from "@/components/Skeleton";
 import RecommendedMediaImage from "./RecommendedMediaImage";
