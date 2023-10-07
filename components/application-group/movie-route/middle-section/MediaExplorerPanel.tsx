@@ -1,20 +1,8 @@
-import { fetchSimilarMovies } from "@/lib/tmdb-api/similar";
-import { fetchMovieRecommendations } from "@/lib/tmdb-api/recommendations";
-
 import TabsNavigation from "./TabsNavigation";
 import RecommendedMediaList from "@/components/application-group/recommendations/RecommendedMediaList";
 import AboutTheMovie from "./AboutTheMovie";
 
-type MovieDetailsMiddleProps = {
-  mediaId: string;
-};
-
-const MovieDetailsMiddle = ({ mediaId }: MovieDetailsMiddleProps) => {
-  const similarMoviesPromise: Promise<SimilarMovie[]> =
-    fetchSimilarMovies(mediaId);
-  const recommendedMoviesPromise: Promise<RecommendedMovie[]> =
-    fetchMovieRecommendations(mediaId);
-
+const MediaExplorerPanel = ({ mediaId }: { mediaId: string }) => {
   return (
     <div className="master-container mx-auto mt-8 p-0 ">
       <TabsNavigation
@@ -27,7 +15,7 @@ const MovieDetailsMiddle = ({ mediaId }: MovieDetailsMiddleProps) => {
   );
 };
 
-export default MovieDetailsMiddle;
+export default MediaExplorerPanel;
 
 /* 
 

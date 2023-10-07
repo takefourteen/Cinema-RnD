@@ -56,7 +56,7 @@ const RecommendedMediaList = async ({
           <RecommendedMediaImage
             key={media.id}
             mediaId={media.id.toString()}
-            mediaType={"movie"}
+            mediaType={mediaType}
           />
         ))}
       </ul>
@@ -71,7 +71,7 @@ const RecommendedMediaList = async ({
           <RecommendedMediaImage
             key={media.id}
             mediaId={media.id.toString()}
-            mediaType={"movie"}
+            mediaType={mediaType}
           />
         ))}
       </ul>
@@ -85,14 +85,14 @@ const RecommendedMediaList = async ({
         <RecommendedMediaImage
           key={media.id}
           mediaId={media.id.toString()}
-          mediaType={"movie"}
+          mediaType={mediaType}
         />
       ))}
       {similarMedia.slice(0, 8).map((media) => (
         <RecommendedMediaImage
           key={media.id}
           mediaId={media.id.toString()}
-          mediaType={"movie"}
+          mediaType={mediaType}
         />
       ))}
     </ul>

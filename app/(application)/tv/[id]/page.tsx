@@ -1,9 +1,9 @@
-import React from "react";
 
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
 import TvSeriesDetails from "@/components/application-group/tv-route/TvSeriesDetails";
+import MediaExplorerPanel from "@/components/application-group/tv-route/middle-section/MediaExplorerPanel";
 
 type PageProps = {
   params: {
@@ -32,6 +32,9 @@ const page = async ({ params: { id } }: PageProps) => {
       {/* <pre>
         <code>{JSON.stringify(tvSeriesData, null, 2)}</code>
       </pre> */}
+
+      {/* Middle Section */}
+      <MediaExplorerPanel mediaId={tvSeriesId} />
     </section>
   );
 };

@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import MovieDetailsTop from "@/components/application-group/movie-route/top-section/MovieDetailsTop";
-import MovieDetailsMiddle from "@/components/application-group/movie-route/middle-section/MovieDetailsMiddle";
+import MediaExplorerPanel from "@/components/application-group/movie-route/middle-section/MediaExplorerPanel";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
 type PageProps = {
@@ -29,7 +29,7 @@ const page = ({ params: { id } }: PageProps) => {
 
       {/* Middle Section */}
 
-      <MovieDetailsMiddle mediaId={movieId} />
+      <MediaExplorerPanel mediaId={movieId} />
     </section>
   );
 };

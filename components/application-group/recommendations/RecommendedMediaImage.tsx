@@ -36,7 +36,7 @@ const RecommendedMediaImage = async ({
     isMovieDetails(mediaDetails) ? "movie" : "tv"
   }/${mediaId}-${
     isMovieDetails(mediaDetails)
-      ? mediaDetails?.original_title
+      ? mediaDetails?.original_title?.toLowerCase().split(" ").join("-")
       : mediaDetails?.original_name?.toLowerCase().split(" ").join("-")
   }`;
 
