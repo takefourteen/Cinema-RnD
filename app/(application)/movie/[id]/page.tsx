@@ -29,7 +29,7 @@ const page = ({ params: { id } }: PageProps) => {
 
       {/* Middle Section */}
 
-      <MovieDetailsMiddle movieId={movieId} />
+      <MovieDetailsMiddle mediaId={movieId} />
     </section>
   );
 };

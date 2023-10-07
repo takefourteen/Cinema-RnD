@@ -10,12 +10,12 @@ import Chip from "../../Chip";
 import ImageLoader from "@/components/ImageLoader";
 
 type AboutTheMovieProps = {
-  movieId: string;
+  mediaId: string;
 };
 
 const BASE_IMG_URL = "https://image.tmdb.org/t/p/w500";
 
-const AboutTheMovie = async ({ movieId }: AboutTheMovieProps) => {
+const AboutTheMovie = async ({ mediaId: movieId }: AboutTheMovieProps) => {
   const movieDetails = await fetchMovieDetails(movieId);
 
   if (!movieDetails) {

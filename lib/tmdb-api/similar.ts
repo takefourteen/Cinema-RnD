@@ -1,36 +1,67 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
+import { filterResultsByLanguage } from "./filterResults";
 
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
-// fetch similar movies for a movie
+// fetch similar movies for a movie using fetch
 export async function fetchSimilarMovies(
   movieId: string,
+  page: number = 1,
 ): Promise<SimilarMovie[]> {
-  const apiUrl = `${BASE_URL}/movie/${movieId}/similar?api_key=${API_KEY}&language=en-US&page=1`;
+  const apiUrl = `${BASE_URL}/movie/${movieId}/similar?api_key=${API_KEY}&language=en-US&page=${page}`;
 
   try {
-    const response: AxiosResponse<SimilarMoviesResponse> =
-      await axios.get(apiUrl);
+    const response = await fetch(apiUrl);
 
-    const data = response.data.results;
-
-    return data;
-  } catch (error) {
-    const axiosError = error as AxiosError | any;
-
-    if (axiosError.response) {
-      // Extract the error message from the response data
+    if (!response.ok) {
+      // Parse the error response as JSON to extract status_message
+      const errorResponse = await response.json();
       const errorMessage =
-        axiosError.response.data?.status_message || "Unknown error occurred";
-
+        errorResponse?.status_message || "Unknown error occurred";
       throw new Error(errorMessage);
-    } else if (axiosError.request) {
-      // The request was made but no response was received
-      throw new Error("Request failed. Please try again.");
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      throw new Error("An unknown error occurred. Please try again.");
     }
+
+    const data = await response.json();
+
+    // filter out movies that are not in English
+    return filterResultsByLanguage(data.results, "en");
+
+    // return data.results;
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknown error occurred";
+    throw new Error(errorMessage);
+  }
+}
+
+// fetch similar tv series for a tv series using fetch
+export async function fetchSimilarTvSeries(
+  tvSeriesId: string,
+  page: number = 1,
+): Promise<SimilarTvSeries[]> {
+  const apiUrl = `${BASE_URL}/tv/${tvSeriesId}/similar?api_key=${API_KEY}&language=en-US&page=${page}`;
+
+  try {
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      // Parse the error response as JSON to extract status_message
+      const errorResponse = await response.json();
+      const errorMessage =
+        errorResponse?.status_message || "Unknown error occurred";
+      throw new Error(errorMessage);
+    }
+
+    const data = await response.json();
+
+    // filter out tv series that are not in English
+    return filterResultsByLanguage(data.results, "en");
+
+    // return data.results;
+  } catch (error) {
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknown error occurred";
+    throw new Error(errorMessage);
   }
 }
