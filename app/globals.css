@@ -22,6 +22,152 @@
   }
 }
 
+/* Tailwind CSS classes for responsive font sizes */
+.font-header-1 {
+  font-size: 28px;
+
+  @screen sm {
+    font-size: 28px;
+  }
+
+  @screen md {
+    font-size: 32px;
+  }
+
+  @screen lg {
+    font-size: 36px;
+  }
+
+  @screen xl {
+    font-size: 40px;
+  }
+
+  @screen 2xl {
+    font-size: 44px;
+  }
+}
+
+.font-header-2 {
+  font-size: 24px;
+
+  @screen sm {
+    font-size: 24px;
+  }
+
+  @screen md {
+    font-size: 28px;
+  }
+
+  @screen lg {
+    font-size: 32px;
+  }
+
+  @screen xl {
+    font-size: 36px;
+  }
+
+  @screen 2xl {
+    font-size: 40px;
+  }
+}
+
+.font-header-3 {
+  font-size: 20px;
+
+  @screen sm {
+    font-size: 20px;
+  }
+
+  @screen md {
+    font-size: 22px;
+  }
+
+  @screen lg {
+    font-size: 24px;
+  }
+
+  @screen xl {
+    font-size: 28px;
+  }
+
+  @screen 2xl {
+    font-size: 32px;
+  }
+}
+
+.font-body-text {
+  font-size: 16px;
+
+  @screen sm {
+    font-size: 16px;
+  }
+
+  @screen md {
+    font-size: 18px;
+  }
+
+  @screen lg {
+    font-size: 20px;
+  }
+
+  @screen xl {
+    font-size: 22px;
+  }
+
+  @screen 2xl {
+    font-size: 24px;
+  }
+}
+
+.font-button-text {
+  font-size: 16px;
+
+  @screen sm {
+    font-size: 16px;
+  }
+
+  @screen md {
+    font-size: 18px;
+  }
+
+  @screen lg {
+    font-size: 20px;
+  }
+
+  @screen xl {
+    font-size: 22px;
+  }
+
+  @screen 2xl {
+    font-size: 24px;
+  }
+}
+
+.font-small-text {
+  font-size: 14px;
+
+  @screen sm {
+    font-size: 14px;
+  }
+
+  @screen md {
+    font-size: 14px;
+  }
+
+  @screen lg {
+    font-size: 16px;
+  }
+
+  @screen xl {
+    font-size: 18px;
+  }
+
+  @screen 2xl {
+    font-size: 20px;
+  }
+}
+
+
 /* test class to see if everything works */
 .test {
   @apply text-2xl text-red-500;
