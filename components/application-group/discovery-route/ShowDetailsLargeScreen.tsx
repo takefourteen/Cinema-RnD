@@ -99,7 +99,7 @@ const ShowDetailsLargeScreen = async ({
           {new Date(releaseDate).getFullYear()}
         </p>
 
-        {/* display runtime, if it is not NaN, */}
+        {/* display runtime, if it is not falsey */}
         {runtime && (
           <span className="flex items-center gap-2">
             <span className=" h-[5px] w-[5px] rounded-full bg-white/80" />
@@ -137,7 +137,7 @@ const ShowDetailsLargeScreen = async ({
       <div className="mt-2 flex h-max w-full items-center   gap-x-2 lg:mt-4 ">
         {/* play button */}
         {/* if its a movie, href is movie/:id, if tv, href is tv/:id */}
-        <DetailsButton asChild className=" h-10 text-lg font-semibold">
+        <DetailsButton asChild className=" h-10 font-semibold">
           <Link href={`${linkHref}`}>
             <PlayIcon className="mr-1 h-8 w-8" /> Play
           </Link>
@@ -145,7 +145,7 @@ const ShowDetailsLargeScreen = async ({
 
         {/* info button */}
         <Link href={`${linkHref}`}>
-          <DetailsButton className="flex h-10  items-center justify-center gap-x-2 bg-[#2B2B2D] text-lg font-semibold text-white transition-colors hover:bg-[#2B2B2D]/70  hover:text-white/70">
+          <DetailsButton className="flex h-10  items-center justify-center gap-x-2 bg-[#2B2B2D] font-semibold text-white transition-colors hover:bg-[#2B2B2D]/70  hover:text-white/70">
             <InfoIcon className=" h-7 w-7 " />
             <span>Details</span>
           </DetailsButton>

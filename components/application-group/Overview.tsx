@@ -20,7 +20,7 @@ const Overview: React.FC<OverviewProps> = ({
   return (
     <div className="group  sm:w-[30rem]  lg:w-[36rem] lg:tracking-wider">
       <p
-        className="cursor-pointer text-base tracking-wide text-white lg:text-lg"
+        className="cursor-pointer text-base tracking-wide text-white"
         onClick={toggleOverview}
       >
         {showFullOverview
