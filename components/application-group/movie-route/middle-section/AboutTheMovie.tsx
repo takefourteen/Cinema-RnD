@@ -8,6 +8,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Button } from "@/components/ui/button";
 import Chip from "../../Chip";
 import ImageLoader from "@/components/ImageLoader";
+import ImdbRating from "../../ImdbRating";
 
 type AboutTheMovieProps = {
   mediaId: string;
@@ -75,9 +76,7 @@ const AboutTheMovie = async ({ mediaId: movieId }: AboutTheMovieProps) => {
 
         <div className="text-start text-white ">
           {/* movie title with release year*/}
-          <h1 className="text-2xl font-bold md:text-3xl">
-            {movieDetails.original_title}
-          </h1>
+          <h2 className="font-header-2 ">{movieDetails.original_title}</h2>
 
           {/* movie genres */}
           <div className="mt-2 flex flex-wrap gap-1 text-white/70">
@@ -89,24 +88,24 @@ const AboutTheMovie = async ({ mediaId: movieId }: AboutTheMovieProps) => {
           {/* ------------------------------------------------ */}
           {/* movie overview */}
           {/* ------------------------------------------------ */}
-          <p className="mt-6 text-base tracking-wide text-white lg:mt-8 lg:max-w-[36rem] lg:text-lg">
+          <p className="font-body-text mt-6 tracking-wide text-white lg:mt-8 lg:max-w-[36rem] ">
             {movieDetails.overview}
           </p>
 
           {/* movie starring, if there is a cast to display */}
           {cast && (
             <div className="mt-6 flex flex-wrap items-baseline tracking-wide lg:mt-8">
-              <h3 className=" font-bold">Starring: &nbsp;</h3>
+              <p className="font-small-text font-bold">Starring: &nbsp;</p>
               {cast.map((castMember, index) => (
-                <span
+                <p
                   key={castMember.id}
-                  className="font-semibold  text-white/70"
+                  className="font-small-text font-semibold text-white/70"
                 >
                   {castMember.name}
                   {index < cast.length - 1 ? (
                     <span className="text-white/70">, &nbsp;</span>
                   ) : null}
-                </span>
+                </p>
               ))}
             </div>
           )}
@@ -114,34 +113,39 @@ const AboutTheMovie = async ({ mediaId: movieId }: AboutTheMovieProps) => {
           {/* movie director, if there is a director to display */}
           {director && (
             <div className="flex flex-wrap items-baseline tracking-wide lg:mt-1">
-              <h3 className=" font-bold">Director: &nbsp;</h3>
-              <span className="font-semibold  text-white/70">
+              <h3 className="font-small-text font-bold">Director: &nbsp;</h3>
+              <p className="font-small-text font-semibold text-white/70">
                 {director.name}
-              </span>
+              </p>
             </div>
           )}
 
           {/* movie rating, movie duration, and release date */}
-          <div className="items-cemter mt-4 flex flex-wrap lg:mt-6">
-            <span className="flex items-center tracking-wide text-white/70 ">
+          <div className="items-cemter font-small-text mt-4 flex flex-wrap lg:mt-6">
+            {/* <p className="flex items-center tracking-wide text-white/70 ">
               <AiFillStar className="mr-1 inline-block h-[14px] w-[14px] text-white/70" />{" "}
               {movieDetails.vote_average}
-            </span>
-            <span className="mx-2 text-white/70">&bull;</span>
-            <span className="font-normal tracking-wide text-white/70">
+            </p> */}
+
+            <p className="font-normal tracking-wide text-white/70">
               {new Date(movieDetails.release_date).getFullYear()}
-            </span>
+            </p>
+
             <span className="mx-2 text-white/70">&bull;</span>
-            <span className="font-semibold tracking-wide text-white/70">
+            <p className="font-semibold tracking-wide text-white/70">
               {runtime}
-            </span>
+            </p>
+
+            <span className="mx-2 text-white/70">&bull;</span>
+
+            <ImdbRating rating={Number(movieDetails.vote_average)} />
           </div>
 
           {/* add to library button - shows on small screens */}
           <div className="mt-6 lg:hidden">
             <Button
               variant={"outline"}
-              className="flex w-full items-center justify-center rounded-sm text-base  font-semibold text-white "
+              className="font-button-text flex w-full items-center justify-center rounded-sm  text-white "
             >
               <IoMdAdd className="mr-2 inline-block h-5 w-5" /> Add to Library
             </Button>

@@ -10,7 +10,7 @@ const Chip = ({
       border ? "border border-white/30" : ""
     } flex items-center justify-center rounded-full bg-black/30  px-2 py-1 `}
   >
-    <div className="max-w-full flex-initial text-xs font-semibold leading-none tracking-wide xl:text-sm">
+    <div className="font-extra-small-text max-w-full flex-initial font-semibold leading-none tracking-wide">
       {children}
     </div>
   </div>

@@ -20,7 +20,7 @@ const Overview: React.FC<OverviewProps> = ({
   return (
     <div className="group  sm:w-[30rem]  lg:w-[36rem] lg:tracking-wider">
       <p
-        className="cursor-pointer text-base tracking-wide text-white lg:text-[18px]"
+        className="font-body-text cursor-pointer tracking-wide text-white "
         onClick={toggleOverview}
       >
         {showFullOverview
@@ -29,7 +29,7 @@ const Overview: React.FC<OverviewProps> = ({
               overview.length > intialOverviewLength ? "..." : ""
             }`}
         <span
-          className="ml-1 cursor-pointer text-sm text-gray-400 group-hover:underline group-hover:underline-offset-1 lg:text-base"
+          className="ml-1 cursor-pointer font-small-text text-gray-400 group-hover:underline group-hover:underline-offset-1 "
           onClick={toggleOverview}
         >
           {showFullOverview ? "Read less" : "Read more"}

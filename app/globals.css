@@ -23,47 +23,52 @@
 }
 
 /* Tailwind CSS classes for responsive font sizes */
+/* Apple's Typography Guidelines Type Scale for the Web */
+/* These font sizes are based on Apple's recommended type scale for the web */
+
 .font-header-1 {
-  font-size: 28px;
+  font-size: 36px;
+  font-weight: bold;
 
   @screen sm {
-    font-size: 28px;
-  }
-
-  @screen md {
-    font-size: 32px;
-  }
-
-  @screen lg {
-    font-size: 36px;
-  }
-
-  @screen xl {
     font-size: 40px;
   }
 
-  @screen 2xl {
+  @screen md {
     font-size: 44px;
+  }
+
+  @screen lg {
+    font-size: 48px;
+  }
+
+  @screen xl {
+    font-size: 52px;
+  }
+
+  @screen 2xl {
+    font-size: 56px;
   }
 }
 
 .font-header-2 {
-  font-size: 24px;
+  font-size: 30px;
+  font-weight: bold;
 
   @screen sm {
-    font-size: 24px;
-  }
-
-  @screen md {
-    font-size: 28px;
-  }
-
-  @screen lg {
     font-size: 32px;
   }
 
-  @screen xl {
+  @screen md {
+    font-size: 34px;
+  }
+
+  @screen lg {
     font-size: 36px;
+  }
+
+  @screen xl {
+    font-size: 38px;
   }
 
   @screen 2xl {
@@ -72,26 +77,27 @@
 }
 
 .font-header-3 {
-  font-size: 20px;
+  font-size: 24px;
+  font-weight: bold;
 
   @screen sm {
-    font-size: 20px;
+    font-size: 26px;
   }
 
   @screen md {
-    font-size: 22px;
-  }
-
-  @screen lg {
-    font-size: 24px;
-  }
-
-  @screen xl {
     font-size: 28px;
   }
 
-  @screen 2xl {
+  @screen lg {
+    font-size: 30px;
+  }
+
+  @screen xl {
     font-size: 32px;
+  }
+
+  @screen 2xl {
+    font-size: 34px;
   }
 }
 
@@ -107,20 +113,21 @@
   }
 
   @screen lg {
-    font-size: 20px;
+    font-size: 18px;
   }
 
   @screen xl {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   @screen 2xl {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 
 .font-button-text {
   font-size: 16px;
+  font-weight: bold;
 
   @screen sm {
     font-size: 16px;
@@ -135,11 +142,11 @@
   }
 
   @screen xl {
-    font-size: 22px;
+    font-size: 20px;
   }
 
   @screen 2xl {
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 
@@ -159,14 +166,37 @@
   }
 
   @screen xl {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   @screen 2xl {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
+.font-extra-small-text {
+  font-size: 12px;
+
+  @screen sm {
+    font-size: 12px;
+  }
+
+  @screen md {
+    font-size: 12px;
+  }
+
+  @screen lg {
+    font-size: 14px;
+  }
+
+  @screen xl {
+    font-size: 14px;
+  }
+
+  @screen 2xl {
+    font-size: 16px;
+  }
+}
 
 /* test class to see if everything works */
 .test {
@@ -225,7 +255,7 @@
   .carousel-btn-switch-card-right {
     @apply left-1/2 top-1/2 translate-x-[200px] translate-y-[-50%] transform sm:translate-x-[250px] md:translate-x-[300px] lg:translate-x-[350px];
   }
-/* 
+  /* 
   .carousel-indicator {
     @apply ;
   }
