@@ -47,8 +47,8 @@ const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
   return (
     <section
       className="group relative h-full w-full overflow-hidden"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseOver={handleMouseEnter}
+      onMouseOut={handleMouseLeave}
     >
       <div
         className="flex  transform transition-transform duration-500 ease-in-out"

@@ -32,7 +32,7 @@ const ShowDetailsSmallScreen = async ({
   const imagesPromise = fetchImages(movieOrTvShowDetails.id, type);
 
   // wait for the promise to resolve
-  const  images = await imagesPromise;
+  const images = await imagesPromise;
 
   // look for the first images.logos with a file_path
   const titleLogo = images?.logos.find((logo) => logo.file_path);
@@ -73,19 +73,15 @@ const ShowDetailsSmallScreen = async ({
           movieOrTvShowDetails.runtime % 60
         }m`;
   } else {
-    // if the runtime is NaN, set it to an empty string
-    runtime = isNaN(movieOrTvShowDetails.episode_run_time[0])
-      ? ""
-      : `${Math.floor(movieOrTvShowDetails.episode_run_time[0] / 60)}h ${
-          movieOrTvShowDetails.episode_run_time[0] % 60
-        }m`;
+    // dont show runtime for tv shows
+    runtime = null;
   }
 
   // vote average rounded to one decimal place
   const voteAverage = Math.round(movieOrTvShowDetails.vote_average * 10) / 10;
 
   return (
-    <div className="master-container text-white flex h-full flex-col items-center justify-end gap-y-2 pb-12 text-center sm:items-start sm:text-start  md:hidden ">
+    <div className="master-container flex h-full flex-col items-center justify-end gap-y-2 pb-12 text-center text-white sm:items-start sm:text-start  md:hidden ">
       {/*
         -------------------------------------------- 
         Production logo and Title Text or Title Logo

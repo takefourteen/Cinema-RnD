@@ -69,12 +69,8 @@ const ShowDetailsLargeScreen = async ({
           movieOrTvShowDetails.runtime % 60
         }m`;
   } else {
-    // if the runtime is NaN, set it to an empty string
-    runtime = isNaN(movieOrTvShowDetails.episode_run_time[0])
-      ? ""
-      : `${Math.floor(movieOrTvShowDetails.episode_run_time[0] / 60)}h ${
-          movieOrTvShowDetails.episode_run_time[0] % 60
-        }m`;
+    // dont show runtime for tv shows
+    runtime = null;
   }
 
   // vote average rounded to one decimal place
