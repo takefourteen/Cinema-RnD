@@ -16,7 +16,7 @@ const page = ({ params: { id } }: PageProps) => {
   return (
     <section className=" text-white">
       {/* Top Section */}
-      <div className="relative h-[40rem] flex-1 sm:h-[42rem] md:h-[40rem] lg:h-[44rem] ">
+      <div className="relative h-[40rem] flex-1 sm:h-[42rem] md:h-[40rem] lg:mt-[90px]">
         <Suspense>
           <VideoPlayer
             videoId={movieId}

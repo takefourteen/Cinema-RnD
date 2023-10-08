@@ -20,7 +20,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = async ({
   // fetch the video player url
   const playerUrl = await getVideoPlayerUrl(videoId, isTmdb, season, episode);
 
-  console.log("playerUrl", playerUrl);
 
   // if the player url is not ready yet, show a loading spinner
   if (!playerUrl) {
