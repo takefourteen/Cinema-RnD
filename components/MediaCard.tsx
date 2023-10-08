@@ -1,14 +1,7 @@
-"use client";
-
-import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
-import { CgSpinner } from "react-icons/cg";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Skeleton from "./Skeleton";
-import { Button } from "./ui/button";
-import LoadingSpinner from "./LoadingSpinner";
+import ImageLoader from "./ImageLoader";
 
 interface MediaCardProps {
   id: number;
@@ -18,38 +11,26 @@ interface MediaCardProps {
   original_name?: string;
 }
 
-const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
-const orgininalImageBasePath = "https://image.tmdb.org/t/p/original";
+const imageBaseUrl = "https://image.tmdb.org/t/p/original";
 
 interface MediaCardComponentProps {
   data: MediaCardProps;
   aspect_ratio?: "16:9" | "2:3";
-  loaderType?: "spinner" | "skeleton";
-  skeletonLoaderRows?: number;
 }
 
 const MediaCard = ({
   data,
   aspect_ratio = "16:9",
-  loaderType = "spinner",
-  skeletonLoaderRows = 0,
 }: MediaCardComponentProps) => {
   // determine if this is a movie or tv show
   const isMovie = data.original_title ? true : false;
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const imageSrc =
-    aspect_ratio === "16:9" ? imageBaseUrl : orgininalImageBasePath;
   const poster =
     aspect_ratio === "16:9" ? data.backdrop_path : data.poster_path;
+
   // prepare url path for the media page, depending on whether it is a movie or tv show. the structure is /movie/:id-nameofmovie or /tv/:id-nameoftvshow, the name is seperated by a dash
   const mediaPageUrl = isMovie
-    ? `/movie/${data.id}-${data.original_title?.split(" ").join("-")}`
-    : `/tv/${data.id}-${data.original_name?.split(" ").join("-")}`;
-
-  // Handle the image loading
-  const handleImageLoad = () => {
-    setIsLoading(false);
-  };
+    ? `/movie/${data.id}-${encodeURIComponent(data.original_title || "")}`
+    : `/tv/${data.id}-${encodeURIComponent(data.original_name || "")}`;
 
   // define styles for 16:9(horizontal) and 2:3(vertical) aspect ratios
   const style_16_9 =
@@ -62,31 +43,24 @@ const MediaCard = ({
     data.poster_path ? (
       <li className={`${aspect_ratio === "16:9" ? style_16_9 : style_2_3} `}>
         <Link
-          // href={isMovie ? `/movie/${data.id}` : `/tv/${data.id}`}
           href={mediaPageUrl}
           className=" group transition-colors focus-visible:outline-none"
         >
           <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 2 / 3}>
-            {/* Display the loading spinner or skeleton while the image is loading */}
-            {isLoading && loaderType === "spinner" ? (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <LoadingSpinner />
-              </div>
-            ) : isLoading && loaderType === "skeleton" ? (
-              <Skeleton rows={skeletonLoaderRows} />
-            ) : null}
-
             {/* Display the image */}
 
-            <Image
-              src={`${imageSrc}/${poster}`}
+            <ImageLoader
+              loaderType="spinner"
+              src={`${imageBaseUrl}/${poster}`}
               alt={data.original_title || data.original_name || "Media"}
               fill
-              onLoad={handleImageLoad}
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+              sizes="
+                (max-width: 640px) 150px, (max-width: 768px) 175px, (max-width: 1024px) 200px, (max-width: 1280px) 250px, (max-width: 1536px) 300px, (max-width: 1920px) 350px,
+              "
               className=" z-[99] transform  object-cover transition-transform delay-75 hover:scale-105 group-focus-visible:scale-105 group-focus-visible:ring-2  group-focus-visible:ring-white "
             />
           </AspectRatio>
+
           {/* Display the media title with truncation */}
           {/* only on 16:9 aspect ratios */}
           {aspect_ratio === "16:9" ? (

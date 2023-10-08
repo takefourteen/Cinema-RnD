@@ -57,7 +57,6 @@ const InfiniteScrollSearchResults = ({
             key={media.id}
             data={media}
             aspect_ratio="2:3"
-            loaderType="spinner"
           />
         ))}
       </div>
