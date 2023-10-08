@@ -33,6 +33,7 @@ const SeasonSelect: React.FC<SeasonSelectProps> = ({ numberOfSeasons }) => {
     <Select
       defaultValue={selectedSeason.toString()}
       onValueChange={handleSeasonChange}
+      aria-label="Select season"
     >
       <SelectTrigger className="font-body-text flex w-[180px] justify-between bg-black/90 py-1 font-semibold text-white">
         <SelectValue>Season {selectedSeason}</SelectValue>
