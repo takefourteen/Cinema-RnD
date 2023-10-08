@@ -4,6 +4,8 @@ import dynamic from "next/dynamic";
 import {
   fetchMultipleTrendingMoviesPages,
   fetchMultipleTrendingTVShowsPages,
+  fetchTrendingMoviesWithVideoPlayerUrls,
+  fetchTrendingTVShowsWithVideoPlayerUrls,
 } from "@/lib/tmdb-api/trending";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
@@ -48,8 +50,8 @@ import TrendingSlider from "@/components/application-group/discovery-route/Trend
 export const revalidate = 3600 * 24; // 24 hours
 
 const page = async () => {
-  const trendingMoviesPromise = fetchMultipleTrendingMoviesPages(1);
-  const trendingTVShowsPromise = fetchMultipleTrendingTVShowsPages(1);
+  const trendingMoviesPromise = fetchTrendingMoviesWithVideoPlayerUrls();
+  const trendingTVShowsPromise = fetchTrendingTVShowsWithVideoPlayerUrls();
 
   const [trendingMoviesData, trendingTVShowsData] = await Promise.all([
     trendingMoviesPromise,
@@ -114,7 +116,7 @@ const page = async () => {
         --------------
        */}
       <TrendingSlider
-        trendingData={trendingMoviesData.slice(0, 11)}
+        trendingData={trendingMoviesData}
         sectionTitle="Blockbuster Buzz"
         priority={true}
       />
@@ -125,7 +127,7 @@ const page = async () => {
         -----------------
       */}
       <TrendingSlider
-        trendingData={trendingTVShowsData.slice(0, 11)}
+        trendingData={trendingTVShowsData}
         sectionTitle="Binge-Worthy Picks"
       />
 
