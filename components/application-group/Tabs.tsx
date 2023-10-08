@@ -21,17 +21,17 @@ const Tabs = () => {
     <div className="relative flex flex-col">
       <div className="grid grid-cols-3 " role="tablist">
         <DetailsButton
-        variant={"outline"}
+          variant={"outline"}
           role="tab"
           aria-selected={activeTab === 1}
           onClick={() => handleTabClick(1)}
           ref={(el) => (tabRef.current[0] = el!)}
           className="border-none text-center hover:bg-transparent"
         >
-          Details
+          Episodes
         </DetailsButton>
         <DetailsButton
-        variant={"outline"}
+          variant={"outline"}
           role="tab"
           aria-selected={activeTab === 2}
           onClick={() => handleTabClick(2)}
@@ -41,14 +41,14 @@ const Tabs = () => {
           More like this
         </DetailsButton>
         <DetailsButton
-        variant={"outline"}
+          variant={"outline"}
           role="tab"
           aria-selected={activeTab === 3}
           onClick={() => handleTabClick(3)}
           ref={(el) => (tabRef.current[2] = el!)}
           className="border-none text-center hover:bg-transparent"
         >
-          Episodes
+          Details
         </DetailsButton>
 
         {/* 

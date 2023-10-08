@@ -3,6 +3,9 @@ import { fetchImages } from "@/lib/tmdb-api/images";
 
 import TvSeriesDetails from "@/components/application-group/tv-route/TvSeriesDetails";
 import TvExplorerPanel from "@/components/application-group/tv-route/middle-section/TvExplorerPanel";
+import RecommendedMediaList from "@/components/application-group/recommendations/RecommendedMediaList";
+import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
+import SeasonsAndEpisodes from "@/components/application-group/tv-route/middle-section/seasons-and-episodes/SeasonsAndEpisodes";
 
 type PageProps = {
   params: {
@@ -33,7 +36,17 @@ const page = async ({ params: { id } }: PageProps) => {
       </pre> */}
 
       {/* Middle Section */}
-      <TvExplorerPanel mediaId={tvSeriesId} />
+      <TvExplorerPanel
+        SeasonsAndEpisodesComponent={
+          <SeasonsAndEpisodes tvSeriesId={tvSeriesId} />
+        }
+        RecommendedMediaListComponent={
+          <RecommendedMediaList mediaId={tvSeriesId} mediaType="tv" />
+        }
+        DetailsAboutShowComponent={
+          <DetailsAboutShowSection mediaId={tvSeriesId} mediaType="tv" />
+        }
+      />
     </section>
   );
 };
