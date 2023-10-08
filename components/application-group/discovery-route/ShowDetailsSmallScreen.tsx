@@ -58,10 +58,20 @@ const ShowDetailsSmallScreen = async ({
     ? movieOrTvShowDetails.release_date
     : movieOrTvShowDetails.first_air_date;
 
-  // link href to the details page of the movie or tv show
-  const linkHref = `/${isMovieDetails(movieOrTvShowDetails) ? "movie" : "tv"}/${
-    movieOrTvShowDetails.id
-  }`;
+  // encoded link href to the details page of the movie or tv show
+  const detailsUrl = `/${type}/${movieOrTvShowDetails.id}-${encodeURIComponent(
+    movieOrTvShowTitle || "",
+  )}`;
+
+  // play movie href to watch page of the movie or tv show
+  const playUrl =
+    type === "movie"
+      ? `/watch-movie/${movieOrTvShowDetails.id}-${encodeURIComponent(
+          movieOrTvShowTitle || "",
+        )}`
+      : `/watch-tv/${movieOrTvShowDetails.id}-${encodeURIComponent(
+          movieOrTvShowTitle || "",
+        )}`;
 
   //   get the runtime for the movie or tv show in the format of 1h 30m, or 1h, or 30m
   let runtime;
@@ -81,7 +91,7 @@ const ShowDetailsSmallScreen = async ({
   const voteAverage = Math.round(movieOrTvShowDetails.vote_average * 10) / 10;
 
   return (
-    <div className="master-container flex h-full flex-col items-center justify-end gap-y-2 pb-12 text-center text-white md:items-start md:text-start  md:hidden ">
+    <div className="master-container flex h-full flex-col items-center justify-end gap-y-2 pb-12 text-center text-white md:hidden md:items-start  md:text-start ">
       {/*
         -------------------------------------------- 
         Production logo and Title Text or Title Logo
@@ -161,22 +171,22 @@ const ShowDetailsSmallScreen = async ({
 
         {/* play button */}
         {/* if its a movie, href is movie/:id, if tv, href is tv/:id */}
-        <DetailsButton asChild className="text-lg font-semibold">
-          <Link href={`${linkHref}`}>
+        <DetailsButton asChild className=" font-button-text h-10">
+          <Link href={`${playUrl}`}>
             <PlayIcon className="mr-1 h-7 w-7" /> Play
           </Link>
         </DetailsButton>
 
         {/* info button */}
-        <Link href={`${linkHref}`}>
-          <DetailsButton
-            variant={"outline"}
-            className="flex flex-col items-center justify-center gap-y-1 border-none p-0   text-white transition-colors hover:bg-transparent hover:text-white/70"
-          >
+        <DetailsButton
+          variant={"outline"}
+          className="flex flex-col items-center justify-center gap-y-1 border-none p-0   text-white transition-colors hover:bg-transparent hover:text-white/70"
+        >
+          <Link href={`${detailsUrl}`}>
             <InfoIcon className=" h-6 w-6 rounded-full border-1 border-white/70 p-0.5 " />{" "}
             <span>Info</span>
-          </DetailsButton>
-        </Link>
+          </Link>
+        </DetailsButton>
       </div>
     </div>
   );
