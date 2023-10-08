@@ -21,8 +21,12 @@ const Navbar = () => {
   const [scroll, setScroll] = useState(false);
   const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
   const [darkenBackground, setDarkenBackground] = useState<boolean>(false);
-  const isSearchScreen = pathname === "/search";
+  const isScreenWithoutNavbarScrollEffect = ["search", "watch-movie"].includes(
+    pathname.split("/")[1],
+  );
   const scrollThreshold = 100; // Adjust this threshold as needed
+
+  console.log("pathname", pathname.split("/")[1]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -57,18 +61,20 @@ const Navbar = () => {
     Define classes based on the scroll state, whether the search icon is clicked, and 
     is darkenBackground is true or false
   */
-  const otherScreensNavbarClasses = `fixed  transition-colors top-0 left-0 right-0 z-[99999] ${
+  const otherScreensNavbarClasses = `fixed transition-colors top-0 left-0 right-0 z-[99999] ${
     scroll || searchBarOpen || darkenBackground
       ? "bg-black"
       : "bg-gradient-to-b from-black via-black/50 to-transparent"
   }`;
 
-  const searchScreenNavbarClasses = `fixed transition-colors top-0 left-0 right-0 z-[99999] bg-black/90`;
+  const screenWithoutNavbarScrollEffectClasses = `fixed transition-colors top-0 left-0 right-0 z-[99999] bg-black/90`;
 
   return (
     <nav
       className={
-        isSearchScreen ? searchScreenNavbarClasses : otherScreensNavbarClasses
+        isScreenWithoutNavbarScrollEffect
+          ? screenWithoutNavbarScrollEffectClasses
+          : otherScreensNavbarClasses
       }
     >
       <section className="master-container  flex items-center justify-between px-4 py-2">
