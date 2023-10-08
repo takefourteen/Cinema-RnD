@@ -1,4 +1,5 @@
 import ImageLoader from "@/components/ImageLoader";
+import Overview from "@/components/application-group/Overview";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const episode = {
@@ -25,8 +26,11 @@ type EpisodeListItemProps = {
 };
 
 const EpisodeListItem = ({ episodeData }: EpisodeListItemProps) => {
+  // if episodeData.overview is empty, return a null
+  if (episodeData.overview === "") return null;
+
   return (
-    <li className="group relative w-full transition-all duration-300 ease-in-out hover:ring-2 hover:ring-slate-950 hover:ring-offset-1  focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-1">
+    <li className="relative w-full ">
       <AspectRatio ratio={16 / 9}>
         <ImageLoader
           loaderType="skeleton"
@@ -34,16 +38,16 @@ const EpisodeListItem = ({ episodeData }: EpisodeListItemProps) => {
           alt={`${episodeData.name} poster`}
           fill
           priority={false}
-          className="object-cover "
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+          className="object-cover transition-all duration-300 ease-in-out hover:ring-2 hover:ring-slate-950 hover:ring-offset-2  focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2"
           // style={{ filter: "brightness(0.9)" }}
         />
       </AspectRatio>
 
-      <div className="flex flex-col gap-y-2 px-1">
+      <div className="flex flex-col gap-y-2 pe-1 lg:pe-2">
         {/* name and duration of ep */}
         <div className="mt-2 flex justify-between">
-          <h3 className="font-small-text font-bold ">
+          <h3 className="font-small-text max-w-[80%] font-bold">
             {episodeData.episode_number}. {episodeData.name}
           </h3>
           <p className="font-extra-small-text text-gray-400">
@@ -51,9 +55,11 @@ const EpisodeListItem = ({ episodeData }: EpisodeListItemProps) => {
           </p>
         </div>
         {/* overview of ep */}
-        <p className="font-extra-small-text text-gray-400">
-          {episodeData.overview}
-        </p>
+        <Overview
+          overview={episodeData.overview}
+          intialOverviewLength={50}
+          size="small" // size of overview text
+        />
       </div>
     </li>
   );
