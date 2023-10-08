@@ -3,6 +3,7 @@
 import { Tabs, Tab } from "@nextui-org/react";
 
 import { DetailsButton } from "@/components/DetailsButton";
+import { memo } from "react";
 
 type TabsNavigationProps = {
   RecommendedMediaListComponent: React.ReactNode;
@@ -88,4 +89,4 @@ const TvExplorerPanel = ({
   );
 };
 
-export default TvExplorerPanel;
+export default memo(TvExplorerPanel);
