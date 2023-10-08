@@ -3,11 +3,7 @@
 import { Spinner } from "@nextui-org/spinner";
 
 const LoadingSpinner = () => {
-  return (
-    <div className="absolute inset-0">
-      <Spinner color="default" />
-    </div>
-  );
+  return <Spinner color="default" className="absolute inset-0" />;
 };
 
 export default LoadingSpinner;

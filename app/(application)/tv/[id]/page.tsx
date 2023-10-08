@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
@@ -53,9 +52,7 @@ const page = async ({ params: { id } }: PageProps) => {
   return (
     <section className="text-white">
       {/* Top Section */}
-      <Suspense>
         <TvSeriesDetails tvSeriesData={tvSeriesData} imagesData={imagesData} />
-      </Suspense>
 
       {/* <pre>
         <code>{JSON.stringify(tvSeriesData, null, 2)}</code>

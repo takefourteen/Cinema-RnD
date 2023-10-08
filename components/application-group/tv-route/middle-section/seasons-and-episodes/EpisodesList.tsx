@@ -17,7 +17,6 @@ type EpisodesListProps = {
 const EpisodesList = ({ tvSeriesId }: EpisodesListProps) => {
   const searchParams = useSearchParams();
   const seasonNumber = searchParams.get("season") || "1";
-  console.log("season: ", searchParams.get("season"));
   const {
     data: seasonData,
     error,

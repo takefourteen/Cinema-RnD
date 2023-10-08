@@ -1,8 +1,10 @@
 "use client";
 
-import { Tabs, Tab } from "@nextui-org/react";
-
+import { Suspense } from "react";
 import { memo } from "react";
+
+import { Tabs, Tab } from "@nextui-org/react";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 type TabsNavigationProps = {
   RecommendedMediaListComponent: React.ReactNode;
@@ -51,7 +53,11 @@ const TvExplorerPanel = ({
               </a>
             }
           >
-            <>{SeasonsAndEpisodesComponent}</>
+            <>
+              <Suspense fallback={<LoadingSpinner />}>
+                {SeasonsAndEpisodesComponent}
+              </Suspense>
+            </>
           </Tab>
 
           <Tab
@@ -66,7 +72,11 @@ const TvExplorerPanel = ({
               </a>
             }
           >
-            <>{RecommendedMediaListComponent}</>
+            <>
+              <Suspense fallback={<LoadingSpinner />}>
+                {RecommendedMediaListComponent}
+              </Suspense>
+            </>
           </Tab>
           <Tab
             key="details"
@@ -80,7 +90,11 @@ const TvExplorerPanel = ({
               </a>
             }
           >
-            <>{DetailsAboutShowComponent}</>
+            <>
+              <Suspense fallback={<LoadingSpinner />}>
+                {DetailsAboutShowComponent}
+              </Suspense>
+            </>
           </Tab>
         </Tabs>
       </div>
