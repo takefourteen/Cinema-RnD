@@ -77,7 +77,7 @@ const ShowDetailsLargeScreen = async ({
   const voteAverage = Math.round(movieOrTvShowDetails.vote_average * 10) / 10;
 
   return (
-    <div className="master-container hidden h-[85%] flex-col items-center justify-end gap-y-2 text-center sm:items-start  sm:text-start md:flex lg:mr-auto lg:max-w-[80%]">
+    <div className="master-container hidden h-[85%] flex-col items-center justify-end gap-y-2 text-center md:items-start  md:text-start md:flex lg:mr-auto lg:max-w-[80%]">
       {/*
         -------------------------------------------- 
         Title Text or Title Logo

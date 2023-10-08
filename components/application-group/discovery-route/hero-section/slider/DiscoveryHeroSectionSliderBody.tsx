@@ -27,7 +27,7 @@ const DiscoveryHeroSectionSliderBody = ({
       />
 
       {/* Overlay gradient */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-black/20  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent " />
 
       {/* Overlay with Poster details */}
       <div className="absolute inset-0 ">

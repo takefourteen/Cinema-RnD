@@ -97,7 +97,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
           {/* Btns */}
           <div className="flex gap-x-4">
             {/* play button */}
-            <PlayButton className="mt-6 lg:mt-8">Play tv</PlayButton>
+            <PlayButton className="mt-6 lg:mt-8">Play S1 EP1</PlayButton>
             {/* add to library button */}
             <Button
               variant={"outline"}

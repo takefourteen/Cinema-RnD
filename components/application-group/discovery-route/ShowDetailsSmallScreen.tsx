@@ -81,7 +81,7 @@ const ShowDetailsSmallScreen = async ({
   const voteAverage = Math.round(movieOrTvShowDetails.vote_average * 10) / 10;
 
   return (
-    <div className="master-container flex h-full flex-col items-center justify-end gap-y-2 pb-12 text-center text-white sm:items-start sm:text-start  md:hidden ">
+    <div className="master-container flex h-full flex-col items-center justify-end gap-y-2 pb-12 text-center text-white md:items-start md:text-start  md:hidden ">
       {/*
         -------------------------------------------- 
         Production logo and Title Text or Title Logo
