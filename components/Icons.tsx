@@ -177,11 +177,12 @@ export const BookmarkIcon2 = () => (
 
 export const PlayIcon = () => (
   <svg
-    width="48"
-    height="48"
+    // width="48"
+    // height="48"
     viewBox="0 0 31 31"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    className="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16"
   >
     <g id="Play">
       <rect x="0.5" y="0.5" width="30" height="30" rx="15" fill="black" />

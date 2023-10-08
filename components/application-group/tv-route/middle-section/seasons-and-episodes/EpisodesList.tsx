@@ -34,16 +34,16 @@ const EpisodesList = ({ tvSeriesId }: EpisodesListProps) => {
   if (!seasonData)
     return (
       <>
-        <p className="font-body-text absolute right-0 top-2 flex gap-0.5 font-bold lg:top-4">
+        {/* <p className="font-body-text absolute right-0 top-2 flex gap-0.5 font-bold lg:top-4">
           <AnimatedStringLoader loadingString="..." />
           Episodes
-        </p>
+        </p> */}
 
         <div className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
           {Array.from({ length: 10 }).map((_, index) => (
             <div key={index} className="relative w-full ">
               <AspectRatio ratio={16 / 9}>
-                <Skeleton />
+                <Skeleton rows={2} />
               </AspectRatio>
             </div>
           ))}
@@ -56,15 +56,11 @@ const EpisodesList = ({ tvSeriesId }: EpisodesListProps) => {
   if (isLoading)
     return (
       <>
-        <p className="font-body-text absolute right-0 top-2 font-bold lg:top-4">
-          {seasonData.episodes.length} Episodes
-        </p>
-
         <div className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
           {Array.from({ length: 10 }).map((_, index) => (
             <div key={index} className="relative w-full ">
               <AspectRatio ratio={16 / 9}>
-                <Skeleton />
+                <Skeleton rows={2} />
               </AspectRatio>
             </div>
           ))}
@@ -74,9 +70,9 @@ const EpisodesList = ({ tvSeriesId }: EpisodesListProps) => {
 
   return (
     <>
-      <p className="font-body-text absolute right-0 top-2 font-bold lg:top-4">
+      {/* <p className="font-body-text absolute right-0 top-2 font-bold lg:top-4">
         {seasonData.episodes.length} Episodes
-      </p>
+      </p> */}
 
       <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
         {seasonData.episodes.map((episode) => (
