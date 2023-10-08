@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
