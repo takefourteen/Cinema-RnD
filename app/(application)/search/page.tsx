@@ -13,17 +13,6 @@ type Props = {
 const page = ({ searchParams }: Props) => {
   const { term, page } = searchParams;
 
-  // this is a better way to search for movies and tv shows, compared to the searchMulti function
-  // const results = await searchAll(term as string, Number(page) as number);
-
-  // this is a worse way to search for movies and tv shows, compared to the searchAll function
-  // const results = await searchMulti(term as string, Number(page) as number);
-
-  // sort the results by vote_average
-  // const sortedResults = sortResults(results, "popularity");
-
-  // filter the results by language
-  // const filteredResults = filterResultsByLanguage(sortedResults, "en");
 
   return (
     <section className="master-container relative top-[70px] pb-[80px] pt-10 text-white lg:top-[90px]">

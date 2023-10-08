@@ -73,8 +73,7 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
   }, [toggleSearchBar]);
 
   function onSubmit() {
-    console.log("searchQuery", searchQuery);
-
+    
     // if there is no search query, clear the search bar and return
     if (searchQuery.trim() === "") {
       setSearchQuery("");

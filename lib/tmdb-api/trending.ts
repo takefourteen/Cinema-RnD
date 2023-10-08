@@ -1,7 +1,7 @@
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
-import { filterResultsByLanguage } from "./filterResults";
+import { filterResultsByLanguage } from "@/helpers/filterResults";
 
 export async function fetchTrendingMovies(
   page: number = 1,

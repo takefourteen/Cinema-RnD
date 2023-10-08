@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-import { CgSpinner } from "react-icons/cg";
 import { fetchSearchResults } from "../../../lib/actions";
 import MediaCard from "@/components/MediaCard";
 import NoResultsMessage from "./NoResultsMessage";
@@ -66,7 +65,7 @@ const InfiniteScrollSearchResults = ({
       {showSpinner && (
         <div
           ref={ref}
-          className="col-span-full mt-8 flex items-end justify-center "
+          className="col-span-full mt-8 relative flex items-end justify-center "
         >
           <LoadingSpinner />
           <span className="sr-only">Loading...</span>
