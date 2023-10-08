@@ -174,3 +174,23 @@ export const BookmarkIcon2 = () => (
     </div>
   </div>
 );
+
+export const PlayIcon = () => (
+  <svg
+    width="48"
+    height="48"
+    viewBox="0 0 31 31"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g id="Play">
+      <rect x="0.5" y="0.5" width="30" height="30" rx="15" fill="black" />
+      <path
+        id="Polygon 2"
+        d="M21 15L12 20.1962L12 9.80385L21 15Z"
+        fill="white"
+      />
+      <rect x="0.5" y="0.5" width="30" height="30" rx="15" stroke="white" />
+    </g>
+  </svg>
+);

@@ -1,6 +1,7 @@
+import { PlayIcon } from "@/components/Icons";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
 import Overview from "@/components/application-group/Overview";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 const episode = {
   air_date: "2021-06-09",
@@ -32,23 +33,28 @@ const EpisodeListItem = ({ episodeData }: EpisodeListItemProps) => {
   return (
     <li className="relative w-full ">
       <AspectRatio ratio={16 / 9}>
-        <ImageLoader
-          loaderType="skeleton"
-          src={`${BASE_IMG_URL}${episodeData.still_path}`}
-          alt={`${episodeData.name} poster`}
-          fill
-          priority={false}
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-          className="object-cover transition-all duration-300 ease-in-out hover:ring-2 hover:ring-slate-950 hover:ring-offset-2  focus-visible:ring-2 focus-visible:ring-slate-950 focus-visible:ring-offset-2"
-          // style={{ filter: "brightness(0.9)" }}
-        />
+        <div className="group">
+          <ImageLoader
+            loaderType="skeleton"
+            src={`${BASE_IMG_URL}${episodeData.still_path}`}
+            alt={`${episodeData.name} poster`}
+            fill
+            priority={false}
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+            className="object-cover transition-all duration-300 ease-in-out group-hover:ring-2 group-hover:ring-slate-950 group-hover:ring-offset-2  group-focus-visible:ring-2 group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
+            // style={{ filter: "brightness(0.9)" }}
+          />
+          <div className="absolute inset-0 flex items-center bg-black bg-opacity-40 justify-center">
+            <PlayIcon />
+          </div>
+        </div>
       </AspectRatio>
 
       <div className="flex flex-col gap-y-2 pe-1 lg:pe-2">
         {/* name and duration of ep */}
         <div className="mt-2 flex justify-between">
           <h3 className="font-small-text max-w-[80%] font-bold">
-            {episodeData.episode_number}. {episodeData.name}
+            {episodeData.episode_number}. &nbsp;{episodeData.name}
           </h3>
           <p className="font-extra-small-text text-gray-400">
             {episodeData.runtime} min

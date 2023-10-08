@@ -82,7 +82,7 @@ const page = async () => {
         Hero Section 
         -----------
        */}
-      <Suspense fallback={<LoadingSpinner />}>
+      <Suspense>
         <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
           <ul className="flex gap-x-0">
             {movieAndTvShowDetails.map((item) => (

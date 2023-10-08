@@ -1,11 +1,34 @@
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
+
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
 import TvSeriesDetails from "@/components/application-group/tv-route/TvSeriesDetails";
 import TvExplorerPanel from "@/components/application-group/tv-route/middle-section/TvExplorerPanel";
-import RecommendedMediaList from "@/components/application-group/recommendations/RecommendedMediaList";
-import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
-import SeasonsAndEpisodes from "@/components/application-group/tv-route/middle-section/seasons-and-episodes/SeasonsAndEpisodes";
+
+// lazy load the following components
+const RecommendedMediaList = dynamic(
+  () =>
+    import(
+      "@/components/application-group/recommendations/RecommendedMediaList"
+    ),
+);
+
+const DetailsAboutShowSection = dynamic(
+  () => import("@/components/application-group/DetailsAboutShowSection"),
+);
+
+const SeasonsAndEpisodes = dynamic(
+  () =>
+    import(
+      "@/components/application-group/tv-route/middle-section/seasons-and-episodes/SeasonsAndEpisodes"
+    ),
+);
+
+// import RecommendedMediaList from "@/components/application-group/recommendations/RecommendedMediaList";
+// import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
+// import SeasonsAndEpisodes from "@/components/application-group/tv-route/middle-section/seasons-and-episodes/SeasonsAndEpisodes";
 
 type PageProps = {
   params: {
@@ -29,7 +52,10 @@ const page = async ({ params: { id } }: PageProps) => {
 
   return (
     <section className="text-white">
-      <TvSeriesDetails tvSeriesData={tvSeriesData} imagesData={imagesData} />
+      {/* Top Section */}
+      <Suspense>
+        <TvSeriesDetails tvSeriesData={tvSeriesData} imagesData={imagesData} />
+      </Suspense>
 
       {/* <pre>
         <code>{JSON.stringify(tvSeriesData, null, 2)}</code>

@@ -2,7 +2,6 @@ import { Suspense } from "react";
 
 import MovieDetailsTop from "@/components/application-group/movie-route/top-section/MovieDetailsTop";
 import MovieExplorerPanel from "@/components/application-group/movie-route/middle-section/MovieExplorerPanel";
-import LoadingSpinner from "@/components/LoadingSpinner";
 
 type PageProps = {
   params: {
@@ -17,18 +16,11 @@ const page = ({ params: { id } }: PageProps) => {
   return (
     <section className=" text-white">
       {/* Top Section */}
-      <Suspense
-        fallback={
-          <div className="absolute inset-0 flex items-center justify-center">
-            <LoadingSpinner />
-          </div>
-        }
-      >
+      <Suspense>
         <MovieDetailsTop movieId={movieId} />
       </Suspense>
 
       {/* Middle Section */}
-
       <MovieExplorerPanel mediaId={movieId} />
     </section>
   );
