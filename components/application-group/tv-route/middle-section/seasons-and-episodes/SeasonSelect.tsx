@@ -15,12 +15,14 @@ type SeasonSelectProps = {
   numberOfSeasons: number;
 };
 
-const SeasonSelect = ({ numberOfSeasons }: SeasonSelectProps) => {
+const SeasonSelect: React.FC<SeasonSelectProps> = ({ numberOfSeasons }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const seasonNumber = searchParams.get("season") || "1";
-  const [selectedSeason, setSelectedSeason] = useState(Number(seasonNumber));
+  const [selectedSeason, setSelectedSeason] = useState(
+    parseInt(seasonNumber, 10),
+  );
 
   const handleSeasonChange = (value: string) => {
     setSelectedSeason(parseInt(value, 10));
@@ -32,15 +34,15 @@ const SeasonSelect = ({ numberOfSeasons }: SeasonSelectProps) => {
       defaultValue={selectedSeason.toString()}
       onValueChange={handleSeasonChange}
     >
-      <SelectTrigger className="font-body-text py-1 flex w-[180px] justify-between bg-black/90 font-semibold text-white">
+      <SelectTrigger className="font-body-text flex w-[180px] justify-between bg-black/90 py-1 font-semibold text-white">
         <SelectValue>Season {selectedSeason}</SelectValue>
       </SelectTrigger>
-      <SelectContent className="bg-black/90 text-white">
+      <SelectContent className="max-h-[16rem] overflow-y-auto bg-black/90 text-white">
         {Array.from({ length: numberOfSeasons }).map((_, index) => (
           <SelectItem
-            key={index}
+            key={(index + 1).toString()}
             value={(index + 1).toString()}
-            className=" font-small-text font-semibold "
+            className="font-small-text font-semibold"
           >
             Season {index + 1}
           </SelectItem>
