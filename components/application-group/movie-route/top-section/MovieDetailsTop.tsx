@@ -4,10 +4,10 @@ import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
 import { IoMdAdd } from "react-icons/io";
+import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { DetailsButton } from "@/components/DetailsButton";
 import Chip from "../../Chip";
-import PlayButton from "@/components/PlayButton";
 import Overview from "../../Overview";
 import ResponsiveBackgroundPoster from "../../ResponsiveBackgroundPoster";
 import ImdbRating from "../../ImdbRating";
@@ -49,12 +49,19 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   );
   // get the first few cast members, if they exist
   const cast = movieDetails.credits?.cast.slice(0, 3);
+
   // round the vote average to the nearest 1 decimal place
   movieDetails.vote_average = Math.round(movieDetails.vote_average * 10) / 10;
+
   // change the time format from minutes to hours and minutes
   const runtime = `${Math.floor(movieDetails.runtime / 60)}h ${
     movieDetails.runtime % 60
   }m`;
+
+  // url encoded link to the watch-movie page
+  const watchMovieUrl = `/watch-movie/${movieDetails.id}-${encodeURIComponent(
+    movieDetails.original_title,
+  )}`;
   return (
     <div className="relative h-[40rem] flex-1 sm:h-[42rem] md:h-[40rem] lg:h-[44rem] ">
       {/* Image Display */}
@@ -107,7 +114,15 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
           {/* Btns */}
           <div className="flex gap-x-4">
             {/* play button */}
-            <PlayButton className="mt-6 lg:mt-8">Play Movie</PlayButton>
+            {/* <PlayButton className="mt-6 lg:mt-8">Play Movie</PlayButton> */}
+            <DetailsButton
+              asChild
+              className=" font-button-text mt-6 h-10 lg:mt-8"
+            >
+              <Link href={`${watchMovieUrl}`}>
+                <PlayIcon className="mr-1 h-8 w-8" /> Play
+              </Link>
+            </DetailsButton>
             {/* add to library button */}
             <Button
               variant={"outline"}
