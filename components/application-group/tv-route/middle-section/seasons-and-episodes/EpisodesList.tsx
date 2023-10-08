@@ -28,7 +28,7 @@ const EpisodesList = ({ tvSeriesId }: EpisodesListProps) => {
   // if there is an error, throw it
   if (error) throw error;
 
-  // if there is no data, map over an array of 10 items
+  // if there is no data, map over an array of 4 items
   // and return a skeleton
   if (!seasonData)
     return (
@@ -39,7 +39,7 @@ const EpisodesList = ({ tvSeriesId }: EpisodesListProps) => {
         </p> */}
 
         <div className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
-          {Array.from({ length: 10 }).map((_, index) => (
+          {Array.from({ length: 4 }).map((_, index) => (
             <div key={index} className="relative w-full ">
               <AspectRatio ratio={16 / 9}>
                 <Skeleton rows={2} />
@@ -50,13 +50,13 @@ const EpisodesList = ({ tvSeriesId }: EpisodesListProps) => {
       </>
     );
 
-  // if the data is loading, map over an array of 10 items
+  // if the data is loading, map over an array of 4 items
   // and return a skeleton
   if (isLoading)
     return (
       <>
         <div className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
-          {Array.from({ length: 10 }).map((_, index) => (
+          {Array.from({ length: 4 }).map((_, index) => (
             <div key={index} className="relative w-full ">
               <AspectRatio ratio={16 / 9}>
                 <Skeleton rows={2} />
