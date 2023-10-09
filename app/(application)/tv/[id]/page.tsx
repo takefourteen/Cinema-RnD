@@ -4,7 +4,7 @@ import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
 import TvSeriesDetails from "@/components/application-group/tv-route/TvSeriesDetails";
-import TvExplorerPanel from "@/components/application-group/tv-route/middle-section/TvExplorerPanel";
+import ExplorerPanel from "@/components/application-group/ExplorerPanel";
 
 // lazy load the following components
 const RecommendedMediaList = dynamic(
@@ -21,7 +21,7 @@ const DetailsAboutShowSection = dynamic(
 const SeasonsAndEpisodes = dynamic(
   () =>
     import(
-      "@/components/application-group/tv-route/middle-section/seasons-and-episodes/SeasonsAndEpisodes"
+      "@/components/application-group/tv-route/middle-section/SeasonsAndEpisodes"
     ),
 );
 
@@ -49,27 +49,33 @@ const page = async ({ params: { id } }: PageProps) => {
     imagesPromise,
   ]);
 
+  const tabConfigs = [
+    {
+      key: "episodes",
+      title: "View Episodes",
+      content: <SeasonsAndEpisodes tvSeriesId={tvSeriesId} />,
+    },
+    {
+      key: "recommended",
+      title: "More Like This",
+      content: <RecommendedMediaList mediaId={tvSeriesId} mediaType="tv" />,
+    },
+    {
+      key: "details",
+      title: "Details",
+      content: <DetailsAboutShowSection mediaId={tvSeriesId} mediaType="tv" />,
+    },
+  ];
+
   return (
     <section className="text-white">
       {/* Top Section */}
-        <TvSeriesDetails tvSeriesData={tvSeriesData} imagesData={imagesData} />
-
+      <TvSeriesDetails tvSeriesData={tvSeriesData} imagesData={imagesData} />
       {/* <pre>
         <code>{JSON.stringify(tvSeriesData, null, 2)}</code>
       </pre> */}
-
       {/* Middle Section */}
-      <TvExplorerPanel
-        SeasonsAndEpisodesComponent={
-          <SeasonsAndEpisodes tvSeriesId={tvSeriesId} />
-        }
-        RecommendedMediaListComponent={
-          <RecommendedMediaList mediaId={tvSeriesId} mediaType="tv" />
-        }
-        DetailsAboutShowComponent={
-          <DetailsAboutShowSection mediaId={tvSeriesId} mediaType="tv" />
-        }
-      />
+      <ExplorerPanel tabConfigs={tabConfigs} />;
     </section>
   );
 };

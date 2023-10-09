@@ -7,11 +7,11 @@ import { IoMdAdd } from "react-icons/io";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import { DetailsButton } from "@/components/DetailsButton";
-import Chip from "../../Chip";
-import Overview from "../../Overview";
-import ResponsiveBackgroundPoster from "../../ResponsiveBackgroundPoster";
-import ImdbRating from "../../ImdbRating";
-import TitleLogo from "../../TitleLogo";
+import Chip from "../Chip";
+import Overview from "../Overview";
+import ResponsiveBackgroundPoster from "../ResponsiveBackgroundPoster";
+import ImdbRating from "../ImdbRating";
+import TitleLogo from "../TitleLogo";
 
 interface MovieHeaderProps {
   movieId: string;
@@ -87,7 +87,9 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
             <TitleLogo logoData={titleLogo} alt={movieDetails.original_title} />
           ) : (
             // movie title
-            <h1 className="font-header-2 mb-4 lg:mb-6">{movieDetails.original_title}</h1>
+            <h1 className="font-header-2 mb-4 lg:mb-6">
+              {movieDetails.original_title}
+            </h1>
           )}
 
           {/* movie rating, movie duration and Year */}
