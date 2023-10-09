@@ -2,8 +2,6 @@ import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 import {
-  fetchMultipleTrendingMoviesPages,
-  fetchMultipleTrendingTVShowsPages,
   fetchTrendingMoviesWithVideoPlayerUrls,
   fetchTrendingTVShowsWithVideoPlayerUrls,
 } from "@/lib/tmdb-api/trending";
@@ -22,22 +20,16 @@ const StreamingServicesSlideShow = dynamic(
     import(
       "@/components/application-group/discovery-route/streaming-services/StreamingServicesSlideShow"
     ),
-  { ssr: false },
 );
-
 const TrendingSlider = dynamic(
   () => import("@/components/application-group/discovery-route/TrendingSlider"),
-  { ssr: false },
 );
-
 const CollectionsSlideShow = dynamic(
   () =>
     import(
       "@/components/application-group/discovery-route/collections/CollectionsSlideShow"
     ),
-  { ssr: false },
 );
-
 /* 
 import StreamingServicesSlideShow from "@/components/application-group/discovery-route/streaming-services/StreamingServicesSlideShow";
 import CollectionsSlideShow from "@/components/application-group/discovery-route/collections/CollectionsSlideShow";
@@ -84,7 +76,7 @@ const page = async () => {
         Hero Section 
         -----------
        */}
-      <Suspense>
+      <Suspense fallback={<LoadingSpinner />}>
         <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
           <ul className="flex gap-x-0">
             {movieAndTvShowDetails.map((item) => (
