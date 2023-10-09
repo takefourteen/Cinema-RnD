@@ -37,7 +37,7 @@ const TitleLogo = ({ logoData, alt }: Props) => {
 
   return (
     <>
-      <div className="relative w-[300px] md:w-[325px] lg:w-[350px]">
+      <div className="relative w-[200px] md:w-[225px] lg:w-[250px]">
         <AspectRatio
           ratio={imgAspectRatio}
         >
@@ -46,9 +46,9 @@ const TitleLogo = ({ logoData, alt }: Props) => {
             src={titleLogoSrc}
             alt={alt}
             fill
-            sizes="(max-width: 768px) 300px,
-                 (max-width: 1024px) 325px,
-                  350px,"
+            sizes="(max-width: 768px) 200px,
+                 (max-width: 1024px) 225px,
+                  250px,"
             className="object-contain"
           />
         </AspectRatio>

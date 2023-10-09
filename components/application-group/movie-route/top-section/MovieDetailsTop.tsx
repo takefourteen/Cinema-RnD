@@ -63,7 +63,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
     movieDetails.original_title,
   )}`;
   return (
-    <div className="relative h-[40rem] flex-1 sm:h-[42rem] md:h-[40rem] lg:h-[44rem] ">
+    <div className="relative h-[90dvh] flex-1 sm:h-[90dvh] md:h-[85dvh] lg:h-[85dvh] ">
       {/* Image Display */}
       <ResponsiveBackgroundPoster
         poster_path={movieDetails.poster_path}
@@ -76,7 +76,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
       <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent " />
 
       {/* Overlay with movie details */}
-      <div className="master-container absolute inset-0 flex h-full items-end pb-8 sm:items-center sm:p-0 lg:mr-auto lg:max-w-[80%] ">
+      <div className="master-container absolute inset-0 flex h-full items-end pb-8 sm:items-end sm:pb-6 lg:mr-auto lg:max-w-[80%] ">
         {/* Display relavent information about the movie */}
         <div className="text-start text-white ">
           {/* movie production company logo */}
@@ -87,11 +87,11 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
             <TitleLogo logoData={titleLogo} alt={movieDetails.original_title} />
           ) : (
             // movie title
-            <h1 className="font-header-2">{movieDetails.original_title}</h1>
+            <h1 className="font-header-2 mb-4 lg:mb-6">{movieDetails.original_title}</h1>
           )}
 
           {/* movie rating, movie duration and Year */}
-          <div className="items-cemter font-small-text mt-4 flex flex-wrap lg:mt-6">
+          <div className="items-cemter font-small-text mt-2 flex flex-wrap ">
             {/* movie year */}
             <p className="font-semibold tracking-wide text-white/100">
               {new Date(movieDetails.release_date).getFullYear()}

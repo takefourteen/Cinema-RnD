@@ -48,7 +48,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
   tvSeriesData.vote_average = Math.round(tvSeriesData.vote_average * 10) / 10;
 
   return (
-    <div className="relative h-[40rem] flex-1 sm:h-[42rem] md:h-[40rem] lg:h-[44rem] ">
+    <div className="relative h-[90dvh] flex-1 sm:h-[90dvh] md:h-[85dvh] lg:h-[85dvh] ">
       {/* Image Display */}
 
       <ResponsiveBackgroundPoster
@@ -62,7 +62,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
       <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent " />
 
       {/* Overlay with tv details */}
-      <div className="master-container absolute inset-0 flex h-full items-end pb-8 sm:items-center sm:p-0 lg:mr-auto lg:max-w-[80%] ">
+      <div className="master-container absolute inset-0 flex h-full items-end pb-8 sm:items-end sm:pb-6 lg:mr-auto lg:max-w-[80%] ">
         {/* Display relavent information about the tv */}
         <div className="text-start text-white ">
           {/* tv title logo or Normal title*/}
@@ -70,11 +70,13 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
             <TitleLogo logoData={titleLogo} alt={tvSeriesData.original_name} />
           ) : (
             // tv title
-            <h1 className="font-header-2">{tvSeriesData.original_name}</h1>
+            <h1 className="font-header-2 mb-4 lg:mb-6">
+              {tvSeriesData.original_name}
+            </h1>
           )}
 
           {/* tv rating, tv duration and Year */}
-          <div className="items-cemter font-small-text mt-4 flex flex-wrap lg:mt-6">
+          <div className="items-cemter font-small-text mt-4 flex flex-wrap ">
             {/* tv year */}
             <p className="font-semibold tracking-wide text-white/100">
               {new Date(tvSeriesData.first_air_date).getFullYear()}
