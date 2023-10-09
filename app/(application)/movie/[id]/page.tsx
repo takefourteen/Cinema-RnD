@@ -1,9 +1,21 @@
 import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
 import MovieDetailsTop from "@/components/application-group/movie-route/MovieDetailsTop";
-import RecommendedMediaList from "@/components/application-group/recommendations/RecommendedMediaList";
-import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
+// import RecommendedMediaList from "@/components/application-group/recommendations/RecommendedMediaList";
+// import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
+
+// lazy load the following components
+const RecommendedMediaList = dynamic(
+  () =>
+    import(
+      "@/components/application-group/recommendations/RecommendedMediaList"
+    ),
+);
+const DetailsAboutShowSection = dynamic(
+  () => import("@/components/application-group/DetailsAboutShowSection"),
+);
 
 type PageProps = {
   params: {
