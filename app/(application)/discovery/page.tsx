@@ -2,8 +2,8 @@ import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 import {
-  fetchTrendingMoviesWithVideoPlayerUrls,
-  fetchTrendingTVShowsWithVideoPlayerUrls,
+  fetchMultiplePagesOfTrendingMovies,
+  fetchMultiplePagesOfTrendingTVShows,
 } from "@/lib/tmdb-api/trending";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
@@ -42,8 +42,8 @@ import TrendingSlider from "@/components/application-group/discovery-route/Trend
 export const revalidate = 3600 * 24; // 24 hours
 
 const page = async () => {
-  const trendingMoviesPromise = fetchTrendingMoviesWithVideoPlayerUrls();
-  const trendingTVShowsPromise = fetchTrendingTVShowsWithVideoPlayerUrls();
+  const trendingMoviesPromise = fetchMultiplePagesOfTrendingMovies(2);
+  const trendingTVShowsPromise = fetchMultiplePagesOfTrendingTVShows(2);
 
   const [trendingMoviesData, trendingTVShowsData] = await Promise.all([
     trendingMoviesPromise,
