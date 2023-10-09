@@ -28,14 +28,14 @@ const page = ({ params: { id } }: PageProps) => {
 
   const tabConfigs = [
     {
-      key: "recommended",
-      title: "More Like This",
-      content: <RecommendedMediaList mediaId={movieId} mediaType="movie" />,
-    },
-    {
       key: "details",
       title: "Details",
       content: <DetailsAboutShowSection mediaId={movieId} mediaType="movie" />,
+    },
+    {
+      key: "recommended",
+      title: "More Like This",
+      content: <RecommendedMediaList mediaId={movieId} mediaType="movie" />,
     },
   ];
 
