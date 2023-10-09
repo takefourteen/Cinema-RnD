@@ -1,5 +1,5 @@
-import axios, { AxiosResponse, AxiosError } from "axios";
 import { filterResultsByLanguage } from "@/helpers/filterResults";
+import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
 
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -25,7 +25,19 @@ export async function fetchSimilarMovies(
     const data = await response.json();
 
     // filter out movies that are not in English
-    return filterResultsByLanguage(data.results, "en");
+    const filteredByLanguage: SimilarMovie[] = filterResultsByLanguage(
+      data.results,
+      "en",
+    );
+
+    // filter out movies that don't have a video url
+    const filteredByVideoUrl: SimilarMovie[] = await filterMediaWithVideoUrl(
+      filteredByLanguage,
+      0,
+      0,
+    );
+
+    return filteredByVideoUrl;
 
     // return data.results;
   } catch (error) {
@@ -56,7 +68,19 @@ export async function fetchSimilarTvSeries(
     const data = await response.json();
 
     // filter out tv series that are not in English
-    return filterResultsByLanguage(data.results, "en");
+    const filteredByLanguage: SimilarTvSeries[] = filterResultsByLanguage(
+      data.results,
+      "en",
+    );
+
+    // filter out tv series that don't have a video url
+    const filteredByVideoUrl: SimilarTvSeries[] = await filterMediaWithVideoUrl(
+      filteredByLanguage,
+      1,
+      1,
+    );
+
+    return filteredByVideoUrl;
 
     // return data.results;
   } catch (error) {

@@ -1,5 +1,8 @@
-export function filterResultsByLanguage<
-  T extends { original_language: string },
->(results: T[], language: string = "en") {
-  return results.filter((result) => result.original_language === language);
+export function filterResultsByLanguage<T>(
+  results: T[],
+  language: string = "en",
+): T[] {
+  return results.filter(
+    (result) => (result as any).original_language === language,
+  );
 }

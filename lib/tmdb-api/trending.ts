@@ -81,7 +81,7 @@ export async function fetchMultiplePagesOfTrendingMovies(
       const intialFetch = await fetchTrendingMovies(page);
 
       // Filter the results to retain only those with a video URL
-      const filteredResults = await filterMediaWithVideoUrl(intialFetch);
+      const filteredResults = await filterMediaWithVideoUrl(intialFetch, 0, 0);
 
       // Put the filtered results into the final results
       finalResults = [...finalResults, ...filteredResults];
@@ -103,7 +103,7 @@ export async function fetchMultiplePagesOfTrendingTVShows(
       const intialFetch = await fetchTrendingTVShows(page);
 
       // Filter the results to retain only those with a video URL
-      const filteredResults = await filterMediaWithVideoUrl(intialFetch);
+      const filteredResults = await filterMediaWithVideoUrl(intialFetch, 1, 1);
 
       // Put the filtered results into the final results
       finalResults = [...finalResults, ...filteredResults];
