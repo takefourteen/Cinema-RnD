@@ -70,7 +70,7 @@ export async function fetchTrendingTVShows(
   }
 }
 
-export async function fetchMultipleTrendingMoviesPages(
+export async function fetchMultiplePagesOfTrendingMovies(
   numPages: number,
 ): Promise<TrendingMovie[]> {
   let finalResults: TrendingMovie[] = [];
@@ -91,7 +91,7 @@ export async function fetchMultipleTrendingMoviesPages(
   return finalResults;
 }
 
-export async function fetchMultipleTrendingTVShowsPages(
+export async function fetchMultiplePagesOfTrendingTVShows(
   numPages: number,
 ): Promise<TrendingTVSeries[]> {
   let finalResults: TrendingTVSeries[] = [];
