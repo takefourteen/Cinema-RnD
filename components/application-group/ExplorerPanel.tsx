@@ -18,7 +18,7 @@ type TabsNavigationProps = {
 
 const ExplorerPanel = ({ tabConfigs }: TabsNavigationProps) => {
   return (
-    <div className="master-container mx-auto mt-8 p-0">
+    <div className="master-container mx-auto mt-2 p-0">
       <div className="flex w-full flex-col">
         <Tabs
           aria-label="Options"
