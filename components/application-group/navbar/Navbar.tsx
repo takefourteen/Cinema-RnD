@@ -26,8 +26,6 @@ const Navbar = () => {
   );
   const scrollThreshold = 100; // Adjust this threshold as needed
 
-  console.log("pathname", pathname.split("/")[1]);
-
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {

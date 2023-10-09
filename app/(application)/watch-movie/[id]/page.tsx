@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import Script from "next/script";
 
 import MovieExplorerPanel from "@/components/application-group/movie-route/middle-section/MovieExplorerPanel";
 import VideoPlayer from "@/components/application-group/VideoPlayer";
@@ -16,7 +17,7 @@ const page = ({ params: { id } }: PageProps) => {
   return (
     <section className=" text-white">
       {/* Top Section */}
-      <div className="relative h-[40rem] flex-1 sm:h-[42rem] md:h-[40rem] lg:mt-[90px]">
+      <div className="relative mt-[75px] h-[40rem] flex-1 sm:h-[42rem] md:h-[40rem] lg:mt-[90px]">
         <Suspense>
           <VideoPlayer
             videoId={movieId}
@@ -30,6 +31,9 @@ const page = ({ params: { id } }: PageProps) => {
 
       {/* Middle Section */}
       <MovieExplorerPanel mediaId={movieId} />
+
+      {/* Script */}
+      <Script src="../js/clearThePath.js" />
     </section>
   );
 };

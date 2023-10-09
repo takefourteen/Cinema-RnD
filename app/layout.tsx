@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 
 import Providers from "@/providers/Providers";
 import Footer from "@/components/Footer";
+import Script from "next/script";
 
 const maxSans = localFont({
   src: [
