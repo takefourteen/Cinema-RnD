@@ -16,8 +16,15 @@ interface PopularMovie {
   vote_count: number;
 }
 
+interface PopularMoviesResponse {
+  page: number;
+  results: PopularMovie[];
+  total_pages: number;
+  total_results: number;
+}
+
 // Interface for popular TV show data
-interface PopularTVShow {
+interface PopularTVSeries {
   backdrop_path: string;
   first_air_date: string;
   genre_ids: number[];
@@ -31,4 +38,11 @@ interface PopularTVShow {
   poster_path: string;
   vote_average: number;
   vote_count: number;
+}
+
+interface PopularTvSeriesResponse {
+  page: number;
+  results: PopularMovie[];
+  total_pages: number;
+  total_results: number;
 }
