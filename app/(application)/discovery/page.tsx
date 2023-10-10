@@ -21,8 +21,8 @@ const StreamingServicesSlideShow = dynamic(
       "@/components/application-group/discovery-route/streaming-services/StreamingServicesSlideShow"
     ),
 );
-const TrendingSlider = dynamic(
-  () => import("@/components/application-group/discovery-route/TrendingSlider"),
+const RenderSlider = dynamic(
+  () => import("@/components/application-group/discovery-route/RenderSlider"),
 );
 const CollectionsSlideShow = dynamic(
   () =>
@@ -107,7 +107,7 @@ const page = async () => {
         Trending Movies 
         --------------
        */}
-      <TrendingSlider
+      <RenderSlider
         trendingData={trendingMoviesData}
         sectionTitle="Blockbuster Buzz"
         priority={true}
@@ -118,7 +118,7 @@ const page = async () => {
         Trending TV Series 
         -----------------
       */}
-      <TrendingSlider
+      <RenderSlider
         trendingData={trendingTVShowsData}
         sectionTitle="Binge-Worthy Picks"
       />

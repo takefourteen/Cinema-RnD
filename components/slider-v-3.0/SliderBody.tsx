@@ -15,10 +15,15 @@ type Props = {
   classNames?: {
     ulList: string;
   };
-  renderChild: (item: any) => ReactNode; // Function to render child components
+  renderSliderList: (item: any) => ReactNode; // Function to render slider list
 };
 
-function SliderBody({ sliderData, initData, classNames, renderChild }: Props) {
+function SliderBody({
+  sliderData,
+  initData,
+  classNames,
+  renderSliderList,
+}: Props) {
   const [data, setData] = useState<any[]>(sliderData.slice(1));
   const [transitionData, setTransitionData] = useState<any>(sliderData[0]);
   const [currentSlideData, setCurrentSlideData] = useState<CurrentSlideData>({
@@ -30,7 +35,7 @@ function SliderBody({ sliderData, initData, classNames, renderChild }: Props) {
       <ul className={`${classNames?.ulList} flex`}>
         {/* Slider Header -- See Below */}
         {data.map((data) => (
-          <Fragment key={data.id}>{renderChild(data)}</Fragment>
+          <Fragment key={data.id}>{renderSliderList(data)}</Fragment>
         ))}
       </ul>
 
