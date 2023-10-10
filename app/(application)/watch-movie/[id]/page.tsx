@@ -31,6 +31,9 @@ const page = async ({ params: { id } }: PageProps) => {
   // fetch the movie details
   const movieDetails = await fetchMovieDetails(movieId);
 
+  // log imdb id
+  console.log("imdb id: ", movieDetails.imdb_id);
+
   const tabConfigs = [
     {
       key: "details",
@@ -52,7 +55,7 @@ const page = async ({ params: { id } }: PageProps) => {
           <VideoPlayer
             // videoId={movieId}
             videoId={movieDetails.imdb_id}
-            isTmdb={0}
+            isTmdb={false}
             season={0}
             episode={0}
             className="h-full w-full"
