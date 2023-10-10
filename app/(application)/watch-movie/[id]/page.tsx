@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Script from "next/script";
 
+import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
+
 import VideoPlayer from "@/components/application-group/VideoPlayer";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
 
@@ -22,9 +24,12 @@ type PageProps = {
   };
 };
 
-const page = ({ params: { id } }: PageProps) => {
+const page = async ({ params: { id } }: PageProps) => {
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
   const movieId = id.split("-")[0];
+
+  // fetch the movie details
+  const movieDetails = await fetchMovieDetails(movieId);
 
   const tabConfigs = [
     {
@@ -45,8 +50,9 @@ const page = ({ params: { id } }: PageProps) => {
       <div className="relative mt-[75px] h-[75dvh] flex-1 sm:h-[75dvh] lg:mt-[90px]">
         <Suspense>
           <VideoPlayer
-            videoId={movieId}
-            isTmdb={1}
+            // videoId={movieId}
+            videoId={movieDetails.imdb_id}
+            isTmdb={0}
             season={0}
             episode={0}
             className="h-full w-full"
@@ -54,9 +60,7 @@ const page = ({ params: { id } }: PageProps) => {
         </Suspense>
       </div>
       {/* Middle Section */}
-      <ExplorerPanel tabConfigs={tabConfigs} />;
-      
-      {/* Script */}
+      <ExplorerPanel tabConfigs={tabConfigs} />;{/* Script */}
       <Script src="../js/clearThePath.js" />
     </section>
   );
