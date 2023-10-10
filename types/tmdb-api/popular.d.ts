@@ -24,7 +24,7 @@ interface PopularMoviesResponse {
 }
 
 // Interface for popular TV show data
-interface PopularTVSeries {
+interface PopularTvSeries {
   backdrop_path: string;
   first_air_date: string;
   genre_ids: number[];
@@ -42,7 +42,7 @@ interface PopularTVSeries {
 
 interface PopularTvSeriesResponse {
   page: number;
-  results: PopularMovie[];
+  results: PopularTvSeries[];
   total_pages: number;
   total_results: number;
 }

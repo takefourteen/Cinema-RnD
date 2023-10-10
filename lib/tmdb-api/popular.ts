@@ -7,7 +7,7 @@ import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
 
 export async function getPopularMovies(
   page: number,
-  region: string
+  region: string,
 ): Promise<PopularMovie[]> {
   const url = `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&region=${region}&page=${page}`;
 
@@ -35,13 +35,11 @@ export async function getPopularMovies(
   }
 }
 
-export async function getPopularTVShows(
+export async function getPopularTvSeries(
   page: number,
-  originCountry: string
-): Promise<PopularTVShow[]> {
-  const apiUrl = `${BASE_URL}/tv/popular`;
-
-  const url = `${BASE_URL}/tv/popular?api_key=${API_KEY}&language=en-US&region=${region}&page=${page}`;
+  originCountry: string,
+): Promise<PopularTvSeries[]> {
+  const url = `${BASE_URL}/tv/popular?api_key=${API_KEY}&language=en-US&region=${originCountry}&page=${page}`;
 
   try {
     const response = await fetch(url);
@@ -69,7 +67,7 @@ export async function getPopularTVShows(
 
 // ==========================================================
 export async function fetchMultiplePagesOfPopularMovies(
-  numPages: number
+  numPages: number,
 ): Promise<PopularMovie[]> {
   let finalResults: PopularMovie[] = [];
 
@@ -81,7 +79,7 @@ export async function fetchMultiplePagesOfPopularMovies(
       const filteredResults: PopularMovie[] = await filterMediaWithVideoUrl(
         intialFetch,
         0,
-        0
+        0,
       );
 
       // Put the filtered results into the final results
@@ -95,7 +93,7 @@ export async function fetchMultiplePagesOfPopularMovies(
 }
 
 export async function fetchMultiplePagesOfPopularTvSeries(
-  numPages: number
+  numPages: number,
 ): Promise<PopularTvSeries[]> {
   let finalResults: PopularTvSeries[] = [];
 
@@ -103,14 +101,14 @@ export async function fetchMultiplePagesOfPopularTvSeries(
     try {
       const intialFetch: PopularTvSeries[] = await getPopularTvSeries(
         page,
-        "US"
+        "US",
       );
 
       // Filter the results to retain only those with a video URL
       const filteredResults: PopularTvSeries[] = await filterMediaWithVideoUrl(
         intialFetch,
         0,
-        0
+        0,
       );
 
       // Put the filtered results into the final results
@@ -125,10 +123,10 @@ export async function fetchMultiplePagesOfPopularTvSeries(
 
 // function that filters TV shows based on their origin_country
 export function filterTVShowsByOriginCountry(
-  tvShows: PopularTVShow[],
-  originCountry: string
-): PopularTVShow[] {
+  tvShows: PopularTvSeries[],
+  originCountry: string,
+): PopularTvSeries[] {
   return tvShows.filter((tvShow) =>
-    tvShow.origin_country.includes(originCountry)
+    tvShow.origin_country.includes(originCountry),
   );
 }
