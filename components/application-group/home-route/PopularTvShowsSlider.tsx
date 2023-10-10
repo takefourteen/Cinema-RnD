@@ -1,21 +1,14 @@
-import { getPopularTVShowsForPages } from "@/lib/tmdb-api/popular";
+import { fetchMultiplePagesOfPopularTvSeries } from "@/lib/tmdb-api/popular";
 
 import TrendingSlider from "../discovery-route/TrendingSlider";
 
 const PopularTvShowsSlider = async () => {
-  const { data: popularTVShows, error } = await getPopularTVShowsForPages(2);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!popularTVShows) {
-    return <div>No tv shows found</div>;
-  }
+  const popularTVSeries: PopularTvSeries[] =
+    await fetchMultiplePagesOfPopularTvSeries(2);
 
   return (
     <TrendingSlider
-      trendingData={popularTVShows.slice(0, 11)}
+      trendingData={popularTVSeries.slice(0, 11)}
       sectionTitle="Popular Tv Shows"
       viewAllLink="/tv/popular"
     />
