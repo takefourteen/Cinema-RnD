@@ -20,7 +20,7 @@ interface MediaCardComponentProps {
 
 const MediaCard = ({
   data,
-  aspect_ratio = "16:9",
+  aspect_ratio,
 }: MediaCardComponentProps) => {
   // determine if this is a movie or tv show
   const isMovie = data.original_title ? true : false;
