@@ -111,6 +111,7 @@ const page = async () => {
         trendingData={trendingMoviesData}
         sectionTitle="Blockbuster Buzz"
         priority={true}
+        
       />
 
       {/*

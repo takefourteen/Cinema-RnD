@@ -28,6 +28,7 @@ const RenderSlider = ({
     <SliderBody
       sliderData={trendingData}
       initData={trendingData[0]}
+      showProgress={true}
       classNames={{
         ulList: "gap-x-4",
       }}

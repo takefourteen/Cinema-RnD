@@ -12,6 +12,7 @@ interface DataWithId {
 type Props = {
   sliderData: DataWithId[];
   initData: DataWithId;
+  showProgress?: boolean;
   classNames?: {
     ulList: string;
   };
@@ -21,6 +22,7 @@ type Props = {
 function SliderBody({
   sliderData,
   initData,
+  showProgress,
   classNames,
   renderSliderList,
 }: Props) {
@@ -41,6 +43,7 @@ function SliderBody({
 
       {/* Slider Controls */}
       <Controls
+      showProgress={showProgress}
         currentSlideData={currentSlideData}
         data={data}
         transitionData={transitionData}
