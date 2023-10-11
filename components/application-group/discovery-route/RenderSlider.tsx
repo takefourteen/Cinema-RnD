@@ -5,19 +5,19 @@ import SliderBody from "@/components/slider-v-3.0/SliderBody";
 import Slider from "@/components/slider-v-3.0/Slider";
 import MotionMediaCard from "@/components/slider-v-3.0/MotionMediaCard";
 
-interface TrendingSliderProps {
+interface RenderSliderProps {
   trendingData: any[];
   sectionTitle: string;
   viewAllLink?: string;
   priority?: boolean;
 }
 
-const TrendingSlider = ({
+const RenderSlider = ({
   trendingData,
   sectionTitle,
   viewAllLink,
   priority = false,
-}: TrendingSliderProps) => {
+}: RenderSliderProps) => {
   // Define slider header component
   const sliderHeaderComponent = (
     <SectionHeader sectionTitle={sectionTitle} viewAllLink={viewAllLink} />
@@ -28,10 +28,11 @@ const TrendingSlider = ({
     <SliderBody
       sliderData={trendingData}
       initData={trendingData[0]}
+      showProgress={true}
       classNames={{
         ulList: "gap-x-4",
       }}
-      renderChild={(item) => (
+      renderSliderList={(item) => (
         <MotionMediaCard
           key={item.id}
           data={item}
@@ -50,4 +51,4 @@ const TrendingSlider = ({
   );
 };
 
-export default TrendingSlider;
+export default RenderSlider;

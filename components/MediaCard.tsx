@@ -15,17 +15,16 @@ const imageBaseUrl = "https://image.tmdb.org/t/p/original";
 
 interface MediaCardComponentProps {
   data: MediaCardProps;
-  aspect_ratio?: "16:9" | "2:3";
+  aspect_ratio?: "4:3" | "2:3";
 }
 
 const MediaCard = ({
   data,
-  aspect_ratio = "16:9",
+  aspect_ratio,
 }: MediaCardComponentProps) => {
   // determine if this is a movie or tv show
   const isMovie = data.original_title ? true : false;
-  const poster =
-    aspect_ratio === "16:9" ? data.backdrop_path : data.poster_path;
+  const poster = aspect_ratio === "4:3" ? data.backdrop_path : data.poster_path;
 
   // prepare url path for the media page, depending on whether it is a movie or tv show. the structure is /movie/:id-nameofmovie or /tv/:id-nameoftvshow, the name is seperated by a dash
   const mediaPageUrl = isMovie
@@ -41,12 +40,12 @@ const MediaCard = ({
   return (
     // only render if there is a poster_path
     data.poster_path ? (
-      <li className={`${aspect_ratio === "16:9" ? style_16_9 : style_2_3} `}>
+      <li className={`${aspect_ratio === "4:3" ? style_16_9 : style_2_3} `}>
         <Link
           href={mediaPageUrl}
           className=" group transition-colors focus-visible:outline-none"
         >
-          <AspectRatio ratio={aspect_ratio === "16:9" ? 16 / 9 : 2 / 3}>
+          <AspectRatio ratio={aspect_ratio === "4:3" ? 16 / 9 : 2 / 3}>
             {/* Display the image */}
 
             <ImageLoader
@@ -63,7 +62,7 @@ const MediaCard = ({
 
           {/* Display the media title with truncation */}
           {/* only on 16:9 aspect ratios */}
-          {aspect_ratio === "16:9" ? (
+          {aspect_ratio === "4:3" ? (
             <p
               className={`mt-4 truncate text-start text-sm font-normal tracking-wide text-white group-focus-visible:underline md:text-sm lg:text-base `}
             >

@@ -1,25 +1,13 @@
-import {
-  getPopularTVShowsForPages,
-  getPopularMovies,
-} from "@/lib/tmdb-api/popular";
+import { fetchMultiplePagesOfPopularMovies } from "@/lib/tmdb-api/popular";
 
-import TrendingSlider from "../discovery-route/TrendingSlider";
+import RenderSlider from "../discovery-route/RenderSlider";
 
 const PopularMoviesSlider = async () => {
-  const page = 1;
-  const region = "US";
-  const { data: popularMovies, error } = await getPopularMovies(page, region);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
-
-  if (!popularMovies) {
-    return <div>No movies found</div>;
-  }
+  const popularMovies: PopularMovie[] =
+    await fetchMultiplePagesOfPopularMovies(1);
 
   return (
-    <TrendingSlider
+    <RenderSlider
       trendingData={popularMovies.slice(0, 11)}
       sectionTitle="Popular Movies"
       viewAllLink="/movies/popular"

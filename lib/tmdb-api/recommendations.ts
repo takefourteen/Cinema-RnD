@@ -1,4 +1,5 @@
 import { filterResultsByLanguage } from "@/helpers/filterResults";
+import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
 
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -24,7 +25,16 @@ export async function fetchMovieRecommendations(
     const data = await response.json();
 
     // filter out results that are not in English
-    return filterResultsByLanguage(data.results);
+    const filteredByLanguage: RecommendedMovie[] = filterResultsByLanguage(
+      data.results,
+      "en",
+    );
+
+    // filter out results that do not have a video url
+    const filteredByVideoUrl: RecommendedMovie[] =
+      await filterMediaWithVideoUrl(filteredByLanguage, 0, 0);
+
+    return filteredByVideoUrl;
 
     // return data.results;
   } catch (error) {
@@ -55,7 +65,16 @@ export async function fetchTVSeriesRecommendations(
     const data = await response.json();
 
     // filter out results that are not in English
-    return filterResultsByLanguage(data.results);
+    const filteredByLanguage: RecommendedTvSeries[] = filterResultsByLanguage(
+      data.results,
+      "en",
+    );
+
+    // filter out results that do not have a video url
+    const filteredByVideoUrl: RecommendedTvSeries[] =
+      await filterMediaWithVideoUrl(filteredByLanguage, 1, 1);
+
+    return filteredByVideoUrl;
 
     // return data.results;
   } catch (error) {

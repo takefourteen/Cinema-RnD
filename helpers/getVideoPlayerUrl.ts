@@ -1,6 +1,6 @@
 export async function getVideoPlayerUrl(
   videoId: string,
-  isTmdb: number = 1,
+  isTmdb: number | boolean = 1, // 1 for tmdb, 0 for imdb, default is tmdb
   season: number,
   episode: number,
 ): Promise<string | null> {

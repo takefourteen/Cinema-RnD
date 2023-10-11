@@ -4,7 +4,7 @@ import LoadingSpinner from "../LoadingSpinner";
 
 interface VideoPlayerProps {
   videoId: string;
-  isTmdb: number;
+  isTmdb: number | boolean; // 0 or 1, 0 is false, and 1 is true
   season: number;
   episode: number;
   className?: string;
@@ -19,7 +19,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = async ({
 }) => {
   // fetch the video player url
   const playerUrl = await getVideoPlayerUrl(videoId, isTmdb, season, episode);
-
 
   // if the player url is not ready yet, show a loading spinner
   if (!playerUrl) {

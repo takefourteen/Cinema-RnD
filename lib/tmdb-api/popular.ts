@@ -1,112 +1,131 @@
-import axios from "axios";
-
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
-interface ApiResponse<T> {
-  data: T | null;
-  error: string | null;
-}
+import { filterResultsByLanguage } from "@/helpers/filterResults";
+import { getVideoPlayerUrl } from "@/helpers/getVideoPlayerUrl";
+import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
 
 export async function getPopularMovies(
   page: number,
   region: string,
-): Promise<ApiResponse<PopularMovie[]>> {
-  const apiUrl = `${BASE_URL}/movie/popular`;
-  const params = {
-    api_key: API_KEY,
-    language: "en-US",
-    region,
-    page,
-  };
-
-  const apiResponse: ApiResponse<PopularMovie[]> = {
-    data: null,
-    error: null,
-  };
+): Promise<PopularMovie[]> {
+  const url = `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&region=${region}&page=${page}`;
 
   try {
-    const response = await axios.get(apiUrl, { params });
-    apiResponse.data = response.data.results;
-  } catch (error) {
-    apiResponse.error = "Error fetching popular movies.";
-  }
+    const response = await fetch(url);
 
-  return apiResponse;
-}
-
-export async function getPopularTVShows(
-  page: number,
-  originCountry: string = "US",
-): Promise<ApiResponse<PopularTVShow[]>> {
-  const apiUrl = `${BASE_URL}/tv/popular`;
-
-  const params = {
-    api_key: API_KEY,
-    language: "en-US",
-    origin_country: originCountry,
-    page,
-  };
-
-  const apiResponse: ApiResponse<PopularTVShow[]> = {
-    data: null,
-    error: null,
-  };
-
-  try {
-    const response = await axios.get(apiUrl, { params });
-    apiResponse.data = response.data.results;
-  } catch (error) {
-    apiResponse.error = "Error fetching popular TV shows.";
-  } finally {
-    return apiResponse;
-  }
-}
-
-// ==========================================================
-// ==========================================================
-// ==========================================================
-// function for fetching popular TV shows for pages 1 to 10, then filtering them by origin_country
-export async function getPopularTVShowsForPages(
-  numOfPages: number = 10,
-  originCountry: string = "US",
-): Promise<ApiResponse<PopularTVShow[]>> {
-  const apiResponse: ApiResponse<PopularTVShow[]> = {
-    data: [],
-    error: null,
-  };
-
-  try {
-    for (let page = 1; page <= numOfPages; page++) {
-      const tvShowResponse = await getPopularTVShows(page);
-
-      if (tvShowResponse.error) {
-        throw new Error("Error fetching popular TV shows.");
-      }
-
-      if (tvShowResponse.data) {
-        apiResponse.data?.push(...tvShowResponse.data); // Spread and push individual TV shows
-      }
+    if (!response.ok) {
+      // Parse the error response as JSON to extract status_message
+      const errorResponse = await response.json();
+      const errorMessage =
+        errorResponse?.status_message || "Failed to fetch popular movies";
+      throw new Error(errorMessage);
     }
+
+    const data: PopularMoviesResponse = await response.json();
+
+    // filter out movies that are not in English
+    data.results = filterResultsByLanguage(data.results || [], "en");
+
+    return data.results;
   } catch (error) {
-    apiResponse.error = "Error fetching popular TV shows.";
+    console.error("Error fetching popular movies:", error);
+
+    return [];
+  }
+}
+
+export async function getPopularTvSeries(
+  page: number,
+  originCountry: string,
+): Promise<PopularTvSeries[]> {
+  const url = `${BASE_URL}/tv/popular?api_key=${API_KEY}&language=en-US&region=${originCountry}&page=${page}`;
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      // Parse the error response as JSON to extract status_message
+      const errorResponse = await response.json();
+      const errorMessage =
+        errorResponse?.status_message || "Failed to fetch popular tv series";
+      throw new Error(errorMessage);
+    }
+
+    const data: PopularTvSeriesResponse = await response.json();
+
+    // filter out tv series that are not in English
+    data.results = filterResultsByLanguage(data.results || [], "en");
+
+    return data.results;
+  } catch (error) {
+    console.error("Error fetching popular tv series:", error);
+
+    return [];
+  }
+}
+
+// ==========================================================
+export async function fetchMultiplePagesOfPopularMovies(
+  numPages: number,
+): Promise<PopularMovie[]> {
+  let finalResults: PopularMovie[] = [];
+
+  for (let page = 1; page <= numPages; page++) {
+    try {
+      const intialFetch: PopularMovie[] = await getPopularMovies(page, "US");
+
+      // Filter the results to retain only those with a video URL
+      const filteredResults: PopularMovie[] = await filterMediaWithVideoUrl(
+        intialFetch,
+        0,
+        0,
+      );
+
+      // Put the filtered results into the final results
+      finalResults = [...finalResults, ...filteredResults];
+    } catch (error) {
+      throw new Error(`Error fetching data for page ${page}: ${error}`);
+    }
   }
 
-  const filteredTVShows = filterTVShowsByOriginCountry(
-    apiResponse.data!,
-    originCountry,
-  );
+  return finalResults;
+}
 
-  apiResponse.data = filteredTVShows;
+export async function fetchMultiplePagesOfPopularTvSeries(
+  numPages: number,
+): Promise<PopularTvSeries[]> {
+  let finalResults: PopularTvSeries[] = [];
 
-  return apiResponse;
+  for (let page = 1; page <= numPages; page++) {
+    try {
+      const intialFetch: PopularTvSeries[] = await getPopularTvSeries(
+        page,
+        "US",
+      );
+
+      // Filter the results to retain only those with a video URL
+      const filteredResults: PopularTvSeries[] = await filterMediaWithVideoUrl(
+        intialFetch,
+        0,
+        0,
+      );
+
+      // Put the filtered results into the final results
+      finalResults = [...finalResults, ...filteredResults];
+    } catch (error) {
+      throw new Error(`Error fetching data for page ${page}: ${error}`);
+    }
+  }
+
+  return finalResults;
 }
 
 // function that filters TV shows based on their origin_country
 export function filterTVShowsByOriginCountry(
-  tvShows: PopularTVShow[],
+  tvShows: PopularTvSeries[],
   originCountry: string,
-): PopularTVShow[] {
+): PopularTvSeries[] {
   return tvShows.filter((tvShow) =>
     tvShow.origin_country.includes(originCountry),
   );

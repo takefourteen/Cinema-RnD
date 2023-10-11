@@ -2,8 +2,8 @@ import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 import {
-  fetchTrendingMoviesWithVideoPlayerUrls,
-  fetchTrendingTVShowsWithVideoPlayerUrls,
+  fetchMultiplePagesOfTrendingMovies,
+  fetchMultiplePagesOfTrendingTVShows,
 } from "@/lib/tmdb-api/trending";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
@@ -21,8 +21,8 @@ const StreamingServicesSlideShow = dynamic(
       "@/components/application-group/discovery-route/streaming-services/StreamingServicesSlideShow"
     ),
 );
-const TrendingSlider = dynamic(
-  () => import("@/components/application-group/discovery-route/TrendingSlider"),
+const RenderSlider = dynamic(
+  () => import("@/components/application-group/discovery-route/RenderSlider"),
 );
 const CollectionsSlideShow = dynamic(
   () =>
@@ -42,8 +42,8 @@ import TrendingSlider from "@/components/application-group/discovery-route/Trend
 export const revalidate = 3600 * 24; // 24 hours
 
 const page = async () => {
-  const trendingMoviesPromise = fetchTrendingMoviesWithVideoPlayerUrls();
-  const trendingTVShowsPromise = fetchTrendingTVShowsWithVideoPlayerUrls();
+  const trendingMoviesPromise = fetchMultiplePagesOfTrendingMovies(2);
+  const trendingTVShowsPromise = fetchMultiplePagesOfTrendingTVShows(2);
 
   const [trendingMoviesData, trendingTVShowsData] = await Promise.all([
     trendingMoviesPromise,
@@ -107,10 +107,11 @@ const page = async () => {
         Trending Movies 
         --------------
        */}
-      <TrendingSlider
+      <RenderSlider
         trendingData={trendingMoviesData}
         sectionTitle="Blockbuster Buzz"
         priority={true}
+        
       />
 
       {/*
@@ -118,7 +119,7 @@ const page = async () => {
         Trending TV Series 
         -----------------
       */}
-      <TrendingSlider
+      <RenderSlider
         trendingData={trendingTVShowsData}
         sectionTitle="Binge-Worthy Picks"
       />
