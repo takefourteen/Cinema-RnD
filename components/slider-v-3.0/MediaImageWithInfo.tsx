@@ -66,14 +66,12 @@ const MediaImageWithInfo = ({
         )}
 
         {/* the movie title and runtime */}
-        <div className="absolute bottom-0  left-0 right-0  mx-2 mb-2 flex justify-between ">
-          <h3 className="font-small-text font-semibold text-white group-hover:underline group-focus-visible:underline">
-            {title}
-          </h3>
-          <p className="font-small-text w-max text-white/80 ">
-            {runtime ? runtime : `${numberOfSeasons} Seasons`}
-          </p>
-        </div>
+        <h3 className="font-small-text absolute bottom-2 left-1 lg:left-2 max-w-[70%] font-semibold text-white group-hover:underline group-focus-visible:underline">
+          {title}
+        </h3>
+        <p className="font-small-text absolute bottom-2 right-1 lg:right-2 w-max text-white/80 ">
+          {runtime ? runtime : `${numberOfSeasons} Seasons`}
+        </p>
       </div>
     </AspectRatio>
   );
