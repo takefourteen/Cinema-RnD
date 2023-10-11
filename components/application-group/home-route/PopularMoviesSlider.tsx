@@ -1,6 +1,6 @@
 import { fetchMultiplePagesOfPopularMovies } from "@/lib/tmdb-api/popular";
 
-import RenderSlider from "../discovery-route/RenderSlider";
+import RenderSlider from "@/components/slider-v-3.0/RenderSlider";
 
 const PopularMoviesSlider = async () => {
   const popularMovies: PopularMovie[] =

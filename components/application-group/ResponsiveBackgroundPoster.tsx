@@ -37,7 +37,7 @@ const ResponsiveBackgroundPoster = ({
           src={`${backdropImgSrc ? backdropImgSrc : posterImgSrc}`}
           alt={alt}
           fill
-          sizes="(min-width: 768px) 100vw, 640px"
+          sizes="(max-width: 768px) 100vw, 60vw"
           priority={priority}
           className={`object-cover ${imageClassNames}`}
         />

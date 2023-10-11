@@ -20,15 +20,17 @@ const StreamingServicesSlideShow = dynamic(
     import(
       "@/components/application-group/discovery-route/streaming-services/StreamingServicesSlideShow"
     ),
+  { ssr: false },
 );
 const RenderSlider = dynamic(
-  () => import("@/components/application-group/discovery-route/RenderSlider"),
+  () => import("@/components/slider-v-3.0/RenderSlider"),
 );
 const CollectionsSlideShow = dynamic(
   () =>
     import(
       "@/components/application-group/discovery-route/collections/CollectionsSlideShow"
     ),
+  { ssr: false },
 );
 /* 
 import StreamingServicesSlideShow from "@/components/application-group/discovery-route/streaming-services/StreamingServicesSlideShow";
@@ -79,10 +81,12 @@ const page = async () => {
       <Suspense fallback={<LoadingSpinner />}>
         <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
           <ul className="flex gap-x-0">
-            {movieAndTvShowDetails.map((item) => (
+            {movieAndTvShowDetails.map((item, index) => (
               <DiscoveryHeroSectionSliderBody
                 key={item.id}
                 movieOrTvShowDetails={item}
+                // only show priority for the first item
+                priority={index === 0}
               />
             ))}
           </ul>
@@ -123,14 +127,14 @@ const page = async () => {
       <RenderSlider
         trendingData={trendingTVShowsData}
         sectionTitle="Binge-Worthy Picks"
-        listItemsOrientation="verticle"
+        listItemsOrientation="horizontal"
         listItemsPriority={false}
         showSliderProgress={true}
       />
 
       {/*
         -----------------
-        Collections 
+        Collections
         -----------------
        */}
       <CollectionsSlideShow />

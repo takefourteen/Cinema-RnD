@@ -6,10 +6,12 @@ import ShowDetailsLargeScreen from "../../ShowDetailsLargeScreen";
 
 type DiscoveryHeroSectionSliderBodyProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
+  priority: boolean;
 };
 
 const DiscoveryHeroSectionSliderBody = ({
   movieOrTvShowDetails,
+  priority,
 }: DiscoveryHeroSectionSliderBodyProps) => {
   const movieOrTvShowTitle = isMovieDetails(movieOrTvShowDetails)
     ? movieOrTvShowDetails.original_title
@@ -22,7 +24,7 @@ const DiscoveryHeroSectionSliderBody = ({
         poster_path={movieOrTvShowDetails.poster_path}
         backdrop_path={movieOrTvShowDetails.backdrop_path}
         alt={movieOrTvShowTitle}
-        priority={true}
+        priority={priority}
         imageClassNames="object-cover object-center"
       />
 

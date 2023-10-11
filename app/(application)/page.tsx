@@ -1,8 +1,11 @@
+import { Suspense } from "react";
+
+import { Separator } from "@/components/ui/separator";
 import Hero from "@/components/application-group/home-route/hero-section/Hero";
 import ColorFulBanner from "@/components/application-group/home-route/ColorFulBanner";
 import FAQ from "@/components/application-group/home-route/FAQ";
 import Discovery from "@/components/application-group/home-route/Discovery";
-import { Separator } from "@/components/ui/separator";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 // ===================================
 // Time-based Revalidation in Next.js
@@ -14,7 +17,9 @@ export default function Page() {
     <main className="text-white">
       <Hero />
       <ColorFulBanner />
-      <Discovery />
+      {/* <Suspense fallback={<LoadingSpinner />}>
+        <Discovery />
+      </Suspense> */}
       <Separator className="h-[6px] bg-slate-600" />
       <FAQ />
     </main>
