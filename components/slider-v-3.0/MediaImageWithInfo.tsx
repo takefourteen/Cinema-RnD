@@ -1,4 +1,9 @@
-type MediaImageWithDetails = {
+import { AiFillStar } from "react-icons/ai";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import Chip from "../application-group/Chip";
+import ImageLoader from "@/components/ImageLoader";
+
+type MediaImageWithInfo = {
     id: number;
     imagePath: string;
     title: string;
@@ -6,7 +11,8 @@ type MediaImageWithDetails = {
     date: string;
     runtime?: string | null;
     numberOfSeasons?: number | null;
-    priority;
+    showRatingAndYear?: boolean;
+    priority: boolean;
   };
 
 const MediaImageWithInfo = ({
@@ -17,6 +23,7 @@ const MediaImageWithInfo = ({
   date,
   runtime,
   numberOfSeasons,
+  showRatingAndYear = true,
   priority,
 }: MediaImageWithInfo) => {
   return (
@@ -40,8 +47,12 @@ const MediaImageWithInfo = ({
 
       {/* overlay the image with some info */}
       <div className="absolute inset-0 flex flex-col justify-between p-2">
-        {/* the movie rating and release date as Chip components*/}
-        <div className="flex flex-wrap justify-end gap-1">
+        {/*
+         the movie rating and release date as Chip
+         components, if they should be displayed
+        */}
+        {showRatingAndYear && (
+          <div className="flex flex-wrap justify-end gap-1">
           <Chip borderStyle="border border-white/10">
             <span className="flex items-center">
               <AiFillStar className="mr-1 inline-block fill-yellow-500 text-yellow-600" />
@@ -52,10 +63,11 @@ const MediaImageWithInfo = ({
             {new Date(date).getFullYear()}
           </Chip>
         </div>
+        )}
 
         {/* the movie title and runtime */}
         <div className="flex flex-row justify-between">
-          <h3 className="font-small-text ml-1 truncate font-semibold text-white group-hover:underline group-focus-visible:underline">
+          <h3 className="font-small-text ml-1 max-w-[80%] font-semibold text-white group-hover:underline group-focus-visible:underline">
             {title}
           </h3>
           <p className="font-small-text ml-1 text-white/80 ">

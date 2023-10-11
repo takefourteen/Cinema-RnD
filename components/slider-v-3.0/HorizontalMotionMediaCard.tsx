@@ -100,7 +100,7 @@ const HorizontalMotionMediaCard = ({
 
   return (
     <motion.li
-      className="relative h-auto flex-1"
+      className="relative h-auto min-w-[150px] sm:min-w-[175px] md:min-w-[200px] lg:min-w-[250px] xl:min-w-[300px] flex-1 "
       layout
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{
@@ -126,6 +126,7 @@ const HorizontalMotionMediaCard = ({
           date={date}
           runtime={runtime}
           numberOfSeasons={numberOfSeasons}
+          showRatingAndYear={false}
           priority={priority}
         />
       </Link>

@@ -110,7 +110,7 @@ const page = async () => {
       <RenderSlider
         trendingData={trendingMoviesData}
         sectionTitle="Blockbuster Buzz"
-        listItemsOrientation="verticle"
+        listItemsOrientation="horizontal"
         listItemsPriority={false}
       />
 
@@ -122,7 +122,7 @@ const page = async () => {
       <RenderSlider
         trendingData={trendingTVShowsData}
         sectionTitle="Binge-Worthy Picks"
-        listItemsOrientation="verticle"
+        listItemsOrientation="horizontal"
         listItemsPriority={false}
       />
 

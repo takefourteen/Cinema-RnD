@@ -5,10 +5,7 @@ import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 import { isTVSeriesDetails } from "@/lib/tmdb-api/tv-series";
 
-import { AiFillStar } from "react-icons/ai";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Chip from "../Chip";
-import ImageLoader from "@/components/ImageLoader";
+
 import MediaImageWithInfo from "@/components/slider-v-3.0/MediaImageWithInfo";
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
