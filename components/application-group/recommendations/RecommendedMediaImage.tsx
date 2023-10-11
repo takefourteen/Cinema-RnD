@@ -5,9 +5,9 @@ import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 import { isTVSeriesDetails } from "@/lib/tmdb-api/tv-series";
 
-
-import MediaImageWithInfo from "@/components/slider-v-3.0/MediaImageWithInfo";
-
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+import ImageLoader from "@/components/ImageLoader";
+import DetailsOnMediaCard from "@/components/application-group/DetailsOnMediaCard";
 const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
 
 type RecommendedMediaImageProps = {
@@ -74,16 +74,35 @@ const RecommendedMediaImage = async ({
   return (
     <li className="relative h-auto flex-1">
       <Link href={moviePageUrl} className="group rounded-md">
-        <MediaImageWithInfo
-          id={mediaDetails.id}
-          imagePath={imageSrc}
-          title={title}
-          rating={mediaDetails.vote_average}
-          date={date}
-          runtime={runtime}
-          numberOfSeasons={numberOfSeasons}
-          priority={true}
-        />
+        <AspectRatio ratio={16 / 9}>
+          <ImageLoader
+            loaderType="skeleton"
+            src={imageSrc}
+            alt={`${title} poster`}
+            fill
+            sizes=" (max-width: 1024px) 50vw, (max-width: 1280px) 25vw, 25vw"
+            priority={false}
+            className="object-cover transition-all duration-300 ease-in-out group-hover:ring-4 group-hover:ring-slate-950 group-hover:ring-offset-2 group-focus-visible:ring-4  group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
+            style={{ filter: "brightness(0.9)" }}
+          />
+
+          {/* overlay the image with a grain texture */}
+          {/* <div className="absolute inset-0 bg-[url('/grain-texture-image.svg')] opacity-30" /> */}
+
+          {/* small dark overlay over the top and bottom of img to make the info readable */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+
+          {/* overlay the image with some info */}
+
+          <DetailsOnMediaCard
+            title={title}
+            rating={mediaDetails.vote_average}
+            date={date}
+            runtime={runtime}
+            numberOfSeasons={numberOfSeasons}
+            showRatingAndYear={true}
+          />
+        </AspectRatio>
       </Link>
     </li>
   );
