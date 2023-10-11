@@ -13,6 +13,7 @@ const PopularTvShowsSlider = async () => {
       listItemsOrientation="verticle"
       listItemsPriority={true}
       viewAllLink="/tv/popular"
+      showSliderProgress={false}
     />
   );
 };
