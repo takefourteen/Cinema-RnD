@@ -85,7 +85,7 @@ const Navbar = () => {
             {/* show lg logo on lg screens */}
             <Image
               src={logo}
-              alt="Netflix Logo"
+              alt="Cozy Cinema Logo"
               width={125}
               priority
               className="w-[100px] lg:w-[125px] "
