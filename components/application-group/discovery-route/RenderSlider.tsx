@@ -1,10 +1,13 @@
 "use client";
 
+import { Suspense } from "react";
+
 import SectionHeader from "@/components/SectionHeader";
 import SliderBody from "@/components/slider-v-3.0/SliderBody";
 import Slider from "@/components/slider-v-3.0/Slider";
 import MotionMediaCard from "@/components/slider-v-3.0/MotionMediaCard";
 import HorizontalMotionMediaCard from "@/components/slider-v-3.0/HorizontalMotionMediaCard";
+import Skeleton from "@/components/Skeleton";
 
 interface RenderSliderProps {
   trendingData: any[];
@@ -44,12 +47,14 @@ const RenderSlider = ({
             priority={listItemsPriority}
           />
         ) : (
-          <HorizontalMotionMediaCard
+         <Suspense fallback={<Skeleton/>}>
+           <HorizontalMotionMediaCard
             key={item.id}
             mediaId={item.id}
             mediaType={item.original_name ? "tv" : "movie"}
             priority={listItemsPriority}
           />
+          </Suspense>
         )
       }
     />
