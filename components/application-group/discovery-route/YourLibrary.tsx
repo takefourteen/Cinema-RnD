@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { BookmarkIcon2 } from "@/components/Icons";
+import { BookmarkIcon2 } from "@/components/ui/icons/Icons";
 import SectionHeader from "@/components/SectionHeader";
 import { DetailsButton } from "@/components/DetailsButton";
 

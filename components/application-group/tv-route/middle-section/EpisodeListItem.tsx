@@ -1,4 +1,4 @@
-import { PlayIcon } from "@/components/Icons";
+import { PlayIcon } from "@/components/ui/icons/Icons";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
 import Overview from "@/components/application-group/Overview";

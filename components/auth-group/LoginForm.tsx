@@ -6,7 +6,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
-import { ErrorIcon } from "../Icons";
+import { ErrorIcon } from "@/components/ui/icons/Icons";
 import { PiSpinnerBold } from "react-icons/pi";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
