@@ -10,6 +10,8 @@ const PopularMoviesSlider = async () => {
     <RenderSlider
       trendingData={popularMovies.slice(0, 11)}
       sectionTitle="Popular Movies"
+      listItemsOrientation="verticle"
+        listItemsPriority={true}
       viewAllLink="/movies/popular"
     />
   );

@@ -10,6 +10,8 @@ const PopularTvShowsSlider = async () => {
     <RenderSlider
       trendingData={popularTVSeries.slice(0, 11)}
       sectionTitle="Popular Tv Shows"
+      listItemsOrientation="verticle"
+      listItemsPriority={true}
       viewAllLink="/tv/popular"
     />
   );

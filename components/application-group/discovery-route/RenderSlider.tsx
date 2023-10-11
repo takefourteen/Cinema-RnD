@@ -4,19 +4,22 @@ import SectionHeader from "@/components/SectionHeader";
 import SliderBody from "@/components/slider-v-3.0/SliderBody";
 import Slider from "@/components/slider-v-3.0/Slider";
 import MotionMediaCard from "@/components/slider-v-3.0/MotionMediaCard";
+import HorizontalMotionMediaCard from "@/components/slider-v-3.0/HorizontalMotionMediaCard";
 
 interface RenderSliderProps {
   trendingData: any[];
+  listItemsOrientation: "verticle" | "horizontal";
   sectionTitle: string;
   viewAllLink?: string;
-  priority?: boolean;
+  listItemsPriority?: boolean;
 }
 
 const RenderSlider = ({
   trendingData,
+  listItemsOrientation,
   sectionTitle,
   viewAllLink,
-  priority = false,
+  listItemsPriority = false,
 }: RenderSliderProps) => {
   // Define slider header component
   const sliderHeaderComponent = (
@@ -32,14 +35,23 @@ const RenderSlider = ({
       classNames={{
         ulList: "gap-x-4",
       }}
-      renderSliderList={(item) => (
-        <MotionMediaCard
-          key={item.id}
-          data={item}
-          aspect_ratio="2:3"
-          priority={priority}
-        />
-      )}
+      renderSliderList={(item) =>
+        listItemsOrientation === "verticle" ? (
+          <MotionMediaCard
+            key={item.id}
+            data={item}
+            aspect_ratio="2:3"
+            priority={listItemsPriority}
+          />
+        ) : (
+          <HorizontalMotionMediaCard
+            key={item.id}
+            mediaId={item.id}
+            mediaType={item.original_name ? "tv" : "movie"}
+            priority={listItemsPriority}
+          />
+        )
+      }
     />
   );
 
