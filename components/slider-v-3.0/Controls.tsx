@@ -13,7 +13,7 @@ type Props = {
     React.SetStateAction<CurrentSlideData>
   >;
   initData: any;
-  showProgress?: boolean;
+  showSliderProgress?: boolean;
 };
 
 function Controls({
@@ -25,7 +25,7 @@ function Controls({
   handleTransitionData,
   handleCurrentSlideData,
   initData,
-  showProgress = true,
+  showSliderProgress = true,
 }: Props) {
   const handlePrev = () => {
     handleData((prevData) => [
@@ -63,8 +63,8 @@ function Controls({
         <IoIosArrowForward className=" text-xl" />
       </SliderButton>
 
-      {/* show progress if showProgress is true */}
-      {showProgress && (
+      {/* show progress if showSliderProgress is true */}
+      {showSliderProgress && (
         <Progress
           curIndex={currentSlideData.index}
           length={sliderData.length}
