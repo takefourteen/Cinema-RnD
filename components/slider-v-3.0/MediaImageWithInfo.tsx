@@ -4,16 +4,16 @@ import Chip from "../application-group/Chip";
 import ImageLoader from "@/components/ImageLoader";
 
 type MediaImageWithInfo = {
-    id: number;
-    imagePath: string;
-    title: string;
-    rating: number;
-    date: string;
-    runtime?: string | null;
-    numberOfSeasons?: number | null;
-    showRatingAndYear?: boolean;
-    priority: boolean;
-  };
+  id: number;
+  imagePath: string;
+  title: string;
+  rating: number;
+  date: string;
+  runtime?: string | null;
+  numberOfSeasons?: number | null;
+  showRatingAndYear?: boolean;
+  priority: boolean;
+};
 
 const MediaImageWithInfo = ({
   id,
@@ -46,31 +46,31 @@ const MediaImageWithInfo = ({
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
 
       {/* overlay the image with some info */}
-      <div className="absolute inset-0 flex flex-col justify-between p-2">
+      <div className="absolute inset-0 h-full">
         {/*
          the movie rating and release date as Chip
          components, if they should be displayed
         */}
         {showRatingAndYear && (
-          <div className="flex flex-wrap justify-end gap-1">
-          <Chip borderStyle="border border-white/10">
-            <span className="flex items-center">
-              <AiFillStar className="mr-1 inline-block fill-yellow-500 text-yellow-600" />
-              {rating}
-            </span>
-          </Chip>
-          <Chip borderStyle="border border-white/10">
-            {new Date(date).getFullYear()}
-          </Chip>
-        </div>
+          <div className="absolute left-0 right-0 top-0 mx-2 mt-2 flex flex-wrap justify-end gap-1">
+            <Chip borderStyle="border border-white/10">
+              <span className="flex items-center">
+                <AiFillStar className="mr-1 inline-block fill-yellow-500 text-yellow-600" />
+                {rating}
+              </span>
+            </Chip>
+            <Chip borderStyle="border border-white/10">
+              {new Date(date).getFullYear()}
+            </Chip>
+          </div>
         )}
 
         {/* the movie title and runtime */}
-        <div className="flex flex-row justify-between">
-          <h3 className="font-small-text ml-1 max-w-[80%] font-semibold text-white group-hover:underline group-focus-visible:underline">
+        <div className="absolute bottom-0  left-0 right-0  mx-2 mb-2 flex justify-between ">
+          <h3 className="font-small-text font-semibold text-white group-hover:underline group-focus-visible:underline">
             {title}
           </h3>
-          <p className="font-small-text ml-1 text-white/80 ">
+          <p className="font-small-text w-max text-white/80 ">
             {runtime ? runtime : `${numberOfSeasons} Seasons`}
           </p>
         </div>
