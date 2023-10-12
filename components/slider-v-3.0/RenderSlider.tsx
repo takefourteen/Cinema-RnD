@@ -10,7 +10,7 @@ import HorizontalMotionMediaCard from "@/components/slider-v-3.0/HorizontalMotio
 import Skeleton from "@/components/Skeleton";
 
 interface RenderSliderProps {
-  trendingData: any[];
+  sliderData: any[];
   listItemsOrientation: "verticle" | "horizontal";
   sectionTitle: string;
   showSliderProgress: boolean;
@@ -20,7 +20,7 @@ interface RenderSliderProps {
 }
 
 const RenderSlider = ({
-  trendingData,
+  sliderData,
   listItemsOrientation,
   sectionTitle,
   viewAllLink,
@@ -36,8 +36,8 @@ const RenderSlider = ({
   // Define slider body component
   const sliderBodyComponent = (
     <SliderBody
-      sliderData={trendingData}
-      initData={trendingData[0]}
+      sliderData={sliderData}
+      initData={sliderData[0]}
       showSliderProgress={showSliderProgress}
       classNames={{
         ulList: "relative gap-x-4 ",

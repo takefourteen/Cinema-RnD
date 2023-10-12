@@ -20,17 +20,17 @@ const StreamingServicesSlideShow = dynamic(
     import(
       "@/components/application-group/discovery-route/streaming-services/StreamingServicesSlideShow"
     ),
-  { ssr: false },
+  { ssr: false }
 );
 const RenderSlider = dynamic(
-  () => import("@/components/slider-v-3.0/RenderSlider"),
+  () => import("@/components/slider-v-3.0/RenderSlider")
 );
 const CollectionsSlideShow = dynamic(
   () =>
     import(
       "@/components/application-group/discovery-route/collections/CollectionsSlideShow"
     ),
-  { ssr: false },
+  { ssr: false }
 );
 /* 
 import StreamingServicesSlideShow from "@/components/application-group/discovery-route/streaming-services/StreamingServicesSlideShow";
@@ -111,7 +111,7 @@ const page = async () => {
         --------------
        */}
       <RenderSlider
-        trendingData={trendingMoviesData}
+        sliderData={trendingMoviesData}
         sectionTitle="Blockbuster Buzz"
         listItemsOrientation="verticle"
         listItemsPriority={false}
@@ -124,7 +124,7 @@ const page = async () => {
         -----------------
       */}
       <RenderSlider
-        trendingData={trendingTVShowsData}
+        sliderData={trendingTVShowsData}
         sectionTitle="Binge-Worthy Picks"
         listItemsOrientation="horizontal"
         listItemsPriority={false}
