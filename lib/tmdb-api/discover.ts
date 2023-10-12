@@ -1,10 +1,20 @@
-interface Genres {
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+const BASE_URL = "https://api.themoviedb.org/3";
+
+import { filterResultsByLanguage } from "@/helpers/filterResults";
+import { getVideoPlayerUrl } from "@/helpers/getVideoPlayerUrl";
+import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
+
+const baseMovieURL = 'https://api.themoviedb.org/3/discover/movie';
+const baseTVSeriesURL = 'https://api.themoviedb.org/3/discover/tv';
+
+interface GenreList {
     [key: string]: {
       [key: string]: number[];
     };
   }
   
-  const genres: Genres = {
+  const genres: GenreList = {
     movies: {
       latest: [],
       actionAdventure: [28, 12],
@@ -27,8 +37,6 @@ interface Genres {
     },
   };
   
-  const baseMovieURL = 'https://api.themoviedb.org/3/discover/movie';
-  const baseTVSeriesURL = 'https://api.themoviedb.org/3/discover/tv';
   
   const generateAPIUrl = (category: string, type: string): string => {
     const genreIds = genres[type][category].join(',');
@@ -38,7 +46,7 @@ interface Genres {
 
 
 
-  
+
   
   
   /* Example usage
