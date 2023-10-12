@@ -137,7 +137,7 @@ const page = async () => {
         Collections
         -----------------
        */}
-      <CollectionsSlideShow />
+      {/* <CollectionsSlideShow /> */}
 
       {/*
         -----------------
