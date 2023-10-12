@@ -17,6 +17,14 @@ type HomePageData<T> = {
 export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
   const trendingMoviesPromise = fetchMultiplePagesOfTrendingMovies(2);
   const trendingTvShowsPromise = fetchMultiplePagesOfTrendingTVShows(2);
+  const actionAdventureMoviesPromise = fetchCategory({
+    category: "actionAdventure",
+    type: "movies",
+  });
+  const actionAdventureTvSeriesPromise = fetchCategory({
+    category: "actionAdventure",
+    type: "tvSeries",
+  });
   const movieDocumentariesPromise = fetchCategory({
     category: "documentaries",
     type: "movies",
@@ -32,36 +40,53 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     trendingTvShows,
     movieDocumentaries,
     tvSeriesDocumentaries,
+    actionAdventureMovies,
+    actionAdventureTvSeries,
   ] = await Promise.all([
     trendingMoviesPromise,
     trendingTvShowsPromise,
     movieDocumentariesPromise,
     tvSeriesDocumentariesPromise,
+    actionAdventureMoviesPromise,
+    actionAdventureTvSeriesPromise,
   ]);
 
-  // Combine movieDocumentaries and tvSeriesDocumentaries
+  // Combine movie and tv series results
   const allDocumentaries = [...movieDocumentaries, ...tvSeriesDocumentaries];
+  const allActionAdventure = [
+    ...actionAdventureMovies,
+    ...actionAdventureTvSeries,
+  ];
 
   // Sort the combined array by popularity
   const sortedDocumentaries = sortResultsByPopularity(allDocumentaries);
+  const sortedActionAdventure = sortResultsByPopularity(allActionAdventure);
 
   // Return the data in the shape we need for the home page
   return [
     {
       data: trendingMovies,
       title: "Latest Blockbuster Movies",
-      orientationStyle: "horizontal",
+      orientationStyle: "vertical",
       hasPriority: true,
       viewWithProgressBar: true,
-      standOut: true,
+      standOut: false,
     },
     {
       data: trendingTvShows,
       title: "Latest Binge-Worthy TV Shows",
-      orientationStyle: "horizontal",
+      orientationStyle: "vertical",
       hasPriority: true,
       viewWithProgressBar: true,
-      standOut: true,
+      standOut: false,
+    },
+    {
+      data: sortedActionAdventure,
+      title: "Action & Adventure",
+      orientationStyle: "horizontal",
+      hasPriority: false,
+      viewWithProgressBar: false,
+      standOut: false,
     },
     {
       data: sortedDocumentaries,

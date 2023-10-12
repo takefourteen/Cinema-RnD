@@ -1,4 +1,5 @@
 import { filterResultsByLanguage } from "@/helpers/filterResults";
+import { filterOutZeroRatedResults } from "@/helpers/filterResults";
 import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
 
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
@@ -64,11 +65,15 @@ export async function fetchTVSeriesRecommendations(
 
     const data = await response.json();
 
+    // filter out zero or null ratings
+    data.results = filterOutZeroRatedResults(data.results);
+
     // filter out results that are not in English
     const filteredByLanguage: RecommendedTvSeries[] = filterResultsByLanguage(
       data.results,
       "en",
-    );
+    );   
+    
 
     // filter out results that do not have a video url
     const filteredByVideoUrl: RecommendedTvSeries[] =
