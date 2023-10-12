@@ -16,6 +16,7 @@ interface RenderSliderProps {
   showSliderProgress: boolean;
   viewAllLink?: string;
   listItemsPriority?: boolean;
+  largeListItem?: boolean;
 }
 
 const RenderSlider = ({
@@ -25,6 +26,7 @@ const RenderSlider = ({
   viewAllLink,
   listItemsPriority = false,
   showSliderProgress = true,
+  largeListItem = false,
 }: RenderSliderProps) => {
   // Define slider header component
   const sliderHeaderComponent = (
@@ -38,7 +40,7 @@ const RenderSlider = ({
       initData={trendingData[0]}
       showSliderProgress={showSliderProgress}
       classNames={{
-        ulList: "gap-x-4",
+        ulList: "relative gap-x-4 ",
       }}
       renderSliderList={(item) =>
         listItemsOrientation === "verticle" ? (
@@ -46,15 +48,18 @@ const RenderSlider = ({
             key={item.id}
             data={item}
             aspect_ratio="2:3"
+            loaderType="skeleton"
             priority={listItemsPriority}
+            showTitle={false}
           />
         ) : (
-          <Suspense fallback={<Skeleton />}>
+          <Suspense fallback={<Skeleton rows={0} showOverlay={false} />}>
             <HorizontalMotionMediaCard
               key={item.id}
               mediaId={item.id}
               mediaType={item.original_name ? "tv" : "movie"}
               priority={listItemsPriority}
+              imgSize={largeListItem ? "large" : "default"}
             />
           </Suspense>
         )
