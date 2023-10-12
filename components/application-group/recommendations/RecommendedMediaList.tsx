@@ -40,7 +40,9 @@ const RecommendedMediaList = async ({
     return (
       <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
         {Array.from({ length: 8 }, (_, i) => i + 1).map((_, i) => (
-          <Skeleton key={i} rows={0} mainItemHeight={"100px"} />
+          <li key={i}>
+            <Skeleton rows={0} mainItemHeight={"100px"} />
+          </li>
         ))}
       </ul>
     );

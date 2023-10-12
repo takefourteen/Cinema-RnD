@@ -42,9 +42,7 @@ const ExplorerPanel = ({ tabConfigs }: TabsNavigationProps) => {
                 </h4>
               }
             >
-              <Suspense fallback={<LoadingSpinner />}>
-                <>{config.content}</>
-              </Suspense>
+              <>{config.content}</>
             </Tab>
           ))}
         </Tabs>

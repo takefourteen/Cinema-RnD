@@ -47,7 +47,10 @@ const page = ({ params: { id } }: PageProps) => {
         <MovieDetailsTop movieId={movieId} />
       </Suspense>
       {/* Middle Section */}
-      <ExplorerPanel tabConfigs={tabConfigs} />;
+
+      <Suspense fallback={null}>
+        <ExplorerPanel tabConfigs={tabConfigs} />
+      </Suspense>
     </section>
   );
 };
