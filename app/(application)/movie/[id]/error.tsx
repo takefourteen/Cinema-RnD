@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 import { BiArrowBack } from "react-icons/bi";
+import { BsArrowLeft as LeftArrow } from "react-icons/bs";
 import { AiOutlineReload } from "react-icons/ai";
 // import logo from "@/assets/images/netflix-logo.webp";
 import { errorImages } from "@/constants/index"; // array of error images
@@ -13,6 +14,7 @@ import { Button } from "@/components/ui/button";
 
 import logo from "@/assets/images/logos/cozycinema-logo.webp";
 import smLogo from "@/assets/images/logos/cozycinema-logo-c.webp";
+import { DetailsButton } from "@/components/DetailsButton";
 
 //   RANDOM NUMBER GENERATOR
 function getRandomInt(max: number) {
@@ -27,6 +29,10 @@ export default function Error({
   reset: () => void;
 }) {
   const router = useRouter();
+
+  const handleGoBack = () => {
+    router.back();
+  };
 
   // random number between 0 and the size of the errorImages array
   const randomNum = getRandomInt(errorImages.length - 1);
@@ -52,14 +58,22 @@ export default function Error({
           {error.message}
         </p>
         {/* return home btn */}
-        <Button
+        {/* <Button
           asChild
           className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#454545] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
         >
           <Link href="/">
             <BiArrowBack className="mr-2 h-4 w-4 rotate-45" /> Return Home
           </Link>
-        </Button>
+        </Button> */}
+
+        <DetailsButton
+          onClick={handleGoBack}
+          className="group flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#002be7ff] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
+        >
+          <LeftArrow className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-0.5 group-hover:scale-110" />{" "}
+          Go Back
+        </DetailsButton>
       </section>
 
       {/* refresh screen btn */}

@@ -6,12 +6,14 @@ import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 import { BiArrowBack } from "react-icons/bi";
+import { BsArrowLeft as LeftArrow } from "react-icons/bs";
+
 import { AiOutlineReload } from "react-icons/ai";
+import { Button } from "@/components/ui/button";
+import { DetailsButton } from "@/components/DetailsButton";
 // import logo from "@/assets/images/netflix-logo.webp";
 import logo from "@/assets/images/logos/cozycinema-logo.webp";
 import smLogo from "@/assets/images/logos/cozycinema-logo-c.webp";
-
-import { Button } from "@/components/ui/button";
 
 export default function Error({
   error,
@@ -20,8 +22,13 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
-  const router = useRouter();
   console.log(error.message);
+  const router = useRouter();
+
+  const handleGoBack = () => {
+    router.back();
+  };
+
   return (
     <div className="master-container mx-auto flex h-screen flex-col items-center justify-center text-white  lg:max-w-[80%]">
       <Image src={logo} alt="Logo" width={200} className="mb-10" />
@@ -38,15 +45,14 @@ export default function Error({
         {error.message}
       </p>
 
-      {/* return home btn */}
-      <Button
-        asChild
-        className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#454545] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
-      >
-        <Link href="/">
-          <BiArrowBack className="mr-2 h-4 w-4 rotate-45" /> Return Home
-        </Link>
-      </Button>
+      {/* return home and back btns */}
+        <DetailsButton
+          onClick={handleGoBack}
+          className="group flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#002be7ff] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
+        >
+          <LeftArrow className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-0.5 group-hover:scale-110" />{" "}
+          Go Back
+        </DetailsButton>
 
       {/* refresh screen btn */}
       {/* <Button
