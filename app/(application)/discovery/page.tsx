@@ -78,20 +78,19 @@ const page = async () => {
         Hero Section 
         -----------
        */}
-      <Suspense fallback={<LoadingSpinner />}>
-        <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
-          <ul className="flex gap-x-0">
-            {movieAndTvShowDetails.map((item, index) => (
+      <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
+        <ul className="flex gap-x-0">
+          {movieAndTvShowDetails.map((item, index) => (
+            <Suspense key={item.id} fallback={<LoadingSpinner />}>
               <DiscoveryHeroSectionSliderBody
-                key={item.id}
                 movieOrTvShowDetails={item}
                 // only show priority for the first item
                 priority={index === 0}
               />
-            ))}
-          </ul>
-        </DiscoverySlider>
-      </Suspense>
+            </Suspense>
+          ))}
+        </ul>
+      </DiscoverySlider>
       {/*
         ------------------
         Streaming services 
@@ -130,6 +129,7 @@ const page = async () => {
         listItemsOrientation="horizontal"
         listItemsPriority={false}
         showSliderProgress={true}
+        largeListItem={true}
       />
 
       {/*
