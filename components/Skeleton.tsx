@@ -2,13 +2,13 @@ import "./Skeleton.css";
 
 interface SkeletonProps {
   rows?: number;
-  mainItemHeight?: number;
+  mainItemHeight?: string;
   showOverlay?: boolean;
 }
 
 const Skeleton = ({
   rows = 1,
-  mainItemHeight = 50,
+  mainItemHeight = "50px",
   showOverlay = true,
 }: SkeletonProps) => {
   return (
@@ -17,7 +17,7 @@ const Skeleton = ({
         className="gradientAnimation h-full w-full"
         style={{
           // animationDuration: "1s",
-          minHeight: `${mainItemHeight}px`,
+          minHeight: `${mainItemHeight}`,
         }}
       />
       {rows >= 1 && (
