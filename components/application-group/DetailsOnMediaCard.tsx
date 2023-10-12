@@ -39,10 +39,10 @@ const DetailsOnMediaCard = ({
       )}
 
       {/* the movie title and runtime */}
-      <h3 className="font-small-text absolute bottom-2 left-1 max-w-[70%] font-semibold text-white group-hover:underline group-focus-visible:underline lg:left-2">
+      <h3 className="font-small-text absolute bottom-2  max-w-[70%] font-semibold text-white group-hover:underline group-focus-visible:underline left-2">
         {title}
       </h3>
-      <p className="font-small-text absolute bottom-2 right-1 w-max text-white/80 lg:right-2 ">
+      <p className="font-small-text absolute bottom-2  w-max text-white/80 right-2 ">
         {runtime
           ? runtime
           : numberOfSeasons && numberOfSeasons > 1
