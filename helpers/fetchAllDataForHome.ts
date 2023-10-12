@@ -65,7 +65,7 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
   // Return the data in the shape we need for the home page
   return [
     {
-      data: trendingMovies,
+      data: trendingMovies.slice(0, 10),
       title: "Latest Blockbuster Movies",
       orientationStyle: "vertical",
       hasPriority: true,
@@ -73,7 +73,7 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
       standOut: false,
     },
     {
-      data: trendingTvShows,
+      data: trendingTvShows.slice(0, 10),
       title: "Latest Binge-Worthy TV Shows",
       orientationStyle: "vertical",
       hasPriority: true,
@@ -81,7 +81,7 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
       standOut: false,
     },
     {
-      data: sortedActionAdventure,
+      data: sortedActionAdventure.slice(0, 10),
       title: "Action & Adventure",
       orientationStyle: "horizontal",
       hasPriority: false,
@@ -89,7 +89,7 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
       standOut: false,
     },
     {
-      data: sortedDocumentaries,
+      data: sortedDocumentaries.slice(0, 10),
       title: "Documentaries",
       orientationStyle: "horizontal",
       hasPriority: false,
