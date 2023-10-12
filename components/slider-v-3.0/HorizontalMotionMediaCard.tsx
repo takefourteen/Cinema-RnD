@@ -10,8 +10,8 @@ import { isMovieDetails } from "@/lib/tmdb-api/movies";
 import { isTVSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
-import LoadingSpinner from "../LoadingSpinner";
 import DetailsOnMediaCard from "../application-group/DetailsOnMediaCard";
+import Skeleton from "../Skeleton";
 
 type HorizontalMotionMediaCardProps = {
   mediaId: string;
@@ -21,6 +21,21 @@ type HorizontalMotionMediaCardProps = {
 };
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
+
+const listItemSize = {
+  default: {
+    width:
+      "min-w-[225px] sm:min-w-[275px] md:min-w-[325px] lg:min-w-[325px] xl:min-w-[375px] ",
+    sizes:
+      "(max-width: 640px) 225px, (max-width: 768px) 275px, (max-width: 1024px) 325px, (max-width: 1280px) 375px",
+  },
+
+  large: {
+    width: "min-w-[375px] md:min-w-[425px] lg:min-w-[475px] xl:min-w-[500px] ",
+    sizes:
+      "(max-width: 640px) 375px, (max-width: 768px) 425px, (max-width: 1024px) 475px, (max-width: 1280px) 500px",
+  },
+};
 
 const HorizontalMotionMediaCard = ({
   mediaId,
@@ -51,7 +66,13 @@ const HorizontalMotionMediaCard = ({
   } = useSWR(mediaId, fetcherWithDelay);
 
   if (isLoading) {
-    return <LoadingSpinner />;
+    return (
+      <div className={`relative h-auto flex-1  ${listItemSize[imgSize].width}`}>
+        <AspectRatio ratio={3 / 2}>
+          <Skeleton rows={0} showOverlay={false} />
+        </AspectRatio>
+      </div>
+    );
   }
 
   if (error) {
@@ -110,25 +131,9 @@ const HorizontalMotionMediaCard = ({
     return null;
   }
 
-  const size = {
-    default: {
-      width:
-        "min-w-[225px] sm:min-w-[275px] md:min-w-[325px] lg:min-w-[325px] xl:min-w-[375px] ",
-      sizes:
-        "(max-width: 640px) 225px, (max-width: 768px) 275px, (max-width: 1024px) 325px, (max-width: 1280px) 375px",
-    },
-
-    large: {
-      width:
-        "min-w-[375px] md:min-w-[425px] lg:min-w-[475px] xl:min-w-[500px] ",
-      sizes:
-        "(max-width: 640px) 375px, (max-width: 768px) 425px, (max-width: 1024px) 475px, (max-width: 1280px) 500px",
-    },
-  };
-
   return (
     <motion.li
-      className={`relative h-auto flex-1 rounded-md ${size[imgSize].width}`}
+      className={`relative h-auto flex-1  ${listItemSize[imgSize].width}`}
       layout
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{
@@ -152,9 +157,9 @@ const HorizontalMotionMediaCard = ({
             src={imageSrc}
             alt={`${title} poster`}
             fill
-            sizes={size[imgSize].sizes}
+            sizes={listItemSize[imgSize].sizes}
             priority={priority}
-            className="rounded-md object-cover transition-all duration-300 ease-in-out group-hover:ring-4 group-hover:ring-slate-950 group-hover:ring-offset-2 group-focus-visible:ring-4  group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
+            className=" object-cover transition-all duration-300 ease-in-out group-hover:ring-4 group-hover:ring-slate-950 group-hover:ring-offset-2 group-focus-visible:ring-4  group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
             style={{ filter: "brightness(0.9)" }}
           />
 
@@ -162,7 +167,7 @@ const HorizontalMotionMediaCard = ({
           {/* <div className="absolute inset-0 bg-[url('/grain-texture-image.svg')] opacity-30" /> */}
 
           {/* small dark overlay over the top and bottom of img to make the info readable */}
-          <div className="absolute inset-0 rounded-md bg-gradient-to-t from-black/80 via-transparent to-black/20" />
+          <div className="absolute inset-0  bg-gradient-to-t from-black/80 via-transparent to-black/20" />
 
           {/* overlay the image with some info */}
 
@@ -172,7 +177,7 @@ const HorizontalMotionMediaCard = ({
             date={date}
             runtime={runtime}
             numberOfSeasons={numberOfSeasons}
-            showRatingAndYear={false}
+            showRatingAndYear={true}
           />
         </AspectRatio>
       </Link>

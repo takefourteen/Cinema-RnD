@@ -53,7 +53,7 @@ const RenderSlider = ({
             showTitle={false}
           />
         ) : (
-          <Suspense fallback={<Skeleton rows={0} showOverlay={false} />}>
+          <Suspense>
             <HorizontalMotionMediaCard
               key={item.id}
               mediaId={item.id}
