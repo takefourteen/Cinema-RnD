@@ -8,17 +8,12 @@ import Skeleton from "@/components/Skeleton";
 
 interface ImageLoaderProps
   extends React.ComponentPropsWithoutRef<typeof Image> {
-  loaderType: "spinner" | "skeleton" ;
+  loaderType: "spinner" | "skeleton";
   src: StaticImageData | string;
   alt: string;
 }
 
-const ImageLoader = ({
-  loaderType,
-  src,
-  alt,
-  ...props
-}: ImageLoaderProps) => {
+const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const handleImageLoad = () => {
@@ -30,11 +25,11 @@ const ImageLoader = ({
     <>
       {isLoading && (
         <div className="absolute inset-0">
-          {loaderType === "spinner" && (
-            <Spinner color="default" className="absolute inset-0" />
-          )}
           {loaderType === "skeleton" && (
             <Skeleton rows={0} showOverlay={false} />
+          )}
+          {loaderType === "spinner" && (
+            <Spinner color="default" className="absolute inset-0" />
           )}
         </div>
       )}
