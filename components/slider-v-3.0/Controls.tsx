@@ -1,6 +1,7 @@
 import React from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import Progress from "./Progress";
+import SliderButton from "./SliderButton";
 
 type Props = {
   currentSlideData: CurrentSlideData;
@@ -75,24 +76,3 @@ function Controls({
 }
 
 export default Controls;
-
-const SliderButton = ({
-  children,
-  handleClick,
-  ...props
-}: {
-  children: React.ReactNode;
-  handleClick: () => void;
-}) => {
-  return (
-    <button
-      className=" flex h-10 w-10 items-center justify-center rounded-full border-[1px] border-[#fdfdfd5f] text-white transition duration-300 ease-in-out hover:bg-white hover:text-black md:h-12
-md:w-12 lg:h-14 lg:w-14
-"
-      onClick={handleClick}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-};
