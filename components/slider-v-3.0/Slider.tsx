@@ -2,6 +2,7 @@
 
 import { ReactElement, ReactNode } from "react";
 import { AnimatePresence } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 import SliderBody from "./SliderBody";
 
@@ -20,15 +21,23 @@ const Slider = ({
   sliderHeaderComponent,
   sliderBodyComponent,
 }: SliderProps) => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.5,
+    // delay: 100, //milliseconds
+  });
+
   return (
     <AnimatePresence>
-      <section className=" master-container pt-[64px] lg:pt-[72px]">
+      <section className=" master-container pt-[64px] lg:pt-[72px]" ref={ref}>
         <div className="flex h-full w-full grid-cols-10 flex-col md:grid">
           {sliderHeaderComponent}
 
-          <div className=" col-span-6 mt-4 flex h-full flex-1 flex-col justify-start md:justify-center lg:mt-6 ">
-            {sliderBodyComponent}
-          </div>
+          {inView && (
+            <div className=" col-span-6 mt-4 flex h-full flex-1 flex-col justify-start md:justify-center lg:mt-6 ">
+              {sliderBodyComponent}
+            </div>
+          )}
         </div>
       </section>
     </AnimatePresence>
