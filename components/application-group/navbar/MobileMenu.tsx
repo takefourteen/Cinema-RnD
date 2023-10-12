@@ -89,7 +89,12 @@ const MobileMenu = ({ onDarkenBackground }: MobileMenuProps) => {
       {isOpen && (
         <>
           <ul className="absolute left-0 right-0 top-[78px] z-50 overflow-hidden bg-black/90 px-6  py-6 shadow-md transition-all md:right-auto lg:top-[90px]">
-            <li className=" px-10  hover:bg-[#40445999]">
+            <li className=" px-10 hover:bg-[#40445999]">
+              <NavLink href="/" onClick={handleNavLinkClick}>
+                Home
+              </NavLink>
+            </li>
+            <li className="mt-4 px-10  hover:bg-[#40445999]">
               <NavLink href="#" onClick={handleNavLinkClick}>
                 movies
               </NavLink>
@@ -97,11 +102,6 @@ const MobileMenu = ({ onDarkenBackground }: MobileMenuProps) => {
             <li className="mt-4 px-10 hover:bg-[#40445999]">
               <NavLink href="#" onClick={handleNavLinkClick}>
                 shows
-              </NavLink>
-            </li>
-            <li className="mt-4 px-10 hover:bg-[#40445999]">
-              <NavLink href="/discovery" onClick={handleNavLinkClick}>
-                Discovery
               </NavLink>
             </li>
             <li className="mt-4 px-10 hover:bg-[#40445999]">

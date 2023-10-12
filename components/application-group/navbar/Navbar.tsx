@@ -104,14 +104,14 @@ const Navbar = () => {
 
         {/* menu for lg screens */}
         <div className="hidden items-center gap-x-2  uppercase lg:flex">
+          <NavLink href="/" active={pathname === "/discovery"}>
+            Home
+          </NavLink>
           <NavLink href="#" active={pathname === "/movies"}>
             movies
           </NavLink>
           <NavLink href="#" active={pathname === "/tv-shows"}>
             tv shows
-          </NavLink>
-          <NavLink href="/discovery" active={pathname === "/discovery"}>
-            discovery
           </NavLink>
           <NavLink href="/categories" active={pathname === "/categories"}>
             categories

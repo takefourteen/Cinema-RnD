@@ -1,27 +1,138 @@
 import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
-import { Separator } from "@/components/ui/separator";
-import Hero from "@/components/application-group/home-route/hero-section/Hero";
-import ColorFulBanner from "@/components/application-group/home-route/ColorFulBanner";
-import FAQ from "@/components/application-group/home-route/FAQ";
-import Discovery from "@/components/application-group/home-route/Discovery";
+import {
+  fetchMultiplePagesOfTrendingMovies,
+  fetchMultiplePagesOfTrendingTVShows,
+} from "@/lib/tmdb-api/trending";
+import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
+import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
+
 import LoadingSpinner from "@/components/LoadingSpinner";
+import DiscoverySlider from "@/components/application-group/home-route/hero-section/slider/DiscoverySlider";
+import DiscoveryHeroSectionSliderBody from "@/components/application-group/home-route/hero-section/slider/DiscoveryHeroSectionSliderBody";
+import YourLibrary from "@/components/application-group/home-route/YourLibrary";
+import StreamingServicesSlideShow from "@/components/application-group/home-route/streaming-services/StreamingServicesSlideShow";
+import CollectionsSlideShow from "@/components/application-group/home-route/collections/CollectionsSlideShow";
+import ColorFulBanner from "@/components/application-group/legecy-home-route/ColorFulBanner";
+
+// dynamically import the slider
+const RenderSlider = dynamic(
+  () => import("@/components/slider-v-3.0/RenderSlider"),
+  { ssr: false },
+);
 
 // ===================================
 // Time-based Revalidation in Next.js
 // ===================================
-export const revalidate = 3600 * 24; // 1 day
+export const revalidate = 3600 * 24; // 24 hours
 
-export default function Page() {
+const page = async () => {
+  const trendingMoviesPromise = fetchMultiplePagesOfTrendingMovies(2);
+  const trendingTVShowsPromise = fetchMultiplePagesOfTrendingTVShows(2);
+
+  const [trendingMoviesData, trendingTVShowsData] = await Promise.all([
+    trendingMoviesPromise,
+    trendingTVShowsPromise,
+  ]);
+
+  // mix the movies and tv shows together into one array. only 2 of each
+  const mixedTrending: (TrendingMovie | TrendingTVSeries)[] = [];
+  for (let i = 0; i < 2; i++) {
+    mixedTrending.push(trendingMoviesData[i]);
+    mixedTrending.push(trendingTVShowsData[i]);
+  }
+
+  // fetch each movie or tv show details based on the mixedTrending.type, and store them in an array
+  const movieAndTvShowDetailsPromise = mixedTrending.map(async (item) => {
+    const data =
+      item.media_type === "movie"
+        ? await fetchMovieDetails(item.id)
+        : await fetchTvSeriesDetails(item.id);
+
+    return data;
+  });
+
+  const movieAndTvShowDetails = await Promise.all(movieAndTvShowDetailsPromise);
+
   return (
-    <main className="text-white">
-      <Hero />
-      <ColorFulBanner />
-      {/* <Suspense fallback={<LoadingSpinner />}>
-        <Discovery />
-      </Suspense> */}
-      <Separator className="h-[6px] bg-slate-600" />
-      <FAQ />
-    </main>
+    <section>
+      {/*
+        -----------
+        Hero Section 
+        -----------
+       */}
+      <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
+        <ul className="flex gap-x-0">
+          {movieAndTvShowDetails.map((item, index) => (
+            <Suspense key={item.id} fallback={<LoadingSpinner />}>
+              <DiscoveryHeroSectionSliderBody
+                movieOrTvShowDetails={item}
+                // only show priority for the first item
+                priority={index === 0}
+              />
+            </Suspense>
+          ))}
+        </ul>
+      </DiscoverySlider>
+      {/*
+        ------------------
+        Streaming services 
+        ------------------
+       */}
+      <StreamingServicesSlideShow />
+
+      {/*
+        -----------------
+        Your Library 
+        -----------------
+       */}
+      <YourLibrary />
+
+      {/*
+        --------------
+        Trending Movies 
+        --------------
+       */}
+      <RenderSlider
+        sliderData={trendingMoviesData}
+        sectionTitle="Blockbuster Buzz"
+        listItemsOrientation="verticle"
+        listItemsPriority={false}
+        showSliderProgress={true}
+      />
+
+      {/*
+        -----------------
+        Trending TV Series 
+        -----------------
+      */}
+      <RenderSlider
+        sliderData={trendingTVShowsData}
+        sectionTitle="Binge-Worthy Picks"
+        listItemsOrientation="horizontal"
+        listItemsPriority={false}
+        showSliderProgress={true}
+        largeListItem={true}
+      />
+
+      {/*
+        -----------------
+        Collections
+        -----------------
+       */}
+      <CollectionsSlideShow />
+
+      {/*
+        -----------------
+        Colourful Banner 
+        -----------------
+       */}
+      {/* <section className=" pt-[64px] text-white lg:pt-[72px]">
+        <ColorFulBanner />
+      </section> */}
+    </section>
   );
-}
+};
+
+export default page;

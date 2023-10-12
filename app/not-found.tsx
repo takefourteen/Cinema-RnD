@@ -10,7 +10,7 @@ export default function NotFound() {
       className="flex h-screen w-full flex-col items-center justify-center gap-y-10  text-white/50"
       style={{
         background:
-          "radial-gradient(75% 75% at 50% 50%,#17003d 0%,#000000 100%)",
+          "radial-gradient(75% 75% at 50% 50%,#000000 0%,#17003d 100%)",
       }}
     >
       <Navbar />
@@ -24,11 +24,11 @@ export default function NotFound() {
         >
           We Lost You!
         </h1>
-        <div className="max-w-[30rem] text-center">
+        <div className="text-center ">
           <h2 className="mt-4 text-xl font-bold uppercase text-white/80 md:text-2xl lg:text-3xl">
             404 - Page not found
           </h2>
-          <p className="my-4 text-base font-normal">
+          <p className="font-body-text my-4 w-[30rem] font-normal lg:w-[38rem]">
             Sorry, it seems you&apos;ve reached a dead end. The page you were
             searching for might have been moved, renamed, or temporarily
             vanished.
