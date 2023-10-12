@@ -8,9 +8,9 @@ const PopularMoviesSlider = async () => {
 
   return (
     <RenderSlider
-      trendingData={popularMovies.slice(0, 11)}
+      sliderData={popularMovies.slice(0, 11)}
       sectionTitle="Popular Movies"
-      listItemsOrientation="verticle"
+      listItemsOrientation="horizontal"
         listItemsPriority={true}
       viewAllLink="/movies/popular"
       showSliderProgress={false}
