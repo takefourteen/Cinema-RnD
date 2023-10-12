@@ -18,15 +18,17 @@ const orgininalImageBasePath = "https://image.tmdb.org/t/p/original";
 interface MediaCardComponentProps {
   data: MediaCardProps;
   aspect_ratio: "4:3" | "2:3";
-  loaderType?: "spinner" | "skeleton";
+  loaderType: "spinner" | "skeleton";
   priority?: boolean;
+  showTitle: boolean;
 }
 
 const MotionMediaCard = ({
   data,
   aspect_ratio,
-  loaderType = "spinner",
+  loaderType,
   priority = false,
+  showTitle,
 }: MediaCardComponentProps) => {
   // determine if this is a movie or tv show
   const isMovie = data.original_title ? true : false;
@@ -42,7 +44,7 @@ const MotionMediaCard = ({
   const style_4_3 =
     "relative h-auto min-w-[150px] sm:min-w-[175px] md:min-w-[200px] lg:min-w-[250px] xl:min-w-[300px] flex-1 ";
   const style_2_3 =
-    "relative h-auto min-w-[150px] sm:min-w-[175px] md:min-w-[200px] lg:min-w-[225px] xl:min-w-[250px] flex-1 cursor-pointer";
+    "relative h-auto min-w-[150px] rounded-md sm:min-w-[175px] md:min-w-[200px] lg:min-w-[225px] xl:min-w-[250px] flex-1 cursor-pointer";
 
   return (
     // only render if there is a poster_path
@@ -83,12 +85,14 @@ const MotionMediaCard = ({
               className=" z-[99] transform  object-cover transition-transform delay-75 group-hover:scale-105  "
             />
           </AspectRatio>
-          {/* Display the media title with truncation */}
-          <p
-            className={`mt-4 truncate text-start text-sm font-normal tracking-wide text-white   lg:text-base `}
-          >
-            {data.original_title || data.original_name || "Unknown Title"}
-          </p>
+          {/* Display the media title with truncation, if true */}
+          {showTitle && (
+            <p
+              className={`mt-4 truncate text-start font-small-text font-normal tracking-wide text-white`}
+            >
+              {data.original_title || data.original_name || "Unknown Title"}
+            </p>
+          )}
         </Link>
       </motion.li>
     ) : null
