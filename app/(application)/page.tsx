@@ -2,10 +2,6 @@ import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 import { fetchAllDataForHome } from "@/helpers/fetchAllDataForHome";
-import {
-  fetchMultiplePagesOfTrendingMovies,
-  fetchMultiplePagesOfTrendingTVShows,
-} from "@/lib/tmdb-api/trending";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 
@@ -31,19 +27,13 @@ export const revalidate = 3600 * 24; // 24 hours
 const page = async () => {
   // fetch the data for the home page
   const homeData = await fetchAllDataForHome();
-  const trendingMoviesPromise = fetchMultiplePagesOfTrendingMovies(2);
-  const trendingTVShowsPromise = fetchMultiplePagesOfTrendingTVShows(2);
 
-  const [trendingMoviesData, trendingTVShowsData] = await Promise.all([
-    trendingMoviesPromise,
-    trendingTVShowsPromise,
-  ]);
 
   // mix the movies and tv shows together into one array. only 2 of each
   const mixedTrending: (TrendingMovie | TrendingTVSeries)[] = [];
   for (let i = 0; i < 2; i++) {
-    mixedTrending.push(trendingMoviesData[i]);
-    mixedTrending.push(trendingTVShowsData[i]);
+    mixedTrending.push(homeData[0].data[i]);
+    mixedTrending.push(homeData[1].data[i]);
   }
 
   // fetch each movie or tv show details based on the mixedTrending.type, and store them in an array
@@ -91,33 +81,6 @@ const page = async () => {
         -----------------
        */}
       <YourLibrary />
-
-      {/*
-        --------------
-        Trending Movies 
-        --------------
-       */}
-      {/* <RenderSlider
-        sliderData={trendingMoviesData}
-        sectionTitle="Blockbuster Buzz"
-        listItemsOrientation="verticle"
-        listItemsPriority={false}
-        showSliderProgress={true}
-      /> */}
-
-      {/*
-        -----------------
-        Trending TV Series 
-        -----------------
-      */}
-      {/* <RenderSlider
-        sliderData={trendingTVShowsData}
-        sectionTitle="Binge-Worthy Picks"
-        listItemsOrientation="horizontal"
-        listItemsPriority={false}
-        showSliderProgress={true}
-        largeListItem={true}
-      /> */}
 
       {/* map through homeData and render a slider */}
       {homeData.map((sliderData) => (
