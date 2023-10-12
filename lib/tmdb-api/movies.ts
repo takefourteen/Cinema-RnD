@@ -7,6 +7,7 @@ export async function fetchMovieDetails(
   try {
     const response = await fetch(
       `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US&append_to_response=credits`,
+      { cache: "force-cache" },
     );
 
     if (!response.ok) {

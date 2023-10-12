@@ -33,6 +33,14 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     category: "documentaries",
     type: "tvSeries",
   });
+  const movieTopRatedPromise = fetchCategory({
+    category: "topRated",
+    type: "movies",
+  });
+  const tvSeriesTopRatedPromise = fetchCategory({
+    category: "topRated",
+    type: "tvSeries",
+  });
 
   // Resolve all promises
   const [
@@ -42,6 +50,8 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     tvSeriesDocumentaries,
     actionAdventureMovies,
     actionAdventureTvSeries,
+    topRatedMovies,
+    topRatedTvSeries,
   ] = await Promise.all([
     trendingMoviesPromise,
     trendingTvShowsPromise,
@@ -49,6 +59,8 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     tvSeriesDocumentariesPromise,
     actionAdventureMoviesPromise,
     actionAdventureTvSeriesPromise,
+    movieTopRatedPromise,
+    tvSeriesTopRatedPromise,
   ]);
 
   // Combine movie and tv series results
@@ -57,15 +69,17 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     ...actionAdventureMovies,
     ...actionAdventureTvSeries,
   ];
+  const allTopRated = [...topRatedMovies, ...topRatedTvSeries];
 
   // Sort the combined array by popularity
   const sortedDocumentaries = sortResultsByPopularity(allDocumentaries);
   const sortedActionAdventure = sortResultsByPopularity(allActionAdventure);
+  const sortedTopRated = sortResultsByPopularity(allTopRated);
 
   // Return the data in the shape we need for the home page
   return [
     {
-      data: trendingMovies.slice(0, 10),
+      data: trendingMovies.slice(0, 15),
       title: "Latest Blockbuster Movies",
       orientationStyle: "vertical",
       hasPriority: true,
@@ -73,7 +87,7 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
       standOut: false,
     },
     {
-      data: trendingTvShows.slice(0, 10),
+      data: trendingTvShows.slice(0, 15),
       title: "Latest Binge-Worthy TV Shows",
       orientationStyle: "vertical",
       hasPriority: true,
@@ -81,7 +95,7 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
       standOut: false,
     },
     {
-      data: sortedActionAdventure.slice(0, 10),
+      data: sortedActionAdventure.slice(0, 15),
       title: "Action & Adventure",
       orientationStyle: "horizontal",
       hasPriority: false,
@@ -89,8 +103,16 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
       standOut: false,
     },
     {
-      data: sortedDocumentaries.slice(0, 10),
+      data: sortedDocumentaries.slice(0, 15),
       title: "Documentaries",
+      orientationStyle: "horizontal",
+      hasPriority: false,
+      viewWithProgressBar: false,
+      standOut: false,
+    },
+    {
+      data: sortedTopRated.slice(0, 15),
+      title: "Top Rated",
       orientationStyle: "horizontal",
       hasPriority: false,
       viewWithProgressBar: false,

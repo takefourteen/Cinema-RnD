@@ -3,46 +3,102 @@ const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 import { filterResultsByLanguage } from "@/helpers/filterResults";
 import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
 
-const baseMovieURL = "https://api.themoviedb.org/3/discover/movie";
-const baseTVSeriesURL = "https://api.themoviedb.org/3/discover/tv";
+const baseMovieURL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
+const baseTVSeriesURL = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}`;
 
 interface GenreList {
   [key: string]: {
-    [key: string]: number[];
+    [key: string]: {
+      genreIds: number[];
+      filterAndSortOptions: string;
+    };
   };
 }
 
 const genres: GenreList = {
   movies: {
-    actionAdventure: [28, 12],
-    anime: [16],
-    childrenFamily: [10751],
-    classic: [], // You might need a different approach for this, as "classic" isn't a standard genre tag
-    comedies: [35],
-    documentaries: [99],
-    dramas: [18],
+    actionAdventure: {
+      genreIds: [28, 12],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    anime: {
+      genreIds: [16],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    childrenFamily: {
+      genreIds: [10751],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    classic: {
+      genreIds: [],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    // You might need a different approach for this, as "classic" isn't a standard genre tag
+    comedies: {
+      genreIds: [35],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    documentaries: {
+      genreIds: [99],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    dramas: {
+      genreIds: [18],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    topRated: {
+      genreIds: [],
+      filterAndSortOptions:
+        "&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200",
+    },
   },
   tvSeries: {
-    actionAdventure: [10759],
-    anime: [16],
-    childrenFamily: [10751],
-    classic: [], // You might need a different approach for this, as "classic" isn't a standard genre tag
-    comedies: [35],
-    documentaries: [99],
-    dramas: [18],
+    actionAdventure: {
+      genreIds: [10759, 10762],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    anime: {
+      genreIds: [16],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    childrenFamily: {
+      genreIds: [10751],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    classic: {
+      genreIds: [],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    comedies: {
+      genreIds: [35],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    documentaries: {
+      genreIds: [99],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    dramas: {
+      genreIds: [18],
+      filterAndSortOptions: "&sort_by=popularity.desc",
+    },
+    topRated: {
+      genreIds: [],
+      filterAndSortOptions: "&sort_by=vote_average.desc&vote_count.gte=200",
+    },
   },
 };
 
-type generateAPIUrl = (
-  category: string,
-  type: string,
-  additionalParams?: string
-  ) => string;
+type generateAPIUrl = (category: string, type: string) => string;
 
-const generateAPIUrl: generateAPIUrl = (category, type, additionalParams) => {
-  const genreIds = genres[type][category].join(",");
-  const baseUrl = type === "movies" ? baseMovieURL : baseTVSeriesURL;
-  return `${baseUrl}?api_key=${API_KEY}&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreIds}${additionalParams || ""}`;
+const generateAPIUrl: generateAPIUrl = (category, type) => {
+  const genreIds = genres[type][category].genreIds.join(",");
+  const filterAndSortOptions = genres[type][category].filterAndSortOptions;
+
+  if (type === "movies") {
+    return `${baseMovieURL}&include_adult=false&include_video=false&language=en-US&page=1&with_genres=${genreIds}${filterAndSortOptions}`;
+  } else {
+    return `${baseTVSeriesURL}&include_adult=false&include_video=false&language=en-US&page=1&with_genres=${genreIds}${filterAndSortOptions}`;
+  }
 };
 
 type fetchCategory = {
@@ -53,7 +109,8 @@ type fetchCategory = {
     | "classic"
     | "comedies"
     | "documentaries"
-    | "dramas";
+    | "dramas"
+    | "topRated";
   type: "movies" | "tvSeries";
 };
 
@@ -96,4 +153,3 @@ export const fetchCategory = async ({
     return [];
   }
 };
-
