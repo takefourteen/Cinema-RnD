@@ -33,10 +33,16 @@ const genres: GenreList = {
   },
 };
 
-const generateAPIUrl = (category: string, type: string): string => {
+type generateAPIUrl = (
+  category: string,
+  type: string,
+  additionalParams?: string
+  ) => string;
+
+const generateAPIUrl: generateAPIUrl = (category, type, additionalParams) => {
   const genreIds = genres[type][category].join(",");
   const baseUrl = type === "movies" ? baseMovieURL : baseTVSeriesURL;
-  return `${baseUrl}?api_key=${API_KEY}&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreIds}`;
+  return `${baseUrl}?api_key=${API_KEY}&include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${genreIds}${additionalParams || ""}`;
 };
 
 type fetchCategory = {
