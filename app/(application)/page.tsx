@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
+import { fetchAllDataForHome } from "@/helpers/fetchAllDataForHome";
 import {
   fetchMultiplePagesOfTrendingMovies,
   fetchMultiplePagesOfTrendingTVShows,
@@ -28,6 +29,8 @@ const RenderSlider = dynamic(
 export const revalidate = 3600 * 24; // 24 hours
 
 const page = async () => {
+  // fetch the data for the home page
+  const homeData = await fetchAllDataForHome();
   const trendingMoviesPromise = fetchMultiplePagesOfTrendingMovies(2);
   const trendingTVShowsPromise = fetchMultiplePagesOfTrendingTVShows(2);
 
@@ -94,27 +97,40 @@ const page = async () => {
         Trending Movies 
         --------------
        */}
-      <RenderSlider
+      {/* <RenderSlider
         sliderData={trendingMoviesData}
         sectionTitle="Blockbuster Buzz"
         listItemsOrientation="verticle"
         listItemsPriority={false}
         showSliderProgress={true}
-      />
+      /> */}
 
       {/*
         -----------------
         Trending TV Series 
         -----------------
       */}
-      <RenderSlider
+      {/* <RenderSlider
         sliderData={trendingTVShowsData}
         sectionTitle="Binge-Worthy Picks"
         listItemsOrientation="horizontal"
         listItemsPriority={false}
         showSliderProgress={true}
         largeListItem={true}
-      />
+      /> */}
+
+      {/* map through homeData and render a slider */}
+      {homeData.map((sliderData) => (
+        <RenderSlider
+          key={sliderData.title}
+          sliderData={sliderData.data}
+          sectionTitle={sliderData.title}
+          listItemsOrientation={sliderData.orientationStyle}
+          listItemsPriority={sliderData.hasPriority}
+          showSliderProgress={sliderData.viewWithProgressBar}
+          largeListItem={sliderData.standOut}
+        />
+      ))}
 
       {/*
         -----------------

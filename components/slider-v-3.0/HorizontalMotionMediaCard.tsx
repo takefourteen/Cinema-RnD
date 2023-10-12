@@ -116,9 +116,11 @@ const HorizontalMotionMediaCard = ({
 
   //   only format the runtime for movies
   const runtime = isMovieDetails(mediaDetails)
-    ? `${Math.floor(mediaDetails.runtime / 60)}h ${
-        mediaDetails.runtime % 60 || "" // if the remainder is 0, don't show it
-      }m`
+    ? mediaDetails.runtime >= 60
+      ? `${Math.floor(mediaDetails.runtime / 60)}h ${
+          mediaDetails.runtime % 60 || "" // if the remainder is 0, don't show it
+        }m`
+      : `${mediaDetails.runtime}m`
     : null;
 
   // only get numberOfSeasons for tv series

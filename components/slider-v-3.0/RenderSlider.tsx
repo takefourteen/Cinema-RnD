@@ -11,7 +11,7 @@ import Skeleton from "@/components/Skeleton";
 
 interface RenderSliderProps {
   sliderData: any[];
-  listItemsOrientation: "verticle" | "horizontal";
+  listItemsOrientation: "vertical" | "horizontal";
   sectionTitle: string;
   showSliderProgress: boolean;
   viewAllLink?: string;
@@ -43,7 +43,7 @@ const RenderSlider = ({
         ulList: "relative gap-x-4 ",
       }}
       renderSliderList={(item) =>
-        listItemsOrientation === "verticle" ? (
+        listItemsOrientation === "vertical" ? (
           <MotionMediaCard
             key={item.id}
             data={item}
