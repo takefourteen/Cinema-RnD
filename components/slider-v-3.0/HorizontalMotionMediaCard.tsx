@@ -17,14 +17,16 @@ type HorizontalMotionMediaCardProps = {
   mediaId: string;
   mediaType: "movie" | "tv";
   priority: boolean;
+  imgSize?: "default" | "large";
 };
 
-const imageBaseUrl = "https://image.tmdb.org/t/p/w500";
+const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
 
 const HorizontalMotionMediaCard = ({
   mediaId,
   mediaType,
   priority,
+  imgSize = "default",
 }: HorizontalMotionMediaCardProps) => {
   // Define the fetcher function based on the mediaType
   const fetcherWithDelay: () => Promise<
@@ -108,9 +110,25 @@ const HorizontalMotionMediaCard = ({
     return null;
   }
 
+  const size = {
+    default: {
+      width:
+        "min-w-[225px] sm:min-w-[275px] md:min-w-[325px] lg:min-w-[325px] xl:min-w-[375px] ",
+      sizes:
+        "(max-width: 640px) 225px, (max-width: 768px) 275px, (max-width: 1024px) 325px, (max-width: 1280px) 375px",
+    },
+
+    large: {
+      width:
+        "min-w-[375px] md:min-w-[425px] lg:min-w-[475px] xl:min-w-[500px] ",
+      sizes:
+        "(max-width: 640px) 375px, (max-width: 768px) 425px, (max-width: 1024px) 475px, (max-width: 1280px) 500px",
+    },
+  };
+
   return (
     <motion.li
-      className="relative h-auto min-w-[225px] flex-1 sm:min-w-[275px] md:min-w-[325px] lg:min-w-[325px] xl:min-w-[375px] "
+      className={`relative h-auto flex-1 rounded-md ${size[imgSize].width}`}
       layout
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{
@@ -128,15 +146,15 @@ const HorizontalMotionMediaCard = ({
       }}
     >
       <Link href={moviePageUrl} className="group ">
-        <AspectRatio ratio={16 / 9}>
+        <AspectRatio ratio={3 / 2}>
           <ImageLoader
             loaderType="skeleton"
             src={imageSrc}
             alt={`${title} poster`}
             fill
-            sizes=" (max-width: 640px) 225px, (max-width: 768px) 275px, (max-width: 1024px) 325px, (max-width: 1280px) 375px"
+            sizes={size[imgSize].sizes}
             priority={priority}
-            className="object-cover transition-all duration-300 ease-in-out group-hover:ring-4 group-hover:ring-slate-950 group-hover:ring-offset-2 group-focus-visible:ring-4  group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
+            className="rounded-md object-cover transition-all duration-300 ease-in-out group-hover:ring-4 group-hover:ring-slate-950 group-hover:ring-offset-2 group-focus-visible:ring-4  group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
             style={{ filter: "brightness(0.9)" }}
           />
 
@@ -144,7 +162,7 @@ const HorizontalMotionMediaCard = ({
           {/* <div className="absolute inset-0 bg-[url('/grain-texture-image.svg')] opacity-30" /> */}
 
           {/* small dark overlay over the top and bottom of img to make the info readable */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+          <div className="absolute inset-0 rounded-md bg-gradient-to-t from-black/80 via-transparent to-black/20" />
 
           {/* overlay the image with some info */}
 
