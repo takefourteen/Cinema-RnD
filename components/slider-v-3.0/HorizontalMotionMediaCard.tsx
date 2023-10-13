@@ -179,7 +179,8 @@ const HorizontalMotionMediaCard = ({
             date={date}
             runtime={runtime}
             numberOfSeasons={numberOfSeasons}
-            showRatingAndYear={true}
+            showRating={false}
+            showYear={true}
           />
         </AspectRatio>
       </Link>
