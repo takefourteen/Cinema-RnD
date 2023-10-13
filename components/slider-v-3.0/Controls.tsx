@@ -56,12 +56,12 @@ function Controls({
   };
 
   return (
-    <div className="mt-4 flex items-center gap-3 px-0 md:px-1 lg:mt-6">
+    <div className="mt-4 flex items-center gap-3 px-0 md:px-1">
       <SliderButton handleClick={handlePrev} aria-label="previous slide">
-        <IoIosArrowBack className=" text-xl" />
+        <IoIosArrowBack className=" h-[60%] w-[60%]" />
       </SliderButton>
       <SliderButton handleClick={handleNext} aria-label="next slide">
-        <IoIosArrowForward className=" text-xl" />
+        <IoIosArrowForward className=" h-[60%] w-[60%]" />
       </SliderButton>
 
       {/* show progress if showSliderProgress is true */}
