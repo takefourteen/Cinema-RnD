@@ -7,7 +7,7 @@ export async function fetchMovieDetails(
 ): Promise<MovieDetailsData> {
   try {
     // Introduce a delay before the fetch operation
-    await new Promise((resolve) => setTimeout(resolve, delay));
+    if (delay > 0) await new Promise((resolve) => setTimeout(resolve, delay));
 
     const url = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US&append_to_response=credits`;
     const response = await fetch(url, { cache: "force-cache" });
