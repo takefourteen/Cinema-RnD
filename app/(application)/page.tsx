@@ -88,7 +88,6 @@ const page = async () => {
           key={sliderData.title}
           sliderData={sliderData.data}
           sectionTitle={sliderData.title}
-          listItemsOrientation={sliderData.orientationStyle}
           listItemsPriority={sliderData.hasPriority}
           showSliderProgress={sliderData.viewWithProgressBar}
           largeListItem={sliderData.standOut}

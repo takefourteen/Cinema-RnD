@@ -17,9 +17,9 @@ export default function Page() {
     <main className="text-white">
       <Hero />
       <ColorFulBanner />
-      {/* <Suspense fallback={<LoadingSpinner />}>
+      <Suspense fallback={<LoadingSpinner />}>
         <Discovery />
-      </Suspense> */}
+      </Suspense>
       <Separator className="h-[6px] bg-slate-600" />
       <FAQ />
     </main>
