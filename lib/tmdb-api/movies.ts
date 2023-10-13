@@ -3,13 +3,14 @@ const BASE_URL = "https://api.themoviedb.org/3";
 
 export async function fetchMovieDetails(
   movieId: string | number,
+  delay: number = 10000 // Default delay of 100 milliseconds
 ): Promise<MovieDetailsData> {
   try {
+    // Introduce a delay before the fetch operation
+    await new Promise((resolve) => setTimeout(resolve, delay));
+
     const url = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US&append_to_response=credits`;
-    const response = await fetch(
-      url,
-      { cache: "force-cache" },  
-    );
+    const response = await fetch(url, { cache: "force-cache" });
 
     if (!response.ok) {
       // Parse the error response as JSON to extract status_message
