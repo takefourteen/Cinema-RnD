@@ -24,6 +24,7 @@ const RenderSlider = ({
   showSliderProgress = true,
   largeListItem = false,
 }: RenderSliderProps) => {
+
   // Define slider header component
   const sliderHeaderComponent = (
     <SectionHeader
