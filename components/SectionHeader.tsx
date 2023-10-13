@@ -6,14 +6,19 @@ import { Separator } from "./ui/separator";
 
 type SectionHeaderProps = {
   sectionTitle: string;
+  showBorder?: boolean;
   viewAllLink?: string;
 };
 
-const SectionHeader = ({ sectionTitle, viewAllLink }: SectionHeaderProps) => {
+const SectionHeader = ({
+  sectionTitle,
+  viewAllLink,
+  showBorder = true,
+}: SectionHeaderProps) => {
   return (
     <div className="col-span-full">
       <div className=" flex items-baseline  justify-between ">
-        <h2 className="text-2xl font-bold capitalize text-white md:text-3xl">
+        <h2 className="font-header-3 font-bold capitalize text-white ">
           {sectionTitle}
         </h2>
         {/* Show the View All Button if the viewAllLink is provided */}
@@ -31,7 +36,10 @@ const SectionHeader = ({ sectionTitle, viewAllLink }: SectionHeaderProps) => {
         )}
       </div>
 
-      <Separator className="mb-2 mt-1 bg-white/30 lg:mb-4 lg:mt-2 " />
+      {/* Show the separator if showBorder is true */}
+      {showBorder && (
+        <Separator className="mb-2 mt-1 bg-white/30 lg:mb-4 lg:mt-2 " />
+      )}
     </div>
   );
 };
