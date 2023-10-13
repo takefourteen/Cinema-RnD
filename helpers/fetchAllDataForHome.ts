@@ -8,7 +8,6 @@ import { sortResultsByPopularity } from "./sortResults";
 type HomePageData<T> = {
   data: T[];
   title: string;
-  orientationStyle: "horizontal" | "vertical";
   hasPriority: boolean;
   viewWithProgressBar: boolean;
   standOut: boolean;
@@ -81,7 +80,6 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     {
       data: trendingMovies.slice(0, 15),
       title: "Latest Blockbuster Movies",
-      orientationStyle: "vertical",
       hasPriority: true,
       viewWithProgressBar: true,
       standOut: false,
@@ -89,7 +87,6 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     {
       data: trendingTvShows.slice(0, 15),
       title: "Latest Binge-Worthy TV Shows",
-      orientationStyle: "vertical",
       hasPriority: true,
       viewWithProgressBar: true,
       standOut: false,
@@ -97,25 +94,22 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     {
       data: sortedActionAdventure.slice(0, 15),
       title: "Action & Adventure",
-      orientationStyle: "horizontal",
       hasPriority: false,
-      viewWithProgressBar: false,
+      viewWithProgressBar: true,
       standOut: false,
     },
     {
       data: sortedDocumentaries.slice(0, 15),
       title: "Documentaries",
-      orientationStyle: "horizontal",
       hasPriority: false,
-      viewWithProgressBar: false,
+      viewWithProgressBar: true,
       standOut: false,
     },
     {
       data: sortedTopRated.slice(0, 15),
       title: "Top Rated",
-      orientationStyle: "horizontal",
       hasPriority: false,
-      viewWithProgressBar: false,
+      viewWithProgressBar: true,
       standOut: false,
     },
   ];
