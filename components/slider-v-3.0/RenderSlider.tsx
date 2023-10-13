@@ -5,13 +5,10 @@ import { Suspense } from "react";
 import SectionHeader from "@/components/SectionHeader";
 import SliderBody from "@/components/slider-v-3.0/SliderBody";
 import Slider from "@/components/slider-v-3.0/Slider";
-import MotionMediaCard from "@/components/slider-v-3.0/MotionMediaCard";
-import HorizontalMotionMediaCard from "@/components/slider-v-3.0/HorizontalMotionMediaCard";
-import Skeleton from "@/components/Skeleton";
+import DataFetchingMotionMediaCard from "@/components/slider-v-3.0/DataFetchingMotionMediaCard";
 
 interface RenderSliderProps {
   sliderData: any[];
-  listItemsOrientation: "vertical" | "horizontal";
   sectionTitle: string;
   showSliderProgress: boolean;
   viewAllLink?: string;
@@ -21,7 +18,6 @@ interface RenderSliderProps {
 
 const RenderSlider = ({
   sliderData,
-  listItemsOrientation,
   sectionTitle,
   viewAllLink,
   listItemsPriority = false,
@@ -46,28 +42,17 @@ const RenderSlider = ({
       classNames={{
         ulList: "relative gap-x-4 ",
       }}
-      renderSliderList={(item) =>
-        listItemsOrientation === "vertical" ? (
-          <MotionMediaCard
+      renderSliderList={(item) => (
+        <Suspense>
+          <DataFetchingMotionMediaCard
             key={item.id}
-            data={item}
-            aspect_ratio="2:3"
-            loaderType="skeleton"
+            mediaId={item.id}
+            mediaType={item.original_name ? "tv" : "movie"}
             priority={listItemsPriority}
-            showTitle={false}
+            imgSize={largeListItem ? "large" : "default"}
           />
-        ) : (
-          <Suspense>
-            <HorizontalMotionMediaCard
-              key={item.id}
-              mediaId={item.id}
-              mediaType={item.original_name ? "tv" : "movie"}
-              priority={listItemsPriority}
-              imgSize={largeListItem ? "large" : "default"}
-            />
-          </Suspense>
-        )
-      }
+        </Suspense>
+      )}
     />
   );
 
