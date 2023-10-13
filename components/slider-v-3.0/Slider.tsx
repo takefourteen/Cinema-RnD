@@ -34,7 +34,7 @@ const Slider = ({
           {sliderHeaderComponent}
 
           {inView && (
-            <div className=" col-span-6 mt-4 flex h-full flex-1 flex-col justify-start md:justify-center lg:mt-6 ">
+            <div className=" col-span-6 mt-4 flex h-full flex-1 flex-col justify-start md:justify-center ">
               {sliderBodyComponent}
             </div>
           )}
