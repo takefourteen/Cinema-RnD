@@ -33,7 +33,7 @@ export default function Error({
     <div className="master-container mx-auto flex h-screen flex-col items-center justify-center text-white  lg:max-w-[80%]">
       <Image src={logo} alt="Logo" width={200} className="mb-10" />
 
-      <h1 className="mb-2 text-3xl font-bold md:text-4xl lg:text-5xl">
+      <h1 className="mb-2 text-center text-3xl font-bold md:text-4xl lg:text-5xl">
         Something Went Wrong
       </h1>
       <p className="mb-8 text-center text-lg md:text-xl">
@@ -41,18 +41,18 @@ export default function Error({
       </p>
 
       {/* display error message */}
-      <p className="mb-8 text-center text-base text-[#e50914] md:text-lg">
+      <p className="font-text-body mb-8 max-w-[80%] text-center text-[#e50914] lg:max-w-[36rem]">
         {error.message}
       </p>
 
       {/* return home and back btns */}
-        <DetailsButton
-          onClick={handleGoBack}
-          className="group flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#002be7ff] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
-        >
-          <LeftArrow className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-0.5 group-hover:scale-110" />{" "}
-          Go Back
-        </DetailsButton>
+      <DetailsButton
+        onClick={handleGoBack}
+        className="group flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#002be7ff] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
+      >
+        <LeftArrow className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-0.5 group-hover:scale-110" />{" "}
+        Go Back
+      </DetailsButton>
 
       {/* refresh screen btn */}
       {/* <Button
