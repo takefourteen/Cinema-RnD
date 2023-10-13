@@ -25,7 +25,7 @@ const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
 const listItemSize = {
   default: {
     width:
-      "min-w-[225px] sm:min-w-[275px] md:min-w-[325px] lg:min-w-[325px] xl:min-w-[375px] ",
+      "min-w-[200px] sm:min-w-[225px] md:min-w-[250px] lg:min-w-[275px] xl:min-w-[300px] ",
     sizes:
       "(max-width: 640px) 225px, (max-width: 768px) 275px, (max-width: 1024px) 325px, (max-width: 1280px) 375px",
   },
@@ -43,18 +43,14 @@ const HorizontalMotionMediaCard = ({
   priority,
   imgSize = "default",
 }: HorizontalMotionMediaCardProps) => {
- // Define the fetcher function based on the mediaType
- const fetcher: () => Promise<MovieDetailsData | TVSeriesData> =
- mediaType === "movie"
-   ? () => fetchMovieDetails(mediaId, 100)
-   : () => fetchTvSeriesDetails(mediaId, 100);
+  // Define the fetcher function based on the mediaType
+  const fetcher: () => Promise<MovieDetailsData | TVSeriesData> =
+    mediaType === "movie"
+      ? () => fetchMovieDetails(mediaId, 100)
+      : () => fetchTvSeriesDetails(mediaId, 100);
 
   // Fetch the media details based on the mediaType
-  const {
-    data: mediaDetails,
-    error,
-    isLoading,
-  } = useSWR(mediaId, fetcher);
+  const { data: mediaDetails, error, isLoading } = useSWR(mediaId, fetcher);
 
   if (isLoading) {
     return (
@@ -85,7 +81,7 @@ const HorizontalMotionMediaCard = ({
   }`;
 
   // prepare img src url
-  const imageSrc = `${imageBaseUrl}${mediaDetails?.backdrop_path}`;
+  const imageSrc = `${imageBaseUrl}${mediaDetails?.poster_path}`;
 
   //   only show images that have a backdrop_path
   if (!mediaDetails?.backdrop_path) {
@@ -144,7 +140,7 @@ const HorizontalMotionMediaCard = ({
       }}
     >
       <Link href={moviePageUrl} className="group ">
-        <AspectRatio ratio={3 / 2}>
+        <AspectRatio ratio={2 / 3}>
           <ImageLoader
             loaderType="skeleton"
             src={imageSrc}
@@ -172,6 +168,7 @@ const HorizontalMotionMediaCard = ({
             numberOfSeasons={numberOfSeasons}
             showRating={false}
             showYear={true}
+            showTitle={false}
           />
         </AspectRatio>
       </Link>
