@@ -9,6 +9,7 @@ type DetailsOnMediaCardProps = {
   numberOfSeasons?: number | null;
   showRating?: boolean;
   showYear?: boolean;
+  showTitle?: boolean;
 };
 
 const DetailsOnMediaCard = ({
@@ -19,6 +20,7 @@ const DetailsOnMediaCard = ({
   numberOfSeasons,
   showRating = false,
   showYear = true,
+  showTitle = true,
 }: DetailsOnMediaCardProps) => {
   return (
     <div className="absolute inset-0 h-full">
@@ -43,11 +45,15 @@ const DetailsOnMediaCard = ({
         )}
       </div>
 
-      {/* the movie title and runtime */}
-      <h3 className="font-small-text absolute bottom-2  left-2 max-w-[70%] font-semibold text-white group-hover:underline group-focus-visible:underline">
-        {title}
-      </h3>
-      <p className="font-small-text absolute bottom-2  right-2 w-max text-white/80 ">
+      {/* the movie title if true */}
+      {showTitle && (
+        <h3 className="font-small-text absolute bottom-2  left-2 max-w-[70%] font-semibold text-white group-hover:underline group-focus-visible:underline">
+          {title}
+        </h3>
+      )}
+
+      {/* the movie runtime or number of seasons */}
+      <p className="font-small-text absolute bottom-2  right-2 w-max text-white ">
         {runtime
           ? runtime
           : numberOfSeasons && numberOfSeasons > 1
