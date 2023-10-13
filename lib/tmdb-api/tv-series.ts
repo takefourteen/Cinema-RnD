@@ -5,8 +5,9 @@ export async function fetchTvSeriesDetails(
   tvSeriesId: string | number,
 ): Promise<TVSeriesData> {
   try {
+    const url =  `${BASE_URL}/tv/${tvSeriesId}?api_key=${API_KEY}&language=en-US&append_to_response=credits`;
     const response = await fetch(
-      `${BASE_URL}/tv/${tvSeriesId}?api_key=${API_KEY}&language=en-US&append_to_response=credits`,
+     url,
       { cache: "force-cache" },
     );
 

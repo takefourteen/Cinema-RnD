@@ -5,9 +5,10 @@ export async function fetchMovieDetails(
   movieId: string | number,
 ): Promise<MovieDetailsData> {
   try {
+    const url = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US&append_to_response=credits`;
     const response = await fetch(
-      `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US&append_to_response=credits`,
-      { cache: "force-cache" },
+      url,
+      { cache: "force-cache" },  
     );
 
     if (!response.ok) {
