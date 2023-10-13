@@ -43,27 +43,18 @@ const HorizontalMotionMediaCard = ({
   priority,
   imgSize = "default",
 }: HorizontalMotionMediaCardProps) => {
-  // Define the fetcher function based on the mediaType
-  const fetcherWithDelay: () => Promise<
-    MovieDetailsData | TVSeriesData
-  > = async () => {
-    return new Promise((resolve) => {
-      setTimeout(async () => {
-        if (mediaType === "movie") {
-          resolve(await fetchMovieDetails(mediaId));
-        } else if (mediaType === "tv") {
-          resolve(await fetchTvSeriesDetails(mediaId));
-        }
-      }, 100); // Adjust the delay time (in milliseconds) as needed
-    });
-  };
+ // Define the fetcher function based on the mediaType
+ const fetcher: () => Promise<MovieDetailsData | TVSeriesData> =
+ mediaType === "movie"
+   ? () => fetchMovieDetails(mediaId, 100)
+   : () => fetchTvSeriesDetails(mediaId, 100);
 
   // Fetch the media details based on the mediaType
   const {
     data: mediaDetails,
     error,
     isLoading,
-  } = useSWR(mediaId, fetcherWithDelay);
+  } = useSWR(mediaId, fetcher);
 
   if (isLoading) {
     return (
