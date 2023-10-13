@@ -13,7 +13,7 @@ import ImageLoader from "@/components/ImageLoader";
 import DetailsOnMediaCard from "../application-group/DetailsOnMediaCard";
 import Skeleton from "../Skeleton";
 
-type HorizontalMotionMediaCardProps = {
+type DataFetchingMotionMediaCardProps = {
   mediaId: string;
   mediaType: "movie" | "tv";
   priority: boolean;
@@ -37,12 +37,12 @@ const listItemSize = {
   },
 };
 
-const HorizontalMotionMediaCard = ({
+const DataFetchingMotionMediaCard = ({
   mediaId,
   mediaType,
   priority,
   imgSize = "default",
-}: HorizontalMotionMediaCardProps) => {
+}: DataFetchingMotionMediaCardProps) => {
   // Define the fetcher function based on the mediaType
   const fetcher: () => Promise<MovieDetailsData | TVSeriesData> =
     mediaType === "movie"
@@ -55,7 +55,7 @@ const HorizontalMotionMediaCard = ({
   if (isLoading) {
     return (
       <div className={`relative h-auto flex-1  ${listItemSize[imgSize].width}`}>
-        <AspectRatio ratio={3 / 2}>
+        <AspectRatio ratio={2 / 3}>
           <Skeleton rows={0} showOverlay={false} />
         </AspectRatio>
       </div>
@@ -176,4 +176,4 @@ const HorizontalMotionMediaCard = ({
   );
 };
 
-export default HorizontalMotionMediaCard;
+export default DataFetchingMotionMediaCard;
