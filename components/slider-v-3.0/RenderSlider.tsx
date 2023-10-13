@@ -30,7 +30,11 @@ const RenderSlider = ({
 }: RenderSliderProps) => {
   // Define slider header component
   const sliderHeaderComponent = (
-    <SectionHeader sectionTitle={sectionTitle} viewAllLink={viewAllLink} />
+    <SectionHeader
+      sectionTitle={sectionTitle}
+      viewAllLink={viewAllLink}
+      showBorder={false}
+    />
   );
 
   // Define slider body component
