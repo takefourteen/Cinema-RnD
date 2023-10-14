@@ -65,9 +65,16 @@ const ShowDetailsSmallScreen = async ({
   }`;
 
   // play movie href to watch page of the movie or tv show
-  const playUrl = `/watch-${type}/${slugify(movieOrTvShowTitle)}-${
-    movieOrTvShowDetails.id
-  }`;
+  let playUrl: string = "";
+  if (type === "movie") {
+    playUrl = `/watch-movie/${slugify(movieOrTvShowTitle)}-${
+      movieOrTvShowDetails.id
+    }`;
+  } else if (type === "tv") {
+    playUrl = `/watch-tv/${slugify(movieOrTvShowTitle)}-${
+      movieOrTvShowDetails.id
+    }/?season=${1}&episode=${1}`;
+  }
 
   //   get the runtime for the movie or tv show in the format of 1h 30m, or 1h, or 30m
   let runtime;
