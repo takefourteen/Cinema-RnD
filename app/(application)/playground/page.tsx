@@ -3,7 +3,7 @@ import Image from "next/image";
 import logo from "@/assets/images/logos/cozycinema-logo.webp";
 import logoC from "@/assets/images/logos/cozycinema-logo-c.webp";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Tabs from "@/components/application-group/Tabs";
+import Tabs from "@/components/application-group/playground/Tabs";
 
 const page = () => {
   return (
