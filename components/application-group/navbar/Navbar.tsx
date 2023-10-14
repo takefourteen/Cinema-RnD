@@ -19,11 +19,12 @@ const Navbar = () => {
   const pathname = usePathname();
   const { data: session, status } = useSession();
   const [scroll, setScroll] = useState(false);
-  const [searchBarOpen, setSearchBarOpen] = useState<boolean>(false);
   const [darkenBackground, setDarkenBackground] = useState<boolean>(false);
-  const isScreenWithoutNavbarScrollEffect = ["search", "watch-movie"].includes(
-    pathname.split("/")[1],
-  );
+  const isScreenWithoutNavbarScrollEffect = [
+    "search",
+    "watch-movie",
+    "watch-tv",
+  ].includes(pathname.split("/")[1]);
   const scrollThreshold = 100; // Adjust this threshold as needed
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const Navbar = () => {
     is darkenBackground is true or false
   */
   const otherScreensNavbarClasses = `fixed transition-colors top-0 left-0 right-0 z-[99999] ${
-    scroll || searchBarOpen || darkenBackground
+    scroll || darkenBackground
       ? "bg-black"
       : "bg-gradient-to-b from-black via-black/50 to-transparent"
   }`;
