@@ -26,9 +26,9 @@ const StreamingServicesSlideShow = () => {
         clipPath: "inset( -100vw -100vw -100vw 16px )",
       }}
     >
-      <SectionHeader sectionTitle="All-Access Showtime" />
+      <SectionHeader sectionTitle="All-Access Showtime" showBorder={false} />
 
-      <div className="mt-4 flex gap-4 lg:mt-6 lg:gap-6">
+      <div className="mt-4 flex gap-4 lg:gap-6">
         {renderStreamingServicesList()}
         {/* duplicate the list to create an infinite slide show */}
         {renderStreamingServicesList()}
