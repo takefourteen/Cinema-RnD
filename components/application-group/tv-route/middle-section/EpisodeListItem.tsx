@@ -1,6 +1,9 @@
 import Link from "next/link";
 
 import { slugify } from "@/helpers/slugify";
+import { calculateDaysFromToday } from "@/helpers/calculateDaysFromToday";
+import { getVideoPlayerUrl } from "@/helpers/getVideoPlayerUrl";
+import { fetchTvSeriesExternalIds } from "@/lib/tmdb-api/external-ids";
 
 import { PlayIcon } from "@/components/ui/icons/Icons";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -20,8 +23,13 @@ const EpisodeListItem = ({
   tvSeriesId,
   tvSeriesTitle,
 }: EpisodeListItemProps) => {
-  // if episodeData.overview is empty, return a null
-  if (episodeData.overview === "") return null;
+  const daysFromToday = calculateDaysFromToday(episodeData.air_date);
+
+  /* if ep is less then 3 days old
+    or the air date is from three days ago into the future,
+    return null
+  */
+  if (daysFromToday >= 0) return null;
 
   // url to link episode to
   const episodeUrl = `
@@ -30,23 +38,21 @@ const EpisodeListItem = ({
   }&episode=${episodeData.episode_number}`;
 
   return (
-    <li className="relative w-full ">
+    <li className="group relative w-full ">
       <AspectRatio ratio={16 / 9}>
         <Link href={episodeUrl}>
-          <div className="group">
-            <ImageLoader
-              loaderType="skeleton"
-              src={`${BASE_IMG_URL}${episodeData.still_path}`}
-              alt={`${episodeData.name} poster`}
-              fill
-              priority={false}
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-              className="object-cover transition-all duration-300 ease-in-out group-hover:ring-2 group-hover:ring-slate-950 group-hover:ring-offset-2  group-focus-visible:ring-2 group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
-              // style={{ filter: "brightness(0.9)" }}
-            />
-            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
-              <PlayIcon />
-            </div>
+          <ImageLoader
+            loaderType="skeleton"
+            src={`${BASE_IMG_URL}${episodeData.still_path}`}
+            alt={`${episodeData.name} poster`}
+            fill
+            priority={false}
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+            className="object-cover transition-all duration-300 ease-in-out group-hover:ring-2 group-hover:ring-slate-950 group-hover:ring-offset-2  group-focus-visible:ring-2 group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
+            // style={{ filter: "brightness(0.9)" }}
+          />
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+            <PlayIcon />
           </div>
         </Link>
       </AspectRatio>
