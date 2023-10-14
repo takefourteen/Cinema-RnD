@@ -25,8 +25,7 @@ const EpisodeListItem = ({
 }: EpisodeListItemProps) => {
   const daysFromToday = calculateDaysFromToday(episodeData.air_date);
 
-  /* if ep is less then 3 days old
-    or the air date is from three days ago into the future,
+  /* check if the air date is from today into the future,
     return null
   */
   if (daysFromToday >= 0) return null;
