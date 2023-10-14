@@ -27,6 +27,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = async ({
 
   return (
     <iframe
+    id="video-player"
       src={playerUrl}
       frameBorder="0"
       allowFullScreen

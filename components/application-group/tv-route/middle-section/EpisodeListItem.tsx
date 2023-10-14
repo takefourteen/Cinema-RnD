@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 import { slugify } from "@/helpers/slugify";
 import { calculateDaysFromToday } from "@/helpers/calculateDaysFromToday";
@@ -18,11 +21,50 @@ type EpisodeListItemProps = {
   tvSeriesTitle: string;
 };
 
+type Styles = {
+  default: {
+    image: string;
+    playIcon: string;
+    title: string;
+  };
+  active: {
+    image: string;
+    playIcon: string;
+    title: string;
+  };
+};
+
+const styles: Styles = {
+  default: {
+    image:
+      "object-cover transition-all duration-300 ease-in-out group-hover:ring-2 group-hover:ring-slate-950 group-hover:ring-offset-2  group-focus-visible:ring-2 group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2",
+    playIcon:
+      "absolute inset-0 flex items-center justify-center bg-black bg-opacity-20",
+    title: "font-small-text max-w-[80%] font-bold ",
+  },
+  active: {
+    image:
+      "object-cover ring-1 ring-offset-1 ring-offset-[#7e1de0] ring-[#7e1de0] transition-all duration-300 ease-in-out",
+    playIcon:
+      "absolute inset-0 flex items-center justify-center bg-black bg-opacity-50",
+    title: "font-small-text max-w-[80%] font-bold tracking-wide text-[#7e1de0]",
+  },
+};
+
 const EpisodeListItem = ({
   episodeData,
   tvSeriesId,
   tvSeriesTitle,
 }: EpisodeListItemProps) => {
+  const searchParams = useSearchParams();
+  const activeSeason: string | null = searchParams.get("season");
+  const activeEpisode: string | null = searchParams.get("episode");
+
+  const episodeIsPlaying =
+    activeSeason === episodeData.season_number.toString() &&
+    activeEpisode === episodeData.episode_number.toString();
+
+  // calculate the number of days from today's date to the air date of the episode
   const daysFromToday = calculateDaysFromToday(episodeData.air_date);
 
   /* check if the air date is from today into the future,
@@ -39,7 +81,20 @@ const EpisodeListItem = ({
   return (
     <li className="group relative w-full ">
       <AspectRatio ratio={16 / 9}>
-        <Link href={episodeUrl}>
+        {/* now playing design */}
+        {/* {episodeIsPlaying && (
+          <div className="absolute top-0 z-10 h-[30px] w-full bg-primaryBlue">
+            <p className="text-center font-small-text font-semibold text-gray-400">
+              Now Playing
+            </p>
+          </div>
+        )} */}
+
+        {/* episode poster */}
+        <Link
+          href={episodeIsPlaying ? `#video-player` : episodeUrl}
+          shallow={true}
+        >
           <ImageLoader
             loaderType="skeleton"
             src={`${BASE_IMG_URL}${episodeData.still_path}`}
@@ -47,11 +102,20 @@ const EpisodeListItem = ({
             fill
             priority={false}
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-            className="object-cover transition-all duration-300 ease-in-out group-hover:ring-2 group-hover:ring-slate-950 group-hover:ring-offset-2  group-focus-visible:ring-2 group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
-            // style={{ filter: "brightness(0.9)" }}
+            className={`${
+              episodeIsPlaying ? styles.active.image : styles.default.image
+            }`}
           />
-          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
-            <PlayIcon />
+
+          {/* play icon */}
+          <div
+            className={
+              episodeIsPlaying
+                ? styles.active.playIcon
+                : styles.default.playIcon
+            }
+          >
+            {!episodeIsPlaying && <PlayIcon />}
           </div>
         </Link>
       </AspectRatio>
@@ -59,7 +123,11 @@ const EpisodeListItem = ({
       <div className="flex flex-col gap-y-2 pe-1 lg:pe-2">
         {/* name and duration of ep */}
         <div className="mt-2 flex justify-between">
-          <h3 className="font-small-text max-w-[80%] font-bold">
+          <h3
+            className={`${
+              episodeIsPlaying ? styles.active.title : styles.default.title
+            }`}
+          >
             {episodeData.episode_number}. &nbsp;{episodeData.name}
           </h3>
           <p className="font-extra-small-text text-gray-400">
