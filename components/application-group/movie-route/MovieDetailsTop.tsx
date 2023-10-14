@@ -1,8 +1,6 @@
 import Link from "next/link";
 
 import { slugify } from "@/helpers/slugify";
-import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
-import { fetchImages } from "@/lib/tmdb-api/images";
 
 import { IoMdAdd } from "react-icons/io";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
@@ -15,24 +13,14 @@ import ImdbRating from "../ImdbRating";
 import TitleLogo from "../TitleLogo";
 
 interface MovieHeaderProps {
-  movieId: string;
+  movieDetails: MovieDetailsData;
+  images: ImagesData;
 }
 
-const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
-  // fetch the movie details and images
-  const movieDetailsPromise = fetchMovieDetails(movieId);
-  const imagesPromise = fetchImages(movieId, "movie");
-
-  // wait for both promises to resolve
-  const [movieDetailsResponse, imagesResponse] = await Promise.all([
-    movieDetailsPromise,
-    imagesPromise,
-  ]);
-
-  // destructure the data and error from the responses
-  const movieDetails = movieDetailsResponse;
-  const images = imagesResponse;
-
+const MovieDetailsTop: React.FC<MovieHeaderProps> = ({
+  movieDetails,
+  images,
+}) => {
   /*
     check if the imagesData.backdrops array has at least 3 images
     select the 3rd image from the array or the last image if there are less than 3 images
@@ -69,7 +57,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   }`;
 
   return (
-    <>
+    <div className="relative h-[90dvh] flex-1 sm:h-[90dvh] md:h-[85dvh] lg:h-[85dvh] ">
       {/* Image Display */}
       <ResponsiveBackgroundPoster
         poster_path={movieDetails.poster_path}
@@ -179,7 +167,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
         next section
       */}
       <div className="absolute inset-x-0 bottom-0 hidden h-4 bg-gradient-to-t from-black to-transparent md:flex" />
-    </>
+    </div>
   );
 };
 
