@@ -3,14 +3,16 @@ const BASE_URL = "https://api.themoviedb.org/3";
 
 export async function fetchTvSeriesDetails(
   tvSeriesId: string | number,
+  delay: number = 0,
   includeCredits = true,
-  delay: number = 0 
 ): Promise<TVSeriesData> {
   try {
     // Introduce a delay before the fetch operation
     if (delay > 0) await new Promise((resolve) => setTimeout(resolve, delay));
-    
-    const url =  `${BASE_URL}/tv/${tvSeriesId}?api_key=${API_KEY}&language=en-US&append_to_response=${includeCredits ? "credits" : ""}`;
+
+    const url = `${BASE_URL}/tv/${tvSeriesId}?api_key=${API_KEY}&language=en-US&append_to_response=${
+      includeCredits ? "credits" : ""
+    }`;
     const response = await fetch(url, { cache: "force-cache" });
 
     if (!response.ok) {
@@ -28,7 +30,6 @@ export async function fetchTvSeriesDetails(
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
     throw new Error(errorMessage);
-
   }
 }
 /* is a type guard function that checks if a given object is of type 

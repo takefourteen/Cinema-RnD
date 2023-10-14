@@ -5,6 +5,7 @@ import { useInView } from "react-intersection-observer";
 
 import { fetchSearchResults } from "../../../lib/actions";
 import MediaCard from "@/components/MediaCard";
+import DataFetchingMediaCard from "@/components/DataFetchingMediaCard";
 import NoResultsMessage from "./NoResultsMessage";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
@@ -53,10 +54,19 @@ const InfiniteScrollSearchResults = ({
     <>
       <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-3 lg:grid-cols-4 lg:gap-y-16 xl:grid-cols-5">
         {searchResults.map((media) => (
-          <MediaCard
+          // <MediaCard
+          //   key={media.id}
+          //   data={media}
+          //   aspect_ratio="2:3"
+          // />
+          <DataFetchingMediaCard
             key={media.id}
-            data={media}
-            aspect_ratio="2:3"
+            mediaId={media.id.toString()}
+            mediaType={
+              (media as TvShowSearchResult).original_name ? "tv" : "movie"
+            }
+            priority={false}
+            inAGrid={true}
           />
         ))}
       </div>
@@ -64,7 +74,7 @@ const InfiniteScrollSearchResults = ({
       {showSpinner && (
         <div
           ref={ref}
-          className="col-span-full mt-8 relative flex items-end justify-center "
+          className="relative col-span-full mt-8 flex items-end justify-center "
         >
           <LoadingSpinner />
           <span className="sr-only">Loading...</span>
