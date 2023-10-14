@@ -75,7 +75,7 @@ const EpisodesList = ({ tvSeriesId }: EpisodesListProps) => {
 
       <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
         {seasonData.episodes.map((episode) => (
-          <EpisodeListItem key={episode.id} episodeData={episode} />
+          <EpisodeListItem key={episode.id} episodeData={episode} tvSeriesId={tvSeriesId} />
         ))}
       </ul>
     </>

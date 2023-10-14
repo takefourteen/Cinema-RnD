@@ -9,14 +9,15 @@ const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
 type EpisodeListItemProps = {
   episodeData: EpisodeData;
+  tvSeriesId: string;
 };
 
-const EpisodeListItem = ({ episodeData }: EpisodeListItemProps) => {
+const EpisodeListItem = ({ episodeData, tvSeriesId }: EpisodeListItemProps) => {
   // if episodeData.overview is empty, return a null
   if (episodeData.overview === "") return null;
 
   // url to link episode to
-  const episodeUrl = `/watch-tv/${episodeData.id}-${episodeData.name
+  const episodeUrl = `/watch-tv/${tvSeriesId}-${episodeData.name
     .replace(/[^a-zA-Z0-9 ]/g, "")
     .split(" ")
     .join("-")
