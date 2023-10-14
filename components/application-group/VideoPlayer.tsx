@@ -36,3 +36,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = async ({
 };
 
 export default VideoPlayer;
+
+/*
+  https://multiembed.mov/?video_id=${videoId}
+*/
