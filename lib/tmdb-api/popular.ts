@@ -75,11 +75,8 @@ export async function fetchMultiplePagesOfPopularMovies(
       const intialFetch: PopularMovie[] = await getPopularMovies(page, "US");
 
       // Filter the results to retain only those with a video URL
-      const filteredResults: PopularMovie[] = await filterMediaWithVideoUrl(
-        intialFetch,
-        0,
-        0,
-      );
+      const filteredResults: PopularMovie[] =
+        await filterMediaWithVideoUrl(intialFetch);
 
       // Put the filtered results into the final results
       finalResults = [...finalResults, ...filteredResults];
@@ -104,11 +101,8 @@ export async function fetchMultiplePagesOfPopularTvSeries(
       );
 
       // Filter the results to retain only those with a video URL
-      const filteredResults: PopularTvSeries[] = await filterMediaWithVideoUrl(
-        intialFetch,
-        0,
-        0,
-      );
+      const filteredResults: PopularTvSeries[] =
+        await filterMediaWithVideoUrl(intialFetch);
 
       // Put the filtered results into the final results
       finalResults = [...finalResults, ...filteredResults];

@@ -35,11 +35,8 @@ export async function fetchSimilarMovies(
     );
 
     // filter out movies that don't have a video url
-    const filteredByVideoUrl: SimilarMovie[] = await filterMediaWithVideoUrl(
-      filteredByLanguage,
-      0,
-      0,
-    );
+    const filteredByVideoUrl: SimilarMovie[] =
+      await filterMediaWithVideoUrl(filteredByLanguage);
 
     return filteredByVideoUrl;
 
@@ -78,11 +75,8 @@ export async function fetchSimilarTvSeries(
     );
 
     // filter out tv series that don't have a video url
-    const filteredByVideoUrl: SimilarTvSeries[] = await filterMediaWithVideoUrl(
-      filteredByLanguage,
-      1,
-      1,
-    );
+    const filteredByVideoUrl: SimilarTvSeries[] =
+      await filterMediaWithVideoUrl(filteredByLanguage);
 
     return filteredByVideoUrl;
 

@@ -33,7 +33,7 @@ export async function fetchMovieRecommendations(
 
     // filter out results that do not have a video url
     const filteredByVideoUrl: RecommendedMovie[] =
-      await filterMediaWithVideoUrl(filteredByLanguage, 0, 0);
+      await filterMediaWithVideoUrl(filteredByLanguage);
 
     return filteredByVideoUrl;
 
@@ -77,7 +77,7 @@ export async function fetchTVSeriesRecommendations(
 
     // filter out results that do not have a video url
     const filteredByVideoUrl: RecommendedTvSeries[] =
-      await filterMediaWithVideoUrl(filteredByLanguage, 1, 1);
+      await filterMediaWithVideoUrl(filteredByLanguage);
 
     return filteredByVideoUrl;
 

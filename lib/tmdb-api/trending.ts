@@ -7,7 +7,7 @@ import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
 
 export async function fetchTrendingMovies(
   page: number = 1,
-  timeWindow: "day" | "week" = "day"
+  timeWindow: "day" | "week" = "day",
 ): Promise<TrendingMovie[]> {
   try {
     const url = `${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`;
@@ -15,7 +15,8 @@ export async function fetchTrendingMovies(
 
     if (!response.ok) {
       const errorResponse = await response.json();
-      const errorMessage = errorResponse?.status_message || "Failed to fetch trending movies";
+      const errorMessage =
+        errorResponse?.status_message || "Failed to fetch trending movies";
       throw new Error(errorMessage);
     }
 
@@ -33,7 +34,7 @@ export async function fetchTrendingMovies(
 
 export async function fetchTrendingTVShows(
   page: number = 1,
-  timeWindow: "day" | "week" = "day"
+  timeWindow: "day" | "week" = "day",
 ): Promise<TrendingTVSeries[]> {
   try {
     const url = `${BASE_URL}/trending/tv/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`;
@@ -41,7 +42,8 @@ export async function fetchTrendingTVShows(
 
     if (!response.ok) {
       const errorResponse = await response.json();
-      const errorMessage = errorResponse?.status_message || "Unknown error occurred";
+      const errorMessage =
+        errorResponse?.status_message || "Unknown error occurred";
       throw new Error(errorMessage);
     }
 
@@ -52,14 +54,15 @@ export async function fetchTrendingTVShows(
 
     return englishTvShows;
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
+    const errorMessage =
+      error instanceof Error ? error.message : "An unknown error occurred";
     console.error("Error fetching trending TV shows:", errorMessage);
     return [];
   }
 }
 
 export async function fetchMultiplePagesOfTrendingMovies(
-  numPages: number
+  numPages: number,
 ): Promise<TrendingMovie[]> {
   let finalResults: TrendingMovie[] = [];
 
@@ -68,7 +71,7 @@ export async function fetchMultiplePagesOfTrendingMovies(
       const intialFetch = await fetchTrendingMovies(page);
 
       // Filter the results to retain only those with a video URL
-      const filteredResults = await filterMediaWithVideoUrl(intialFetch, 0, 0);
+      const filteredResults = await filterMediaWithVideoUrl(intialFetch);
 
       // Put the filtered results into the final results
       finalResults = [...finalResults, ...filteredResults];
@@ -81,7 +84,7 @@ export async function fetchMultiplePagesOfTrendingMovies(
 }
 
 export async function fetchMultiplePagesOfTrendingTVShows(
-  numPages: number
+  numPages: number,
 ): Promise<TrendingTVSeries[]> {
   let finalResults: TrendingTVSeries[] = [];
 
@@ -90,7 +93,7 @@ export async function fetchMultiplePagesOfTrendingTVShows(
       const intialFetch = await fetchTrendingTVShows(page);
 
       // Filter the results to retain only those with a video URL
-      const filteredResults = await filterMediaWithVideoUrl(intialFetch, 1, 1);
+      const filteredResults = await filterMediaWithVideoUrl(intialFetch);
 
       // Put the filtered results into the final results
       finalResults = [...finalResults, ...filteredResults];
