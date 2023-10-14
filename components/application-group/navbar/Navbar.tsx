@@ -104,7 +104,7 @@ const Navbar = () => {
 
         {/* menu for lg screens */}
         <div className="hidden items-center gap-x-2  uppercase lg:flex">
-          <NavLink href="/" active={pathname === "/discovery"}>
+          <NavLink href="/" active={pathname === "/"}>
             Home
           </NavLink>
           <NavLink href="#" active={pathname === "/movies"}>
