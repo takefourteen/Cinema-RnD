@@ -95,9 +95,9 @@ const generateAPIUrl: generateAPIUrl = (category, type) => {
   const filterAndSortOptions = genres[type][category].filterAndSortOptions;
 
   if (type === "movies") {
-    return `${baseMovieURL}&include_adult=false&include_video=false&language=en-US&page=1&with_genres=${genreIds}${filterAndSortOptions}`;
+    return `${baseMovieURL}&include_adult=false&include_video=false&language=en-US&page=1&with_original_language=en&with_genres=${genreIds}${filterAndSortOptions}`;
   } else {
-    return `${baseTVSeriesURL}&include_adult=false&include_video=false&language=en-US&page=1&with_genres=${genreIds}${filterAndSortOptions}`;
+    return `${baseTVSeriesURL}&include_adult=false&include_video=false&language=en-US&page=1&with_original_language=en&with_genres=${genreIds}${filterAndSortOptions}`;
   }
 };
 
@@ -136,8 +136,11 @@ export const fetchCategory = async ({
     const data: DiscoverMovieApiResponse | DiscoverTVSeriesApiResponse =
       await response.json();
 
-    // filter out movies that are not in English
-    data.results = filterResultsByLanguage(data.results || [], "en");
+    /* 
+      filter out movies that are not in English - Not necessay anymore,
+      only shows with language in en are fetched
+    */
+    // data.results = filterResultsByLanguage(data.results || [], "en");
 
     // filter out movies that don't have a video url
     data.results = await filterMediaWithVideoUrl(data.results || []);
