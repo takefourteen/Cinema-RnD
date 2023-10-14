@@ -21,8 +21,8 @@ const EpisodeListItem = ({ episodeData, tvSeriesId }: EpisodeListItemProps) => {
   // url to link episode to
   const episodeUrl = `
   /watch-tv/${slugify(episodeData.name)}-${tvSeriesId}
-  /?season=${encodeURIComponent(episodeData.season_number)}
-  &episode=${encodeURIComponent(episodeData.episode_number)}`;
+  /?season=${episodeData.season_number}
+  &episode=${episodeData.episode_number}`;
 
   return (
     <li className="relative w-full ">
