@@ -49,6 +49,9 @@ const page = async ({ params }: PageProps) => {
     imagesPromise,
   ]);
 
+  // structure genreIds as an array of numbers
+  const genreIds = tvSeriesData.genres.map((genre) => genre.id);
+
   const tabConfigs = [
     {
       key: "episodes",
@@ -63,7 +66,13 @@ const page = async ({ params }: PageProps) => {
     {
       key: "recommended",
       title: "More Like This",
-      content: <RecommendedMediaList mediaId={tvSeriesId} mediaType="tv" />,
+      content: (
+        <RecommendedMediaList
+          mediaId={tvSeriesId}
+          mediaType="tv"
+          genreIds={genreIds}
+        />
+      ),
     },
     {
       key: "details",
