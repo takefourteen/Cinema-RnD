@@ -68,10 +68,6 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
     movieDetails.id
   }`;
 
-  // play movie href to watch page of the movie or tv show
-  const playUrl = `/watch-${type}/${slugify(movieOrTvShowTitle)}-${
-    movieOrTvShowDetails.id
-  }`;
 
   return (
     <div className="relative h-[90dvh] flex-1 sm:h-[90dvh] md:h-[85dvh] lg:h-[85dvh] ">
