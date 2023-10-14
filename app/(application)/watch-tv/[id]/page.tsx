@@ -15,10 +15,17 @@ const RecommendedMediaList = dynamic(
       "@/components/application-group/recommendations/RecommendedMediaList"
     ),
 );
+
 const DetailsAboutShowSection = dynamic(
   () => import("@/components/application-group/DetailsAboutShowSection"),
 );
 
+const SeasonsAndEpisodes = dynamic(
+  () =>
+    import(
+      "@/components/application-group/tv-route/middle-section/SeasonsAndEpisodes"
+    ),
+);
 type PageProps = {
   params: {
     id: string;
@@ -52,14 +59,24 @@ const page = async ({ params, searchParams }: PageProps) => {
 
   const tabConfigs = [
     {
-      key: "details",
-      title: "Details",
-      content: <DetailsAboutShowSection mediaId={tvSeriesId} mediaType="tv" />,
+      key: "episodes",
+      title: "View Episodes",
+      content: (
+        <SeasonsAndEpisodes
+          tvSeriesId={tvSeriesId}
+          totalNumberOfSeasons={tvSeriesDetails.number_of_seasons}
+        />
+      ),
     },
     {
       key: "recommended",
       title: "More Like This",
       content: <RecommendedMediaList mediaId={tvSeriesId} mediaType="tv" />,
+    },
+    {
+      key: "details",
+      title: "Details",
+      content: <DetailsAboutShowSection mediaId={tvSeriesId} mediaType="tv" />,
     },
   ];
 

@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import React from "react";
 
 import {
   Select,
@@ -13,20 +12,17 @@ import {
 
 type SeasonSelectProps = {
   numberOfSeasons: number;
+  selectedSeason: number;
+  setSelectedSeason: React.Dispatch<React.SetStateAction<number>>;
 };
 
-const SeasonSelect: React.FC<SeasonSelectProps> = ({ numberOfSeasons }) => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const seasonNumber = searchParams.get("season") || "1";
-  const [selectedSeason, setSelectedSeason] = useState(
-    parseInt(seasonNumber, 10),
-  );
-
+const SeasonSelect: React.FC<SeasonSelectProps> = ({
+  numberOfSeasons,
+  selectedSeason,
+  setSelectedSeason,
+}) => {
   const handleSeasonChange = (value: string) => {
     setSelectedSeason(parseInt(value, 10));
-    router.push(`${pathname}?season=${value}`, { scroll: false });
   };
 
   return (

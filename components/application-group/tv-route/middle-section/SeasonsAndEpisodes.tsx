@@ -1,6 +1,7 @@
-import { Suspense } from "react";
+"use client";
 
-import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
+import { Suspense } from "react";
+import { useState } from "react";
 
 import SeasonSelect from "./SeasonSelect";
 import EpisodesList from "./EpisodesList";
@@ -8,19 +9,29 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 
 type SeasonsAndEpisodesProps = {
   tvSeriesId: string;
+  totalNumberOfSeasons: number;
 };
 
-const SeasonsAndEpisodes = async ({ tvSeriesId }: SeasonsAndEpisodesProps) => {
-  // Todo: fetch season data - espesially the number of seasons
-  // and pass it to the SeasonSelect component
-  const tvSeriesDetails = await fetchTvSeriesDetails(tvSeriesId);
+const SeasonsAndEpisodes = ({
+  tvSeriesId,
+  totalNumberOfSeasons,
+}: SeasonsAndEpisodesProps) => {
+
+  const [selectedSeason, setSelectedSeason] = useState(1);
 
   return (
     <div className="relative flex flex-col gap-y-4 lg:gap-y-8">
-      <SeasonSelect numberOfSeasons={tvSeriesDetails.number_of_seasons} />
+      <SeasonSelect 
+      numberOfSeasons={totalNumberOfSeasons} 
+      selectedSeason={selectedSeason}
+      setSelectedSeason={setSelectedSeason}
+      />
 
       <Suspense fallback={<LoadingSpinner />}>
-        <EpisodesList tvSeriesId={tvSeriesId} />
+        <EpisodesList
+         tvSeriesId={tvSeriesId} 
+          selectedSeason={selectedSeason}
+         />
       </Suspense>
     </div>
   );

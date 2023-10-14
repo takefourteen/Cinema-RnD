@@ -1,7 +1,6 @@
 "use client";
 
 import useSWR from "swr";
-import { useSearchParams } from "next/navigation";
 
 import { fetchSeasonData } from "@/lib/tmdb-api/season";
 
@@ -12,11 +11,11 @@ import AnimatedStringLoader from "@/components/AnimatedStringLoader";
 
 type EpisodesListProps = {
   tvSeriesId: string;
+  selectedSeason: number;
 };
 
-const EpisodesList = ({ tvSeriesId }: EpisodesListProps) => {
-  const searchParams = useSearchParams();
-  const seasonNumber = searchParams.get("season") || "1";
+const EpisodesList = ({ tvSeriesId, selectedSeason }: EpisodesListProps) => {
+  const seasonNumber = selectedSeason.toString();
   const {
     data: seasonData,
     error,
@@ -75,7 +74,11 @@ const EpisodesList = ({ tvSeriesId }: EpisodesListProps) => {
 
       <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
         {seasonData.episodes.map((episode) => (
-          <EpisodeListItem key={episode.id} episodeData={episode} tvSeriesId={tvSeriesId} />
+          <EpisodeListItem
+            key={episode.id}
+            episodeData={episode}
+            tvSeriesId={tvSeriesId}
+          />
         ))}
       </ul>
     </>
