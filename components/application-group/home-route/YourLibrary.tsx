@@ -15,11 +15,11 @@ const YourLibrary = () => {
       <div className="mt-6 flex flex-col items-center justify-center lg:mt-6">
         <BookmarkIcon2 />
 
-        <div className="mb-8 mt-2 flex flex-col items-center justify-center">
-          <p className="text-base font-bold md:text-lg lg:text-xl">
+        <div className="mb-6 mt-2 flex flex-col items-center justify-center text-center lg:mb-8">
+          <p className="font-body-text font-bold">
             Sign in to access your Watchlist
           </p>
-          <p className="text-sm md:text-base lg:text-lg">
+          <p className="font-small-text ">
             Save shows and movies to keep track of what you want to watch.
           </p>
         </div>
@@ -27,7 +27,7 @@ const YourLibrary = () => {
         <DetailsButton
           variant={"primary"}
           size={"default"}
-          className="w-max text-sm font-bold uppercase hover:outline-none hover:ring-1 hover:ring-slate-950 hover:ring-offset-1"
+          className="w-max text-sm font-bold uppercase hover:bg-[#e50914] hover:outline-none hover:ring-1 hover:ring-slate-950 hover:ring-offset-1"
           asChild
         >
           <Link href="/sign-up">Sign Up</Link>
