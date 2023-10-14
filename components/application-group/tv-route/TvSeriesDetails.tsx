@@ -50,7 +50,6 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
   return (
     <div className="relative h-[90dvh] flex-1 sm:h-[90dvh] md:h-[85dvh] lg:h-[85dvh] ">
       {/* Image Display */}
-
       <ResponsiveBackgroundPoster
         poster_path={tvSeriesData.poster_path}
         backdrop_path={backdropPath}
