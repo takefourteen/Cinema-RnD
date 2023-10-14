@@ -63,7 +63,9 @@ const page = async ({ params: { id } }: PageProps) => {
         </Suspense>
       </div>
       {/* Middle Section */}
-      <ExplorerPanel tabConfigs={tabConfigs} />;{/* Script */}
+      <ExplorerPanel tabConfigs={tabConfigs} />
+
+      {/* Script */}
       <Script src="../js/clearThePath.js" />
     </section>
   );
