@@ -11,18 +11,18 @@ const RecommendedMediaList = dynamic(
   () =>
     import(
       "@/components/application-group/recommendations/RecommendedMediaList"
-    ),
+    )
 );
 
 const DetailsAboutShowSection = dynamic(
-  () => import("@/components/application-group/DetailsAboutShowSection"),
+  () => import("@/components/application-group/DetailsAboutShowSection")
 );
 
 const SeasonsAndEpisodes = dynamic(
   () =>
     import(
       "@/components/application-group/tv-route/middle-section/SeasonsAndEpisodes"
-    ),
+    )
 );
 
 // import RecommendedMediaList from "@/components/application-group/recommendations/RecommendedMediaList";
@@ -37,7 +37,7 @@ type PageProps = {
 
 const page = async ({ params: { id } }: PageProps) => {
   // id from the params is a string with the tv series id and the tv series name seperated by a dash, so we split the string and get the id
-  const tvSeriesId = id.split("-")[0];
+  const tvSeriesId = id.split("-")[-1];
 
   // fetch the tv details and images
   const tvSeriesPromise = fetchTvSeriesDetails(tvSeriesId, true);

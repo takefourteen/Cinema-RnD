@@ -25,7 +25,7 @@ type PageProps = {
 
 const page = ({ params: { id } }: PageProps) => {
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
-  const movieId = id.split("-")[0];
+  const movieId = id.split("-")[-1];
 
   const tabConfigs = [
     {
