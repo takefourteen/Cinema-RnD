@@ -40,7 +40,7 @@ const page = async ({ params: { id } }: PageProps) => {
   const tvSeriesId = id.split("-")[0];
 
   // fetch the tv details and images
-  const tvSeriesPromise = fetchTvSeriesDetails(tvSeriesId);
+  const tvSeriesPromise = fetchTvSeriesDetails(tvSeriesId, true);
   const imagesPromise = fetchImages(tvSeriesId, "tv");
 
   // wait for both promises to resolve

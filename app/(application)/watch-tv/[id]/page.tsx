@@ -2,7 +2,8 @@ import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Script from "next/script";
 
-import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
+import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
+import { fetchTvSeriesExternalIds } from "@/lib/tmdb-api/external-ids";
 
 import VideoPlayer from "@/components/application-group/VideoPlayer";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
@@ -22,39 +23,43 @@ type PageProps = {
   params: {
     id: string;
   };
-   // searchParams will be something like this: ?season=1&episode=2
+  // searchParams will be something like this: ?season=1&episode=2
   searchParams: {
     season: string;
     episode: string;
   };
-
 };
 
 const page = async ({ params, searchParams }: PageProps) => {
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
-  const tvSeriesId = params.id.split("-")[-1];
+  const tvSeriesId = params.id.split("-")[0];
   const season = searchParams.season;
   const episode = searchParams.episode;
-  
 
-  // fetch the movie details
-  const movieDetails = await fetchMovieDetails(tvSeriesId);
+  // fetch external ids - imdb id & fetch the tv series details
+  const externalIdsPromise = fetchTvSeriesExternalIds(tvSeriesId);
+  const tvSeriesDetailsPromise = fetchTvSeriesDetails(tvSeriesId, false);
 
-  // log imdb id
-  console.log("imdb id: ", movieDetails.imdb_id);
+  const [externalIds, tvSeriesDetails] = await Promise.all([
+    externalIdsPromise,
+    tvSeriesDetailsPromise,
+  ]);
+
+  console.log("tmdb id: ", tvSeriesId);
+  console.log("season: ", season);
+  console.log("episode: ", episode);
+  console.log("imdb id: ", externalIds.imdb_id);
 
   const tabConfigs = [
     {
       key: "details",
       title: "Details",
-      content: (
-        <DetailsAboutShowSection mediaId={tvSeriesId} mediaType="movie" />
-      ),
+      content: <DetailsAboutShowSection mediaId={tvSeriesId} mediaType="tv" />,
     },
     {
       key: "recommended",
       title: "More Like This",
-      content: <RecommendedMediaList mediaId={tvSeriesId} mediaType="movie" />,
+      content: <RecommendedMediaList mediaId={tvSeriesId} mediaType="tv" />,
     },
   ];
 
@@ -65,10 +70,18 @@ const page = async ({ params, searchParams }: PageProps) => {
         <Suspense>
           <VideoPlayer
             // videoId={movieId}
-            videoId={movieDetails.imdb_id}
-            isTmdb={false}
-            season={0}
-            episode={0}
+            videoId={
+              externalIds.imdb_id
+                ? externalIds.imdb_id
+                : tvSeriesDetails.id.toString()
+            }
+            isTmdb={
+              externalIds.imdb_id
+                ? false
+                : tvSeriesDetails.id.toString().startsWith("tt")
+            }
+            season={Number(season)}
+            episode={Number(episode)}
             className="h-full w-full"
           />
         </Suspense>
