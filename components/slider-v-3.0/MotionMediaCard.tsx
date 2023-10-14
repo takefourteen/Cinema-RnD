@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-import { slugify } from "@/helpers/slugify.ts";
+import { slugify } from "@/helpers/slugify";
 
 import { AspectRatio } from "../ui/aspect-ratio";
 import ImageLoader from "../ImageLoader";
@@ -90,7 +90,7 @@ const MotionMediaCard = ({
           {/* Display the media title with truncation, if true */}
           {showTitle && (
             <p
-              className={`mt-4 truncate text-start font-small-text font-normal tracking-wide text-white`}
+              className={`font-small-text mt-4 truncate text-start font-normal tracking-wide text-white`}
             >
               {data.original_title || data.original_name || "Unknown Title"}
             </p>

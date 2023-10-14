@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { slugify } from "@/helpers/slugify.ts";
+import { slugify } from "@/helpers/slugify";
 
 import { PlayIcon } from "@/components/ui/icons/Icons";
 import { AspectRatio } from "@/components/ui/aspect-ratio";

@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { slugify } from "@/helpers/slugify.ts";
+import { slugify } from "@/helpers/slugify";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
@@ -64,8 +64,9 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   //   movieDetails.original_title,
   // )}`;
 
-  const watchMovieUrl = `/watch-movie/${slugify(movieDetails.original_title)}-${movieDetails.id}`;
-
+  const watchMovieUrl = `/watch-movie/${slugify(movieDetails.original_title)}-${
+    movieDetails.id
+  }`;
 
   // play movie href to watch page of the movie or tv show
   const playUrl = `/watch-${type}/${slugify(movieOrTvShowTitle)}-${

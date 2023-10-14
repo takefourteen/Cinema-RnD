@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import useSWR from "swr";
 
-import { slugify } from "@/helpers/slugify.ts";
+import { slugify } from "@/helpers/slugify";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { isMovieDetails } from "@/lib/tmdb-api/movies";

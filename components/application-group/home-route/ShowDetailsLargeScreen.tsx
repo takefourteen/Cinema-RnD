@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Suspense } from "react";
 
-import { slugify } from "@/helpers/slugify.ts";
+import { slugify } from "@/helpers/slugify";
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 

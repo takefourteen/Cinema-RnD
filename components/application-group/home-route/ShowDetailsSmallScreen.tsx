@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-import { slugify } from "@/helpers/slugify.ts";
+import { slugify } from "@/helpers/slugify";
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
@@ -40,7 +40,7 @@ const ShowDetailsSmallScreen = async ({
 
   // look for the first production company that has a logo path
   const productionCompany = movieOrTvShowDetails.production_companies.find(
-    (company) => company.logo_path
+    (company) => company.logo_path,
   );
 
   /*
