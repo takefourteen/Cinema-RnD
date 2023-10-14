@@ -68,9 +68,8 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
     movieDetails.id
   }`;
 
-
   return (
-    <div className="relative h-[90dvh] flex-1 sm:h-[90dvh] md:h-[85dvh] lg:h-[85dvh] ">
+    <>
       {/* Image Display */}
       <ResponsiveBackgroundPoster
         poster_path={movieDetails.poster_path}
@@ -180,7 +179,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
         next section
       */}
       <div className="absolute inset-x-0 bottom-0 hidden h-4 bg-gradient-to-t from-black to-transparent md:flex" />
-    </div>
+    </>
   );
 };
 

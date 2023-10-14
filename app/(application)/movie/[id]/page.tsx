@@ -5,6 +5,7 @@ import MovieDetailsTop from "@/components/application-group/movie-route/MovieDet
 // import RecommendedMediaList from "@/components/application-group/recommendations/RecommendedMediaList";
 // import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
+import AnimatedStringLoader from "@/components/AnimatedStringLoader";
 
 // lazy load the following components
 const RecommendedMediaList = dynamic(
@@ -43,9 +44,17 @@ const page = ({ params }: PageProps) => {
   return (
     <section className=" text-white">
       {/* Top Section */}
-      <Suspense>
-        <MovieDetailsTop movieId={movieId} />
-      </Suspense>
+      <div className="relative h-[90dvh] flex-1 sm:h-[90dvh] md:h-[85dvh] lg:h-[85dvh] ">
+        <Suspense
+          fallback={
+            <div className="absolute inset-0 flex items-center justify-center">
+              <AnimatedStringLoader loadingString="..." />
+            </div>
+          }
+        >
+          <MovieDetailsTop movieId={movieId} />
+        </Suspense>
+      </div>
       {/* Middle Section */}
 
       <Suspense fallback={null}>
