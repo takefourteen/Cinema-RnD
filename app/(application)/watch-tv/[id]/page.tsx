@@ -32,12 +32,11 @@ type PageProps = {
 
 const page = async ({ params, searchParams }: PageProps) => {
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
-  // const tvSeriesId = params.id.split("-")[0];
-  const tvSeriesId = "233643";
+  const tvSeriesId = params.id.split("-").pop() as string;
   const season = searchParams.season;
   const episode = searchParams.episode;
 
-  console.log('tv params: ', params)
+  console.log("tv params: ", params);
 
   // fetch external ids - imdb id & fetch the tv series details
   const externalIdsPromise = fetchTvSeriesExternalIds(tvSeriesId);

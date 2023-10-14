@@ -26,8 +26,7 @@ type PageProps = {
 
 const page = async ({ params }: PageProps) => {
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
-  // const movieId = id.split("-")[0];
-  const movieId = "980489";
+  const movieId = params.id.split("-").pop() as string;
 
   console.log("movie: ", params);
 
