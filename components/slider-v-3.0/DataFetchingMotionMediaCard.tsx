@@ -72,7 +72,7 @@ const DataFetchingMotionMediaCard = ({
   }
 
   //   prepare url path for the media page by using type guard functions
-  const moviePageUrl = `/${
+  const mediaPageUrl = `/${
     isMovieDetails(mediaDetails) ? "movie" : "tv"
   }/${mediaId}-${
     isMovieDetails(mediaDetails)
@@ -139,7 +139,7 @@ const DataFetchingMotionMediaCard = ({
         stiffness: 100,
       }}
     >
-      <Link href={moviePageUrl} className="group ">
+      <Link href={mediaPageUrl} className="group ">
         <AspectRatio ratio={2 / 3}>
           <ImageLoader
             loaderType="skeleton"
