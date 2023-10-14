@@ -1,6 +1,5 @@
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
-import { filterResultsByLanguage } from "@/helpers/filterResults";
 import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
 
 const baseMovieURL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
