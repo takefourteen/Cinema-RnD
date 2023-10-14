@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { slugify } from "@/helpers/slugify.ts";
+
 import { PlayIcon } from "@/components/ui/icons/Icons";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
@@ -17,13 +19,10 @@ const EpisodeListItem = ({ episodeData, tvSeriesId }: EpisodeListItemProps) => {
   if (episodeData.overview === "") return null;
 
   // url to link episode to
-  const episodeUrl = `/watch-tv/${tvSeriesId}-${episodeData.name
-    .replace(/[^a-zA-Z0-9 ]/g, "")
-    .split(" ")
-    .join("-")
-    .toLowerCase()}/?season=${episodeData.season_number}&episode=${
-    episodeData.episode_number
-  }`;
+  const episodeUrl = `
+  /watch-tv/${slugify(episodeData.name)}-${tvSeriesId}
+  /?season=${encodeURIComponent(episodeData.season_number)}
+  &episode=${encodeURIComponent(episodeData.episode_number)}`;
 
   return (
     <li className="relative w-full ">
