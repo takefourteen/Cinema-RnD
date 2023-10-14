@@ -12,10 +12,10 @@ const RecommendedMediaList = dynamic(
   () =>
     import(
       "@/components/application-group/recommendations/RecommendedMediaList"
-    ),
+    )
 );
 const DetailsAboutShowSection = dynamic(
-  () => import("@/components/application-group/DetailsAboutShowSection"),
+  () => import("@/components/application-group/DetailsAboutShowSection")
 );
 
 type PageProps = {
@@ -26,7 +26,8 @@ type PageProps = {
 
 const page = async ({ params: { id } }: PageProps) => {
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
-  const movieId = id.split("-")[0];
+  // const movieId = id.split("-")[0];
+  const movieId = "980489";
 
   // fetch the movie details
   const movieDetails = await fetchMovieDetails(movieId);

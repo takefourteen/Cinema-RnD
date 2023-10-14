@@ -32,7 +32,8 @@ type PageProps = {
 
 const page = async ({ params, searchParams }: PageProps) => {
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
-  const tvSeriesId = params.id.split("-")[0];
+  // const tvSeriesId = params.id.split("-")[0];
+  const tvSeriesId = "233643";
   const season = searchParams.season;
   const episode = searchParams.episode;
 
