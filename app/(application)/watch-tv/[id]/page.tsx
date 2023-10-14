@@ -65,6 +65,7 @@ const page = async ({ params, searchParams }: PageProps) => {
         <SeasonsAndEpisodes
           tvSeriesId={tvSeriesId}
           totalNumberOfSeasons={tvSeriesDetails.number_of_seasons}
+          selectedSeasonFromUrl={Number(season)}
         />
       ),
     },
