@@ -1,14 +1,18 @@
 import React from "react";
+import Link from "next/link";
 
 import { getImagePathFromImagesData } from "@/helpers/getImagePathFromImagesData";
+import { slugify } from "@/helpers/slugify";
 
 import { IoMdAdd } from "react-icons/io";
+import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import ResponsiveBackgroundPoster from "../ResponsiveBackgroundPoster";
 import TitleLogo from "../TitleLogo";
 import ImdbRating from "../ImdbRating";
 import Overview from "../Overview";
 import PlayButton from "@/components/PlayButton";
+import { DetailsButton } from "@/components/DetailsButton";
 import Chip from "../Chip";
 
 type TvSeriesDetailsProps = {
@@ -46,6 +50,10 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
   const cast = tvSeriesData.credits?.cast.slice(0, 3);
   // round the vote average to the nearest 1 decimal place
   tvSeriesData.vote_average = Math.round(tvSeriesData.vote_average * 10) / 10;
+
+  const watchTvUrl = `/watch-tv/${slugify(tvSeriesData.original_name)}-${
+    tvSeriesData.id
+  }/?season=1&episode=1`;
 
   return (
     <div className="relative h-[90dvh] flex-1 sm:h-[90dvh] md:h-[85dvh] lg:h-[85dvh] ">
@@ -98,7 +106,15 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
           {/* Btns */}
           <div className="flex gap-x-4">
             {/* play button */}
-            <PlayButton className="mt-6 lg:mt-8">Play S1 EP1</PlayButton>
+            {/* <PlayButton className="mt-6 lg:mt-8">Play S1 EP1</PlayButton> */}
+            <DetailsButton
+              asChild
+              className=" font-button-text mt-6 h-10 lg:mt-8"
+            >
+              <Link href={`${watchTvUrl}`}>
+                <PlayIcon className="mr-1 h-8 w-8" /> Play S1 EP1
+              </Link>
+            </DetailsButton>
             {/* add to library button */}
             <Button
               variant={"outline"}
