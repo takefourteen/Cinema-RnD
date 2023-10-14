@@ -80,7 +80,7 @@ const page = async ({ params }: PageProps) => {
         <code>{JSON.stringify(tvSeriesData, null, 2)}</code>
       </pre> */}
       {/* Middle Section */}
-      <ExplorerPanel tabConfigs={tabConfigs} />;
+      <ExplorerPanel tabConfigs={tabConfigs} />
     </section>
   );
 };
