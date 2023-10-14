@@ -1,12 +1,9 @@
 import { getVideoPlayerUrl } from "./getVideoPlayerUrl";
 
-export async function filterMediaWithVideoUrl<T>(
-  results: T[],
-): Promise<T[]> {
+export async function filterMediaWithVideoUrl<T>(results: T[]): Promise<T[]> {
   const resultsWithVideoUrl: T[] = [];
 
   for (const result of results) {
-    // Modify this part according to your specific structure and properties
     const id = (result as any).id;
 
     /* if the result is a movie, season and episode will be 0
