@@ -21,6 +21,9 @@ const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
     setIsLoading(false);
   };
 
+  // if src is null, return null
+  if (!src) return null;
+
   return (
     <>
       {isLoading && (
@@ -38,6 +41,8 @@ const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
         src={src}
         alt={alt !== "" ? alt : "image"}
         onLoad={handleImageLoad}
+        // when image does not load
+        onError={handleImageLoad}
         {...props}
       />
     </>
