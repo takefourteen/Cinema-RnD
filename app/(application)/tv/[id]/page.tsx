@@ -40,7 +40,7 @@ const page = async ({ params }: PageProps) => {
   const tvSeriesId: string = params.id.split("-").pop() as string;
 
   // fetch the tv details and images
-  const tvSeriesPromise = fetchTvSeriesDetails(tvSeriesId, 0, true);
+  const tvSeriesPromise = fetchTvSeriesDetails(tvSeriesId, 0, "credits");
   const imagesPromise = fetchImages(tvSeriesId, "tv");
 
   // wait for both promises to resolve
@@ -53,7 +53,12 @@ const page = async ({ params }: PageProps) => {
     {
       key: "episodes",
       title: "View Episodes",
-      content: <SeasonsAndEpisodes tvSeriesId={tvSeriesId} />,
+      content: (
+        <SeasonsAndEpisodes
+          tvSeriesId={tvSeriesId}
+          totalNumberOfSeasons={tvSeriesData.number_of_seasons}
+        />
+      ),
     },
     {
       key: "recommended",

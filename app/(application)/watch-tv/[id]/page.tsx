@@ -45,7 +45,7 @@ const page = async ({ params, searchParams }: PageProps) => {
 
   // fetch external ids - imdb id & fetch the tv series details
   const externalIdsPromise = fetchTvSeriesExternalIds(tvSeriesId);
-  const tvSeriesDetailsPromise = fetchTvSeriesDetails(tvSeriesId, 0, false);
+  const tvSeriesDetailsPromise = fetchTvSeriesDetails(tvSeriesId, 0);
 
   const [externalIds, tvSeriesDetails] = await Promise.all([
     externalIdsPromise,

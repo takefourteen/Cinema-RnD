@@ -12,15 +12,20 @@ const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 type EpisodeListItemProps = {
   episodeData: EpisodeData;
   tvSeriesId: string;
+  tvSeriesTitle: string;
 };
 
-const EpisodeListItem = ({ episodeData, tvSeriesId }: EpisodeListItemProps) => {
+const EpisodeListItem = ({
+  episodeData,
+  tvSeriesId,
+  tvSeriesTitle,
+}: EpisodeListItemProps) => {
   // if episodeData.overview is empty, return a null
   if (episodeData.overview === "") return null;
 
   // url to link episode to
   const episodeUrl = `
-  /watch-tv/${slugify(episodeData.name)}-${tvSeriesId.trimEnd()}/?season=${
+  /watch-tv/${slugify(tvSeriesTitle)}-${tvSeriesId.trimEnd()}/?season=${
     episodeData.season_number
   }&episode=${episodeData.episode_number}`;
 

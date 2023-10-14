@@ -131,4 +131,6 @@ interface TVSeriesData {
   vote_average: number;
   vote_count: number;
   credits: Credits | null;
+  // Add an index signature to allow dynamic property access
+  [key: string]: SeasonData | any;
 }
