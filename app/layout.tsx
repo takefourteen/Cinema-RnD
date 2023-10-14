@@ -41,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
         className={`${maxSans.variable} bg-gradient-to-tr from-[#070739] via-black to-[#060212] font-sans`}
       >
