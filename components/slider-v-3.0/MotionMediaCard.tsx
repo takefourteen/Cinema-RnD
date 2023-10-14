@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+import { slugify } from "@/helpers/slugify.ts";
+
 import { AspectRatio } from "../ui/aspect-ratio";
 import ImageLoader from "../ImageLoader";
 interface MediaCardProps {
@@ -35,10 +37,10 @@ const MotionMediaCard = ({
   const imageSrc =
     aspect_ratio === "4:3" ? imageBaseUrl : orgininalImageBasePath;
   const poster = aspect_ratio === "4:3" ? data.backdrop_path : data.poster_path;
-  // prepare url path for the media page, depending on whether it is a movie or tv show. the structure is /movie/:id-nameofmovie or /tv/:id-nameoftvshow, the name is seperated by a dash
+  // prepare url path for the media page, depending on whether it is a movie or tv show.
   const mediaPageUrl = isMovie
-    ? `/movie/${data.id}-${encodeURIComponent(data.original_title || "")}`
-    : `/tv/${data.id}-${encodeURIComponent(data.original_name || "")}`;
+    ? `/movie/${slugify(data.original_title)}-${data.id}`
+    : `/tv/${slugify(data.original_name)}-${data.id}`;
 
   // define styles for 4:3(horizontal) and 2:3(vertical) aspect ratios
   const style_4_3 =

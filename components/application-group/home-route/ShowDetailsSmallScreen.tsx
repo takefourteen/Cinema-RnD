@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
+import { slugify } from "@/helpers/slugify.ts";
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
@@ -39,7 +40,7 @@ const ShowDetailsSmallScreen = async ({
 
   // look for the first production company that has a logo path
   const productionCompany = movieOrTvShowDetails.production_companies.find(
-    (company) => company.logo_path,
+    (company) => company.logo_path
   );
 
   /*
@@ -59,19 +60,14 @@ const ShowDetailsSmallScreen = async ({
     : movieOrTvShowDetails.first_air_date;
 
   // encoded link href to the details page of the movie or tv show
-  const detailsUrl = `/${type}/${movieOrTvShowDetails.id}-${encodeURIComponent(
-    movieOrTvShowTitle || "",
-  )}`;
+  const detailsUrl = `/${type}/${slugify(movieOrTvShowTitle)}-${
+    movieOrTvShowDetails.id
+  }`;
 
   // play movie href to watch page of the movie or tv show
-  const playUrl =
-    type === "movie"
-      ? `/watch-movie/${movieOrTvShowDetails.id}-${encodeURIComponent(
-          movieOrTvShowTitle || "",
-        )}`
-      : `/watch-tv/${movieOrTvShowDetails.id}-${encodeURIComponent(
-          movieOrTvShowTitle || "",
-        )}`;
+  const playUrl = `/watch-${type}/${slugify(movieOrTvShowTitle)}-${
+    movieOrTvShowDetails.id
+  }`;
 
   //   get the runtime for the movie or tv show in the format of 1h 30m, or 1h, or 30m
   let runtime;

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { slugify } from "@/helpers/slugify.ts";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
@@ -59,9 +60,18 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = async ({ movieId }) => {
   }m`;
 
   // url encoded link to the watch-movie page
-  const watchMovieUrl = `/watch-movie/${movieDetails.id}-${encodeURIComponent(
-    movieDetails.original_title,
-  )}`;
+  // const watchMovieUrl = `/watch-movie/${movieDetails.id}-${encodeURIComponent(
+  //   movieDetails.original_title,
+  // )}`;
+
+  const watchMovieUrl = `/watch-movie/${slugify(movieDetails.original_title)}-${movieDetails.id}`;
+
+
+  // play movie href to watch page of the movie or tv show
+  const playUrl = `/watch-${type}/${slugify(movieOrTvShowTitle)}-${
+    movieOrTvShowDetails.id
+  }`;
+
   return (
     <div className="relative h-[90dvh] flex-1 sm:h-[90dvh] md:h-[85dvh] lg:h-[85dvh] ">
       {/* Image Display */}

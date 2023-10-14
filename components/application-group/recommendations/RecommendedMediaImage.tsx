@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { slugify } from "@/helpers/slugify.ts";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
@@ -29,14 +30,12 @@ const RecommendedMediaImage = async ({
       ? await fetchMovieDetails(mediaId)
       : await fetchTvSeriesDetails(mediaId);
 
-  //   prepare url path for the media page by using type guard functions
-  const moviePageUrl = `/${
-    isMovieDetails(mediaDetails) ? "movie" : "tv"
-  }/${mediaId}-${
+  //   prepare url path for the media page
+  const mediaPageUrl = `/${mediaType}/${
     isMovieDetails(mediaDetails)
-      ? mediaDetails?.original_title?.toLowerCase().split(" ").join("-")
-      : mediaDetails?.original_name?.toLowerCase().split(" ").join("-")
-  }`;
+      ? slugify(mediaDetails?.original_title)
+      : slugify(mediaDetails?.original_name)
+  }-${mediaId}`;
 
   // prepare img src url
   const imageSrc = `${imageBaseUrl}${mediaDetails?.backdrop_path}`;
@@ -75,7 +74,7 @@ const RecommendedMediaImage = async ({
 
   return (
     <li className="relative h-auto flex-1">
-      <Link href={moviePageUrl} className="group rounded-md">
+      <Link href={mediaPageUrl} className="group rounded-md">
         <AspectRatio ratio={16 / 9}>
           <ImageLoader
             loaderType="skeleton"
