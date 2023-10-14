@@ -28,8 +28,6 @@ const page = async ({ params }: PageProps) => {
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
   const movieId = params.id.split("-").pop() as string;
 
-  console.log("movie: ", params);
-
   // fetch the movie details
   const movieDetails = await fetchMovieDetails(movieId);
 

@@ -36,8 +36,6 @@ const page = async ({ params, searchParams }: PageProps) => {
   const season = searchParams.season;
   const episode = searchParams.episode;
 
-  console.log("tv params: ", params);
-
   // fetch external ids - imdb id & fetch the tv series details
   const externalIdsPromise = fetchTvSeriesExternalIds(tvSeriesId);
   const tvSeriesDetailsPromise = fetchTvSeriesDetails(tvSeriesId, false);
@@ -47,7 +45,7 @@ const page = async ({ params, searchParams }: PageProps) => {
     tvSeriesDetailsPromise,
   ]);
 
-  console.log("tmdb id: ", tvSeriesId);
+  console.log("\ntmdb id: ", tvSeriesId);
   console.log("season: ", season);
   console.log("episode: ", episode);
   console.log("imdb id: ", externalIds.imdb_id);
