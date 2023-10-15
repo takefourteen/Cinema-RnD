@@ -4,6 +4,7 @@ import Link from "next/link";
 import useSWR from "swr";
 
 import { slugify } from "@/helpers/slugify";
+
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
@@ -83,14 +84,16 @@ const DataFetchingMediaCard = ({
   if (!mediaDetails) {
     return null;
   }
-  
+
   //   only show images that have a backdrop_path
   if (!mediaDetails?.backdrop_path) {
     return null;
   }
 
-  
-
+  // if the runtime is 0, return null
+  if (isMovieDetails(mediaDetails) && mediaDetails.runtime === 0) {
+    return null;
+  }
 
   //   prepare url path for the media page
   const mediaPageUrl = `/${mediaType}/${
@@ -102,7 +105,6 @@ const DataFetchingMediaCard = ({
   // prepare img src url
   const imageSrc = `${imageBaseUrl}${mediaDetails?.poster_path}`;
 
- 
   // set title to original_title if it's a movie, original_name if it's a tv series
   const title = isMovieDetails(mediaDetails)
     ? mediaDetails.original_title
