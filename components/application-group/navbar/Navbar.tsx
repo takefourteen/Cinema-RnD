@@ -76,7 +76,7 @@ const Navbar = () => {
           : otherScreensNavbarClasses
       }
     >
-      <section className="master-container  flex items-center justify-between px-4 py-2">
+      <section className="master-container h-[75px] flex items-center justify-between px-4 py-2">
         {/* Mobile menu for sm screens */}
         <MobileMenu onDarkenBackground={handleDarkenBackground} />
 
@@ -89,7 +89,8 @@ const Navbar = () => {
               alt="Cozy Cinema Logo"
               width={125}
               priority
-              className="w-[100px] lg:w-[125px] "
+              sizes="(max-width: 640px) 80px, (max-width: 1024px) 100px, 125px"
+              className="max-w-[80px] sm:max-w-[100px] lg:max-w-[125px] "
             />
 
             {/* show sm logo on sm screens */}
@@ -157,7 +158,7 @@ const Navbar = () => {
               <DetailsButton
                 variant={"primary"}
                 size={"rounded"}
-                className="w-max text-sm font-bold uppercase"
+                className="w-max text-xs sm:text-sm font-bold uppercase"
                 asChild
               >
                 <Link href="/sign-up">Sign Up</Link>
