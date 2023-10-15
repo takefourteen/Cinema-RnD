@@ -23,7 +23,7 @@ const ExplorerPanel = ({ tabConfigs }: TabsNavigationProps) => {
 
   return (
     <div className="master-container mx-auto mt-8 p-0">
-      <div className="md:mb:6 mb-8 flex w-full  lg:mb-12">
+      <div className="md:mb:6 mb-8 flex w-full gap-1 lg:mb-12">
         {tabConfigs.map((config, index) => (
           <div key={config.key}>
             <DetailsButton
@@ -31,10 +31,10 @@ const ExplorerPanel = ({ tabConfigs }: TabsNavigationProps) => {
               role="tab"
               aria-selected={selectedTab === index}
               onClick={() => handleTabChange(index)}
-              className={`font-button-text rounded-full border-none py-1 text-center font-normal tracking-wide lg:py-2  ${
+              className={`font-button-text rounded-full border-none py-1 text-center font-semibold tracking-wide transition-colors lg:py-2  ${
                 selectedTab === index
-                  ? " bg-white text-black hover:bg-white"
-                  : "text-white hover:bg-transparent hover:text-gray-400"
+                  ? "bg-white text-black hover:bg-white"
+                  : "text-white hover:bg-transparent hover:text-white/70"
               }`}
             >
               {config.title}
