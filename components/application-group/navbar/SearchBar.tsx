@@ -73,7 +73,6 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
   }, [toggleSearchBar]);
 
   function onSubmit() {
-    
     // if there is no search query, clear the search bar and return
     if (searchQuery.trim() === "") {
       setSearchQuery("");
@@ -113,14 +112,14 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
         onClick={toggleSearchBar}
         aria-label="Open search bar"
       >
-        <SearchIcon className="h-5 w-5" />
+        <SearchIcon className="h-4 w-4 sm:h-5 sm:w-5" />
       </Button>
 
       {/* search bar input*/}
       {isSearchBarOpen && (
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className=" absolute left-0 right-0 top-[78px] z-50 w-full overflow-hidden bg-[#ffffff] transition-all  lg:top-[90px]"
+          className=" absolute left-0 right-0 top-[75px] z-50 w-full overflow-hidden bg-[#ffffff] transition-all  lg:top-[90px]"
         >
           <div className="master-container relative h-full">
             <Input

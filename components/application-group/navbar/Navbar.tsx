@@ -76,7 +76,7 @@ const Navbar = () => {
           : otherScreensNavbarClasses
       }
     >
-      <section className="master-container h-[75px] flex items-center justify-between px-4 py-2">
+      <section className="master-container flex h-[75px] items-center justify-between px-4 py-2 lg:h-[90px]">
         {/* Mobile menu for sm screens */}
         <MobileMenu onDarkenBackground={handleDarkenBackground} />
 
@@ -158,7 +158,7 @@ const Navbar = () => {
               <DetailsButton
                 variant={"primary"}
                 size={"rounded"}
-                className="w-max text-xs sm:text-sm font-bold uppercase"
+                className="w-max text-xs font-bold uppercase sm:text-sm"
                 asChild
               >
                 <Link href="/sign-up">Sign Up</Link>
