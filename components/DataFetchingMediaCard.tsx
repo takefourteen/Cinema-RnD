@@ -16,6 +16,7 @@ import Skeleton from "./Skeleton";
 type DataFetchingMediaCardProps = {
   mediaId: string;
   mediaType: "movie" | "tv";
+  loaderType: "skeleton" | "spinner";
   priority: boolean;
   imgSize?: "default" | "large";
   inAGrid?: boolean;
@@ -31,6 +32,11 @@ const listItemSize = {
       "(max-width: 640px) 200px, (max-width: 768px) 250px, (max-width: 1024px) 275px, 300px",
   },
 
+  inAGrid: {
+    width: "",
+    sizes: "(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw",
+  },
+
   large: {
     width: "min-w-[375px] md:min-w-[425px] lg:min-w-[475px] xl:min-w-[500px] ",
     sizes:
@@ -41,6 +47,7 @@ const listItemSize = {
 const DataFetchingMediaCard = ({
   mediaId,
   mediaType,
+  loaderType,
   priority,
   imgSize = "default",
   inAGrid = false,
@@ -56,7 +63,11 @@ const DataFetchingMediaCard = ({
 
   if (isLoading) {
     return (
-      <div className={`relative h-auto flex-1  ${listItemSize[imgSize].width}`}>
+      <div
+        className={`relative h-auto flex-1  ${
+          inAGrid ? listItemSize.inAGrid.width : listItemSize[imgSize].width
+        }`}
+      >
         <AspectRatio ratio={2 / 3}>
           <Skeleton rows={0} showOverlay={false} />
         </AspectRatio>
@@ -72,6 +83,14 @@ const DataFetchingMediaCard = ({
   if (!mediaDetails) {
     return null;
   }
+  
+  //   only show images that have a backdrop_path
+  if (!mediaDetails?.backdrop_path) {
+    return null;
+  }
+
+  
+
 
   //   prepare url path for the media page
   const mediaPageUrl = `/${mediaType}/${
@@ -83,11 +102,7 @@ const DataFetchingMediaCard = ({
   // prepare img src url
   const imageSrc = `${imageBaseUrl}${mediaDetails?.poster_path}`;
 
-  //   only show images that have a backdrop_path
-  if (!mediaDetails?.backdrop_path) {
-    return null;
-  }
-
+ 
   // set title to original_title if it's a movie, original_name if it's a tv series
   const title = isMovieDetails(mediaDetails)
     ? mediaDetails.original_title
@@ -123,17 +138,19 @@ const DataFetchingMediaCard = ({
   return (
     <li
       className={`relative h-auto flex-1  ${
-        inAGrid ? "" : listItemSize[imgSize].width
+        inAGrid ? listItemSize.inAGrid.width : listItemSize[imgSize].width
       }`}
     >
       <Link href={mediaPageUrl} className="group ">
         <AspectRatio ratio={2 / 3}>
           <ImageLoader
-            loaderType="skeleton"
+            loaderType={loaderType}
             src={imageSrc}
             alt={`${title} poster`}
             fill
-            sizes={listItemSize[imgSize].sizes}
+            sizes={
+              inAGrid ? listItemSize.inAGrid.sizes : listItemSize[imgSize].sizes
+            }
             priority={priority}
             className=" object-cover transition-all duration-300 ease-in-out group-hover:ring-4 group-hover:ring-slate-950 group-hover:ring-offset-2 group-focus-visible:ring-4  group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
             style={{ filter: "brightness(0.9)" }}
