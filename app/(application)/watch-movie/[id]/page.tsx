@@ -34,6 +34,9 @@ const page = async ({ params }: PageProps) => {
   // log imdb id
   console.log("imdb id: ", movieDetails.imdb_id);
 
+  // structure genreIds as an array of numbers
+  const genreIds = movieDetails.genres.map((genre) => genre.id);
+
   const tabConfigs = [
     {
       key: "details",
@@ -43,14 +46,20 @@ const page = async ({ params }: PageProps) => {
     {
       key: "recommended",
       title: "More Like This",
-      content: <RecommendedMediaList mediaId={movieId} mediaType="movie" />,
+      content: (
+        <RecommendedMediaList
+          mediaId={movieId}
+          mediaType="movie"
+          genreIds={genreIds}
+        />
+      ),
     },
   ];
 
   return (
     <section className=" text-white">
       {/* Top Section */}
-      <div className="relative mt-[75px] h-[75dvh] flex-1 sm:h-[75dvh] lg:mt-[90px]">
+      <div className="relative h-[75dvh] flex-1 sm:h-[75dvh]">
         <Suspense>
           <VideoPlayer
             // videoId={movieId}
@@ -58,7 +67,7 @@ const page = async ({ params }: PageProps) => {
             isTmdb={false}
             season={0}
             episode={0}
-            className="h-full w-full"
+            className="h-fullv w-full pt-[75px] lg:pt-[90px]"
           />
         </Suspense>
       </div>

@@ -93,7 +93,7 @@ const page = async ({ params, searchParams }: PageProps) => {
   return (
     <section className=" text-white">
       {/* Top Section */}
-      <div className="relative mt-[75px] h-[75dvh] flex-1 sm:h-[75dvh] lg:mt-[90px]">
+      <div className="relative h-[75dvh] flex-1 sm:h-[75dvh]">
         <Suspense>
           <VideoPlayer
             // videoId={movieId}
@@ -109,7 +109,7 @@ const page = async ({ params, searchParams }: PageProps) => {
             }
             season={Number(season)}
             episode={Number(episode)}
-            className="h-full w-full"
+            className="h-full w-full pt-[75px] lg:pt-[90px] "
           />
         </Suspense>
       </div>
