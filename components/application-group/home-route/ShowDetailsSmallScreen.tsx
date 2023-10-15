@@ -6,8 +6,9 @@ import { isMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
 import { IoMdAdd as AddIcon } from "react-icons/io";
-import { IoInformation as InfoIcon } from "react-icons/io5";
+// import { IoInformation as InfoIcon } from "react-icons/io5";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
+import { AiOutlineInfo as InfoIcon } from "react-icons/ai";
 import { DetailsButton } from "@/components/DetailsButton";
 import ImdbRating from "../ImdbRating";
 import TitleLogo from "../TitleLogo";
@@ -163,31 +164,32 @@ const ShowDetailsSmallScreen = async ({
       </div>
 
       {/* play and info btns */}
-      <div className="mt-2 flex h-max  items-center justify-center gap-x-8 lg:mt-4 ">
+      <div className="mt-6 flex h-max w-full items-start justify-center gap-x-10 md:gap-x-12 lg:mt-4 ">
         {/* add to library button */}
         <DetailsButton
           variant={"outline"}
           className="flex flex-col items-center justify-center gap-y-1 border-none p-0   text-white transition-colors hover:bg-transparent hover:text-white/70"
         >
-          <AddIcon className=" h-6 w-6" /> <span>Library</span>
+          <AddIcon className=" h-6 w-6 rounded-full ring-1 ring-offset-1" />{" "}
+          <span>Library</span>
         </DetailsButton>
 
         {/* play button */}
-        {/* if its a movie, href is movie/:id, if tv, href is tv/:id */}
-        <DetailsButton asChild className=" font-button-text h-10">
+        <DetailsButton asChild className=" font-button-text h-10 px-8 ">
           <Link href={`${playUrl}`}>
-            <PlayIcon className="mr-1 h-7 w-7" /> Play
+            <PlayIcon className="mr-1 h-8 w-8 " /> Play
           </Link>
         </DetailsButton>
 
         {/* info button */}
         <DetailsButton
           variant={"outline"}
-          className="flex flex-col items-center justify-center gap-y-1 border-none p-0   text-white transition-colors hover:bg-transparent hover:text-white/70"
+          asChild
+          className=" flex flex-col items-center justify-center gap-y-1 border-none p-0 text-white transition-colors hover:bg-transparent hover:text-white/70"
         >
           <Link href={`${detailsUrl}`}>
-            <InfoIcon className=" h-6 w-6 rounded-full border-1 border-white/70 p-0.5 " />{" "}
-            <span>Info</span>
+            <InfoIcon className=" h-6 w-6 rounded-full p-[1px] ring-1 ring-offset-1  " />{" "}
+            <span>Details</span>
           </Link>
         </DetailsButton>
       </div>
