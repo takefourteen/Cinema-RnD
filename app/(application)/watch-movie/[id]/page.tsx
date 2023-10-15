@@ -67,7 +67,7 @@ const page = async ({ params }: PageProps) => {
             isTmdb={false}
             season={0}
             episode={0}
-            className="h-fullv w-full pt-[75px] lg:pt-[90px]"
+            className="h-full w-full pt-[75px] lg:pt-[90px]"
           />
         </Suspense>
       </div>
