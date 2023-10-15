@@ -15,7 +15,5 @@ export async function fetchSearchResults(term: string, page: number = 1) {
     sortedResults as any,
   );
 
-  console.log("resultsWithVideoUrl", resultsWithVideoUrl);
-
   return resultsWithVideoUrl;
 }
