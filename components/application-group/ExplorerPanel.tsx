@@ -31,7 +31,7 @@ const ExplorerPanel = ({ tabConfigs }: TabsNavigationProps) => {
               role="tab"
               aria-selected={selectedTab === index}
               onClick={() => handleTabChange(index)}
-              className={`font-button-text rounded-full border-none py-1 text-center font-semibold tracking-wide transition-colors lg:py-2  ${
+              className={`font-button-text rounded-full border-none py-1 text-center tracking-wide transition-colors lg:py-2  ${
                 selectedTab === index
                   ? "bg-white text-black hover:bg-white"
                   : "text-white hover:bg-transparent hover:text-white/70"
