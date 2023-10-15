@@ -65,6 +65,7 @@ const InfiniteScrollSearchResults = ({
             mediaType={
               (media as TvShowSearchResult).original_name ? "tv" : "movie"
             }
+            loaderType="spinner"
             priority={false}
             inAGrid={true}
           />
