@@ -37,14 +37,14 @@ type Styles = {
 const styles: Styles = {
   default: {
     image:
-      "object-cover transition-all duration-300 ease-in-out group-hover:ring-2 group-hover:ring-slate-950 group-hover:ring-offset-2  group-focus-visible:ring-2 group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2",
+      "group-hover:ring-2 group-hover:ring-slate-950 group-hover:ring-offset-2  group-focus-visible:ring-2 group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2",
     playIcon:
       "absolute inset-0 flex items-center justify-center bg-black bg-opacity-20",
     title: "font-small-text max-w-[80%] font-bold ",
   },
   active: {
     image:
-      "object-cover ring-1 ring-offset-1 ring-offset-[#7e1de0] ring-[#7e1de0] transition-all duration-300 ease-in-out",
+      "group-focus:ring-1 group-focus:ring-offset-1 group-focus:ring-[#7e1de0] ring-1 ring-offset-1 ring-offset-[#7e1de0] ring-[#7e1de0]",
     playIcon:
       "absolute inset-0 flex items-center justify-center bg-black bg-opacity-50",
     title: "font-small-text max-w-[80%] font-bold tracking-wide text-[#7e1de0]",
@@ -80,9 +80,14 @@ const EpisodeListItem = ({
 
   return (
     <li className="group relative w-full ">
-      <AspectRatio ratio={16 / 9}>
-        {/* now playing design */}
-        {/* {episodeIsPlaying && (
+      <Link
+        href={episodeIsPlaying ? `#video-player` : episodeUrl}
+        shallow={true}
+      >
+        {" "}
+        <AspectRatio ratio={16 / 9}>
+          {/* now playing design */}
+          {/* {episodeIsPlaying && (
           <div className="absolute top-0 z-10 h-[30px] w-full bg-primaryBlue">
             <p className="text-center font-small-text font-semibold text-gray-400">
               Now Playing
@@ -90,11 +95,8 @@ const EpisodeListItem = ({
           </div>
         )} */}
 
-        {/* episode poster */}
-        <Link
-          href={episodeIsPlaying ? `#video-player` : episodeUrl}
-          shallow={true}
-        >
+          {/* episode poster */}
+
           <ImageLoader
             loaderType="skeleton"
             src={`${BASE_IMG_URL}${episodeData.still_path}`}
@@ -104,7 +106,7 @@ const EpisodeListItem = ({
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
             className={`${
               episodeIsPlaying ? styles.active.image : styles.default.image
-            }`}
+            } object-cover transition-all duration-300 ease-in-out`}
           />
 
           {/* play icon */}
@@ -117,8 +119,8 @@ const EpisodeListItem = ({
           >
             {!episodeIsPlaying && <PlayIcon />}
           </div>
-        </Link>
-      </AspectRatio>
+        </AspectRatio>
+      </Link>
 
       <div className="flex flex-col gap-y-2 pe-1 lg:pe-2">
         {/* name and duration of ep */}
