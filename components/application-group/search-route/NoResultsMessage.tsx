@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import notFound from "@/assets/images/not-found-laptop.svg";
+import notFound from "@/assets/images/search/no-results.svg";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface NoResultsMessageProps {

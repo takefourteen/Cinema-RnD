@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-import { fetchSearchResults } from "../../../lib/actions";
+import { fetchSearchResults } from "@/lib/actions";
 import MediaCard from "@/components/MediaCard";
 import DataFetchingMediaCard from "@/components/DataFetchingMediaCard";
 import NoResultsMessage from "./NoResultsMessage";
@@ -54,11 +54,6 @@ const InfiniteScrollSearchResults = ({
     <>
       <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-3 lg:grid-cols-4 lg:gap-y-16 xl:grid-cols-5">
         {searchResults.map((media, index) => (
-          // <MediaCard
-          //   key={media.id}
-          //   data={media}
-          //   aspect_ratio="2:3"
-          // />
           <DataFetchingMediaCard
             key={media.id}
             mediaId={media.id.toString()}
@@ -87,9 +82,10 @@ const InfiniteScrollSearchResults = ({
       )}
 
       {/* no results message */}
-      {!showSpinner && !searchResults.length && (
-        <NoResultsMessage searchTerm={searchParams.term} />
-      )}
+      {!showSpinner &&
+        (!searchResults.length || searchResults.length === 0) && (
+          <NoResultsMessage searchTerm={searchParams.term} />
+        )}
     </>
   );
 };
