@@ -138,7 +138,7 @@ const DataFetchingMotionMediaCard = ({
         stiffness: 100,
       }}
     >
-      <Link href={mediaPageUrl} className="group ">
+      <Link href={mediaPageUrl} className="group" tabIndex={-1}>
         <AspectRatio ratio={2 / 3}>
           <ImageLoader
             loaderType="skeleton"
@@ -147,12 +147,9 @@ const DataFetchingMotionMediaCard = ({
             fill
             sizes={listItemSize[imgSize].sizes}
             priority={priority}
-            className=" object-cover transition-all duration-300 ease-in-out group-hover:ring-4 group-hover:ring-slate-950 group-hover:ring-offset-2 group-focus-visible:ring-4  group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
+            className=" object-cover transition-all duration-300 ease-in-out group-hover:ring-4 group-hover:ring-slate-950 group-hover:ring-offset-2 "
             style={{ filter: "brightness(0.9)" }}
           />
-
-          {/* overlay the image with a grain texture */}
-          {/* <div className="absolute inset-0 bg-[url('/grain-texture-image.svg')] opacity-30" /> */}
 
           {/* small dark overlay over the top and bottom of img to make the info readable */}
           <div className="absolute inset-0  bg-gradient-to-t from-black/80 via-transparent to-black/20" />
