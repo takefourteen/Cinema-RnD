@@ -26,26 +26,28 @@ const SeasonSelect: React.FC<SeasonSelectProps> = ({
   };
 
   return (
-    <Select
-      defaultValue={selectedSeason.toString()}
-      onValueChange={handleSeasonChange}
-      aria-label="Select season"
-    >
-      <SelectTrigger className="font-body-text flex w-[180px] justify-between bg-black/90 py-1 font-semibold text-white">
-        <SelectValue>Season {selectedSeason}</SelectValue>
-      </SelectTrigger>
-      <SelectContent className="max-h-[16rem] overflow-y-auto bg-black/90 text-white">
-        {Array.from({ length: numberOfSeasons }).map((_, index) => (
-          <SelectItem
-            key={(index + 1).toString()}
-            value={(index + 1).toString()}
-            className="font-small-text font-semibold"
-          >
-            Season {index + 1}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    <div className="grid grid-cols-2 gap-x-4">
+      <Select
+        defaultValue={selectedSeason.toString()}
+        onValueChange={handleSeasonChange}
+        aria-label="Select season"
+      >
+        <SelectTrigger className="font-body-text col-span-1 flex max-w-[180px]  justify-between bg-black/90 py-1 font-semibold text-white">
+          <SelectValue>Season {selectedSeason}</SelectValue>
+        </SelectTrigger>
+        <SelectContent className="max-h-[16rem] overflow-y-auto bg-black/90 text-white">
+          {Array.from({ length: numberOfSeasons }).map((_, index) => (
+            <SelectItem
+              key={(index + 1).toString()}
+              value={(index + 1).toString()}
+              className="font-small-text font-semibold"
+            >
+              Season {index + 1}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
   );
 };
 
