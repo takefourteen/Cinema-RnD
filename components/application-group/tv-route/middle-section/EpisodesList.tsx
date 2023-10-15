@@ -31,10 +31,10 @@ const EpisodesList = ({ tvSeriesId, selectedSeason }: EpisodesListProps) => {
 
   if (isLoading)
     return (
-      <div className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
-        <p className="font-body-text absolute right-0 top-2 font-bold lg:top-4">
-          <AnimatedStringLoader loadingString="..." />
-        </p>
+      <div className="grid  gap-x-4  gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="font-body-text absolute right-0 top-2 font-bold lg:top-4">
+          <AnimatedStringLoader loadingString="..." /> Episodes
+        </div>
 
         {Array.from({ length: 8 }).map((_, index) => (
           <div key={index} className="relative w-full ">
@@ -67,7 +67,7 @@ const EpisodesList = ({ tvSeriesId, selectedSeason }: EpisodesListProps) => {
         {numberOfEpisodes} Episodes
       </p>
 
-      <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
+      <ul className="grid mt-4 gap-x-4  gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {(
           tvSeriesDetails[appendSeasonNumberToResponse] as SeasonData
         ).episodes.map((episode) => (

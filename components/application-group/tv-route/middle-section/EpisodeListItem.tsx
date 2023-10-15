@@ -39,14 +39,14 @@ const styles: Styles = {
     image:
       "group-hover:ring-2 group-hover:ring-slate-950 group-hover:ring-offset-2  group-focus-visible:ring-2 group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2",
     playIcon:
-      "absolute inset-0 flex items-center justify-center bg-black bg-opacity-20",
+      "absolute inset-0 items-center justify-center bg-black bg-opacity-20",
     title: "font-small-text max-w-[80%] font-bold ",
   },
   active: {
     image:
       "group-focus:ring-1 group-focus:ring-offset-1 group-focus:ring-[#7e1de0] ring-1 ring-offset-1 ring-offset-[#7e1de0] ring-[#7e1de0]",
     playIcon:
-      "absolute inset-0 flex items-center justify-center bg-black bg-opacity-50",
+      "absolute inset-0 items-center justify-center bg-black bg-opacity-50",
     title: "font-small-text max-w-[80%] font-bold tracking-wide text-[#7e1de0]",
   },
 };
@@ -79,52 +79,69 @@ const EpisodeListItem = ({
   }&episode=${episodeData.episode_number}`;
 
   return (
-    <li className="group relative w-full ">
+    <li className="w-full">
       <Link
         href={episodeIsPlaying ? `#video-player` : episodeUrl}
         shallow={true}
+        className="group relative flex"
       >
-        {" "}
-        <AspectRatio ratio={16 / 9}>
-          {/* now playing design */}
-          {/* {episodeIsPlaying && (
-          <div className="absolute top-0 z-10 h-[30px] w-full bg-primaryBlue">
+        <div className="relative w-1/2 sm:w-full">
+          <AspectRatio ratio={16 / 9}>
+            {/* now playing design */}
+            {/* {episodeIsPlaying && (
+            <div className="absolute top-0 z-10 h-[30px] w-full bg-primaryBlue">
             <p className="text-center font-small-text font-semibold text-gray-400">
-              Now Playing
+            Now Playing
             </p>
-          </div>
-        )} */}
+            </div>
+          )} */}
 
-          {/* episode poster */}
+            {/* episode poster */}
 
-          <ImageLoader
-            loaderType="skeleton"
-            src={`${BASE_IMG_URL}${episodeData.still_path}`}
-            alt={`${episodeData.name} poster`}
-            fill
-            priority={false}
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-            className={`${
-              episodeIsPlaying ? styles.active.image : styles.default.image
-            } object-cover transition-all duration-300 ease-in-out`}
-          />
+            <ImageLoader
+              loaderType="skeleton"
+              src={`${BASE_IMG_URL}${episodeData.still_path}`}
+              alt={`${episodeData.name} poster`}
+              fill
+              priority={false}
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+              className={`${
+                episodeIsPlaying ? styles.active.image : styles.default.image
+              } object-cover transition-all duration-300 ease-in-out`}
+            />
 
-          {/* play icon */}
-          <div
-            className={
-              episodeIsPlaying
-                ? styles.active.playIcon
-                : styles.default.playIcon
-            }
-          >
-            {!episodeIsPlaying && <PlayIcon />}
-          </div>
-        </AspectRatio>
+            {/* play icon */}
+            <div
+              className={`hidden sm:flex ${
+                episodeIsPlaying
+                  ? styles.active.playIcon
+                  : styles.default.playIcon
+              }`}
+            >
+              {!episodeIsPlaying && <PlayIcon />}
+            </div>
+          </AspectRatio>
+        </div>
+
+        <EpisodeDetailsOnSmallScreen
+          episodeData={episodeData}
+          episodeIsPlaying={episodeIsPlaying}
+        />
       </Link>
 
-      <div className="flex flex-col gap-y-2 pe-1 lg:pe-2">
+      {/* overview of ep */}
+      <div className="mt-4 sm:hidden">
+        <Overview
+          overview={episodeData.overview}
+          intialOverviewLength={125}
+          size="small" // size of overview text
+        />
+      </div>
+
+      {/* episode details - BIGGER SCCREEN SIZES */}
+      <div className="hidden flex-col gap-y-2 pe-1 sm:flex lg:pe-2">
         {/* name and duration of ep */}
-        <div className="mt-2 flex justify-between">
+        <div className="mt-2  flex justify-between ">
           <h3
             className={`${
               episodeIsPlaying ? styles.active.title : styles.default.title
@@ -139,11 +156,46 @@ const EpisodeListItem = ({
         {/* overview of ep */}
         <Overview
           overview={episodeData.overview}
-          intialOverviewLength={50}
+          intialOverviewLength={75}
           size="small" // size of overview text
         />
       </div>
     </li>
+  );
+};
+
+type EpisodeDetailsOnSmallScreenProps = {
+  episodeData: EpisodeData;
+  episodeIsPlaying: boolean;
+};
+
+const EpisodeDetailsOnSmallScreen = ({
+  episodeData,
+  episodeIsPlaying,
+}: EpisodeDetailsOnSmallScreenProps) => {
+  return (
+    <>
+      {/* name and duration of ep */}
+      <div className="ml-2 flex flex-col gap-y-1 sm:hidden">
+        <h3
+          className={`text-lg font-semibold ${
+            episodeIsPlaying && "text-[#7e1de0]"
+          }`}
+        >
+          {episodeData.episode_number}. &nbsp;{episodeData.name}
+        </h3>
+        <p className="font-small-text text-gray-400">
+          {episodeData.runtime} min
+        </p>
+      </div>
+
+      {/* play icon */}
+      <div
+        className={`absolute right-0 top-1/2 flex -translate-y-1/2 items-center justify-center bg-black bg-opacity-50 sm:hidden`}
+      >
+        {!episodeIsPlaying && <PlayIcon />}
+      </div>
+    </>
   );
 };
 
