@@ -53,7 +53,7 @@ const InfiniteScrollSearchResults = ({
   return (
     <>
       <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-3 lg:grid-cols-4 lg:gap-y-16 xl:grid-cols-5">
-        {searchResults.map((media) => (
+        {searchResults.map((media, index) => (
           // <MediaCard
           //   key={media.id}
           //   data={media}
@@ -66,7 +66,11 @@ const InfiniteScrollSearchResults = ({
               (media as TvShowSearchResult).original_name ? "tv" : "movie"
             }
             loaderType="spinner"
-            priority={false}
+            priority={
+              index < 5
+                ? true
+                : false /* only set priority to true for first 5 results */
+            }
             inAGrid={true}
           />
         ))}
