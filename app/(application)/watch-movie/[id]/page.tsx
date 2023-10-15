@@ -57,7 +57,7 @@ const page = async ({ params }: PageProps) => {
   ];
 
   return (
-    <section className=" text-white">
+    <section>
       {/* Top Section */}
       <div className="relative h-[75dvh] flex-1 sm:h-[75dvh]">
         <Suspense>

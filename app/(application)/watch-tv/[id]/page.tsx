@@ -6,7 +6,8 @@ import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchTvSeriesExternalIds } from "@/lib/tmdb-api/external-ids";
 
 import VideoPlayer from "@/components/application-group/VideoPlayer";
-import ExplorerPanel from "@/components/application-group/ExplorerPanel";
+// import ExplorerPanel from "@/components/application-group/ExplorerPanel";
+import ExplorerPanel from "@/components/application-group/ExplorerPanel-v-2.0";
 
 // lazy load the following components
 const RecommendedMediaList = dynamic(
@@ -91,7 +92,7 @@ const page = async ({ params, searchParams }: PageProps) => {
   ];
 
   return (
-    <section className=" text-white">
+    <section>
       {/* Top Section */}
       <div className="relative h-[75dvh] flex-1 sm:h-[75dvh]">
         <Suspense>

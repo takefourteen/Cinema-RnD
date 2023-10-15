@@ -26,7 +26,7 @@ const ExplorerPanel = ({ tabConfigs }: TabsNavigationProps) => {
 
   return (
     <div className="master-container mx-auto mt-8 p-0">
-      <div className="flex w-full gap-x-6 md:gap-x-8">
+      <div className="md:mb:6 mb-8 flex w-full  lg:mb-12">
         {tabConfigs.map((config, index) => (
           <div key={config.key}>
             <DetailsButton
@@ -34,17 +34,17 @@ const ExplorerPanel = ({ tabConfigs }: TabsNavigationProps) => {
               role="tab"
               aria-selected={selectedTab === index}
               onClick={() => handleTabChange(index)}
-              className={`font-button-text border-none p-0 text-center font-semibold tracking-wide hover:bg-transparent ${
+              className={`font-button-text rounded-full border-none py-1 text-center font-normal tracking-wide lg:py-2  ${
                 selectedTab === index
-                  ? "text-white"
-                  : "text-gray-400 hover:text-white"
+                  ? " bg-white text-black hover:bg-white"
+                  : "text-white hover:bg-transparent hover:text-gray-400"
               }`}
             >
               {config.title}
             </DetailsButton>
 
             {/*  bottom line deco for the active btn */}
-            <div
+            {/* <div
               className={`h-1 bg-[#e50914ff] 
               ${
                 selectedTab === index
@@ -52,12 +52,12 @@ const ExplorerPanel = ({ tabConfigs }: TabsNavigationProps) => {
                   : "w-0"
               }
               `}
-            />
+            /> */}
           </div>
         ))}
       </div>
 
-      <Separator className="md:mb:6 mb-8 bg-white/30 lg:mb-12" />
+      {/* <Separator className="md:mb:6 mb-8 bg-white/30 lg:mb-12" /> */}
 
       <div>{tabConfigs[selectedTab].content}</div>
     </div>

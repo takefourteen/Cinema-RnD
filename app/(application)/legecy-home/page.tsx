@@ -14,7 +14,7 @@ export const revalidate = 3600 * 24; // 1 day
 
 export default function Page() {
   return (
-    <main className="text-white">
+    <main>
       <Hero />
       <ColorFulBanner />
       {/* <Suspense fallback={<LoadingSpinner />}>

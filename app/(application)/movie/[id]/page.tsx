@@ -58,7 +58,7 @@ const page = async ({ params }: PageProps) => {
   ];
 
   return (
-    <section className=" text-white">
+    <section>
       {/* Top Section */}
       <MovieDetailsTop movieDetails={moviesData} images={imagesData} />
 
