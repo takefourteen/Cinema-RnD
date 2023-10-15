@@ -84,6 +84,9 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
       // Navigate to the search route with the search term as a query parameter
       router.push(`/search?term=${encodeURIComponent(searchQuery)}`);
 
+      // clear the search query
+      setSearchQuery("");
+
       // close the search bar
       toggleSearchBar();
     }
