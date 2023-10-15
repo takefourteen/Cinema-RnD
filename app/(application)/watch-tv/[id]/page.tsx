@@ -63,7 +63,7 @@ const page = async ({ params, searchParams }: PageProps) => {
   const tabConfigs = [
     {
       key: "episodes",
-      title: "View Episodes",
+      title: "Episodes",
       content: (
         <SeasonsAndEpisodes
           tvSeriesId={tvSeriesId}

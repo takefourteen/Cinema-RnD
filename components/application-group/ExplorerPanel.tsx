@@ -27,9 +27,9 @@ const ExplorerPanel = ({ tabConfigs }: TabsNavigationProps) => {
           defaultSelectedKey={tabConfigs[0].key}
           classNames={{
             tabList:
-              "gap-x-8 md:gap-x-10 w-full relative rounded-none p-0 border-b mb-8 border-b-gray-600",
+              "gap-x-6 md:gap-x-8 w-full relative rounded-none p-0 border-b mb-4 lg:mb-8 border-b-gray-600",
             cursor: "w-full bg-[#e50914ff] h-1",
-            tab: "max-w-fit px-0 py-8",
+            tab: "max-w-fit px-0 py-6 lg:py-8",
             tabContent: `group-data-[selected=true]:text-white transition-colors px-0 py-2`,
           }}
         >
