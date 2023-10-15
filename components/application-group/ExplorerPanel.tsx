@@ -1,10 +1,8 @@
 "use client";
 
-import { Suspense } from "react";
-import { memo } from "react";
+import { memo, useState } from "react";
 
-import { Tabs, Tab } from "@nextui-org/react";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import { DetailsButton } from "../DetailsButton";
 
 type TabConfig = {
   key: string;
@@ -17,36 +15,48 @@ type TabsNavigationProps = {
 };
 
 const ExplorerPanel = ({ tabConfigs }: TabsNavigationProps) => {
+  const [selectedTab, setSelectedTab] = useState(0);
+
+  const handleTabChange = (index: number) => {
+    setSelectedTab(index);
+  };
+
   return (
-    <div className="master-container mx-auto mt-2 p-0">
-      <div className="flex w-full flex-col">
-        <Tabs
-          aria-label="Options"
-          color="primary"
-          variant="underlined"
-          defaultSelectedKey={tabConfigs[0].key}
-          classNames={{
-            tabList:
-              "gap-x-6 md:gap-x-8 w-full relative rounded-none p-0 border-b mb-4 lg:mb-8 border-b-gray-600",
-            cursor: "w-full bg-[#e50914ff] h-1",
-            tab: "max-w-fit px-0 py-6 lg:py-8",
-            tabContent: `group-data-[selected=true]:text-white transition-colors px-0 py-2`,
-          }}
-        >
-          {tabConfigs.map((config) => (
-            <Tab
-              key={config.key}
-              title={
-                <h4 className="font-button-text font-semibold tracking-wide">
-                  {config.title}
-                </h4>
-              }
+    <div className="master-container mx-auto mt-8 p-0">
+      <div className="md:mb:6 mb-8 flex w-full  lg:mb-12">
+        {tabConfigs.map((config, index) => (
+          <div key={config.key}>
+            <DetailsButton
+              variant={"outline"}
+              role="tab"
+              aria-selected={selectedTab === index}
+              onClick={() => handleTabChange(index)}
+              className={`font-button-text rounded-full border-none py-1 text-center font-normal tracking-wide lg:py-2  ${
+                selectedTab === index
+                  ? " bg-white text-black hover:bg-white"
+                  : "text-white hover:bg-transparent hover:text-gray-400"
+              }`}
             >
-              <>{config.content}</>
-            </Tab>
-          ))}
-        </Tabs>
+              {config.title}
+            </DetailsButton>
+
+            {/*  bottom line deco for the active btn */}
+            {/* <div
+              className={`h-1 bg-[#e50914ff] 
+              ${
+                selectedTab === index
+                  ? "w-full duration-300 transition-width"
+                  : "w-0"
+              }
+              `}
+            /> */}
+          </div>
+        ))}
       </div>
+
+      {/* <Separator className="md:mb:6 mb-8 bg-white/30 lg:mb-12" /> */}
+
+      <div>{tabConfigs[selectedTab].content}</div>
     </div>
   );
 };

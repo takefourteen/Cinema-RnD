@@ -4,8 +4,7 @@ import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
 import TvSeriesDetails from "@/components/application-group/tv-route/TvSeriesDetails";
-// import ExplorerPanel from "@/components/application-group/ExplorerPanel";
-import ExplorerPanel from "@/components/application-group/ExplorerPanel-v-2.0";
+import ExplorerPanel from "@/components/application-group/ExplorerPanel";
 
 // lazy load the following components
 const RecommendedMediaList = dynamic(
