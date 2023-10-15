@@ -1,11 +1,8 @@
 "use client";
 
-import { Suspense } from "react";
 import { memo, useState } from "react";
 
-import LoadingSpinner from "@/components/LoadingSpinner";
 import { DetailsButton } from "../DetailsButton";
-import { Separator } from "../ui/separator";
 
 type TabConfig = {
   key: string;
