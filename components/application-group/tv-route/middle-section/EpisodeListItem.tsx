@@ -166,7 +166,7 @@ const EpisodeDetailsOnSmallScreen = ({
   return (
     <>
       {/* name and duration of ep */}
-      <div className="ml-2 flex flex-1 flex-col gap-y-1 sm:hidden">
+      <div className="ml-2 flex flex-1 flex-col justify-center gap-y-1 sm:hidden">
         <h3
           className={`text-lg font-semibold ${
             episodeIsPlaying && "text-[#7e1de0]"
