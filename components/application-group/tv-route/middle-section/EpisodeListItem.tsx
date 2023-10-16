@@ -24,12 +24,10 @@ type EpisodeListItemProps = {
 type Styles = {
   default: {
     image: string;
-    playIcon: string;
     title: string;
   };
   active: {
     image: string;
-    playIcon: string;
     title: string;
   };
 };
@@ -38,15 +36,11 @@ const styles: Styles = {
   default: {
     image:
       "group-hover:ring-2 group-hover:ring-slate-950 group-hover:ring-offset-2  group-focus-visible:ring-2 group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2",
-    playIcon:
-      "absolute inset-0 items-center justify-center bg-black bg-opacity-20",
     title: "font-small-text max-w-[80%] font-bold ",
   },
   active: {
     image:
       "group-focus:ring-1 group-focus:ring-offset-1 group-focus:ring-[#7e1de0] ring-1 ring-offset-1 ring-offset-[#7e1de0] ring-[#7e1de0]",
-    playIcon:
-      "absolute inset-0 items-center justify-center bg-black bg-opacity-50",
     title: "font-small-text max-w-[80%] font-bold tracking-wide text-[#7e1de0]",
   },
 };
@@ -83,9 +77,9 @@ const EpisodeListItem = ({
       <Link
         href={episodeIsPlaying ? `#video-player` : episodeUrl}
         shallow={true}
-        className="group relative flex"
+        className={`group relative grid grid-cols-2 sm:flex`}
       >
-        <div className="relative w-1/2 sm:w-full">
+        <div className="relative w-full">
           <AspectRatio ratio={16 / 9}>
             {/* now playing design */}
             {/* {episodeIsPlaying && (
@@ -112,11 +106,7 @@ const EpisodeListItem = ({
 
             {/* play icon */}
             <div
-              className={`hidden sm:flex ${
-                episodeIsPlaying
-                  ? styles.active.playIcon
-                  : styles.default.playIcon
-              }`}
+              className={`absolute  inset-0 flex items-center justify-center bg-black bg-opacity-50 `}
             >
               {!episodeIsPlaying && <PlayIcon />}
             </div>
@@ -176,7 +166,7 @@ const EpisodeDetailsOnSmallScreen = ({
   return (
     <>
       {/* name and duration of ep */}
-      <div className="ml-2 flex flex-col gap-y-1 sm:hidden">
+      <div className="ml-2 flex flex-1 flex-col gap-y-1 sm:hidden">
         <h3
           className={`text-lg font-semibold ${
             episodeIsPlaying && "text-[#7e1de0]"
@@ -187,13 +177,6 @@ const EpisodeDetailsOnSmallScreen = ({
         <p className="font-small-text text-gray-400">
           {episodeData.runtime} min
         </p>
-      </div>
-
-      {/* play icon */}
-      <div
-        className={`absolute right-0 top-1/2 flex -translate-y-1/2 items-center justify-center bg-black bg-opacity-50 sm:hidden`}
-      >
-        {!episodeIsPlaying && <PlayIcon />}
       </div>
     </>
   );
