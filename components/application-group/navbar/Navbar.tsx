@@ -90,10 +90,12 @@ const Navbar = () => {
       <section className="master-container flex h-[75px] items-center justify-between px-4 py-2 lg:h-[90px]">
         {/* Mobile menu for sm screens */}
         <MobileMenu
-         onDarkenBackground={handleDarkenBackground} 
-         showLogOutBtn={session?.user ? true : false}
-         logOutBtn={<LogOutBtn signOutUser={signOutUser} />}
-         />
+          onDarkenBackground={handleDarkenBackground}
+          showLogOutBtn={session?.user ? true : false}
+          logOutBtn={
+            <LogOutBtn signOutUser={signOutUser} isMobileMenu={true} />
+          }
+        />
 
         {/* display logo */}
         <div className="mr-4 flex items-center">
@@ -147,7 +149,7 @@ const Navbar = () => {
           {session?.user ? (
             <>
               {/* Log out Button, using custom btn */}
-              <LogOutBtn signOutUser={signOutUser} />
+              <LogOutBtn signOutUser={signOutUser} isMobileMenu={false} />
             </>
           ) : (
             <>
@@ -187,21 +189,25 @@ const Navbar = () => {
 };
 
 type LogOutBtnProps = {
-  signOutUser(): Promise<void>
-}
-const LogOutBtn = ({signOutUser}: LogOutBtnProps) => {
+  signOutUser(): Promise<void>;
+  isMobileMenu: boolean;
+};
+
+const LogOutBtn = ({ signOutUser, isMobileMenu }: LogOutBtnProps) => {
+  const mobileMenuClasses =
+    "flex h-fit w-full justify-start rounded-lg px-[10px] border-none py-[10px] text-sm font-bold uppercase text-white hover:bg-transparent hover:text-white";
+  const navbarClasses = "hidden lg:flex w-max text-sm font-bold uppercase";
 
   return (
-     
-     <DetailsButton
-     variant="outline"
-     size={"rounded"}
-     className="hidden w-max text-sm font-bold uppercase lg:flex"
-     onClick={signOutUser}
-   >
-     Log Out
-   </DetailsButton>
-  )
-}
+    <DetailsButton
+      variant={"outline"}
+      size={"rounded"}
+      className={isMobileMenu ? mobileMenuClasses : navbarClasses}
+      onClick={signOutUser}
+    >
+      Log Out
+    </DetailsButton>
+  );
+};
 
 export default Navbar;

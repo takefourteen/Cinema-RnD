@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState, useEffect, useRef, ReactNode } from "react";
 
-
 import { HiMenuAlt4 as HamburgerMenuIcon } from "react-icons/hi";
 import { IoMdClose } from "react-icons/io";
 import { Button } from "../../ui/button";
@@ -120,10 +119,7 @@ const MobileMenu = ({
             <Separator className="mt-2 bg-white/40" />
             <li className="mt-2 px-10 hover:bg-[#40445999]">
               {showLogOutBtn ? (
-                <>
-                {logOutBtn}
-                chucks
-                </>
+                logOutBtn
               ) : (
                 <NavLink href="/login" onClick={handleNavLinkClick}>
                   login
