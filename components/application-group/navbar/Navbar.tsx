@@ -109,15 +109,6 @@ const Navbar = () => {
               sizes="(max-width: 640px) 80px, (max-width: 1024px) 100px, 125px"
               className="max-w-[80px] sm:max-w-[100px] lg:max-w-[125px] "
             />
-
-            {/* show sm logo on sm screens */}
-            {/* <Image
-              src={smLogo}
-              alt="Netflix Logo"
-              width={50}
-              priority
-              className="inline md:hidden"
-            /> */}
           </Link>
         </div>
 
