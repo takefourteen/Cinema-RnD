@@ -29,12 +29,21 @@ export const createNewUser = async (
       throw new Error(errorData.error);
     }
 
-    toast.success("Account created successfully");
+    // Display a success message upon successful account creation
+    toast.success("Account created successfully.", {
+      description: "Welcome to the aboard! 🎉",
+    });
 
     return response.json();
   } catch (error) {
     console.error("Error creating user:", error);
-    toast.error(`${error}`);
+
+    // Display an empathetic message on account creation failure
+    toast.error(`${error}`, {
+      description: "Unable to create your account. 😔",
+    });
+
+    // Throw a meaningful error message
     throw new Error(`Error creating user: ${error}`);
   }
 };
