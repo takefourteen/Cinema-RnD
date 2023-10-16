@@ -1,3 +1,6 @@
+import { ReactNode } from "react";
+import { toast } from "sonner";
+
 interface NewUser {
   firstName: string;
   lastName: string;
@@ -26,8 +29,12 @@ export const createNewUser = async (
       throw new Error(errorData.error);
     }
 
+    toast.success("Account created successfully");
+
     return response.json();
   } catch (error) {
-    return `Error creating user: ${error}`;
+    console.error("Error creating user:", error);
+    toast.error(`${error}`);
+    throw new Error(`Error creating user: ${error}`);
   }
 };

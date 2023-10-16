@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { Toaster, toast } from "sonner";
 
 import { createNewUser } from "@/lib/mongodb-api/create-account";
 import { signInUser } from "@/lib/auth-api/sign-in";
@@ -42,28 +41,21 @@ const CreateAccountForm = () => {
     setSubmitting(true);
     const { email, password, firstName, lastName } = userData;
 
-    // Create account
     try {
-      const response = await createNewUser(userData);
+      // Create account
+      await createNewUser(userData);
 
-      toast.success("User has been created");
+      // Sign in the user after account creation
+      await signInUser({ email, password });
 
-      console.log("Response: ", response);
-    } catch (error) {
-      console.error("Error:", error);
-      toast.error("User could not be created");
+      // Redirect to home page
+      router.push("/");
+    } finally {
+      // Set loading to false after 1 second
+      setTimeout(() => {
+        setSubmitting(false);
+      }, 500);
     }
-
-    // Sign in the user after account creation
-    await signInUser({ email, password });
-
-    // Set loading to false after 1 second
-    setTimeout(() => {
-      setSubmitting(false);
-    }, 500);
-
-    // Redirect to home page
-    router.replace("/");
   }
 
   return (
@@ -190,7 +182,7 @@ const CreateAccountForm = () => {
         <Button
           type="submit"
           disabled={submitting}
-          className="mt-4 flex w-full items-center justify-center gap-x-2 rounded-md bg-[#e50914] text-sm font-semibold text-white md:text-base"
+          className="font-button-text mt-4 flex w-full items-center justify-center gap-x-2 rounded-md bg-[#e50914] font-semibold text-white transition-colors hover:bg-[#e50914]/70 md:text-base"
         >
           {submitting ? (
             <PiSpinnerBold className="animate-spin" />
@@ -199,8 +191,6 @@ const CreateAccountForm = () => {
           )}
         </Button>
       </form>
-
-      <Toaster richColors />
     </>
   );
 };

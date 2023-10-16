@@ -12,12 +12,14 @@ type MobileMenuProps = {
   onDarkenBackground: () => void;
   showLogOutBtn: boolean;
   logOutBtn: ReactNode;
+  logInBtn: ReactNode;
 };
 
 const MobileMenu = ({
   onDarkenBackground,
   showLogOutBtn,
   logOutBtn,
+  logInBtn,
 }: MobileMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
@@ -118,13 +120,7 @@ const MobileMenu = ({
             {/* separator line and then login that goes to /login */}
             <Separator className="mt-2 bg-white/40" />
             <li className="mt-2 px-10 hover:bg-[#40445999]">
-              {showLogOutBtn ? (
-                logOutBtn
-              ) : (
-                <NavLink href="/login" onClick={handleNavLinkClick}>
-                  login
-                </NavLink>
-              )}
+              {showLogOutBtn ? logOutBtn : logInBtn}
             </li>
           </ul>
 

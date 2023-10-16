@@ -12,6 +12,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
 import Alert from "../Alert";
+import { signInUser } from "@/lib/auth-api/sign-in";
 
 interface FormData {
   email: string;
@@ -36,25 +37,14 @@ const LoginForm = () => {
   const callbackUrl = searchParams.get("callback");
   console.log("callback", callbackUrl);
 
+  async function onSubmit(userData: FormData) {
+    setSubmitting(true);
+    await signInUser(userData);
 
-  async function onSubmit(data: FormData) {
-    try {
-      setSubmitting(true);
-      await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-        // callbackUrl: callbackUrl || "/", // not working
-      });
+    // if there is a callback url, redirect to it
+    router.push(callbackUrl || "/");
 
-      // if there is a callback url, redirect to it
-      router.push(callbackUrl || "/");
-    } catch (error: any) {
-      setError(error.message);
-      console.log(error);
-    } finally {
-      setSubmitting(false);
-    }
+    setSubmitting(false);
   }
 
   return (

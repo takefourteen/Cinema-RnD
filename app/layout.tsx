@@ -1,7 +1,9 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Suspense } from "react";
 
+import { Toaster } from "sonner";
 import Providers from "@/providers/Providers";
 import Footer from "@/components/Footer";
 import Script from "next/script";
@@ -45,7 +47,14 @@ export default function RootLayout({
       <body
         className={`${maxSans.variable} bg-gradient-to-tr from-[#070739] via-black to-[#060212] font-sans text-white`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+
+          {/* Get Toast Notifications */}
+          <Suspense fallback={null}>
+            <Toaster richColors position="top-center" closeButton expand />
+          </Suspense>
+        </Providers>
       </body>
     </html>
   );
