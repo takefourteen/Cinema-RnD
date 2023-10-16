@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, ReactNode } from "react";
+
 
 import { HiMenuAlt4 as HamburgerMenuIcon } from "react-icons/hi";
 import { IoMdClose } from "react-icons/io";
@@ -10,9 +11,15 @@ import { Separator } from "../../ui/separator";
 
 type MobileMenuProps = {
   onDarkenBackground: () => void;
+  showLogOutBtn: boolean;
+  logOutBtn: ReactNode;
 };
 
-const MobileMenu = ({ onDarkenBackground }: MobileMenuProps) => {
+const MobileMenu = ({
+  onDarkenBackground,
+  showLogOutBtn,
+  logOutBtn,
+}: MobileMenuProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -112,9 +119,16 @@ const MobileMenu = ({ onDarkenBackground }: MobileMenuProps) => {
             {/* separator line and then login that goes to /login */}
             <Separator className="mt-2 bg-white/40" />
             <li className="mt-2 px-10 hover:bg-[#40445999]">
-              <NavLink href="/login" onClick={handleNavLinkClick}>
-                login
-              </NavLink>
+              {showLogOutBtn ? (
+                <>
+                {logOutBtn}
+                chucks
+                </>
+              ) : (
+                <NavLink href="/login" onClick={handleNavLinkClick}>
+                  login
+                </NavLink>
+              )}
             </li>
           </ul>
 

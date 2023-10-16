@@ -7,8 +7,6 @@ import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
-import { extractPathAndParams } from "@/helpers/extractPathAndParams";
-
 import logo from "@/assets/images/logos/cozycinema-logo.webp";
 import smLogo from "@/assets/images/logos/cozycinema-logo-c.webp";
 import MobileMenu from "./MobileMenu";
@@ -91,7 +89,11 @@ const Navbar = () => {
     >
       <section className="master-container flex h-[75px] items-center justify-between px-4 py-2 lg:h-[90px]">
         {/* Mobile menu for sm screens */}
-        <MobileMenu onDarkenBackground={handleDarkenBackground} />
+        <MobileMenu
+         onDarkenBackground={handleDarkenBackground} 
+         showLogOutBtn={session?.user ? true : false}
+         logOutBtn={<LogOutBtn signOutUser={signOutUser} />}
+         />
 
         {/* display logo */}
         <div className="mr-4 flex items-center">
@@ -145,14 +147,7 @@ const Navbar = () => {
           {session?.user ? (
             <>
               {/* Log out Button, using custom btn */}
-              <DetailsButton
-                variant="outline"
-                size={"rounded"}
-                className="hidden w-max text-sm font-bold uppercase lg:flex"
-                onClick={signOutUser}
-              >
-                Log Out
-              </DetailsButton>
+              <LogOutBtn signOutUser={signOutUser} />
             </>
           ) : (
             <>
@@ -190,5 +185,23 @@ const Navbar = () => {
     </nav>
   );
 };
+
+type LogOutBtnProps = {
+  signOutUser(): Promise<void>
+}
+const LogOutBtn = ({signOutUser}: LogOutBtnProps) => {
+
+  return (
+     
+     <DetailsButton
+     variant="outline"
+     size={"rounded"}
+     className="hidden w-max text-sm font-bold uppercase lg:flex"
+     onClick={signOutUser}
+   >
+     Log Out
+   </DetailsButton>
+  )
+}
 
 export default Navbar;
