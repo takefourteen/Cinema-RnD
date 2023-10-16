@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 
 import { ErrorIcon } from "@/components/ui/icons/Icons";
 import { PiSpinnerBold } from "react-icons/pi";
@@ -33,26 +33,22 @@ const LoginForm = () => {
   });
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
-  console.log("searchParams", searchParams.get("callbackUrl"));
+  const callbackUrl = searchParams.get("callback");
+  console.log("callback", callbackUrl);
+
 
   async function onSubmit(data: FormData) {
-    // implement sign in in try catch finally block
     try {
       setSubmitting(true);
-      const res = await signIn("credentials", {
-        redirect: false,
+      await signIn("credentials", {
         email: data.email,
         password: data.password,
+        redirect: false,
+        // callbackUrl: callbackUrl || "/", // not working
       });
 
-      if (res?.error) {
-        setError(res.error);
-        return;
-      }
-
       // if there is a callback url, redirect to it
-      router.replace(callbackUrl || "/");
+      router.push(callbackUrl || "/");
     } catch (error: any) {
       setError(error.message);
       console.log(error);

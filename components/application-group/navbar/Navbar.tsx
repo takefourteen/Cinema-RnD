@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+
+import { extractPathAndParams } from "@/helpers/extractPathAndParams";
 
 import logo from "@/assets/images/logos/cozycinema-logo.webp";
 import smLogo from "@/assets/images/logos/cozycinema-logo-c.webp";
@@ -17,6 +19,8 @@ import { DetailsButton } from "@/components/DetailsButton";
 const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+
   const { data: session, status } = useSession();
   const [scroll, setScroll] = useState(false);
   const [darkenBackground, setDarkenBackground] = useState<boolean>(false);
@@ -25,7 +29,14 @@ const Navbar = () => {
     "watch-movie",
     "watch-tv",
   ].includes(pathname.split("/")[1]);
-  const scrollThreshold = 100; // Adjust this threshold as needed
+  const scrollThreshold = 90; // Adjust this threshold as needed
+
+  const [currentUrl, setCurrentUrl] = useState<string>("/");
+
+  useEffect(() => {
+    const url = `${pathname}?${searchParams}`;
+    setCurrentUrl(url);
+  }, [pathname, searchParams]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -49,10 +60,12 @@ const Navbar = () => {
   // function to sign out the user
   async function signOutUser() {
     try {
-      await signOut();
-      router.refresh();
+      await signOut({
+        redirect: false,
+      });
     } catch (error) {
-      console.log(error);
+      console.error("Error signing out:", error);
+      throw new Error("Failed to sign out. Please try again later.");
     }
   }
 
@@ -136,10 +149,9 @@ const Navbar = () => {
                 variant="outline"
                 size={"rounded"}
                 className="hidden w-max text-sm font-bold uppercase lg:flex"
-                asChild
                 onClick={signOutUser}
               >
-                <Link href="/">Log Out</Link>
+                Log Out
               </DetailsButton>
             </>
           ) : (
@@ -152,7 +164,11 @@ const Navbar = () => {
                 className="hidden w-max text-sm font-bold uppercase lg:flex"
                 asChild
               >
-                <Link href="/login">Log In</Link>
+                <Link
+                  href={`/login?callback=${encodeURIComponent(currentUrl)}`}
+                >
+                  Log In
+                </Link>
               </DetailsButton>
 
               <DetailsButton
@@ -161,7 +177,11 @@ const Navbar = () => {
                 className="w-max text-xs font-bold uppercase sm:text-sm"
                 asChild
               >
-                <Link href="/sign-up">Sign Up</Link>
+                <Link
+                  href={`/sign-up?callback=${encodeURIComponent(currentUrl)}`}
+                >
+                  Sign Up
+                </Link>
               </DetailsButton>
             </>
           )}
