@@ -170,7 +170,7 @@ const ShowDetailsSmallScreen = async ({
           variant={"outline"}
           className="flex flex-col items-center justify-center gap-y-1 border-none p-0   text-white transition-colors hover:bg-transparent hover:text-white/70"
         >
-          <AddIcon className=" h-6 w-6 rounded-full ring-1 ring-offset-1" />{" "}
+          <AddIcon className=" h-6 w-6 rounded-full ring-1 ring-white ring-offset-1" />{" "}
           <span>Library</span>
         </DetailsButton>
 
@@ -188,7 +188,7 @@ const ShowDetailsSmallScreen = async ({
           className=" flex flex-col items-center justify-center gap-y-1 border-none p-0 text-white transition-colors hover:bg-transparent hover:text-white/70"
         >
           <Link href={`${detailsUrl}`}>
-            <InfoIcon className=" h-6 w-6 rounded-full p-[1px] ring-1 ring-offset-1  " />{" "}
+            <InfoIcon className=" h-6 w-6 rounded-full p-[1px] ring-1 ring-white ring-offset-1  " />{" "}
             <span>Details</span>
           </Link>
         </DetailsButton>
