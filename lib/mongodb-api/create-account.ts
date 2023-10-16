@@ -1,25 +1,33 @@
-export interface createAccountData {
-  email: string;
-  password: string;
+interface NewUser {
   firstName: string;
   lastName: string;
+  email: string;
+  password: string;
 }
 
-// function to create a new account
-export async function createAccount(data: createAccountData) {
+interface NewUserResponse extends NewUser {
+  id: string;
+}
+
+export const createNewUser = async (
+  userData: NewUser,
+): Promise<NewUserResponse | string> => {
   try {
-    const res = await fetch("/api/auth/sign-up", {
+    const response = await fetch("/api/auth/create-account", {
       method: "POST",
-      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
     });
 
-    if (!res.ok) {
-      const { message } = await res.json();
-      throw new Error(message);
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error);
     }
 
-    return await res.json();
+    return response.json();
   } catch (error) {
-    throw error;
+    return `Error creating user: ${error}`;
   }
-}
+};

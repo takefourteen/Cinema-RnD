@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-import { createAccount } from "@/lib/mongodb-api/create-account";
+import { createNewUser } from "@/lib/mongodb-api/create-account";
 import { signInUser } from "@/lib/auth-api/sign-in";
 
 import { PiSpinnerBold } from "react-icons/pi";
@@ -42,18 +42,16 @@ const CreateAccountForm = () => {
     const { email, password, firstName, lastName } = data;
 
     // Create account
-    await createAccount({
+    await createNewUser({
       email,
       password,
       firstName,
       lastName,
     });
 
-    
     // Sign in the user after account creation
     await signInUser({ email, password });
-    
-    
+
     // Set loading to false after 1 second
     setTimeout(() => {
       setSubmitting(false);
