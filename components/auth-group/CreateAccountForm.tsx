@@ -45,9 +45,6 @@ const CreateAccountForm = () => {
       // Create account
       await createNewUser(userData);
 
-      // Sign in the user after account creation
-      await signInUser({ email, password });
-
       // Redirect to home page
       router.push("/");
     } finally {
