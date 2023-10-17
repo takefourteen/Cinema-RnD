@@ -34,13 +34,19 @@ const LoginForm = () => {
   const callbackUrl = searchParams.get("callback");
 
   async function onSubmit(userData: FormData) {
-    setSubmitting(true);
-    await signInUser(userData);
+    try {
+      setSubmitting(true);
 
-    // if there is a callback url, redirect to it
-    router.push(callbackUrl || "/");
+      await signInUser(userData);
 
-    setSubmitting(false);
+      // if there is a callback url, redirect to it
+      router.push(callbackUrl || "/");
+    } finally {
+      // Set loading to false after a delay
+      setTimeout(() => {
+        setSubmitting(false);
+      }, 500);
+    }
   }
 
   return (
@@ -48,7 +54,6 @@ const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex  w-[500px] flex-col items-center justify-center gap-y-8 px-12 py-6 md:rounded-md md:bg-[#dedede0f] md:py-10"
     >
-
       {/* email */}
       <div className="grid w-full gap-2">
         <Label
