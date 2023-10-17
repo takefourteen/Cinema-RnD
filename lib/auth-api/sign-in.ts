@@ -1,24 +1,35 @@
 import { signIn } from "next-auth/react";
+import { toast } from "sonner";
 
-interface signInData {
+interface SignInData {
   email: string;
   password: string;
+  firstName?: string;
+  lastName?: string;
 }
-// function to sign in the user after account creation
-export async function signInUser(data: signInData) {
+
+// Function to sign in the user after account creation
+export async function signInUser(data: SignInData) {
   try {
-    const res = await signIn("credentials", {
+    const signInData = await signIn("credentials", {
       redirect: false,
       email: data.email,
       password: data.password,
     });
 
-    if (res?.error) {
-      throw new Error(res.error);
+    if (signInData?.error) {
+      throw new Error(signInData.error);
     }
 
-    return res;
+    // Display a welcoming message upon successful sign-in
+    toast.success("Welcome back! Let's start streaming. 🎬");
   } catch (error) {
-    throw error;
+    console.error("Error signing in:", error);
+
+    // Display an empathetic message on sign-in failure
+    toast.error(`${error}`);
+
+    // Throw a meaningful error message
+    throw new Error(`Error signing in: ${error}`);
   }
 }

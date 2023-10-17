@@ -18,9 +18,7 @@ const Login = async () => {
     <section className="flex w-full flex-col items-center justify-center pt-16">
       {/* heading */}
       <div className="flex flex-col items-center justify-center gap-2 pb-8">
-        <h1 className="text-center text-4xl font-bold lg:text-5xl">
-          Sign In
-        </h1>
+        <h1 className="text-center text-4xl font-bold lg:text-5xl">Sign In</h1>
         <p className="text-base">
           Enter your account email address and password.
         </p>
@@ -30,9 +28,9 @@ const Login = async () => {
       <LoginForm />
 
       {/* create account like if the user doesn't have an account */}
-      <div className="flex flex-col md:mt-4 items-center justify-center gap-1">
+      <div className="flex flex-col items-center justify-center gap-1 md:mt-4">
         <p className="text-sm tracking-wide lg:text-base">
-          New to Netflix?{" "}
+          New to Cozy Cinema?{" "}
           <Link
             href={"/sign-up"}
             className="text-red-500 hover:underline focus:underline"

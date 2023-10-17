@@ -2,16 +2,15 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import { ErrorIcon } from "@/components/ui/icons/Icons";
 import { PiSpinnerBold } from "react-icons/pi";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
-import Alert from "../Alert";
+import { signInUser } from "@/lib/auth-api/sign-in";
 
 interface FormData {
   email: string;
@@ -20,7 +19,6 @@ interface FormData {
 
 const LoginForm = () => {
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -34,26 +32,20 @@ const LoginForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callback");
-  console.log("callback", callbackUrl);
 
-
-  async function onSubmit(data: FormData) {
+  async function onSubmit(userData: FormData) {
     try {
       setSubmitting(true);
-      await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-        redirect: false,
-        // callbackUrl: callbackUrl || "/", // not working
-      });
+
+      await signInUser(userData);
 
       // if there is a callback url, redirect to it
       router.push(callbackUrl || "/");
-    } catch (error: any) {
-      setError(error.message);
-      console.log(error);
     } finally {
-      setSubmitting(false);
+      // Set loading to false after a delay
+      setTimeout(() => {
+        setSubmitting(false);
+      }, 500);
     }
   }
 
@@ -62,9 +54,6 @@ const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex  w-[500px] flex-col items-center justify-center gap-y-8 px-12 py-6 md:rounded-md md:bg-[#dedede0f] md:py-10"
     >
-      {/* alert error if there is one */}
-      {error && <Alert value={error} />}
-
       {/* email */}
       <div className="grid w-full gap-2">
         <Label

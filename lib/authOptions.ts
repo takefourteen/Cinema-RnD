@@ -27,7 +27,7 @@ export const authOptions: NextAuthOptions = {
         const user = await User.findOne({ email });
         if (!user) {
           throw new Error(
-            "There was a problem logging in. Check your email and password or create an account.",
+            "There was a problem logging in. Check your email and password or create a free account.",
           );
         }
 
@@ -69,23 +69,6 @@ export const authOptions: NextAuthOptions = {
           token.lastName as string;
       }
       return session;
-    },
-    async redirect({ url, baseUrl }) {
-      // Check if the URL contains the ?callbackUrl query parameter
-      if (url.includes("?callbackUrl=")) {
-        // Extract the callback URL from the URL
-        const parts = url.split("?callbackUrl=");
-        if (parts.length === 2) {
-          const callbackUrl = parts[1];
-          console.log("callbackUrl", callbackUrl);
-          console.log("redirect to", baseUrl + callbackUrl);
-          // Redirect to the callback URL
-          return baseUrl + callbackUrl;
-        }
-      }
-
-      // If no callbackUrl found, redirect to the homepage
-      return baseUrl + "/";
     },
   },
 };
