@@ -25,10 +25,13 @@ export const createNewUser = async (
       body: JSON.stringify(userData),
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error);
+    const responseData = await response.json();
+
+    if (responseData.error) {
+      throw new Error(responseData.error);
     }
+
+    console.log("User created successfully:", responseData);
 
     // Sign in the user after account creation
     await signIn("credentials", {
@@ -42,7 +45,8 @@ export const createNewUser = async (
       description: "CozyCinema Welcomes You! 🎉",
     });
 
-    return response.json();
+    // Return the stored response data
+    return responseData;
   } catch (error) {
     console.error("Error creating user:", error);
 
