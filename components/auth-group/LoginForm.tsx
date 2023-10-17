@@ -3,14 +3,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import { useSearchParams, usePathname } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 import { ErrorIcon } from "@/components/ui/icons/Icons";
 import { PiSpinnerBold } from "react-icons/pi";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "@/components/ui/label";
-import Alert from "../Alert";
 import { signInUser } from "@/lib/auth-api/sign-in";
 
 interface FormData {
@@ -20,7 +19,6 @@ interface FormData {
 
 const LoginForm = () => {
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -50,8 +48,6 @@ const LoginForm = () => {
       onSubmit={handleSubmit(onSubmit)}
       className="flex  w-[500px] flex-col items-center justify-center gap-y-8 px-12 py-6 md:rounded-md md:bg-[#dedede0f] md:py-10"
     >
-      {/* alert error if there is one */}
-      {error && <Alert value={error} />}
 
       {/* email */}
       <div className="grid w-full gap-2">
