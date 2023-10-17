@@ -27,9 +27,7 @@ export async function signInUser(data: SignInData) {
     console.error("Error signing in:", error);
 
     // Display an empathetic message on sign-in failure
-    toast.error("Oh no! Unable to sign you in. Please try again. 😔", {
-      description: `${error}`,
-    });
+    toast.error(`${error}`);
 
     // Throw a meaningful error message
     throw new Error(`Error signing in: ${error}`);
