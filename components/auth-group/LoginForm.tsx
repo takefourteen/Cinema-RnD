@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useSearchParams, usePathname } from "next/navigation";
 
@@ -35,7 +34,6 @@ const LoginForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callback");
-  console.log("callback", callbackUrl);
 
   async function onSubmit(userData: FormData) {
     setSubmitting(true);
