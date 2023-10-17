@@ -2,10 +2,9 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import { createNewUser } from "@/lib/mongodb-api/create-account";
-import { signInUser } from "@/lib/auth-api/sign-in";
 
 import { PiSpinnerBold } from "react-icons/pi";
 import { ErrorIcon } from "@/components/ui/icons/Icons";
@@ -35,18 +34,19 @@ const CreateAccountForm = () => {
     },
   });
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callback");
 
   // function to handle form submission
   async function onSubmit(userData: FormData) {
     setSubmitting(true);
-    const { email, password, firstName, lastName } = userData;
 
     try {
       // Create account
       await createNewUser(userData);
 
-      // Redirect to home page
-      router.push("/");
+      // if there is a callback url, redirect to it
+      router.push(callbackUrl || "/");
     } finally {
       // Set loading to false after 1 second
       setTimeout(() => {
