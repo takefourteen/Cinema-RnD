@@ -4,8 +4,7 @@ import { toast } from "sonner";
 export const signOutUser = async () => {
   try {
     await signOut({
-      redirect: true,
-      callbackUrl: "/",
+      redirect: false,
     });
 
     // Display a somber message upon successful sign-out
