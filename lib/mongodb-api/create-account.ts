@@ -1,5 +1,4 @@
 import { signIn } from "next-auth/react";
-import { ReactNode } from "react";
 import { toast } from "sonner";
 
 interface NewUser {

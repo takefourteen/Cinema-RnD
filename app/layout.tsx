@@ -2,11 +2,12 @@ import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Suspense } from "react";
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@/lib/authOptions";
 
 import { Toaster } from "sonner";
 import Providers from "@/providers/Providers";
-import Footer from "@/components/Footer";
-import Script from "next/script";
+
 
 const maxSans = localFont({
   src: [
@@ -37,17 +38,19 @@ export const metadata: Metadata = {
     "Welcome to CozyCinema, where the magic of movies and the comfort of your favorite couch come together. Explore a vast selection of movies and TV series, all designed to wrap you in the cozy embrace of entertainment. Enjoy the cinematic escape without any cost. Your comfort, our priority.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession(authOptions)
+
   return (
     <html lang="en" className="scroll-smooth">
       <body
         className={`${maxSans.variable} bg-gradient-to-tr from-[#070739] via-black to-[#060212] font-sans text-white`}
       >
-        <Providers>
+        <Providers session={session}>
           {children}
 
           {/* Get Toast Notifications */}
