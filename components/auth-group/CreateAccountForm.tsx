@@ -48,7 +48,7 @@ const CreateAccountForm = () => {
       // if there is a callback url, redirect to it
       router.push(callbackUrl || "/");
     } finally {
-      // Set loading to false after 1 second
+      // Set loading to false after a delay
       setTimeout(() => {
         setSubmitting(false);
       }, 500);
