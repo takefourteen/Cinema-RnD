@@ -21,8 +21,13 @@ export async function signInUser(data: SignInData) {
       throw new Error(signInData.error);
     }
 
+    console.log("sign in data: ", signInData);
+
     // Display a welcoming message upon successful sign-in
-    toast.success("Welcome back! Let's start streaming. 🎬");
+    toast.success("Welcome back!", {
+      description: "Let's start streaming. 🎬",
+      descriptionClassName: "text-blue-500 font-bold",
+    });
   } catch (error) {
     console.error("Error signing in:", error);
 

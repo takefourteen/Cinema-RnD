@@ -35,7 +35,7 @@ const CreateAccountForm = () => {
   });
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callback");
+  const callbackUrl = searchParams.get("callbackUrl");
 
   // function to handle form submission
   async function onSubmit(userData: FormData) {

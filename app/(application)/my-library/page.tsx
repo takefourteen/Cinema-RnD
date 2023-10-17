@@ -20,7 +20,7 @@ const MyList = async () => {
   console.log("session", session);
 
   if (!user) {
-    redirect("/login?callback=/my-library");
+    redirect("/login?callbackUrl=/my-library");
   }
 
   return (

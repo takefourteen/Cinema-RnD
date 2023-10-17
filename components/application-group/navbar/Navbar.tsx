@@ -151,7 +151,9 @@ const Navbar = () => {
                   asChild
                 >
                   <Link
-                    href={`/sign-up?callback=${encodeURIComponent(currentUrl)}`}
+                    href={`/sign-up?callbackUrl=${encodeURIComponent(
+                      currentUrl,
+                    )}`}
                   >
                     Sign Up
                   </Link>
@@ -204,7 +206,7 @@ const LogInBtn = ({ isMobileMenu, callbackUrl }: LogInBtnProps) => {
       size={"rounded"}
       className={isMobileMenu ? mobileMenuClasses : navbarClasses}
     >
-      <Link href={`/login?callback=${encodeURIComponent(callbackUrl)}`}>
+      <Link href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`}>
         Log In
       </Link>
     </DetailsButton>

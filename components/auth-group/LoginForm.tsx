@@ -31,7 +31,7 @@ const LoginForm = () => {
   });
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callback");
+  const callbackUrl = searchParams.get("callbackUrl");
 
   async function onSubmit(userData: FormData) {
     try {
@@ -40,6 +40,7 @@ const LoginForm = () => {
       await signInUser(userData);
 
       // if there is a callback url, redirect to it
+      console.log("redirect user to: ", callbackUrl);
       router.push(callbackUrl || "/");
     } finally {
       // Set loading to false after a delay
