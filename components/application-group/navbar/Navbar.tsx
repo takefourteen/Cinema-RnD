@@ -56,6 +56,11 @@ const Navbar = () => {
     setDarkenBackground((prev) => !prev);
   }
 
+  const handleSignOut = async () => {
+    await signOutUser();
+    router.push("/");
+  };
+
   /*
     Define classes based on the scroll state, whether the search icon is clicked, and 
     is darkenBackground is true or false
@@ -83,7 +88,7 @@ const Navbar = () => {
             onDarkenBackground={handleDarkenBackground}
             showLogOutBtn={session?.user ? true : false}
             logOutBtn={
-              <LogOutBtn signOutUser={signOutUser} isMobileMenu={true} />
+              <LogOutBtn signOutUser={handleSignOut} isMobileMenu={true} />
             }
             logInBtn={<LogInBtn isMobileMenu={true} callbackUrl={currentUrl} />}
           />
@@ -131,7 +136,7 @@ const Navbar = () => {
             {session?.user ? (
               <>
                 {/* Log out Button, using custom btn */}
-                <LogOutBtn signOutUser={signOutUser} isMobileMenu={false} />
+                <LogOutBtn signOutUser={handleSignOut} isMobileMenu={false} />
               </>
             ) : (
               <>
@@ -156,8 +161,6 @@ const Navbar = () => {
           </div>
         </section>
       </nav>
-
-     
     </>
   );
 };
