@@ -1,3 +1,4 @@
+import { signIn } from "next-auth/react";
 import { ReactNode } from "react";
 import { toast } from "sonner";
 
@@ -29,9 +30,16 @@ export const createNewUser = async (
       throw new Error(errorData.error);
     }
 
+    // Sign in the user after account creation
+    await signIn("credentials", {
+      redirect: false,
+      email: userData.email,
+      password: userData.password,
+    });
+
     // Display a success message upon successful account creation
     toast.success("Account created successfully.", {
-      description: "Welcome to the aboard! 🎉",
+      description: "CozyCinema Welcomes You! 🎉",
     });
 
     return response.json();
