@@ -27,8 +27,6 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     // Get user data from the request body
     const body = (await req.json()) as NewUserRequest;
 
-    console.log("\nRequest body from create account form: ", body);
-
     // Connect to the database
     await connectToDatabase();
 
@@ -36,7 +34,6 @@ export const POST = async (req: Request): Promise<NewResponse> => {
     const existingUser = await User.findOne({ email: body.email });
 
     if (existingUser) {
-      console.log("\nExisting User is: ", existingUser);
 
       return NextResponse.json(
         { error: "User already exists" },
@@ -46,8 +43,6 @@ export const POST = async (req: Request): Promise<NewResponse> => {
 
     // Create a new user
     const newUser = await User.create({ ...body, role: "user" });
-
-    console.log("\nNew User Has Been Successfully Created: ", newUser);
 
     // Return the user details
     return NextResponse.json({
