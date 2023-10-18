@@ -14,7 +14,8 @@ interface NewUserResponse extends NewUser {
 
 export const createNewUser = async (
   userData: NewUser,
-): Promise<NewUserResponse | string> => {
+  callbackUrl: string,
+): Promise<void> => {
   try {
     const response = await fetch("/api/auth/create-account", {
       method: "POST",
@@ -44,8 +45,9 @@ export const createNewUser = async (
       description: "CozyCinema Welcomes You! 🎉",
     });
 
-    // Return the stored response data
-    return responseData;
+    // Redirect to the callback URL if provided
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    window.location.href = callbackUrl;
   } catch (error) {
     console.error("Error creating user:", error);
 
