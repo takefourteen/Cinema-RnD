@@ -1,6 +1,8 @@
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Script from "next/script";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 
@@ -25,6 +27,13 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
+  const session = await getServerSession();
+  const callbackUrl = encodeURIComponent(`/watch-movie/${params.id}`);
+
+  if (!session) {
+    redirect(`/login?callbackUrl=${callbackUrl}`);
+  }
+
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
   const movieId = params.id.split("-").pop() as string;
 
