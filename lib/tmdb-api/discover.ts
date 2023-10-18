@@ -1,23 +1,29 @@
-const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-
-import { filterResultsByLanguage } from "@/helpers/filterResults";
 import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
 import { categories } from "@/constants/categories";
 
-const baseMovieURL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`;
-const baseTVSeriesURL = `https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}`;
+const baseMovieURL = `https://api.themoviedb.org/3/discover/movie?`;
+const baseTVSeriesURL = `https://api.themoviedb.org/3/discover/tv?`;
+const BEARER_TOKEN = process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN;
 
 type generateAPIUrl = (category: string, type: string) => string;
 
-const generateAPIUrl: generateAPIUrl = (category, type) => {
+const generateAPIUrl = (category: string, type: string): string => {
   const genreIds = categories[type][category].genreIds.join(",");
   const filterAndSortOptions = categories[type][category].filterAndSortOptions;
 
-  if (type === "movies") {
-    return `${baseMovieURL}&include_adult=false&include_video=false&language=en-US&page=1&with_original_language=en&with_genres=${genreIds}${filterAndSortOptions}`;
-  } else {
-    return `${baseTVSeriesURL}&include_adult=false&include_video=false&language=en-US&page=1&with_original_language=en&with_genres=${genreIds}${filterAndSortOptions}`;
-  }
+  const baseAPIUrl = type === "movies" ? baseMovieURL : baseTVSeriesURL;
+
+  const params = new URLSearchParams({
+    include_adult: "false",
+    include_video: "false",
+    language: "en-US",
+    page: "1",
+    with_original_language: "en",
+    with_genres: genreIds,
+    ...filterAndSortOptions,
+  });
+
+  return `${baseAPIUrl}${params.toString()}`;
 };
 
 type fetchCategory = {
@@ -41,8 +47,15 @@ export const fetchCategory = async ({
 > => {
   try {
     const url = generateAPIUrl(category, type);
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${BEARER_TOKEN}`,
+      },
+    };
 
-    const response = await fetch(url);
+    const response = await fetch(url, options);
 
     if (!response.ok) {
       // Parse the error response as JSON to extract status_message
@@ -54,12 +67,6 @@ export const fetchCategory = async ({
 
     const data: DiscoverMovieApiResponse | DiscoverTVSeriesApiResponse =
       await response.json();
-
-    /* 
-      filter out movies that are not in English - Not necessay anymore,
-      only shows with language in en are fetched
-    */
-    // data.results = filterResultsByLanguage(data.results || [], "en");
 
     // filter out movies that don't have a video url
     data.results = await filterMediaWithVideoUrl(data.results || []);
