@@ -17,8 +17,6 @@ const Login = async ({ searchParams}: PageProps) => {
   const session = await getServerSession(authOptions);
   const callbackUrl = searchParams.callbackUrl || "/";
 
-  console.log("redirect user to: ", callbackUrl);
-
   // if the user is already logged in and there is a callback url, redirect to the callback url
   if (session?.user && callbackUrl) {
     redirect(callbackUrl);
@@ -47,7 +45,7 @@ const Login = async ({ searchParams}: PageProps) => {
         <p className="text-sm tracking-wide lg:text-base">
           New to Cozy Cinema?{" "}
           <Link
-            href={"/sign-up"}
+            href={`/sign-up?callbackUrl=${encodeURIComponent(callbackUrl)}`}
             className="text-red-500 hover:underline focus:underline"
           >
             Sign up now.

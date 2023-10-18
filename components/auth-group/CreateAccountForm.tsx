@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter, useSearchParams } from "next/navigation";
 
 import { createNewUser } from "@/lib/mongodb-api/create-account";
 
@@ -19,7 +18,11 @@ interface FormData {
   lastName: string;
 }
 
-const CreateAccountForm = () => {
+type CreateAccountFormProps = {
+  callbackUrl: string;
+};
+
+const CreateAccountForm = ({callbackUrl}: CreateAccountFormProps) => {
   const [submitting, setSubmitting] = useState(false);
   const {
     register,
@@ -33,9 +36,6 @@ const CreateAccountForm = () => {
       lastName: "lastnamejeff",
     },
   });
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
 
   // function to handle form submission
   async function onSubmit(userData: FormData) {
@@ -43,10 +43,8 @@ const CreateAccountForm = () => {
 
     try {
       // Create account
-      await createNewUser(userData);
+      await createNewUser(userData, callbackUrl);
 
-      // if there is a callback url, redirect to it
-      router.push(callbackUrl || "/");
     } finally {
       // Set loading to false after a delay
       setTimeout(() => {

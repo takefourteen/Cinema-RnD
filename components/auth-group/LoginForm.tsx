@@ -32,7 +32,6 @@ const LoginForm = ({ callbackUrl }: LoginFormProps) => {
       password: "developer",
     },
   });
-  console.log("redirect user to: ", callbackUrl);
 
   async function onSubmit(userData: FormData) {
     try {
