@@ -2,16 +2,23 @@ import { keywords } from "@/constants/keywords";
 import { tvSeriesGenres } from "./tvSeriesGenres";
 import { movieGenres } from "./movieGenres";
 
-interface CategoryList {
+interface FilterAndSortOptions {
+  sort_by: string;
+  with_keywords?: string;
+}
+
+interface CategoryEntry {
+  genreIds: number[];
+  filterAndSortOptions: FilterAndSortOptions;
+}
+
+interface Categories {
   [key: string]: {
-    [key: string]: {
-      genreIds: number[];
-      filterAndSortOptions: { [key: string]: any };
-    };
+    [key: string]: CategoryEntry;
   };
 }
 
-export const categories: CategoryList = {
+export const categories: Categories = {
   movies: {
     action: {
       genreIds: [movieGenres.action],
@@ -125,7 +132,6 @@ export const categories: CategoryList = {
         with_keywords: `${keywords.standUpComedy}`,
       },
     },
-
     tvMovie: {
       genreIds: [movieGenres.tvMovie],
       filterAndSortOptions: {
@@ -224,7 +230,7 @@ export const categories: CategoryList = {
       genreIds: [tvSeriesGenres.sciFiFantasy],
       filterAndSortOptions: {
         sort_by: "popularity.desc",
-        with_keywords: `${keywords.sciFi}`,
+        with_keywords: `${keywords.sciFi},${keywords.fantasy}`,
       },
     },
     soap: {
@@ -243,3 +249,7 @@ export const categories: CategoryList = {
     },
   },
 };
+
+
+// Union of categories
+export type AllCategories = typeof categories;
