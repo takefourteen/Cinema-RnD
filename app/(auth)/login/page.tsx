@@ -6,8 +6,23 @@ import { authOptions } from "@/lib/authOptions";
 
 import LoginForm from "@/components/auth-group/LoginForm";
 
-const Login = async () => {
+type PageProps = {
+  // searchParams will be something like this: callbackUrl=%2Fwatch-movie%2Ftt0111161
+  searchParams: {
+    callbackUrl: string;
+  };
+};
+
+const Login = async ({ searchParams}: PageProps) => {
   const session = await getServerSession(authOptions);
+  const callbackUrl = searchParams.callbackUrl || "/";
+
+  console.log("redirect user to: ", callbackUrl);
+
+  // if the user is already logged in and there is a callback url, redirect to the callback url
+  if (session?.user && callbackUrl) {
+    redirect(callbackUrl);
+  }
 
   // if the user is already logged in, redirect to home page
   if (session?.user) {
@@ -25,7 +40,7 @@ const Login = async () => {
       </div>
 
       {/* form */}
-      <LoginForm />
+      <LoginForm callbackUrl={callbackUrl}/>
 
       {/* create account like if the user doesn't have an account */}
       <div className="flex flex-col items-center justify-center gap-1 md:mt-4">
