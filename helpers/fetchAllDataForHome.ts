@@ -16,14 +16,7 @@ type HomePageData<T> = {
 export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
   const trendingMoviesPromise = fetchMultiplePagesOfTrendingMovies(2);
   const trendingTvShowsPromise = fetchMultiplePagesOfTrendingTVShows(2);
-  const actionAdventureMoviesPromise = fetchCategory({
-    category: "actionAdventure",
-    type: "movies",
-  });
-  const actionAdventureTvSeriesPromise = fetchCategory({
-    category: "actionAdventure",
-    type: "tvSeries",
-  });
+
   const movieDocumentariesPromise = fetchCategory({
     category: "documentaries",
     type: "movies",
@@ -47,8 +40,6 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     trendingTvShows,
     movieDocumentaries,
     tvSeriesDocumentaries,
-    actionAdventureMovies,
-    actionAdventureTvSeries,
     topRatedMovies,
     topRatedTvSeries,
   ] = await Promise.all([
@@ -56,23 +47,17 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     trendingTvShowsPromise,
     movieDocumentariesPromise,
     tvSeriesDocumentariesPromise,
-    actionAdventureMoviesPromise,
-    actionAdventureTvSeriesPromise,
     movieTopRatedPromise,
     tvSeriesTopRatedPromise,
   ]);
 
   // Combine movie and tv series results
   const allDocumentaries = [...movieDocumentaries, ...tvSeriesDocumentaries];
-  const allActionAdventure = [
-    ...actionAdventureMovies,
-    ...actionAdventureTvSeries,
-  ];
+  
   const allTopRated = [...topRatedMovies, ...topRatedTvSeries];
 
   // Sort the combined array by popularity
   const sortedDocumentaries = sortResultsByPopularity(allDocumentaries);
-  const sortedActionAdventure = sortResultsByPopularity(allActionAdventure);
   const sortedTopRated = sortResultsByPopularity(allTopRated);
 
   // Return the data in the shape we need for the home page
@@ -88,13 +73,6 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
       data: trendingTvShows.slice(0, 15),
       title: "Latest Binge-Worthy TV Shows",
       hasPriority: true,
-      viewWithProgressBar: true,
-      standOut: false,
-    },
-    {
-      data: sortedActionAdventure.slice(0, 15),
-      title: "Action & Adventure",
-      hasPriority: false,
       viewWithProgressBar: true,
       standOut: false,
     },
