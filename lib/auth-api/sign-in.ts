@@ -9,25 +9,27 @@ interface SignInData {
 }
 
 // Function to sign in the user after account creation
-export async function signInUser(data: SignInData) {
+export async function signInUser(data: SignInData, callbackUrl: string) {
   try {
     const signInData = await signIn("credentials", {
-      redirect: false,
       email: data.email,
       password: data.password,
+      redirect: false,
     });
 
     if (signInData?.error) {
       throw new Error(signInData.error);
     }
 
-    console.log("sign in data: ", signInData);
-
     // Display a welcoming message upon successful sign-in
     toast.success("Welcome back!", {
       description: "Let's start streaming. 🎬",
       descriptionClassName: "text-blue-500 font-bold",
     });
+
+    // Redirect to the callback URL if provided
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    window.location.href = callbackUrl;
   } catch (error) {
     console.error("Error signing in:", error);
 

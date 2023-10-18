@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import { useSearchParams } from "next/navigation";
 
 import { ErrorIcon } from "@/components/ui/icons/Icons";
 import { PiSpinnerBold } from "react-icons/pi";
@@ -17,11 +15,16 @@ interface FormData {
   password: string;
 }
 
-const LoginForm = () => {
+type LoginFormProps = {
+  callbackUrl: string;
+};
+
+const LoginForm = ({ callbackUrl }: LoginFormProps) => {
   const [submitting, setSubmitting] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
@@ -29,24 +32,22 @@ const LoginForm = () => {
       password: "developer",
     },
   });
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl");
+  console.log("redirect user to: ", callbackUrl);
 
   async function onSubmit(userData: FormData) {
     try {
       setSubmitting(true);
 
-      await signInUser(userData);
-
-      // if there is a callback url, redirect to it
-      console.log("redirect user to: ", callbackUrl);
-      router.push(callbackUrl || "/");
+      // Wait for sign-in to complete
+      await signInUser(userData, callbackUrl);
     } finally {
       // Set loading to false after a delay
       setTimeout(() => {
         setSubmitting(false);
       }, 500);
+
+      // Reset the form
+      reset();
     }
   }
 
@@ -117,7 +118,13 @@ const LoginForm = () => {
         disabled={submitting}
         className="w-full rounded-lg border-[#c11119] bg-[#e50914] px-[25px] py-[10px] text-sm font-semibold uppercase tracking-wide text-white outline outline-0 outline-[#c11119] hover:bg-[#c11119] hover:text-white hover:outline-2 md:text-base"
       >
-        {submitting ? <PiSpinnerBold className="animate-spin" /> : "Sign In"}
+        {submitting ? (
+          <>
+            <PiSpinnerBold className="animate-spin" /> &nbsp; signing you in...
+          </>
+        ) : (
+          "Sign In"
+        )}
       </Button>
     </form>
   );
