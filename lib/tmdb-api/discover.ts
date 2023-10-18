@@ -26,16 +26,32 @@ const generateAPIUrl = (category: string, type: string): string => {
   return `${baseAPIUrl}${params.toString()}`;
 };
 
+type Categories =
+  | "actionAdventure"
+  | "animation"
+  | "action"
+  | "comedy"
+  | "crime"
+  | "documentary"
+  | "drama"
+  | "family"
+  | "fantasy"
+  | "history"
+  | "horror"
+  | "music"
+  | "mystery"
+  | "reality"
+  | "romance"
+  | "sciFi"
+  | "sciFiFantasy"
+  | "standUpComedy"
+  | "thriller"
+  | "western"
+  | "classic"
+  | "topRated";
+
 type fetchCategory = {
-  category:
-    | "actionAdventure"
-    | "anime"
-    | "childrenFamily"
-    | "classic"
-    | "comedies"
-    | "documentaries"
-    | "dramas"
-    | "topRated";
+  category: Categories;
   type: "movies" | "tvSeries";
 };
 
