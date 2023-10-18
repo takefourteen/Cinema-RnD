@@ -18,11 +18,11 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
   const trendingTvShowsPromise = fetchMultiplePagesOfTrendingTVShows(2);
 
   const movieDocumentariesPromise = fetchCategory({
-    category: "documentaries",
+    category: "documentary",
     type: "movies",
   });
   const tvSeriesDocumentariesPromise = fetchCategory({
-    category: "documentaries",
+    category: "documentary",
     type: "tvSeries",
   });
   const movieTopRatedPromise = fetchCategory({
