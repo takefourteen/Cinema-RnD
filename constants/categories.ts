@@ -1,4 +1,4 @@
-import { keywords } from '@/constants/keywords';
+import { keywords } from "@/constants/keywords";
 
 interface CategoryList {
   [key: string]: {
@@ -14,51 +14,52 @@ export const categories: CategoryList = {
     actionAdventure: {
       genreIds: [28, 12],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
+        with_keywords: `${keywords.adventure}`,
       },
     },
     anime: {
       genreIds: [16],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     childrenFamily: {
       genreIds: [10751],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     classic: {
       genreIds: [],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     comedies: {
       genreIds: [35],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     documentaries: {
       genreIds: [99],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     dramas: {
       genreIds: [18],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     topRated: {
       genreIds: [],
       filterAndSortOptions: {
-        sort_by: 'vote_average.desc',
-        without_genres: '99,10755',
-        'vote_count.gte': 200,
+        sort_by: "vote_average.desc",
+        without_genres: "99,10755",
+        "vote_count.gte": 200,
       },
     },
   },
@@ -66,50 +67,50 @@ export const categories: CategoryList = {
     actionAdventure: {
       genreIds: [10759, 10762],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     anime: {
       genreIds: [16],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     childrenFamily: {
       genreIds: [10751],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     classic: {
       genreIds: [],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     comedies: {
       genreIds: [35],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     documentaries: {
       genreIds: [99],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     dramas: {
       genreIds: [18],
       filterAndSortOptions: {
-        sort_by: 'popularity.desc',
+        sort_by: "popularity.desc",
       },
     },
     topRated: {
       genreIds: [],
       filterAndSortOptions: {
-        sort_by: 'vote_average.desc',
-        'vote_count.gte': 200,
+        sort_by: "vote_average.desc",
+        "vote_count.gte": 200,
       },
     },
   },
