@@ -28,9 +28,9 @@ const CreateAccount = async ({ searchParams }: PageProps) => {
   }
 
   return (
-    <section className="flex w-full flex-col items-center justify-center pt-16">
+    <section className="flex master-container w-full flex-col items-center justify-center pt-16">
       {/* heading */}
-      <div className="flex flex-col items-center justify-center gap-2 pb-8">
+      <div className="flex flex-col text-center items-center justify-center gap-2 pb-8">
         <h1 className="text-center text-4xl font-bold lg:text-5xl">
           Create Your Account
         </h1>
@@ -44,7 +44,7 @@ const CreateAccount = async ({ searchParams }: PageProps) => {
       <CreateAccountForm callbackUrl={callbackUrl}/>
 
       {/* log in like if the user has an account */}
-      <div className="flex flex-col items-center justify-center gap-1 md:mt-2">
+      <div className="flex flex-col items-center justify-center gap-1 sm:mt-2">
         <p className="text-sm tracking-wide md:text-base">
           Already have an account?{" "}
           <Link

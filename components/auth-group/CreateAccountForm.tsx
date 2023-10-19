@@ -22,7 +22,7 @@ type CreateAccountFormProps = {
   callbackUrl: string;
 };
 
-const CreateAccountForm = ({callbackUrl}: CreateAccountFormProps) => {
+const CreateAccountForm = ({ callbackUrl }: CreateAccountFormProps) => {
   const [submitting, setSubmitting] = useState(false);
   const {
     register,
@@ -44,7 +44,6 @@ const CreateAccountForm = ({callbackUrl}: CreateAccountFormProps) => {
     try {
       // Create account
       await createNewUser(userData, callbackUrl);
-
     } finally {
       // Set loading to false after a delay
       setTimeout(() => {
@@ -57,8 +56,62 @@ const CreateAccountForm = ({callbackUrl}: CreateAccountFormProps) => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex   w-[500px] flex-col items-center justify-center gap-y-8 px-12 py-6 md:rounded-md md:bg-[#dedede0f] md:py-10"
+        className="master-container flex w-full max-w-[500px]  flex-col items-center justify-center gap-y-8 px-12 py-6 sm:max-w-[500px] sm:rounded-md sm:bg-[#dedede0f] sm:py-10"
       >
+        <div className="grid w-full gap-x-8 gap-y-8 sm:grid-cols-2">
+          {/* first name */}
+          <div className="grid w-full gap-2">
+            <Label
+              htmlFor="firstName"
+              className="text-sm font-semibold tracking-wide md:text-base"
+            >
+              First Name *
+            </Label>
+            <Input
+              disabled={submitting} // Disable when submitting
+              {...register("firstName", {
+                required: "First name is required",
+              })}
+              id="firstName"
+              className={`h-full rounded-md bg-black/30 px-2 py-3 text-sm font-semibold text-white md:text-base  ${
+                errors.firstName ? "border border-red-500" : ""
+              }`}
+            />
+            {errors.firstName && (
+              <span className="flex w-full items-center gap-x-1 text-sm tracking-wider text-red-500">
+                <ErrorIcon />
+                {errors.firstName.message}
+              </span>
+            )}
+          </div>
+
+          {/* last name */}
+          <div className="grid w-full gap-2">
+            <Label
+              htmlFor="lastName"
+              className="text-sm font-semibold tracking-wide md:text-base"
+            >
+              Last Name *
+            </Label>
+            <Input
+              disabled={submitting} // Disable when submitting
+              {...register("lastName", {
+                required: "Last name is required",
+              })}
+              id="lastName"
+              className={`h-full rounded-md bg-black/30 px-2 py-3 text-sm font-semibold text-white md:text-base  ${
+                errors.lastName ? "border border-red-500" : ""
+              }`}
+            />
+            {errors.lastName && (
+              <span className="flex w-full items-center gap-x-1 text-sm tracking-wider text-red-500">
+                <ErrorIcon />
+                {errors.lastName.message}
+              </span>
+            )}
+          </div>
+        </div>
+
         {/* email */}
         <div className="grid w-full gap-2">
           <Label
@@ -121,66 +174,16 @@ const CreateAccountForm = ({callbackUrl}: CreateAccountFormProps) => {
           )}
         </div>
 
-        {/* first name */}
-        <div className="grid w-full gap-2">
-          <Label
-            htmlFor="firstName"
-            className="text-sm font-semibold tracking-wide md:text-base"
-          >
-            First Name *
-          </Label>
-          <Input
-            disabled={submitting} // Disable when submitting
-            {...register("firstName", {
-              required: "First name is required",
-            })}
-            id="firstName"
-            className={`h-full rounded-md bg-black/30 px-2 py-3 text-sm font-semibold text-white md:text-base  ${
-              errors.firstName ? "border border-red-500" : ""
-            }`}
-          />
-          {errors.firstName && (
-            <span className="flex w-full items-center gap-x-1 text-sm tracking-wider text-red-500">
-              <ErrorIcon />
-              {errors.firstName.message}
-            </span>
-          )}
-        </div>
-
-        {/* last name */}
-        <div className="grid w-full gap-2">
-          <Label
-            htmlFor="lastName"
-            className="text-sm font-semibold tracking-wide md:text-base"
-          >
-            Last Name *
-          </Label>
-          <Input
-            disabled={submitting} // Disable when submitting
-            {...register("lastName", {
-              required: "Last name is required",
-            })}
-            id="lastName"
-            className={`h-full rounded-md bg-black/30 px-2 py-3 text-sm font-semibold text-white md:text-base  ${
-              errors.lastName ? "border border-red-500" : ""
-            }`}
-          />
-          {errors.lastName && (
-            <span className="flex w-full items-center gap-x-1 text-sm tracking-wider text-red-500">
-              <ErrorIcon />
-              {errors.lastName.message}
-            </span>
-          )}
-        </div>
-
         {/* submit button */}
         <Button
           type="submit"
           disabled={submitting}
-          className="font-button-text mt-4 flex w-full items-center justify-center gap-x-2 rounded-md bg-[#e50914] font-semibold text-white transition-colors hover:bg-[#e50914]/70 md:text-base"
+          className="font-button-text mt-2 flex w-full items-center justify-center gap-x-2 rounded-md bg-[#e50914] font-semibold text-white transition-colors hover:bg-[#e50914]/70 md:text-base"
         >
           {submitting ? (
-            <PiSpinnerBold className="animate-spin" />
+            <>
+            <PiSpinnerBold className="animate-spin" />  &nbsp; Creating Account...
+            </>
           ) : (
             "Create Account"
           )}
