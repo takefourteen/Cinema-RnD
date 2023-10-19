@@ -1,17 +1,26 @@
 import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
-import { categories } from "@/constants/categories";
 
-const baseMovieURL = `https://api.themoviedb.org/3/discover/movie?`;
-const baseTVSeriesURL = `https://api.themoviedb.org/3/discover/tv?`;
 const BEARER_TOKEN = process.env.NEXT_PUBLIC_TMDB_BEARER_TOKEN;
+const TMDB_API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+const baseMovieURL = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&`;
+const baseTVSeriesURL = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&`;
 
-type generateAPIUrl = (category: string, type: string) => string;
+type FilterOptions = {
+  sort_by?: "popularity.desc" | "vote_average.desc";
+  "vote_average.gte"?: string;
+  "vote_count.gte"?: string;
+  with_genres?: string;
+  without_genres?: string;
+  with_keywords?: string;
+};
 
-const generateAPIUrl = (category: string, type: string): string => {
-  const genreIds = categories[type][category].genreIds.join(",");
-  const filterAndSortOptions = categories[type][category].filterAndSortOptions;
+type generateAPIUrl = (
+  type: "movie" | "tvSeries",
+  filterOptions: FilterOptions,
+) => string;
 
-  const baseAPIUrl = type === "movies" ? baseMovieURL : baseTVSeriesURL;
+const generateAPIUrl: generateAPIUrl = (type, filterOptions) => {
+  const baseAPIUrl = type === "movie" ? baseMovieURL : baseTVSeriesURL;
 
   const params = new URLSearchParams({
     include_adult: "false",
@@ -19,65 +28,40 @@ const generateAPIUrl = (category: string, type: string): string => {
     language: "en-US",
     page: "1",
     with_original_language: "en",
-    with_genres: genreIds,
-    ...filterAndSortOptions,
+    ...filterOptions,
   });
 
   return `${baseAPIUrl}${params.toString()}`;
 };
 
-type Categories =
-  | "actionAdventure"
-  | "animation"
-  | "action"
-  | "comedy"
-  | "crime"
-  | "documentary"
-  | "drama"
-  | "family"
-  | "fantasy"
-  | "history"
-  | "horror"
-  | "music"
-  | "mystery"
-  | "reality"
-  | "romance"
-  | "sciFi"
-  | "sciFiFantasy"
-  | "standUpComedy"
-  | "thriller"
-  | "western"
-  | "classic"
-  | "topRated";
-
-type fetchCategory = {
-  category: Categories;
-  type: "movies" | "tvSeries";
-};
-
-export const fetchCategory = async ({
-  category,
-  type,
-}: fetchCategory): Promise<
-  DiscoverMovieResult[] | DiscoverTVSeriesResult[]
-> => {
+export const fetchCategory = async (
+  type: "movie" | "tvSeries",
+  filterOptions: FilterOptions,
+): Promise<DiscoverMovieResult[] | DiscoverTVSeriesResult[]> => {
   try {
-    const url = generateAPIUrl(category, type);
+    const url = generateAPIUrl(type, filterOptions);
+
     const options = {
       method: "GET",
       headers: {
         accept: "application/json",
         Authorization: `Bearer ${BEARER_TOKEN}`,
       },
+      next: { revalidate: 3600 * 24 },
     };
 
+    // add an artificial delay to prevent hitting the API too quickly
+    // await new Promise((resolve) => setTimeout(resolve, 300));
+
+    // Fetch the data
     const response = await fetch(url, options);
 
     if (!response.ok) {
       // Parse the error response as JSON to extract status_message
       const errorResponse = await response.json();
       const errorMessage =
-        errorResponse?.status_message || `Failed to fetch ${category} ${type}`;
+        errorResponse?.status_message ||
+        `Failed to fetch Discovery ${type} Data.`;
       throw new Error(errorMessage);
     }
 
@@ -87,13 +71,13 @@ export const fetchCategory = async ({
     // filter out movies that don't have a video url
     data.results = await filterMediaWithVideoUrl(data.results || []);
 
-    if (type === "movies") {
+    if (type === "movie") {
       return data.results as DiscoverMovieResult[];
     } else {
       return data.results as DiscoverTVSeriesResult[];
     }
   } catch (error) {
-    console.error(`Error fetching ${category} ${type}:`, error);
+    console.error(`Error fetching discovery ${type}:`, error);
 
     return [];
   }
