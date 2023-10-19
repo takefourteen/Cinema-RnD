@@ -109,7 +109,12 @@ const MobileMenu = ({
             </li>
             <li className="mt-4 px-10 hover:bg-[#40445999]">
               <NavLink href="#" onClick={handleNavLinkClick}>
-                shows
+                Tv Series
+              </NavLink>
+            </li>
+            <li className="mt-4 px-10 hover:bg-[#40445999]">
+              <NavLink href="#" onClick={handleNavLinkClick}>
+                Categories
               </NavLink>
             </li>
             <li className="mt-4 px-10 hover:bg-[#40445999]">
