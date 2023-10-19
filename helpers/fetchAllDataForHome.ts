@@ -31,57 +31,55 @@ type HomePageData<T> = {
 } & ContentOptions; // Merge with ContentOptions
 
 export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
-  const trendingMoviesPromise = fetchMultiplePagesOfTrendingMovies(2);
-  const trendingTvShowsPromise = fetchMultiplePagesOfTrendingTVShows(2);
+  const promises = [
+    fetchMultiplePagesOfTrendingMovies(2),
+    fetchMultiplePagesOfTrendingTVShows(2),
 
-  // ============================
-  // ============================
-  //            MOVIES
-  // ============================
-  // ============================
+    // ============================
+    //            MOVIES
+    // ============================
+    //2. Pulse-Pounding Action
+    fetchCategory("movie", {
+      sort_by: "popularity.desc",
+      with_genres: `${movieGenres.action},${movieGenres.adventure}`,
+      without_genres: `${movieGenres.horror},${movieGenres.sciFi}`,
+    }),
+    //3. Sci-Fi Galaxy Adventures
+    fetchCategory("movie", {
+      sort_by: "popularity.desc",
+      with_genres: `${movieGenres.sciFi},${movieGenres.fantasy}`,
+      without_genres: `${movieGenres.horror}`,
+    }),
+    //4. Spine-Tingling Horror Flicks
+    fetchCategory("movie", {
+      sort_by: "popularity.desc",
+      with_genres: `${movieGenres.horror},${movieGenres.thriller}`,
+    }),
 
-  // Pulse-Pounding Action
-  const pulsePoundingActionMoviesPromise = fetchCategory("movie", {
-    sort_by: "popularity.desc",
-    with_genres: `${movieGenres.action},${movieGenres.adventure}`,
-    without_genres: `${movieGenres.horror},${movieGenres.sciFi}`,
-  });
+    // ============================
+    //            Tv Series
+    // ============================
+    //5. Laugh-Out-Loud Sitcoms (Comedy)
+    fetchCategory("tvSeries", {
+      sort_by: "popularity.desc",
+      with_genres: `${tvSeriesGenres.comedy}`,
+      with_keywords: `${keywords.sitcom}|${keywords.comedy}`,
+    }),
 
-  // Sci-fi Galaxy Adventures
-  const sciFiGalaxyAdventureMoviesPromise = fetchCategory("movie", {
-    sort_by: "popularity.desc",
-    with_genres: `${movieGenres.sciFi},${movieGenres.fantasy}`,
-    without_genres: `${movieGenres.horror}`,
-  });
-
-  // Spine-Tingling Horror Flicks
-  const spineTinglingHorrorFlicksMoviesPromise = fetchCategory("movie", {
-    sort_by: "popularity.desc",
-    with_genres: `${movieGenres.horror},${movieGenres.thriller}`,
-  });
-
-  // ============================
-  // ============================
-  //            Tv Series
-  // ============================
-  // ============================
-
-  // ============================
-  // ============================
-  //      Movies & Tv Series
-  // ============================
-  // ============================
-
-  // Heartfelt Romantic Escapes (Romance, Drama)
-  const heartfeltRomanticEscapesMoviesPromise = fetchCategory("movie", {
-    sort_by: "popularity.desc",
-    with_genres: `${movieGenres.romance},${movieGenres.drama}`,
-  });
-  const heartfeltRomanticEscapesTvSeriesPromise = fetchCategory("tvSeries", {
-    sort_by: "popularity.desc",
-    with_genres: `${tvSeriesGenres.drama}`,
-    with_keywords: `${keywords.romance}|${keywords.love}`,
-  });
+    // ============================
+    //      Movies & Tv Series
+    // ============================
+    //6. Heartfelt Romantic Escapes (Romance, Drama)
+    fetchCategory("movie", {
+      sort_by: "popularity.desc",
+      with_genres: `${movieGenres.romance},${movieGenres.drama}`,
+    }),
+    fetchCategory("tvSeries", {
+      sort_by: "popularity.desc",
+      with_genres: `${tvSeriesGenres.drama}`,
+      with_keywords: `${keywords.romance}|${keywords.love}`,
+    }),
+  ];
 
   // Resolve all promises
   const [
@@ -90,17 +88,10 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     pulsePoundingActionMovies,
     sciFiGalaxyAdventureMovies,
     spineTinglingHorrorFlicksMovies,
+    laughOutLoudSitcomsTvSeries,
     heartfeltRomanticEscapesMovies,
     heartfeltRomanticEscapesTvSeries,
-  ] = await Promise.all([
-    trendingMoviesPromise,
-    trendingTvShowsPromise,
-    pulsePoundingActionMoviesPromise,
-    sciFiGalaxyAdventureMoviesPromise,
-    spineTinglingHorrorFlicksMoviesPromise,
-    heartfeltRomanticEscapesMoviesPromise,
-    heartfeltRomanticEscapesTvSeriesPromise,
-  ]);
+  ] = await Promise.all(promises);
 
   // Combine the movie and tv series results
   const combinedMoviesAndTvSeries = [
@@ -131,6 +122,11 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     {
       data: sciFiGalaxyAdventureMovies.slice(0, 15),
       title: "Sci-fi Galaxy Adventures",
+      ...defaultContentOptions,
+    },
+    {
+      data: laughOutLoudSitcomsTvSeries.slice(0, 15),
+      title: "Laugh-Out-Loud Sitcoms",
       ...defaultContentOptions,
     },
     {
