@@ -1,10 +1,16 @@
 import Link from "next/link";
+import { getServerSession } from "next-auth";
 
 import { BookmarkIcon2 } from "@/components/ui/icons/Icons";
 import SectionHeader from "@/components/SectionHeader";
 import { DetailsButton } from "@/components/DetailsButton";
 
-const YourLibrary = () => {
+const YourLibrary = async () => {
+  const session = await getServerSession();
+
+  // if user has session return null
+  if (session?.user) return null;
+
   return (
     <section className=" master-container pt-[64px] text-white lg:pt-[72px]">
       <SectionHeader
