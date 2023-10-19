@@ -19,6 +19,8 @@ export namespace keywords {
   export const sciFi = 321730;
   export const standUpComedy = 9716;
   export const sitcom = 193171;
+  export const suspense = 288394;
+  export const teen = 321486;
   export const thriller = 316362;
   export const western = 305941;
 }
