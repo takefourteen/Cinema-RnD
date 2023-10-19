@@ -1,4 +1,3 @@
-import StreamingServiceSlider from "./StreamingServiceSlider";
 import PopularTvShowsSlider from "./PopularTvShowsSlider";
 import PopularMoviesSlider from "./PopularMoviesSlider";
 
@@ -18,8 +17,6 @@ const Discovery = () => {
         </p>
       </div> */}
 
-      {/* Streaming Services */}
-      <StreamingServiceSlider />
 
       {/* popular movies */}
       <PopularMoviesSlider />
