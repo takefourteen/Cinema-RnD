@@ -13,7 +13,7 @@ type PageProps = {
   };
 };
 
-const Login = async ({ searchParams}: PageProps) => {
+const Login = async ({ searchParams }: PageProps) => {
   const session = await getServerSession(authOptions);
   const callbackUrl = searchParams.callbackUrl || "/";
 
@@ -28,9 +28,9 @@ const Login = async ({ searchParams}: PageProps) => {
   }
 
   return (
-    <section className="flex w-full flex-col items-center justify-center pt-16">
+    <section className="master-container flex w-full flex-col items-center justify-center pt-16">
       {/* heading */}
-      <div className="flex flex-col items-center justify-center gap-2 pb-8">
+      <div className="flex flex-col items-center justify-center gap-2 pb-8 text-center">
         <h1 className="text-center text-4xl font-bold lg:text-5xl">Sign In</h1>
         <p className="text-base">
           Enter your account email address and password.
@@ -38,10 +38,10 @@ const Login = async ({ searchParams}: PageProps) => {
       </div>
 
       {/* form */}
-      <LoginForm callbackUrl={callbackUrl}/>
+      <LoginForm callbackUrl={callbackUrl} />
 
       {/* create account like if the user doesn't have an account */}
-      <div className="flex flex-col items-center justify-center gap-1 md:mt-4">
+      <div className="flex flex-col items-center justify-center gap-1 sm:mt-4">
         <p className="text-sm tracking-wide lg:text-base">
           New to Cozy Cinema?{" "}
           <Link

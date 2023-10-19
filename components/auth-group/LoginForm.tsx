@@ -53,7 +53,7 @@ const LoginForm = ({ callbackUrl }: LoginFormProps) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex  w-[500px] flex-col items-center justify-center gap-y-8 px-12 py-6 md:rounded-md md:bg-[#dedede0f] md:py-10"
+      className="master-container flex  w-[90%] flex-col items-center justify-center gap-y-8 px-12 py-6 sm:max-w-[500px]  sm:rounded-md sm:bg-[#dedede0f] sm:py-10"
     >
       {/* email */}
       <div className="grid w-full gap-2">
