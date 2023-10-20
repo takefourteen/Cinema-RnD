@@ -146,7 +146,6 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
       ...heartfeltRomanticEscapesTvSeries.results.slice(0, 10),
     ],
   };
-
   const mindBendingMysteryTalesCombined = {
     title: "Mind-Bending Mystery Tales",
     results: [
@@ -154,7 +153,6 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
       ...mindBendingMysteryTalesTvSeries.results.slice(0, 10),
     ],
   };
-
   const smallTownDramaCombined = {
     title: "Small Town Drama",
     results: [
@@ -163,8 +161,6 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     ],
   };
 
-  // log small town drama
-  console.log("small town drama", smallTownDramaCombined);
 
   // Sort the combined array by popularity
   sortResultsByVoteCount(heartfeltRomanticEscapesCombined.results);
