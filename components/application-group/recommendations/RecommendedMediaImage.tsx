@@ -75,7 +75,7 @@ const RecommendedMediaImage = async ({
   return (
     <li className="relative h-auto flex-1">
       <Link href={mediaPageUrl} className="group rounded-md">
-        <AspectRatio ratio={16 / 9}>
+        <AspectRatio ratio={1.84 / 1}>
           <ImageLoader
             loaderType="skeleton"
             src={imageSrc}

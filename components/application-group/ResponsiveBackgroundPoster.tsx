@@ -1,7 +1,5 @@
 import ImageLoader from "@/components/ImageLoader";
 
-import { AspectRatio } from "../ui/aspect-ratio";
-
 type BackgroundPosterProps = {
   poster_path: string;
   backdrop_path: string | null;
@@ -37,7 +35,7 @@ const ResponsiveBackgroundPoster = ({
           src={`${backdropImgSrc ? backdropImgSrc : posterImgSrc}`}
           alt={alt}
           fill
-          sizes="(max-width: 768px) 100vdw, 70vdw"
+          sizes="(max-width: 768px) 100vw, 70vw"
           priority={priority}
           className={`object-cover ${imageClassNames}`}
         />
