@@ -31,76 +31,145 @@ type HomePageData<T> = {
 } & ContentOptions; // Merge with ContentOptions
 
 export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
-  const promises = [
+  const trendingPromises = [
     fetchMultiplePagesOfTrendingMovies(2),
     fetchMultiplePagesOfTrendingTVShows(2),
+  ];
 
+  const [trendingMovies, trendingTvShows] = await Promise.all(trendingPromises);
+
+  const promises = [
     // ============================
     //            MOVIES
     // ============================
-    //2. Pulse-Pounding Action
-    fetchCategory("movie", {
+    //1. Pulse-Pounding Action
+    fetchCategory("movie", "Pulse-Pounding Action", {
       sort_by: "popularity.desc",
       with_genres: `${movieGenres.action},${movieGenres.adventure}`,
       without_genres: `${movieGenres.horror},${movieGenres.sciFi}`,
     }),
-    //3. Sci-Fi Galaxy Adventures
-    fetchCategory("movie", {
+    //2. Sci-Fi Galaxy Adventures
+    fetchCategory("movie", "Sci-Fi Galaxy Adventures", {
       sort_by: "popularity.desc",
       with_genres: `${movieGenres.sciFi},${movieGenres.fantasy}`,
       without_genres: `${movieGenres.horror}`,
     }),
-    //4. Spine-Tingling Horror Flicks
-    fetchCategory("movie", {
+    //3. Spine-Tingling Horror Flicks
+    fetchCategory("movie", "Spine-Tingling Horror Flicks", {
       sort_by: "popularity.desc",
       with_genres: `${movieGenres.horror},${movieGenres.thriller}`,
+    }),
+    //4. Family Adventures
+    fetchCategory("movie", "Family Adventures", {
+      sort_by: "popularity.desc",
+      with_genres: `${movieGenres.family},${movieGenres.adventure}`,
+    }),
+    //5. Wild West Adventures
+    fetchCategory("movie", "Wild West Adventures", {
+      sort_by: "popularity.desc",
+      with_genres: `${movieGenres.western},${movieGenres.adventure}`,
     }),
 
     // ============================
     //            Tv Series
     // ============================
-    //5. Laugh-Out-Loud Sitcoms (Comedy)
-    fetchCategory("tvSeries", {
+    // 6. Laugh-Out-Loud Sitcoms (Comedy)
+    fetchCategory("tvSeries", "Laugh-Out-Loud Sitcoms", {
       sort_by: "popularity.desc",
       with_genres: `${tvSeriesGenres.comedy}`,
       with_keywords: `${keywords.sitcom}|${keywords.comedy}`,
+    }),
+    // 7. Reality TV (Reality)
+    fetchCategory("tvSeries", "Reality TV", {
+      sort_by: "popularity.desc",
+      with_genres: `${tvSeriesGenres.reality}|${tvSeriesGenres.drama}`,
     }),
 
     // ============================
     //      Movies & Tv Series
     // ============================
-    //6. Heartfelt Romantic Escapes (Romance, Drama)
-    fetchCategory("movie", {
+    // 8. Heartfelt Romantic Escapes (Romance, Drama)
+    fetchCategory("movie", "Heartfelt Romantic Escapes", {
       sort_by: "popularity.desc",
       with_genres: `${movieGenres.romance},${movieGenres.drama}`,
     }),
-    fetchCategory("tvSeries", {
+    fetchCategory("tvSeries", "Heartfelt Romantic Escapes", {
       sort_by: "popularity.desc",
       with_genres: `${tvSeriesGenres.drama}`,
       with_keywords: `${keywords.romance}|${keywords.love}`,
+    }),
+    // 9. Mind Bending Mystery Tales (Mystery, Thriller)
+    fetchCategory("movie", "Mind Bending Mystery Tales", {
+      sort_by: "popularity.desc",
+      with_genres: `${movieGenres.mystery},${movieGenres.thriller}`,
+    }),
+    fetchCategory("tvSeries", "Mind Bending Mystery Tales", {
+      sort_by: "popularity.desc",
+      with_genres: `${tvSeriesGenres.mystery}`,
+      with_keywords: `${keywords.thriller}|${keywords.suspense}`,
+    }),
+    // 10. Small Town Drama (Small Town, highschool, Drama)
+    fetchCategory("movie", "Small Town Drama", {
+      sort_by: "popularity.desc",
+      with_genres: `${movieGenres.drama}`,
+      with_keywords: `${keywords.school}|${keywords.smallTown}|${keywords.highSchool}`,
+    }),
+    fetchCategory("tvSeries", "Small Town Drama", {
+      sort_by: "popularity.desc",
+      with_genres: `${tvSeriesGenres.drama}`,
+      with_keywords: `${keywords.school}|${keywords.smallTown}|${keywords.highSchool}`,
     }),
   ];
 
   // Resolve all promises
   const [
-    trendingMovies,
-    trendingTvShows,
-    pulsePoundingActionMovies,
-    sciFiGalaxyAdventureMovies,
-    spineTinglingHorrorFlicksMovies,
-    laughOutLoudSitcomsTvSeries,
-    heartfeltRomanticEscapesMovies,
-    heartfeltRomanticEscapesTvSeries,
+    pulsePoundingActionMovies, // 1
+    sciFiGalaxyAdventureMovies, // 2
+    spineTinglingHorrorFlicksMovies, // 3
+    familyAdventuresMovies, // 4
+    wildWestAdventuresMovies, // 5
+    laughOutLoudSitcomsTvSeries, // 6
+    realityTvSeries, // 7
+    heartfeltRomanticEscapesMovies, // 8 - combined
+    heartfeltRomanticEscapesTvSeries, // 8 -  combined
+    mindBendingMysteryTalesMovies, // 9 - combined
+    mindBendingMysteryTalesTvSeries, // 9 - combined
+    smallTownDramaMovies, // 10 - combined
+    smallTownDramaTvSeries, // 10 - combined
   ] = await Promise.all(promises);
 
   // Combine the movie and tv series results
-  const combinedMoviesAndTvSeries = [
-    ...heartfeltRomanticEscapesMovies.slice(0, 10),
-    ...heartfeltRomanticEscapesTvSeries.slice(0, 10),
-  ];
+  const heartfeltRomanticEscapesCombined = {
+    title: "Heartfelt Romantic Escapes",
+    results: [
+      ...heartfeltRomanticEscapesMovies.results.slice(0, 10),
+      ...heartfeltRomanticEscapesTvSeries.results.slice(0, 10),
+    ],
+  };
+
+  const mindBendingMysteryTalesCombined = {
+    title: "Mind-Bending Mystery Tales",
+    results: [
+      ...mindBendingMysteryTalesMovies.results.slice(0, 10),
+      ...mindBendingMysteryTalesTvSeries.results.slice(0, 10),
+    ],
+  };
+
+  const smallTownDramaCombined = {
+    title: "Small Town Drama",
+    results: [
+      ...smallTownDramaMovies.results.slice(0, 10),
+      ...smallTownDramaTvSeries.results.slice(0, 10),
+    ],
+  };
+
+  // log small town drama
+  console.log("small town drama", smallTownDramaCombined);
 
   // Sort the combined array by popularity
-  sortResultsByVoteCount(combinedMoviesAndTvSeries);
+  sortResultsByVoteCount(heartfeltRomanticEscapesCombined.results);
+  sortResultsByVoteCount(mindBendingMysteryTalesCombined.results);
+  sortResultsByPopularity(smallTownDramaCombined.results);
 
   // Return the data in the shape we need for the home page
   return [
@@ -115,28 +184,53 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
       ...defaultContentOptions,
     },
     {
-      data: pulsePoundingActionMovies.slice(0, 15),
-      title: "Pulse-Pounding Action",
+      data: pulsePoundingActionMovies.results.slice(0, 15),
+      title: pulsePoundingActionMovies.title,
       ...defaultContentOptions,
     },
     {
-      data: sciFiGalaxyAdventureMovies.slice(0, 15),
-      title: "Sci-fi Galaxy Adventures",
+      data: sciFiGalaxyAdventureMovies.results.slice(0, 15),
+      title: sciFiGalaxyAdventureMovies.title,
       ...defaultContentOptions,
     },
     {
-      data: laughOutLoudSitcomsTvSeries.slice(0, 15),
-      title: "Laugh-Out-Loud Sitcoms",
+      data: laughOutLoudSitcomsTvSeries.results.slice(0, 15),
+      title: laughOutLoudSitcomsTvSeries.title,
       ...defaultContentOptions,
     },
     {
-      data: spineTinglingHorrorFlicksMovies.slice(0, 15),
-      title: "Spine-Tingling Horror Flicks",
+      data: spineTinglingHorrorFlicksMovies.results.slice(0, 15),
+      title: spineTinglingHorrorFlicksMovies.title,
       ...defaultContentOptions,
     },
     {
-      data: combinedMoviesAndTvSeries.slice(0, 15),
-      title: "Heartfelt Romantic Escapes",
+      data: heartfeltRomanticEscapesCombined.results.slice(0, 15),
+      title: heartfeltRomanticEscapesCombined.title,
+      ...defaultContentOptions,
+    },
+    {
+      data: familyAdventuresMovies.results.slice(0, 15),
+      title: familyAdventuresMovies.title,
+      ...defaultContentOptions,
+    },
+    {
+      data: wildWestAdventuresMovies.results.slice(0, 15),
+      title: wildWestAdventuresMovies.title,
+      ...defaultContentOptions,
+    },
+    {
+      data: mindBendingMysteryTalesCombined.results.slice(0, 15),
+      title: mindBendingMysteryTalesCombined.title,
+      ...defaultContentOptions,
+    },
+    {
+      data: smallTownDramaCombined.results.slice(0, 15),
+      title: smallTownDramaCombined.title,
+      ...defaultContentOptions,
+    },
+    {
+      data: realityTvSeries.results.slice(0, 15),
+      title: realityTvSeries.title,
       ...defaultContentOptions,
     },
   ];
@@ -147,11 +241,11 @@ the movies and tv series categories:
 
 Movies:
 
-Pulse-Pounding Action (Action, Adventure)
-Sci-Fi Galaxy Adventures (Science Fiction, Fantasy)
-Spine-Tingling Horror Flicks (Horror, Thriller)
+Pulse-Pounding Action (Action, Adventure) - done
+Sci-Fi Galaxy Adventures (Science Fiction, Fantasy) - done
+Spine-Tingling Horror Flicks (Horror, Thriller) - done
 Epic Fantasy Journeys (Fantasy, Adventure)
-Wild West Adventures (Western, Adventure)
+Wild West Adventures (Western, Adventure) - done
 Historical Drama Chronicles (Historical, Drama)
 Magical Fantasy Worlds (Fantasy, Adventure)
 Culinary Delights and Dramas (Food, Drama)
@@ -166,16 +260,16 @@ Heartwarming Family Adventures (Family, Adventure)
 TV Series:
 
 Comedy Club Laughs (Comedy)
-Laugh-Out-Loud Sitcoms (Comedy)
-Mind-Bending Mystery Tales (Mystery, Thriller)
+Laugh-Out-Loud Sitcoms (Comedy) - done
 Unscripted Reality Experiences (Reality TV)
-Teenage Drama Diaries (Teen, Drama)
 Heart-Pounding Crime Dramas (Crime, Drama)
 
 
 
 Both Movies and TV Series:
 
+Mind-Bending Mystery Tales (Mystery, Thriller) - done
+Teenage Drama Diaries (Teen, Drama) - done
 Heartfelt Romantic Escapes (Romance, Drama)
 Wholesome Family Fun (Family, Comedy)
 Romantic Comedy Rollercoaster (Romance, Comedy)
