@@ -2,7 +2,9 @@ import React from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
+
 import { authOptions } from "@/lib/authOptions";
+import { connectToDatabase } from "@/lib/mongodb";
 
 import LoginForm from "@/components/auth-group/LoginForm";
 
@@ -17,15 +19,15 @@ const Login = async ({ searchParams }: PageProps) => {
   const session = await getServerSession(authOptions);
   const callbackUrl = searchParams.callbackUrl || "/";
 
-  // if the user is already logged in and there is a callback url, redirect to the callback url
-  if (session?.user && callbackUrl) {
+  // if the user is already logged in , redirect to the callback url
+  if (session?.user) {
     redirect(callbackUrl);
   }
 
-  // if the user is already logged in, redirect to home page
-  if (session?.user) {
-    redirect("/");
-  }
+  // if there is no user logged in, start the connection to the database
+  await connectToDatabase();
+
+ 
 
   return (
     <section className="master-container flex w-full flex-col items-center justify-center pt-16">

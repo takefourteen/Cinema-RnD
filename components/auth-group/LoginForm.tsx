@@ -26,12 +26,7 @@ const LoginForm = ({ callbackUrl }: LoginFormProps) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormData>({
-    defaultValues: {
-      email: "dev@email.com",
-      password: "developer",
-    },
-  });
+  } = useForm<FormData>();
 
   async function onSubmit(userData: FormData) {
     try {

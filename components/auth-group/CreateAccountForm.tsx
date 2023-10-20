@@ -28,14 +28,7 @@ const CreateAccountForm = ({ callbackUrl }: CreateAccountFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
-    defaultValues: {
-      email: "dev@email.com",
-      password: "developer",
-      firstName: "mynamejeff",
-      lastName: "lastnamejeff",
-    },
-  });
+  } = useForm<FormData>();
 
   // function to handle form submission
   async function onSubmit(userData: FormData) {

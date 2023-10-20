@@ -1,5 +1,5 @@
 // use mongoose to connect to mongodb
-import monogoose from "mongoose";
+import mongoose from "mongoose";
 
 const uri = process.env.MONGODB_URI;
 
@@ -11,7 +11,7 @@ if (!uri) {
 
 export const connectToDatabase = async () => {
     try {
-        await monogoose.connect(uri);
+        await mongoose.connect(uri);
         console.log("Successfully connected to mongodb");
     } catch (error) {
         console.log("Error connecting to mongodb", error);
