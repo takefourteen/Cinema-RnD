@@ -9,6 +9,7 @@ export namespace keywords {
   export const drama = 316421;
   export const family = 18035;
   export const fantasy = 293198;
+  export const highSchool = 6270;
   export const history = 282633;
   export const horror = 315058;
   export const love = 9673;
@@ -16,9 +17,11 @@ export namespace keywords {
   export const mystery = 316332;
   export const kids = 286758;
   export const romance = 9840;
+  export const smallTown = 1415;
+  export const school = 10873;
   export const sciFi = 321730;
-  export const standUpComedy = 9716;
   export const sitcom = 193171;
+  export const standUpComedy = 9716;
   export const suspense = 288394;
   export const teen = 321486;
   export const thriller = 316362;
