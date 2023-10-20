@@ -9,6 +9,7 @@ import { fetchTvSeriesExternalIds } from "@/lib/tmdb-api/external-ids";
 
 import VideoPlayer from "@/components/application-group/VideoPlayer";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
+import AnimatedStringLoader from "@/components/AnimatedStringLoader";
 
 // lazy load the following components
 const RecommendedMediaList = dynamic(
@@ -16,10 +17,31 @@ const RecommendedMediaList = dynamic(
     import(
       "@/components/application-group/recommendations/RecommendedMediaList"
     ),
+  {
+    loading: () => (
+      <div className="relative flex h-full w-full  justify-start">
+        <span className="font-semibold text-white/70">
+          {" "}
+          loading recommendations{" "}
+        </span>{" "}
+        &nbsp;
+        <AnimatedStringLoader loadingString="..." />
+      </div>
+    ),
+  },
 );
 
 const DetailsAboutShowSection = dynamic(
   () => import("@/components/application-group/DetailsAboutShowSection"),
+  {
+    loading: () => (
+      <div className="relative flex h-full w-full  justify-start">
+        <span className="font-semibold text-white/70"> loading Episodes </span>{" "}
+        &nbsp;
+        <AnimatedStringLoader loadingString="..." />
+      </div>
+    ),
+  },
 );
 
 const SeasonsAndEpisodes = dynamic(

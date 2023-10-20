@@ -7,15 +7,26 @@ import { fetchImages } from "@/lib/tmdb-api/images";
 import MovieDetailsTop from "@/components/application-group/movie-route/MovieDetailsTop";
 // import RecommendedMediaList from "@/components/application-group/recommendations/RecommendedMediaList";
 // import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
-import ExplorerPanel from "@/components/application-group/ExplorerPanel";
+// import ExplorerPanel from "@/components/application-group/ExplorerPanel";
 import AnimatedStringLoader from "@/components/AnimatedStringLoader";
 
 // lazy load the following components
+const ExplorerPanel = dynamic(
+  () => import("@/components/application-group/ExplorerPanel"),
+);
 const RecommendedMediaList = dynamic(
   () =>
     import(
       "@/components/application-group/recommendations/RecommendedMediaList"
     ),
+  {
+    loading: () => (
+      <div className="relative flex h-full w-full  justify-start">
+        <span className="text-white/70 font-semibold"> loading recommendations </span> &nbsp;
+        <AnimatedStringLoader loadingString="..." />
+      </div>
+    ),
+  },
 );
 const DetailsAboutShowSection = dynamic(
   () => import("@/components/application-group/DetailsAboutShowSection"),
@@ -48,7 +59,13 @@ const page = async ({ params }: PageProps) => {
     {
       key: "recommended",
       title: "More Like This",
-      content: <RecommendedMediaList mediaId={movieId} mediaType="movie" genreIds={genreIds}/>,
+      content: (
+        <RecommendedMediaList
+          mediaId={movieId}
+          mediaType="movie"
+          genreIds={genreIds}
+        />
+      ),
     },
     {
       key: "details",

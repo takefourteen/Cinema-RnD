@@ -5,6 +5,7 @@ import { fetchImages } from "@/lib/tmdb-api/images";
 
 import TvSeriesDetails from "@/components/application-group/tv-route/TvSeriesDetails";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
+import AnimatedStringLoader from "@/components/AnimatedStringLoader";
 
 // lazy load the following components
 const RecommendedMediaList = dynamic(
@@ -12,6 +13,18 @@ const RecommendedMediaList = dynamic(
     import(
       "@/components/application-group/recommendations/RecommendedMediaList"
     ),
+  {
+    loading: () => (
+      <div className="relative flex h-full w-full  justify-start">
+        <span className="font-semibold text-white/70">
+          {" "}
+          loading recommendations{" "}
+        </span>{" "}
+        &nbsp;
+        <AnimatedStringLoader loadingString="..." />
+      </div>
+    ),
+  },
 );
 
 const DetailsAboutShowSection = dynamic(
@@ -23,6 +36,15 @@ const SeasonsAndEpisodes = dynamic(
     import(
       "@/components/application-group/tv-route/middle-section/SeasonsAndEpisodes"
     ),
+
+    {
+      loading: () => (
+        <div className="relative flex h-full w-full  justify-start">
+          <span className="text-white/70 font-semibold"> loading Episodes </span> &nbsp;
+          <AnimatedStringLoader loadingString="..." />
+        </div>
+      ),
+    }
 );
 
 // import RecommendedMediaList from "@/components/application-group/recommendations/RecommendedMediaList";
