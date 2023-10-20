@@ -7,7 +7,11 @@ import { slugify } from "@/helpers/slugify";
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
-import { AiOutlineInfoCircle as InfoIcon } from "react-icons/ai";
+import {
+  AiOutlineInfoCircle as InfoIcon,
+  AiOutlineCheck as Check,
+} from "react-icons/ai";
+import { CgStack as EpisodesIcon } from "react-icons/cg";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { DetailsButton } from "@/components/DetailsButton";
 import ImdbRating from "../ImdbRating";
@@ -153,24 +157,43 @@ const ShowDetailsLargeScreen = async ({
         <Overview overview={movieOrTvShowDetails.overview} />
       </div>
 
-      {/* play, info, add to lib btns, And production company logo*/}
-      <div className="mt-2 flex h-max w-full items-center   gap-x-2 lg:mt-4 ">
+      {/* play, info, add to lib btns,*/}
+      <div className="mt-2 flex h-max w-max flex-col gap-y-2  capitalize lg:mt-4 ">
+        <div className="flex gap-x-2">
+          {/* add to lib button */}
+          <DetailsButton
+            variant={"outline"}
+            className="font-button-text flex h-10 items-center justify-center gap-x-2 capitalize text-white "
+          >
+            <Check className=" h-7 w-7" /> <span>my List</span>
+          </DetailsButton>
+
+          {/* info button */}
+          <DetailsButton
+            asChild
+            className="font-button-text flex  h-10 items-center justify-center gap-x-2 bg-[#2B2B2D] text-white transition-colors hover:bg-[#2B2B2D]/70  hover:text-white/70"
+          >
+            <Link href={`${detailsUrl}`}>
+              {type === "tv" ? (
+                <>
+                  <EpisodesIcon className=" h-6 w-6" /> <span>Episodes</span>
+                </>
+              ) : (
+                <>
+                  <InfoIcon className=" h-7 w-7 " />
+                  <span>Details</span>
+                </>
+              )}
+            </Link>
+          </DetailsButton>
+        </div>
+
         {/* play button */}
         {/* if its a movie, href is movie/:id, if tv, href is tv/:id */}
-        <DetailsButton asChild className=" font-button-text h-10">
+        <DetailsButton asChild className="font-button-text h-10 capitalize">
           <Link href={`${playUrl}`}>
-            <PlayIcon className="mr-1 h-8 w-8" /> Play
-          </Link>
-        </DetailsButton>
-
-        {/* info button */}
-        <DetailsButton
-          asChild
-          className="font-button-text flex  h-10 items-center justify-center gap-x-2 bg-[#2B2B2D] text-white transition-colors hover:bg-[#2B2B2D]/70  hover:text-white/70"
-        >
-          <Link href={`${detailsUrl}`}>
-            <InfoIcon className=" h-7 w-7 " />
-            <span>Details</span>
+            <PlayIcon className="mr-1 h-8 w-8" /> Play{" "}
+            {type === "tv" && "S1 Ep1"}
           </Link>
         </DetailsButton>
       </div>

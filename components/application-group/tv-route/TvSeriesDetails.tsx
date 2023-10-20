@@ -5,6 +5,10 @@ import { getImagePathFromImagesData } from "@/helpers/getImagePathFromImagesData
 import { slugify } from "@/helpers/slugify";
 
 import { IoMdAdd } from "react-icons/io";
+import {
+  AiOutlineInfoCircle as InfoIcon,
+  AiOutlineCheck as Check,
+} from "react-icons/ai";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import ResponsiveBackgroundPoster from "../ResponsiveBackgroundPoster";
@@ -104,26 +108,21 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
           </div>
 
           {/* Btns */}
-          <div className="flex gap-x-4">
+          <div className="lg:mt-8lg:mt-8 mt-6 flex gap-x-4">
             {/* play button */}
             {/* <PlayButton className="mt-6 lg:mt-8">Play S1 EP1</PlayButton> */}
-            <DetailsButton
-              asChild
-              className=" font-button-text mt-6 h-10 lg:mt-8"
-            >
+            <DetailsButton asChild className=" font-button-text  h-10 gap-x-1 ">
               <Link href={`${watchTvUrl}`}>
-                <PlayIcon className="mr-1 h-8 w-8" /> Play S1 EP1
+                <PlayIcon className="h-8 w-8" /> Play S1 EP1
               </Link>
             </DetailsButton>
             {/* add to library button */}
-            <Button
+            <DetailsButton
               variant={"outline"}
-              size={"icon"}
-              className="mt-6 rounded-full  text-white lg:mt-8 "
-              aria-label="Add to library"
+              className="font-button-text flex h-10 gap-x-2 capitalize text-white "
             >
-              <IoMdAdd className=" inline-block h-5 w-5" />
-            </Button>
+              <Check className=" h-7 w-7" /> <span>my List</span>
+            </DetailsButton>
           </div>
 
           {/* tv starring, if there is a cast to display */}

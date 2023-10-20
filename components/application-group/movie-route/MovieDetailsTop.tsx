@@ -3,6 +3,10 @@ import Link from "next/link";
 import { slugify } from "@/helpers/slugify";
 
 import { IoMdAdd } from "react-icons/io";
+import {
+  AiOutlineInfoCircle as InfoIcon,
+  AiOutlineCheck as Check,
+} from "react-icons/ai";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
 import { DetailsButton } from "@/components/DetailsButton";
@@ -108,26 +112,21 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = ({
           </div>
 
           {/* Btns */}
-          <div className="flex gap-x-4">
+          <div className="mt-6 flex gap-x-4 lg:mt-8">
             {/* play button */}
             {/* <PlayButton className="mt-6 lg:mt-8">Play Movie</PlayButton> */}
-            <DetailsButton
-              asChild
-              className=" font-button-text mt-6 h-10 lg:mt-8"
-            >
+            <DetailsButton asChild className=" font-button-text h-10 ">
               <Link href={`${watchMovieUrl}`}>
                 <PlayIcon className="mr-1 h-8 w-8" /> Play
               </Link>
             </DetailsButton>
             {/* add to library button */}
-            <Button
+            <DetailsButton
               variant={"outline"}
-              size={"icon"}
-              className="mt-6 rounded-full text-white lg:mt-8 "
-              aria-label="Add to library"
+              className="font-button-text flex h-10 gap-x-2 capitalize text-white "
             >
-              <IoMdAdd className=" inline-block h-5 w-5" />
-            </Button>
+              <Check className=" h-7 w-7" /> <span>my List</span>
+            </DetailsButton>
           </div>
 
           {/* movie starring, if there is a cast to display */}
