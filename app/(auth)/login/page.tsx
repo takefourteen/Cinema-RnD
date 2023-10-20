@@ -27,15 +27,15 @@ const Login = async ({ searchParams }: PageProps) => {
   // if there is no user logged in, start the connection to the database
   await connectToDatabase();
 
- 
-
   return (
-    <section className="master-container flex w-full flex-col items-center justify-center pt-16">
+    <section className="master-container flex h-full w-full flex-col items-center justify-center pt-16">
       {/* heading */}
       <div className="flex flex-col items-center justify-center gap-2 pb-8 text-center">
-        <h1 className="text-center text-4xl font-bold lg:text-5xl">Sign In</h1>
-        <p className="text-base">
-          Enter your account email address and password.
+        <h1 className="text-center text-4xl font-bold lg:text-5xl">
+          Welcome Back!
+        </h1>
+        <p className="text-base text-white/80">
+          Ready to immerse yourself in Cozy Cinema?
         </p>
       </div>
 
@@ -43,7 +43,7 @@ const Login = async ({ searchParams }: PageProps) => {
       <LoginForm callbackUrl={callbackUrl} />
 
       {/* create account like if the user doesn't have an account */}
-      <div className="flex flex-col items-center justify-center gap-1 sm:mt-4">
+      <div className="flex flex-col items-center justify-center gap-1 sm:mt-6">
         <p className="text-sm tracking-wide lg:text-base">
           New to Cozy Cinema?{" "}
           <Link

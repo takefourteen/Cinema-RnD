@@ -49,7 +49,7 @@ const CreateAccountForm = ({ callbackUrl }: CreateAccountFormProps) => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="master-container flex w-full max-w-[500px]  flex-col items-center justify-center gap-y-4 px-12 py-6 sm:max-w-[500px] sm:rounded-md sm:bg-[#dedede0f] sm:py-10 md:gap-y-6"
+        className="master-container flex w-full max-w-[500px]  flex-col items-center justify-center gap-y-4 px-12 pb-6 sm:max-w-[500px] sm:rounded-md sm:bg-[#dedede0f] sm:py-8 md:gap-y-6"
       >
         <div className="grid w-full gap-x-4 gap-y-4 sm:grid-cols-2 md:gap-x-6 md:gap-y-6">
           {/* first name */}

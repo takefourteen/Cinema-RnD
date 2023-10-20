@@ -19,39 +19,41 @@ const CreateAccount = async ({ searchParams }: PageProps) => {
   const session = await getServerSession(authOptions);
   const callbackUrl = searchParams.callbackUrl || "/";
 
-  // if the user is already logged in , redirect to the callback url
+  // If the user is already logged in, let's redirect them to the callback URL.
   if (session?.user) {
     redirect(callbackUrl);
   }
 
-  // if there is no user logged in, start the connection to the database
+  // If no user is logged in, we'll connect to the database.
   await connectToDatabase();
 
   return (
-    <section className="flex master-container w-full flex-col items-center justify-center pt-16">
+    <section className="master-container flex w-full flex-col items-center justify-center pt-16">
       {/* heading */}
-      <div className="flex flex-col text-center items-center justify-center gap-2 pb-8">
+      <div className="flex flex-col items-center justify-center gap-2 pb-6 text-center">
         <h1 className="text-center text-4xl font-bold lg:text-5xl">
-          Create Your Account
+          Join the Magic
         </h1>
-        <p className="text-base">
-          You&apos;ll use this to watch on your favorite devices.
+        <p className="text-base font-semibold tracking-wide text-white/80">
+          Unlock a world of enchantment! Create your Cozy Cinema account today.
         </p>
-        <p className="text-sm/70 lg:text-base">* Indicates a required field</p>
+        <p className="mt-2 text-sm text-gray-400 lg:text-base">
+          * Indicates a required field
+        </p>
       </div>
 
-      {/* form */}
-      <CreateAccountForm callbackUrl={callbackUrl}/>
+      {/* Registration Form */}
+      <CreateAccountForm callbackUrl={callbackUrl} />
 
-      {/* log in like if the user has an account */}
-      <div className="flex flex-col items-center justify-center gap-1 sm:mt-2">
+      {/* Already have an account? */}
+      <div className="flex flex-col items-center justify-center gap-1 sm:mt-6">
         <p className="text-sm tracking-wide md:text-base">
-          Already have an account?{" "}
+          Already a member?{" "}
           <Link
             href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`}
             className="text-red-500 hover:underline focus:underline"
           >
-            Log in
+            Log In Here
           </Link>
         </p>
       </div>
