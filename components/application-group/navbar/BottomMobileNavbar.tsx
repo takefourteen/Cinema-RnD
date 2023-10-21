@@ -1,86 +1,120 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
+import { BsCollectionPlayFill, BsCollectionPlay } from "react-icons/bs";
 import {
-  HomeIcon,
-  LibraryIcon,
-  TvIcon,
-  MovieIcon,
-} from "@/components/ui/icons/Icons";
+  PiHouse,
+  PiHouseFill,
+  PiFilmSlate,
+  PiFilmSlateFill,
+  PiMonitor,
+  PiMonitorFill,
+} from "react-icons/pi";
+import { Button } from "@/components/ui/button";
 
-import { MdOutlineVideoLibrary, MdVideoLibrary } from "react-icons/md";
 
-type Props = {};
-
-const BottomMobileNavbar = (props: Props) => {
+const BottomMobileNavbar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="fixed bottom-0 py-2 left-0 z-50 w-full border-t border-gray-200  lg:hidden">
-      <div className=" flex h-full w-full justify-around font-semibold">
+    <nav
+     className="fixed bottom-0 h-[60px] w-full border-t-1 border-white/20 bg-[#000000]  md:hidden"
+     role="navigation"
+      aria-label="mobile navigation"
+     >
+      <div className=" master-container flex h-full w-full justify-between gap-x-2 font-semibold sm:gap-x-1">
         {/* Home */}
         <BottomMobileNavbarLink
+          href="/"
           activeLink={pathname === "/"}
-          defaultIcon={<HomeIcon filled={false} />}
+          defaultIcon={<PiHouse className="h-full w-full" />}
+          activeIcon={<PiHouseFill className="h-full w-full" />}
           text={"Home"}
         />
 
         {/* Movies */}
         <BottomMobileNavbarLink
+          href="/explore-movies"
           activeLink={pathname === "/explore-movies"}
-          defaultIcon={<MovieIcon filled={false} />}
+          defaultIcon={<PiFilmSlate className="h-full w-full" />}
+          activeIcon={<PiFilmSlateFill className="h-full w-full" />}
           text={"Movies"}
         />
 
         {/* Tv Series */}
         <BottomMobileNavbarLink
+          href="/explore-tv-series"
           activeLink={pathname === "/explore-tv-series"}
-          defaultIcon={<TvIcon filled={false} />}
+          defaultIcon={<PiMonitor className="h-full w-full" />}
+          activeIcon={<PiMonitorFill className="h-full w-full" />}
           text={"TV Series"}
         />
 
         {/* Library */}
         <BottomMobileNavbarLink
+          href="/my-library"
           activeLink={pathname === "/my-library"}
-          defaultIcon={<MdOutlineVideoLibrary className="text-[24px] " />}
-          activeIcon={<MdVideoLibrary className="text-[24px] " />}
+          defaultIcon={<BsCollectionPlay className="h-full w-full" />}
+          activeIcon={<BsCollectionPlayFill className="h-full w-full" />}
           text={"Library"}
         />
       </div>
-    </div>
+    </nav>
   );
 };
 
 type BottomMobileNavbarLinkProps = {
   activeLink: boolean;
-  defaultIcon: JSX.Element;
   activeIcon: JSX.Element;
+  defaultIcon: JSX.Element;
+  href?: string;
   text: string;
 };
 
 const BottomMobileNavbarLink = ({
   activeLink,
-  defaultIcon,
   activeIcon,
+  defaultIcon,
+  href,
   text,
 }: BottomMobileNavbarLinkProps) => {
   const isActive = activeLink;
-  const activeClasses = "text-blue-600 dark:text-blue-500";
-  const inactiveClasses = "text-gray-500 dark:text-gray-400";
+  const activeClasses = "text-white dark:text-white font-semibold";
+  const inactiveClasses = "text-white dark:text-white";
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      {!isActive ? activeIcon : defaultIcon}
-      <span
-        className={`text-sm ${
-          isActive ? activeClasses : inactiveClasses
-        } group-hover:text-blue-600 dark:text-gray-400 dark:group-hover:text-blue-500`}
-      >
-        {text}
-      </span>
-    </div>
+    <Button
+      asChild
+      variant="ghost"
+      className={`${
+        isActive
+          ? "border-t-0 bg-[#c11119] hover:bg-[#c11119]"
+          : "hover:bg-[#40445999]"
+      } relative h-fit w-max flex-1 flex-col rounded-none px-[10px] py-[8px]  uppercase tracking-wide   `}
+      role="link"
+      aria-label={text}
+    >
+      <Link href={`${href}`}>
+        {/* use absolutely positioned span to add a red underline to the active link */}
+
+        <span
+          className={`${
+            isActive ? activeClasses : inactiveClasses
+          } text-xl sm:text-2xl`}
+        >
+          {isActive ? activeIcon : defaultIcon}
+        </span>
+        <span
+          className={`font-small-text w-max ${
+            isActive ? activeClasses : inactiveClasses
+          } `}
+        >
+          {text}
+        </span>
+      </Link>
+    </Button>
   );
 };
 
