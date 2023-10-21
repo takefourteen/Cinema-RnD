@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 
 import { authOptions } from "@/lib/authOptions";
-import { connectToDatabase } from "@/lib/mongodb";
 
 import CreateAccountForm from "@/components/auth-group/CreateAccountForm";
 
@@ -23,9 +22,6 @@ const CreateAccount = async ({ searchParams }: PageProps) => {
   if (session?.user) {
     redirect(callbackUrl);
   }
-
-  // If no user is logged in, we'll connect to the database.
-  await connectToDatabase();
 
   return (
     <section className="master-container flex w-full flex-col items-center justify-center pt-16">

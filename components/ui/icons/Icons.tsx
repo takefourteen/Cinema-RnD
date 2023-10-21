@@ -217,6 +217,7 @@ export const LibraryIcon = ({ filled }: IconProps) =>
       height="24"
       viewBox="0 0 24 24"
       width="24"
+      className="text-white"
     >
       <path d="M4,20h14v1H3V6h1V20z M21,3v15H6V3H21z M17,10.5L11,7v7L17,10.5z"></path>
     </svg>
@@ -227,6 +228,7 @@ export const LibraryIcon = ({ filled }: IconProps) =>
       height="24"
       viewBox="0 0 24 24"
       width="24"
+      className="text-white"
     >
       <path d="M11,7l6,3.5L11,14V7L11,7z M18,20H4V6H3v15h15V20z M21,18H6V3h15V18z M7,17h13V4H7V17z"></path>
     </svg>
@@ -295,9 +297,9 @@ export const SearchIcon = ({ filled }: IconProps) =>
   );
 
 export const TvIcon = ({ filled }: IconProps) => (
-  <Image src={filled ? tvBold : tvOutline} alt="tv icon" />
+  <Image src={filled ? tvBold : tvOutline} priority alt="tv icon" />
 );
 
 export const MovieIcon = ({ filled }: IconProps) => (
-  <Image src={filled ? movieBold : movieOutline} alt="movie icon" />
+  <Image src={filled ? movieBold : movieOutline} priority alt="movie icon" />
 );
