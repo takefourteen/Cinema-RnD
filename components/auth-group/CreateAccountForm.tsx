@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { createNewUser } from "@/lib/mongodb-api/create-account";
 
 import { PiSpinnerBold } from "react-icons/pi";
+import { PiEye, PiEyeClosed } from "react-icons/pi";
 import { ErrorIcon } from "@/components/ui/icons/Icons";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -24,14 +25,18 @@ type CreateAccountFormProps = {
 
 const CreateAccountForm = ({ callbackUrl }: CreateAccountFormProps) => {
   const [submitting, setSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
 
+  const toggleShowPassword = () => setShowPassword(!showPassword);
+
   // function to handle form submission
-  async function onSubmit(userData: FormData) {
+  const onSubmit = async (userData: FormData) => {
     setSubmitting(true);
 
     try {
@@ -43,14 +48,15 @@ const CreateAccountForm = ({ callbackUrl }: CreateAccountFormProps) => {
         setSubmitting(false);
       }, 500);
     }
-  }
+  };
 
   return (
     <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="master-container flex w-full max-w-[500px]  flex-col items-center justify-center gap-y-4 px-12 pb-6 sm:max-w-[500px] sm:rounded-md sm:bg-[#dedede0f] sm:py-8 md:gap-y-6"
+        className="master-container flex w-full max-w-[500px]  flex-col items-center justify-center gap-y-4 px-4 pb-6 sm:max-w-[500px] sm:rounded-md sm:bg-[#dedede0f] sm:py-8 md:gap-y-6"
       >
+        {/* First and Last name */}
         <div className="grid w-full gap-x-4 gap-y-4 sm:grid-cols-2 md:gap-x-6 md:gap-y-6">
           {/* first name */}
           <div className="grid w-full gap-2">
@@ -66,6 +72,8 @@ const CreateAccountForm = ({ callbackUrl }: CreateAccountFormProps) => {
                 required: "First name is required",
               })}
               id="firstName"
+              aria-invalid={errors.firstName ? "true" : "false"}
+              aria-describedby={errors.firstName ? "firstName-error" : ""}
               className={`h-full rounded-md bg-black/30 px-2 py-3 text-sm font-semibold text-white md:text-base  ${
                 errors.firstName ? "border border-red-500" : ""
               }`}
@@ -92,6 +100,8 @@ const CreateAccountForm = ({ callbackUrl }: CreateAccountFormProps) => {
                 required: "Last name is required",
               })}
               id="lastName"
+              aria-invalid={errors.lastName ? "true" : "false"}
+              aria-describedby={errors.lastName ? "lastName-error" : ""}
               className={`h-full rounded-md bg-black/30 px-2 py-3 text-sm font-semibold text-white md:text-base  ${
                 errors.lastName ? "border border-red-500" : ""
               }`}
@@ -123,47 +133,73 @@ const CreateAccountForm = ({ callbackUrl }: CreateAccountFormProps) => {
               },
             })}
             id="email"
-            className={`h-full rounded-md bg-black/30 px-2 py-3 text-sm font-semibold text-white md:text-base  ${
+            aria-invalid={errors.email ? "true" : "false"}
+            aria-describedby={errors.email ? "email-error" : ""}
+            className={`font-body-text h-10 rounded-md bg-black/30 px-2 text-sm font-semibold text-white ${
               errors.email ? "border border-red-500" : ""
             }`}
           />
           {errors.email && (
-            <span className="flex w-full items-center gap-x-1 text-sm tracking-wider text-red-500">
+            <span className="mt-1 flex w-full items-center gap-x-1 text-sm tracking-wider text-red-500">
               <ErrorIcon />
               {errors.email.message}
             </span>
           )}
         </div>
 
-        {/* password */}
+        {/* Password */}
         <div className="grid w-full gap-2">
           <Label
             htmlFor="password"
-            className="text-sm font-semibold tracking-wide md:text-base"
+            className="font-small-text font-semibold tracking-wide"
           >
             Password *
           </Label>
-          <Input
-            disabled={submitting} // Disable when submitting
-            {...register("password", {
-              required: "Password is required",
-              minLength: {
-                value: 6,
-                message: "Password must have at least 6 characters",
-              },
-            })}
-            type="password"
-            id="password"
-            className={`h-full rounded-md bg-black/30 px-2 py-3 text-sm font-semibold text-white md:text-base  ${
-              errors.password ? "border border-red-500" : ""
-            }`}
-          />
-          {/* Show validation error message */}
+
+          <div className="relative">
+            <Input
+              disabled={submitting}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password must be at least 6 characters long",
+                },
+              })}
+              type={showPassword ? "text" : "password"}
+              id="password"
+              aria-invalid={errors.password ? "true" : "false"}
+              aria-describedby={errors.password ? "password-error" : ""}
+              className={`font-body-text h-10 rounded-md bg-black/30 px-2 font-semibold text-white  ${
+                errors.password ? "border border-red-500" : ""
+              }`}
+            />
+
+            {/* Password visibility toggle */}
+            <div
+              className="absolute right-2 top-1/2 -translate-y-1/2 transform cursor-pointer"
+              onClick={toggleShowPassword}
+            >
+              <button
+                type="button"
+                aria-label={showPassword ? "Hide Password" : "Show Password"}
+              >
+                {showPassword ? (
+                  <PiEye className="h-5 w-5 text-white" />
+                ) : (
+                  <PiEyeClosed className="h-5 w-5 text-white" />
+                )}
+              </button>
+            </div>
+          </div>
           {errors.password && (
-            <span className="flex w-full items-center gap-x-1 text-sm tracking-wider text-red-500">
+            <div
+              id="password-error"
+              className="mt-1 flex items-center gap-2 text-red-500"
+            >
               <ErrorIcon />
-              {errors.password.message}
-            </span>
+              <span className="text-sm">{errors.password.message}</span>
+            </div>
           )}
         </div>
 
@@ -171,7 +207,7 @@ const CreateAccountForm = ({ callbackUrl }: CreateAccountFormProps) => {
         <Button
           type="submit"
           disabled={submitting}
-          className="font-button-text mt-2 flex w-full items-center justify-center gap-x-2 rounded-md bg-[#e50914] font-semibold text-white transition-colors hover:bg-[#e50914]/70 md:text-base"
+          className="font-button-text mt-4 w-full gap-x-2 rounded-md bg-[#e50914] text-white transition-colors hover:bg-[#e50914]/70 "
         >
           {submitting ? (
             <>
