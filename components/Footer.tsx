@@ -4,7 +4,7 @@ const Footer = () => {
   // get the current year
   const year = new Date().getFullYear();
   return (
-    <footer className="z-10 mb-[80px]  mt-6 h-[50px] border-t border-gray-800 bg-transparent py-2">
+    <footer className="z-10 mb-[60px]  mt-6 h-[50px] border-t border-gray-800 bg-transparent py-2">
       <div className="flex h-full items-center justify-center ">
         <Link
           href={"https://ismailshaikhnag.vercel.app/"}
