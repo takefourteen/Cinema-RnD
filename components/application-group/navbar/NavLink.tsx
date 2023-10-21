@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 // component for displaying navbar links
 const NavLink: React.FC<{
@@ -8,17 +7,18 @@ const NavLink: React.FC<{
   active: boolean;
 }> = ({ href, active, children }) => {
   return (
-    <Button
-      asChild
-      variant="ghost"
+    <Link
+      href={`${href}`}
       className={`${
         active
           ? "pointer-events-none  border-b-primaryRed "
           : " border-b-transparent hover:border-b-primaryRed"
-      } font-small-text relative h-fit rounded-none border-b-2 bg-transparent px-[10px] py-[8px] text-sm uppercase tracking-wide font-bold text-white hover:bg-transparent hover:text-white dark:text-white lg:border-b-3 `}
+      } font-small-text relative h-fit rounded-none border-b-2 bg-transparent px-[10px] py-[8px] text-sm font-bold uppercase tracking-wide text-white hover:bg-transparent hover:text-white dark:text-white lg:border-b-3 `}
+      role="link"
+      aria-current={active ? "page" : undefined}
     >
-      <Link href={`${href}`}>{children}</Link>
-    </Button>
+      {children}
+    </Link>
   );
 };
 
