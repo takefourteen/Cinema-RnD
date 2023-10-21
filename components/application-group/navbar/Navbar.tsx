@@ -83,16 +83,6 @@ const Navbar = () => {
         }
       >
         <section className="master-container flex h-[75px] items-center justify-between px-4 py-2 lg:h-[90px]">
-          {/* Mobile menu for sm screens */}
-          <MobileMenu
-            onDarkenBackground={handleDarkenBackground}
-            showLogOutBtn={session?.user ? true : false}
-            logOutBtn={
-              <LogOutBtn signOutUser={handleSignOut} isMobileMenu={true} />
-            }
-            logInBtn={<LogInBtn isMobileMenu={true} callbackUrl={currentUrl} />}
-          />
-
           {/* display logo */}
           <div className="mr-4 flex items-center">
             <Link href="/">
@@ -102,25 +92,28 @@ const Navbar = () => {
                 alt="Cozy Cinema Logo"
                 width={125}
                 priority
-                sizes="(max-width: 640px) 80px, (max-width: 1024px) 100px, 125px"
-                className="max-w-[80px] sm:max-w-[100px] lg:max-w-[125px] "
+                sizes="(max-width: 640px) 90px, (max-width: 1024px) 100px, 125px"
+                className="max-w-[90px] sm:max-w-[100px] lg:max-w-[125px] "
               />
             </Link>
           </div>
 
           {/* menu for lg screens */}
-          <div className="hidden items-center gap-x-2  uppercase lg:flex">
+          <div className="hidden  gap-x-2  uppercase md:flex">
             <NavLink href="/" active={pathname === "/"}>
               Home
             </NavLink>
-            <NavLink href="#" active={pathname === "/movies"}>
+            <NavLink
+              href="/explore-movies"
+              active={pathname === "/explore-movies"}
+            >
               movies
             </NavLink>
-            <NavLink href="#" active={pathname === "/tv-shows"}>
-              tv shows
-            </NavLink>
-            <NavLink href="/#" active={pathname === "/categories"}>
-              categories
+            <NavLink
+              href="/explore-tv-series"
+              active={pathname === "/explore-tv-series"}
+            >
+              tv series
             </NavLink>
             <NavLink href="/my-library" active={pathname === "/my-library"}>
               my library
@@ -128,7 +121,7 @@ const Navbar = () => {
           </div>
 
           {/* display search icon, log in, and sign up buttons */}
-          <div className="ml-auto flex items-center justify-center gap-x-4 text-white lg:m-0">
+          <div className="ml-auto flex items-center justify-center gap-x-4 text-white md:m-0">
             {/* Search Icon */}
             <SearchBar onDarkenBackground={handleDarkenBackground} />
 
