@@ -223,7 +223,7 @@ export const CreateAccountIcon = () => (
 export const SignInIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    enable-background="new 0 0 24 24"
+    enableBackground="new 0 0 24 24"
     height="24"
     viewBox="0 0 24 24"
     width="24"
@@ -237,7 +237,7 @@ export const SignInIcon = () => (
 
 export const SignOutIcon = () => (
   <svg
-    enable-background="new 0 0 24 24"
+    enableBackground="new 0 0 24 24"
     height="24"
     viewBox="0 0 24 24"
     width="24"
@@ -260,7 +260,7 @@ export const LibraryIcon = ({ filled }: IconProps) =>
   filled ? (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      enable-background="new 0 0 24 24"
+      enableBackground="new 0 0 24 24"
       height="24"
       viewBox="0 0 24 24"
       width="24"
@@ -271,7 +271,7 @@ export const LibraryIcon = ({ filled }: IconProps) =>
   ) : (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      enable-background="new 0 0 24 24"
+      enableBackground="new 0 0 24 24"
       height="24"
       viewBox="0 0 24 24"
       width="24"
@@ -285,7 +285,7 @@ export const HomeIcon = ({ filled }: IconProps) =>
   filled ? (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      enable-background="new 0 0 24 24"
+      enableBackground="new 0 0 24 24"
       height="24"
       viewBox="0 0 24 24"
       width="24"
@@ -297,7 +297,7 @@ export const HomeIcon = ({ filled }: IconProps) =>
   ) : (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      enable-background="new 0 0 24 24"
+      enableBackground="new 0 0 24 24"
       height="24"
       viewBox="0 0 24 24"
       width="24"
@@ -349,7 +349,7 @@ type SearchIconProps = {
 
 export const SearchIcon = ({ className }: SearchIconProps) => (
   <svg
-    enable-background="new 0 0 24 24"
+    enableBackground="new 0 0 24 24"
     height="24"
     viewBox="0 0 24 24"
     width="24"
