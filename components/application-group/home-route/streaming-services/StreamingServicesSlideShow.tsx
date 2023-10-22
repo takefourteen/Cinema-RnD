@@ -20,11 +20,11 @@ const renderStreamingServicesList = () => {
 const StreamingServicesSlideShow = () => {
   return (
     <section
-      className="master-container flex flex-col pt-[64px] lg:pt-[72px]"
+      className="master-container flex flex-col overflow-hidden pt-[64px] lg:pt-[72px]"
       // use style to hide overflow on the right side of the screen
-      style={{
-        clipPath: "inset( -100vw -100vw -100vw 16px )",
-      }}
+      // style={{
+      //   clipPath: "inset( -100vw -100vw -100vw 16px )",
+      // }}
     >
       <SectionHeader sectionTitle="All-Access Showtime" showBorder={false} />
 
