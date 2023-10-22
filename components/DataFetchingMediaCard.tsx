@@ -127,9 +127,15 @@ const DataFetchingMediaCard = ({
       : `${mediaDetails.runtime}m`
     : null;
 
-  // only get numberOfSeasons for tv series
+  /*
+  // Calculate the number of valid seasons
+  const numberOfSeasons = tvSeriesData.seasons.filter(
+    (season) => season.air_date !== null,
+  ).length;
+  only get numberOfSeasons for tv series
+  */
   const numberOfSeasons = isTVSeriesDetails(mediaDetails)
-    ? mediaDetails.number_of_seasons
+    ? mediaDetails.seasons.filter((season) => season.air_date !== null).length
     : null;
 
   //   only show images that have a backdrop_path
