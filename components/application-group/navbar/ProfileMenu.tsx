@@ -3,7 +3,8 @@
 import { Fragment } from "react";
 import Link from "next/link";
 
-import { ProfileIcon } from "@/components/ui/icons/Icons";
+import { SignInIcon, SignOutIcon } from "@/components/ui/icons/Icons";
+import { ProfileIcon, CreateAccountIcon } from "@/components/ui/icons/Icons";
 import profileSignedIn from "@/assets/images/placeholders/profile-signed-in.svg";
 
 import {
@@ -80,30 +81,36 @@ const ProfileMenu = ({
 
         {/* display the sign out button if the user is signed in */}
         {userData && (
-          <DropdownMenuItem onClick={onSignOut} className="cursor-pointer">
-            Log out
+          <DropdownMenuItem
+            onClick={onSignOut}
+            className="flex cursor-pointer items-center gap-x-2"
+          >
+            <SignOutIcon />
+            Sign Out
           </DropdownMenuItem>
         )}
 
         {/* display the log in and create acount button if the user is not signed in */}
         {!userData && (
           <Fragment>
-            <DropdownMenuItem className="font-small-text cursor-pointer font-semibold text-primaryRed focus:bg-slate-800 focus:text-primaryRed">
+            <DropdownMenuItem className="cursor-pointer text-sm font-semibold text-white focus:bg-slate-800 ">
               <Link
                 href={`/signup?callbackUrl=${encodeURIComponent(callbackUrl)}`}
-                className="flex w-full"
+                className="flex w-full items-center gap-x-2"
               >
+                <CreateAccountIcon />
                 Create Account
               </Link>
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem className="font-small-text cursor-pointer">
+            <DropdownMenuItem className="cursor-pointer text-sm">
               <Link
                 href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`}
-                className="flex w-full"
+                className="flex w-full items-center gap-x-2"
               >
+                <SignInIcon />
                 Log In
               </Link>
             </DropdownMenuItem>
