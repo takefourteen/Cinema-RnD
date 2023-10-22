@@ -1,6 +1,6 @@
 import { fetchMultiplePagesOfPopularMovies } from "@/lib/tmdb-api/popular";
 
-import RenderSlider from "@/components/slider-v-3.0/RenderSlider";
+import RenderSlider from "@/components/slider/RenderSlider";
 
 const PopularMoviesSlider = async () => {
   const popularMovies: PopularMovie[] =
@@ -10,7 +10,7 @@ const PopularMoviesSlider = async () => {
     <RenderSlider
       sliderData={popularMovies.slice(0, 11)}
       sectionTitle="Popular Movies"
-        listItemsPriority={true}
+      listItemsPriority={true}
       viewAllLink="/movies/popular"
       showSliderProgress={false}
     />

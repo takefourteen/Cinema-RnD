@@ -14,10 +14,9 @@ import CollectionsSlideShow from "@/components/application-group/home-route/coll
 import ColorFulBanner from "@/components/application-group/legecy-home-route/ColorFulBanner";
 
 // dynamically import the slider
-const RenderSlider = dynamic(
-  () => import("@/components/slider-v-3.0/RenderSlider"),
-  { ssr: false },
-);
+const RenderSlider = dynamic(() => import("@/components/slider/RenderSlider"), {
+  ssr: false,
+});
 
 // ===================================
 // Time-based Revalidation in Next.js
@@ -27,7 +26,6 @@ export const revalidate = 3600 * 24; // 24 hours
 const page = async () => {
   // fetch the data for the home page
   const homeData = await fetchAllDataForHome();
-
 
   // mix the movies and tv shows together into one array. only 2 of each
   const mixedTrending: (TrendingMovie | TrendingTVSeries)[] = [];

@@ -1,6 +1,6 @@
 import { fetchMultiplePagesOfPopularTvSeries } from "@/lib/tmdb-api/popular";
 
-import RenderSlider from "@/components/slider-v-3.0/RenderSlider";
+import RenderSlider from "@/components/slider/RenderSlider";
 
 const PopularTvShowsSlider = async () => {
   const popularTVSeries: PopularTvSeries[] =

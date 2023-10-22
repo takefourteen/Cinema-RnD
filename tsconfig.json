@@ -22,6 +22,14 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/application-group/NetflixSlider/context.jsx", "components/slider-v-3.0/SliderOnSteroids.jsx", "middleware.ts"],
-  "exclude": ["node_modules"] 
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "components/application-group/NetflixSlider/context.jsx",
+    "components/slider/SliderOnSteroids.jsx",
+    "middleware.ts"
+  ],
+  "exclude": ["node_modules"]
 }

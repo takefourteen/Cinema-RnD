@@ -3,9 +3,9 @@
 import { Suspense } from "react";
 
 import SectionHeader from "@/components/SectionHeader";
-import SliderBody from "@/components/slider-v-3.0/SliderBody";
-import Slider from "@/components/slider-v-3.0/Slider";
-import DataFetchingMotionMediaCard from "@/components/slider-v-3.0/DataFetchingMotionMediaCard";
+import SliderBody from "@/components/slider/SliderBody";
+import Slider from "@/components/slider/Slider";
+import DataFetchingMotionMediaCard from "@/components/slider/DataFetchingMotionMediaCard";
 
 interface RenderSliderProps {
   sliderData: any[];
@@ -24,7 +24,6 @@ const RenderSlider = ({
   showSliderProgress = true,
   largeListItem = false,
 }: RenderSliderProps) => {
-
   // Define slider header component
   const sliderHeaderComponent = (
     <SectionHeader
