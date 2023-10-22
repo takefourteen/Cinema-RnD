@@ -6,14 +6,14 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
+import type { UserProfileData } from "@/components/application-group/navbar/ProfileMenu";
+
 import { signOutUser } from "@/lib/auth-api/sign-out";
 
 import logo from "@/assets/images/logos/cozycinema-logo.webp";
-import smLogo from "@/assets/images/logos/cozycinema-logo-c.webp";
-import MobileMenu from "./MobileMenu";
 import SearchBar from "./SearchBar";
 import NavLink from "./NavLink";
-import { DetailsButton } from "@/components/DetailsButton";
+import ProfileMenu from "./ProfileMenu";
 
 const Navbar = () => {
   const router = useRouter();
@@ -25,6 +25,9 @@ const Navbar = () => {
   const [darkenBackground, setDarkenBackground] = useState<boolean>(false);
   const isScreenWithoutNavbarScrollEffect = [
     "search",
+    "explore-movies",
+    "explore-tv-series",
+    "my-library",
     "watch-movie",
     "watch-tv",
   ].includes(pathname.split("/")[1]);
@@ -52,7 +55,7 @@ const Navbar = () => {
     }
   }
 
-  function handleDarkenBackground() {
+  function toggleNavBarBgColor() {
     setDarkenBackground((prev) => !prev);
   }
 
@@ -65,13 +68,13 @@ const Navbar = () => {
     Define classes based on the scroll state, whether the search icon is clicked, and 
     is darkenBackground is true or false
   */
-  const otherScreensNavbarClasses = `fixed transition-colors top-0 left-0 right-0 z-[99999] ${
+  const otherScreensNavbarClasses = `fixed transition-colors top-0 left-0 right-0 z-10 ${
     scroll || darkenBackground
       ? "bg-black"
       : "bg-gradient-to-b from-black via-black/50 to-transparent"
   }`;
 
-  const screenWithoutNavbarScrollEffectClasses = `fixed transition-colors top-0 left-0 right-0 z-[99999] bg-black/90`;
+  const screenWithoutNavbarScrollEffectClasses = `fixed transition-colors top-0 left-0 right-0 z-10 bg-black/90`;
 
   return (
     <>
@@ -120,89 +123,26 @@ const Navbar = () => {
             </NavLink>
           </div>
 
-          {/* display search icon, log in, and sign up buttons */}
-          <div className="ml-auto flex items-center justify-center gap-x-4 text-white md:m-0">
+          {/* display search icon, and prfile menu */}
+          <div className="ml-auto flex items-center justify-center gap-x-6 text-white md:m-0 lg:gap-x-8">
             {/* Search Icon */}
-            <SearchBar onDarkenBackground={handleDarkenBackground} />
+            <SearchBar onDarkenBackground={toggleNavBarBgColor} />
 
-            {/* display log out if there is a user in session  */}
-            {session?.user ? (
-              <>
-                {/* Log out Button, using custom btn */}
-                <LogOutBtn signOutUser={handleSignOut} isMobileMenu={false} />
-              </>
+            {/* Profile Menu */}
+            {status === "loading" ? (
+              <div className="h-8 w-8 animate-pulse rounded-full bg-gray-400" />
             ) : (
-              <>
-                {/* Log in Button, using custom btn */}
-
-                <LogInBtn isMobileMenu={false} callbackUrl={currentUrl} />
-
-                <DetailsButton
-                  variant={"primary"}
-                  size={"rounded"}
-                  className="w-max text-xs font-bold uppercase sm:text-sm"
-                  asChild
-                >
-                  <Link
-                    href={`/sign-up?callbackUrl=${encodeURIComponent(
-                      currentUrl,
-                    )}`}
-                  >
-                    Sign Up
-                  </Link>
-                </DetailsButton>
-              </>
+              <ProfileMenu
+                userData={session?.user as UserProfileData}
+                toggleNavBarBgColor={toggleNavBarBgColor}
+                onSignOut={handleSignOut}
+                callbackUrl={currentUrl}
+              />
             )}
           </div>
         </section>
       </nav>
     </>
-  );
-};
-
-type LogOutBtnProps = {
-  signOutUser(): Promise<void>;
-  isMobileMenu: boolean;
-};
-
-const LogOutBtn = ({ signOutUser, isMobileMenu }: LogOutBtnProps) => {
-  const mobileMenuClasses =
-    "flex h-fit w-full justify-start rounded-lg px-[10px] border-none py-[10px] text-sm font-bold uppercase text-white hover:bg-transparent hover:text-white";
-  const navbarClasses = "hidden lg:flex w-max text-sm font-bold uppercase";
-
-  return (
-    <DetailsButton
-      variant={"outline"}
-      size={"rounded"}
-      className={isMobileMenu ? mobileMenuClasses : navbarClasses}
-      onClick={signOutUser}
-    >
-      Log Out
-    </DetailsButton>
-  );
-};
-
-type LogInBtnProps = {
-  isMobileMenu: boolean;
-  callbackUrl: string;
-};
-
-const LogInBtn = ({ isMobileMenu, callbackUrl }: LogInBtnProps) => {
-  const mobileMenuClasses =
-    "flex h-fit w-full justify-start rounded-lg px-[10px] border-none py-[10px] text-sm font-bold uppercase text-white hover:bg-transparent hover:text-white";
-  const navbarClasses = "hidden lg:flex w-max text-sm font-bold uppercase";
-
-  return (
-    <DetailsButton
-      asChild
-      variant={"outline"}
-      size={"rounded"}
-      className={isMobileMenu ? mobileMenuClasses : navbarClasses}
-    >
-      <Link href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`}>
-        Log In
-      </Link>
-    </DetailsButton>
   );
 };
 
