@@ -13,10 +13,7 @@ const YourLibrary = async () => {
 
   return (
     <section className=" master-container pt-[64px] text-white lg:pt-[72px]">
-      <SectionHeader
-        sectionTitle="From Your Library"
-        viewAllLink="my-library"
-      />
+      <SectionHeader sectionTitle="From Your Library" viewAllLink="library" />
 
       <div className="mt-6 flex flex-col items-center justify-center lg:mt-6">
         <BookmarkIcon2 />

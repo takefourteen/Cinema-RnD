@@ -19,7 +19,7 @@ const BottomMobileNavbar = () => {
 
   return (
     <nav
-      className="fixed bottom-0 h-[60px] w-full border-t-1 border-white/20 bg-[#000000]  md:hidden"
+      className="border-t-1 fixed bottom-0 h-[60px] w-full border-white/20 bg-[#000000]  md:hidden"
       role="navigation"
       aria-label="mobile navigation"
     >
@@ -53,8 +53,8 @@ const BottomMobileNavbar = () => {
 
         {/* Library */}
         <BottomMobileNavbarLink
-          href="/my-library"
-          activeLink={pathname === "/my-library"}
+          href="/library"
+          activeLink={pathname === "/library"}
           defaultIcon={<BsCollectionPlay className="h-full w-full" />}
           activeIcon={<BsCollectionPlayFill className="h-full w-full" />}
           text={"Library"}

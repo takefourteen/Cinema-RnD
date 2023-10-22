@@ -118,8 +118,8 @@ const MobileMenu = ({
               </NavLink>
             </li>
             <li className="mt-4 px-10 hover:bg-[#40445999]">
-              <NavLink href="/my-library" onClick={handleNavLinkClick}>
-                my library
+              <NavLink href="/library" onClick={handleNavLinkClick}>
+                library
               </NavLink>
             </li>
             {/* separator line and then login that goes to /login */}

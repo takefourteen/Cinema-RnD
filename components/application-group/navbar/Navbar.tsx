@@ -27,7 +27,7 @@ const Navbar = () => {
     "search",
     "explore-movies",
     "explore-tv-series",
-    "my-library",
+    "library",
     "watch-movie",
     "watch-tv",
   ].includes(pathname.split("/")[1]);
@@ -118,8 +118,8 @@ const Navbar = () => {
             >
               tv series
             </NavLink>
-            <NavLink href="/my-library" active={pathname === "/my-library"}>
-              my library
+            <NavLink href="/library" active={pathname === "/library"}>
+              library
             </NavLink>
           </div>
 
