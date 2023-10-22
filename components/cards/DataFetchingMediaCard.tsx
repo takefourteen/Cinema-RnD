@@ -11,8 +11,8 @@ import { isMovieDetails } from "@/lib/tmdb-api/movies";
 import { isTVSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
-import DetailsOnMediaCard from "./application-group/DetailsOnMediaCard";
-import Skeleton from "./Skeleton";
+import DetailsOnMediaCard from "../application-group/DetailsOnMediaCard";
+import Skeleton from "../Skeleton";
 
 type DataFetchingMediaCardProps = {
   mediaId: string;

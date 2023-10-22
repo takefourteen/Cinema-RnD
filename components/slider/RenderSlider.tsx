@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import SectionHeader from "@/components/SectionHeader";
 import SliderBody from "@/components/slider/SliderBody";
 import Slider from "@/components/slider/Slider";
-import DataFetchingMotionMediaCard from "@/components/slider/DataFetchingMotionMediaCard";
+import DataFetchingMotionMediaCard from "@/components/cards/DataFetchingMotionMediaCard";
 
 interface RenderSliderProps {
   sliderData: any[];

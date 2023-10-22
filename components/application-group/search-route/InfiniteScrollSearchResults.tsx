@@ -4,8 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { fetchSearchResults } from "@/lib/actions";
-import MediaCard from "@/components/MediaCard";
-import DataFetchingMediaCard from "@/components/DataFetchingMediaCard";
+import DataFetchingMediaCard from "@/components/cards/DataFetchingMediaCard";
 import NoResultsMessage from "./NoResultsMessage";
 import LoadingSpinner from "@/components/LoadingSpinner";
 

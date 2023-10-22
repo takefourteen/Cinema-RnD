@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import ImageLoader from "./ImageLoader";
+import ImageLoader from "../ImageLoader";
 
 interface MediaCardProps {
   id: number;
@@ -18,10 +18,7 @@ interface MediaCardComponentProps {
   aspect_ratio?: "4:3" | "2:3";
 }
 
-const MediaCard = ({
-  data,
-  aspect_ratio,
-}: MediaCardComponentProps) => {
+const MediaCard = ({ data, aspect_ratio }: MediaCardComponentProps) => {
   // determine if this is a movie or tv show
   const isMovie = data.original_title ? true : false;
   const poster = aspect_ratio === "4:3" ? data.backdrop_path : data.poster_path;
