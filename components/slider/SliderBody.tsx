@@ -3,6 +3,7 @@
 import { Fragment, ReactNode, useState } from "react";
 
 import Controls from "./Controls";
+import Progress from "./Progress";
 
 interface DataWithId {
   id?: string | number; // Make id optional
@@ -33,27 +34,40 @@ function SliderBody({
     index: 0,
   });
   return (
-    <>
-      <ul className={`${classNames?.ulList} flex`}>
-        {/* Slider Header -- See Below */}
-        {data.map((data) => (
-          <Fragment key={data.id}>{renderSliderList(data)}</Fragment>
-        ))}
-      </ul>
+    <Fragment>
+      <div className="relative">
+        <ul
+          className={`${classNames?.ulList} flex overflow-x-scroll`}
+          // width of the slider should always end at the right-end screen width
+          style={{ scrollSnapType: "x mandatory" }}
+        >
+          {/* Slider Header -- See Below */}
+          {data.map((data) => (
+            <Fragment key={data.id}>{renderSliderList(data)}</Fragment>
+          ))}
+        </ul>
 
-      {/* Slider Controls */}
-      <Controls
-        showSliderProgress={showSliderProgress}
-        currentSlideData={currentSlideData}
-        data={data}
-        transitionData={transitionData}
-        initData={initData}
-        handleData={setData}
-        handleTransitionData={setTransitionData}
-        handleCurrentSlideData={setCurrentSlideData}
-        sliderData={sliderData}
-      />
-    </>
+        {/* Slider Controls */}
+        <Controls
+          currentSlideData={currentSlideData}
+          data={data}
+          transitionData={transitionData}
+          initData={initData}
+          handleData={setData}
+          handleTransitionData={setTransitionData}
+          handleCurrentSlideData={setCurrentSlideData}
+          sliderData={sliderData}
+        />
+      </div>
+
+      {/* Slider Progress */}
+      {/* {showSliderProgress && (
+        <Progress
+          curIndex={currentSlideData.index}
+          length={sliderData.length}
+        />
+      )} */}
+    </Fragment>
   );
 }
 

@@ -6,6 +6,17 @@
   color-scheme: dark;
 }
 
+/* Hide scrollbar */
+ul::-webkit-scrollbar {
+  display: none;
+}
+
+ul {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  -webkit-overflow-scrolling: touch; /* iOS Safari */
+}
+
 /* different container widths for tailwind responsiveness for default, sm, md, lg, xl, 2xl */
 .master-container {
   @apply mx-auto px-4;

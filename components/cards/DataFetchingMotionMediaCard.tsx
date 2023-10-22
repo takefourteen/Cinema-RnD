@@ -19,6 +19,7 @@ type DataFetchingMotionMediaCardProps = {
   mediaType: "movie" | "tv";
   priority: boolean;
   imgSize?: "default" | "large";
+  padding?: "p-[0.5px]" | "p-[1px]" | "p-[2px]" | "p-[3px]" | "p-[4px]";
 };
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
@@ -26,9 +27,9 @@ const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
 const listItemSize = {
   default: {
     width:
-      "min-w-[200px] sm:min-w-[225px] md:min-w-[250px] lg:min-w-[275px] xl:min-w-[300px] ",
+      "min-w-[165px] sm:min-w-[175px] md:min-w-[180px] lg:min-w-[215px] xl:min-w-[250px] 2xl:min-w-[300px]",
     sizes:
-      "(max-width: 640px) 200px, (max-width: 768px) 250px, (max-width: 1024px) 275px, 300px",
+      "(max-width: 640px) 165px, (max-width: 768px) 175px, (max-width: 1024px) 180px, (max-width: 1280px) 215px, (max-width: 1536px) 250px, 300px",
   },
 
   large: {
@@ -43,6 +44,7 @@ const DataFetchingMotionMediaCard = ({
   mediaType,
   priority,
   imgSize = "default",
+  padding,
 }: DataFetchingMotionMediaCardProps) => {
   // Define the fetcher function based on the mediaType
   const fetcher: () => Promise<MovieDetailsData | TVSeriesData> =
@@ -121,7 +123,7 @@ const DataFetchingMotionMediaCard = ({
 
   return (
     <motion.li
-      className={`relative h-auto flex-1  ${listItemSize[imgSize].width}`}
+      className={`relative h-auto flex-1  ${listItemSize[imgSize].width} ${padding}`}
       layout
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{
@@ -138,7 +140,7 @@ const DataFetchingMotionMediaCard = ({
         stiffness: 100,
       }}
     >
-      <Link href={mediaPageUrl} className="group" >
+      <Link href={mediaPageUrl} className="group">
         <AspectRatio ratio={2 / 3}>
           <ImageLoader
             loaderType="skeleton"

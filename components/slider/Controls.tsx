@@ -1,6 +1,5 @@
 import React from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import Progress from "./Progress";
 import SliderButton from "./SliderButton";
 
 type Props = {
@@ -14,7 +13,6 @@ type Props = {
     React.SetStateAction<CurrentSlideData>
   >;
   initData: any;
-  showSliderProgress?: boolean;
 };
 
 function Controls({
@@ -26,7 +24,6 @@ function Controls({
   handleTransitionData,
   handleCurrentSlideData,
   initData,
-  showSliderProgress = true,
 }: Props) {
   const handlePrev = () => {
     handleData((prevData) => [
@@ -47,30 +44,31 @@ function Controls({
       index: sliderData.findIndex((ele) => ele.id === data[0].id),
     });
     handleTransitionData(data[0]);
-    setTimeout(() => {
       handleData((newData) => [
         ...newData,
         transitionData ? transitionData : initData,
       ]);
-    }, 500);
   };
 
   return (
-    <div className="mt-4 flex items-center gap-3 px-0 md:px-1">
-      <SliderButton handleClick={handlePrev} aria-label="previous slide">
-        <IoIosArrowBack className=" h-[60%] w-[60%]" />
-      </SliderButton>
-      <SliderButton handleClick={handleNext} aria-label="next slide">
-        <IoIosArrowForward className=" h-[60%] w-[60%]" />
+    <div className="flex items-center gap-3 px-0 md:px-1">
+      {/* left btn */}
+      <SliderButton
+        handleClick={handlePrev}
+        aria-label="previous slide"
+        className="absolute left-0 top-0 h-full bg-gradient-to-l from-black/60 via-black/80 to-black"
+      >
+        <IoIosArrowBack className=" h-[80%] w-[80%]" />
       </SliderButton>
 
-      {/* show progress if showSliderProgress is true */}
-      {showSliderProgress && (
-        <Progress
-          curIndex={currentSlideData.index}
-          length={sliderData.length}
-        />
-      )}
+      {/* right btn */}
+      <SliderButton
+        handleClick={handleNext}
+        aria-label="next slide"
+        className="absolute right-0 top-0 h-full bg-gradient-to-r from-black/60 via-black/80 to-black"
+      >
+        <IoIosArrowForward className=" h-[80%] w-[80%]" />
+      </SliderButton>      
     </div>
   );
 }

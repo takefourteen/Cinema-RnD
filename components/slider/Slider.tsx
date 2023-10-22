@@ -31,11 +31,11 @@ const Slider = ({
   return (
     <AnimatePresence>
       <section className=" master-container pt-[64px] lg:pt-[72px]" ref={ref}>
-        <div className="flex h-full w-full grid-cols-10 flex-col md:grid">
+        <div className="flex h-full w-full flex-col ">
           {sliderHeaderComponent}
 
           {inView && (
-            <div className=" col-span-6 mt-4 flex h-full flex-1 flex-col justify-start md:justify-center ">
+            <div className=" mt-4 flex h-full flex-1 flex-col justify-start md:justify-center ">
               {sliderBodyComponent}
             </div>
           )}

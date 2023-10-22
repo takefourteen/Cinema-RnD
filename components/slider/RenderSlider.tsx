@@ -40,7 +40,7 @@ const RenderSlider = ({
       initData={sliderData[0]}
       showSliderProgress={showSliderProgress}
       classNames={{
-        ulList: "relative gap-x-4 ",
+        ulList: "relative gap-x-2 ",
       }}
       renderSliderList={(item) => (
         <Suspense>
@@ -50,6 +50,7 @@ const RenderSlider = ({
             mediaType={item.original_name ? "tv" : "movie"}
             priority={listItemsPriority}
             imgSize={largeListItem ? "large" : "default"}
+            padding="p-[2px]"
           />
         </Suspense>
       )}

@@ -7,7 +7,7 @@ type Props = {
 
 function Progress({ curIndex, length }: Props) {
   return (
-    <>
+    <div className="mt-4 w-[80%] md:w-[70%] lg:w-[60%]">
       <div className=" flex h-[2px] flex-1 items-center rounded-full bg-white/30 bg-opacity-50 text-white">
         <div
           style={{
@@ -40,7 +40,7 @@ function Progress({ curIndex, length }: Props) {
           {curIndex + 1 < 10 ? `0${curIndex + 1}` : `${curIndex + 1}`}
         </motion.div>
       </span>
-    </>
+    </div>
   );
 }
 
