@@ -44,10 +44,10 @@ function Controls({
       index: sliderData.findIndex((ele) => ele.id === data[0].id),
     });
     handleTransitionData(data[0]);
-      handleData((newData) => [
-        ...newData,
-        transitionData ? transitionData : initData,
-      ]);
+    handleData((newData) => [
+      ...newData,
+      transitionData ? transitionData : initData,
+    ]);
   };
 
   return (
@@ -56,7 +56,7 @@ function Controls({
       <SliderButton
         handleClick={handlePrev}
         aria-label="previous slide"
-        className="absolute left-0 top-0 h-full bg-gradient-to-l from-black/60 via-black/80 to-black"
+        className="absolute left-[-12px] top-0 z-10 h-full bg-gradient-to-l from-black/60 via-black/80 to-black"
       >
         <IoIosArrowBack className=" h-[80%] w-[80%]" />
       </SliderButton>
@@ -65,10 +65,10 @@ function Controls({
       <SliderButton
         handleClick={handleNext}
         aria-label="next slide"
-        className="absolute right-0 top-0 h-full bg-gradient-to-r from-black/60 via-black/80 to-black"
+        className="absolute right-[-12px] top-0 z-10 h-full bg-gradient-to-r from-black/60 via-black/80 to-black"
       >
         <IoIosArrowForward className=" h-[80%] w-[80%]" />
-      </SliderButton>      
+      </SliderButton>
     </div>
   );
 }

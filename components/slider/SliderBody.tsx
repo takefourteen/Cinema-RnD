@@ -36,17 +36,6 @@ function SliderBody({
   return (
     <Fragment>
       <div className="relative">
-        <ul
-          className={`${classNames?.ulList} flex overflow-x-scroll`}
-          // width of the slider should always end at the right-end screen width
-          style={{ scrollSnapType: "x mandatory" }}
-        >
-          {/* Slider Header -- See Below */}
-          {data.map((data) => (
-            <Fragment key={data.id}>{renderSliderList(data)}</Fragment>
-          ))}
-        </ul>
-
         {/* Slider Controls */}
         <Controls
           currentSlideData={currentSlideData}
@@ -58,6 +47,18 @@ function SliderBody({
           handleCurrentSlideData={setCurrentSlideData}
           sliderData={sliderData}
         />
+
+        {/* Slider Body */}
+        <ul
+          className={`${classNames?.ulList} flex overflow-x-scroll`}
+          // width of the slider should always end at the right-end screen width
+          style={{ scrollSnapType: "x mandatory" }}
+        >
+          {/* Slider Header -- See Below */}
+          {data.map((data) => (
+            <Fragment key={data.id}>{renderSliderList(data)}</Fragment>
+          ))}
+        </ul>
       </div>
 
       {/* Slider Progress */}

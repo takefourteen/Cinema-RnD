@@ -68,13 +68,13 @@ const Navbar = () => {
     Define classes based on the scroll state, whether the search icon is clicked, and 
     is darkenBackground is true or false
   */
-  const otherScreensNavbarClasses = `fixed transition-colors top-0 left-0 right-0 z-10 ${
+  const otherScreensNavbarClasses = `fixed transition-colors top-0 left-0 right-0 z-[15] ${
     scroll || darkenBackground
       ? "bg-black"
       : "bg-gradient-to-b from-black via-black/50 to-transparent"
   }`;
 
-  const screenWithoutNavbarScrollEffectClasses = `fixed transition-colors top-0 left-0 right-0 z-10 bg-black/90`;
+  const screenWithoutNavbarScrollEffectClasses = `fixed transition-colors top-0 left-0 right-0 z-[15] bg-black/90`;
 
   return (
     <>
