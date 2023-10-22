@@ -95,7 +95,7 @@ const ProfileMenu = ({
           <Fragment>
             <DropdownMenuItem className="cursor-pointer text-sm font-semibold text-white focus:bg-slate-800 ">
               <Link
-                href={`/signup?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+                href={`/sign-up?callbackUrl=${encodeURIComponent(callbackUrl)}`}
                 className="flex w-full items-center gap-x-2"
               >
                 <CreateAccountIcon />
