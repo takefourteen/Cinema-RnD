@@ -138,7 +138,7 @@ const DataFetchingMotionMediaCard = ({
         stiffness: 100,
       }}
     >
-      <Link href={mediaPageUrl} className="group" tabIndex={-1}>
+      <Link href={mediaPageUrl} className="group" >
         <AspectRatio ratio={2 / 3}>
           <ImageLoader
             loaderType="skeleton"
