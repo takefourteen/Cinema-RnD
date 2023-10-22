@@ -3,7 +3,7 @@
 import Image, { StaticImageData } from "next/image";
 import { useState } from "react";
 
-import { Spinner } from "@nextui-org/react";
+import LoadingSpinner from "./LoadingSpinner";
 import Skeleton from "@/components/Skeleton";
 
 interface ImageLoaderProps
@@ -31,9 +31,7 @@ const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
           {loaderType === "skeleton" && (
             <Skeleton rows={0} showOverlay={false} />
           )}
-          {loaderType === "spinner" && (
-            <Spinner color="default" className="absolute inset-0" />
-          )}
+          {loaderType === "spinner" && <LoadingSpinner />}
         </div>
       )}
 
