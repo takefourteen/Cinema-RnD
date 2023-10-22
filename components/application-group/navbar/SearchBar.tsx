@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { MdOutlineClose as CloseIcon } from "react-icons/md";
-import { FaMagnifyingGlass as SearchIcon } from "react-icons/fa6";
+import { SearchIcon } from "@/components/ui/icons/Icons";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -115,7 +115,8 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
         onClick={toggleSearchBar}
         aria-label="Open search bar"
       >
-        <SearchIcon className="h-4 w-4 sm:h-5 sm:w-5" />
+        {/* <SearchIcon className="h-4 w-4 sm:h-5 sm:w-5" /> */}
+        <SearchIcon className="h-7 w-7 lg:h-8 lg:w-8" />
       </Button>
 
       {/* search bar input*/}
