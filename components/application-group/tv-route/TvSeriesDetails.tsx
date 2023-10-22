@@ -4,18 +4,15 @@ import Link from "next/link";
 import { getImagePathFromImagesData } from "@/helpers/getImagePathFromImagesData";
 import { slugify } from "@/helpers/slugify";
 
-import { IoMdAdd } from "react-icons/io";
 import {
   AiOutlineInfoCircle as InfoIcon,
   AiOutlineCheck as Check,
 } from "react-icons/ai";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
-import { Button } from "@/components/ui/button";
 import ResponsiveBackgroundPoster from "../ResponsiveBackgroundPoster";
 import TitleLogo from "../TitleLogo";
 import ImdbRating from "../ImdbRating";
 import Overview from "../Overview";
-import PlayButton from "@/components/PlayButton";
 import { DetailsButton } from "@/components/DetailsButton";
 import Chip from "../Chip";
 
@@ -28,13 +25,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
   tvSeriesData,
   imagesData,
 }) => {
-  /*
-    check if the imagesData.backdrops array has at least 3 images
-    select the 3rd image from the array or the last image if there are less than 3 images
-     */
-  //   const backdropPath =
-  //     imagesData.backdrops[2]?.file_path ||
-  //     imagesData.backdrops[imagesData.backdrops.length - 1]?.file_path;
+
 
   const backdropPath = getImagePathFromImagesData(
     "backdropPath",
@@ -110,7 +101,6 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
           {/* Btns */}
           <div className="lg:mt-8lg:mt-8 mt-6 flex gap-x-4">
             {/* play button */}
-            {/* <PlayButton className="mt-6 lg:mt-8">Play S1 EP1</PlayButton> */}
             <DetailsButton asChild className=" font-button-text  h-10 gap-x-1 ">
               <Link href={`${watchTvUrl}`}>
                 <PlayIcon className="h-8 w-8" /> Play S1 EP1
