@@ -16,11 +16,13 @@ const page = async () => {
 
   return (
     <section className=" relative mt-[70px] pb-[80px] pt-10 lg:mt-[90px]">
-      <h1 className="font-header-2 master-container w-max border-b-4 border-b-primaryRed capitalize">
-        my list
-      </h1>
-
+      <div className="master-container">
+        <h1 className="font-header-2 w-max border-b-4 border-b-primaryRed capitalize">
+          my list
+        </h1>
+      </div>
       <RenderSlider sectionTitle="Movies" sliderData={popularMovies} />
+      <RenderSlider sectionTitle="TV Series" sliderData={popularTvSeries} />
     </section>
   );
 };
