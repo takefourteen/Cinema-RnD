@@ -26,33 +26,40 @@ export type UserProfileData = {
 
 type ProfileMenuProps = {
   userData: UserProfileData | null;
-  toggleNavBarBgColor: () => void;
   onSignOut: () => Promise<void>;
   callbackUrl: string;
 };
 
 const ProfileMenu = ({
   userData,
-  toggleNavBarBgColor,
   onSignOut,
   callbackUrl,
 }: ProfileMenuProps) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger
-        className="relative h-[40px] w-[40px] rounded-full p-0 hover:bg-transparent hover:text-white focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white focus-visible:ring-offset-1 lg:h-[48px] lg:w-[48px]"
-        onClick={toggleNavBarBgColor}
-      >
+      <DropdownMenuTrigger className="group hover:bg-transparent hover:text-white focus-visible:outline-none">
         {userData ? (
-          <Image
-            src={profileSignedIn}
-            alt="profile"
-            fill
-            sizes="(max-width: 1024px) 40px, 48px"
-            className="rounded-full object-cover ring-1 ring-white ring-offset-1 "
-          />
+          <div
+            className="relative h-[40px] w-[40px] rounded-full p-0 lg:h-[48px] lg:w-[48px]"
+            tabIndex={0}
+            aria-label="User profile image"
+          >
+            <Image
+              src={profileSignedIn}
+              alt="profile"
+              fill
+              sizes="(max-width: 1024px) 40px, 48px"
+              className="rounded-full object-cover ring-1 ring-white ring-offset-1"
+            />
+          </div>
         ) : (
-          <ProfileIcon />
+          <div
+            className="relative h-[32px] w-[32px] rounded-full p-0 group-focus-visible:ring-2 group-focus-visible:ring-white lg:h-[40px] lg:w-[40px]"
+            tabIndex={0}
+            aria-label="User profile icon"
+          >
+            <ProfileIcon />
+          </div>
         )}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 py-2" align="end" forceMount>
@@ -69,7 +76,7 @@ const ProfileMenu = ({
 
                 {/* display the users email if it exists */}
                 {userData.email && (
-                  <p className="text-xs leading-none text-gray-600">
+                  <p className="text-sm leading-none text-gray-400">
                     {userData.email}
                   </p>
                 )}
@@ -84,34 +91,44 @@ const ProfileMenu = ({
           <DropdownMenuItem
             onClick={onSignOut}
             className="flex cursor-pointer items-center gap-x-2"
+            role="button"
+            aria-label="Sign out"
           >
             <SignOutIcon />
-            Sign Out
+            <span>Sign Out</span>
           </DropdownMenuItem>
         )}
 
-        {/* display the log in and create acount button if the user is not signed in */}
+        {/* display the log in and create account button if the user is not signed in */}
         {!userData && (
           <Fragment>
-            <DropdownMenuItem className="cursor-pointer text-sm font-semibold text-white focus:bg-slate-800 ">
+            <DropdownMenuItem
+              className="cursor-pointer text-sm font-semibold text-white focus:bg-slate-800"
+              role="button"
+              aria-label="Create account"
+            >
               <Link
                 href={`/sign-up?callbackUrl=${encodeURIComponent(callbackUrl)}`}
                 className="flex w-full items-center gap-x-2"
               >
                 <CreateAccountIcon />
-                Create Account
+                <span>Create Account</span>
               </Link>
             </DropdownMenuItem>
 
             <DropdownMenuSeparator />
 
-            <DropdownMenuItem className="cursor-pointer text-sm">
+            <DropdownMenuItem
+              className="cursor-pointer text-sm"
+              role="button"
+              aria-label="Log in"
+            >
               <Link
                 href={`/login?callbackUrl=${encodeURIComponent(callbackUrl)}`}
                 className="flex w-full items-center gap-x-2"
               >
                 <SignInIcon />
-                Log In
+                <span>Log In</span>
               </Link>
             </DropdownMenuItem>
           </Fragment>

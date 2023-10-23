@@ -21,8 +21,8 @@ const page = async () => {
           my list
         </h1>
       </div>
-      <RenderSlider sectionTitle="Movies" sliderData={popularMovies} />
-      <RenderSlider sectionTitle="TV Series" sliderData={popularTvSeries} />
+      <RenderSlider sectionTitle="Saved Movies" sliderData={popularMovies} />
+      <RenderSlider sectionTitle="Saved TV Series" sliderData={popularTvSeries} />
     </section>
   );
 };

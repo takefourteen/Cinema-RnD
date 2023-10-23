@@ -59,8 +59,6 @@ const page = async () => {
             <Suspense key={item.id} fallback={<LoadingSpinner />}>
               <DiscoveryHeroSectionSliderBody
                 movieOrTvShowDetails={item}
-                // only show priority for the first item
-                priority={index === 0}
               />
             </Suspense>
           ))}

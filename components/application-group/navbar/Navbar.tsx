@@ -134,7 +134,6 @@ const Navbar = () => {
             ) : (
               <ProfileMenu
                 userData={session?.user as UserProfileData}
-                toggleNavBarBgColor={toggleNavBarBgColor}
                 onSignOut={handleSignOut}
                 callbackUrl={currentUrl}
               />
