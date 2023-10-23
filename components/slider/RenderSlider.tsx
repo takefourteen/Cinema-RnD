@@ -10,7 +10,7 @@ import DataFetchingMotionMediaCard from "@/components/cards/DataFetchingMotionMe
 interface RenderSliderProps {
   sliderData: any[];
   sectionTitle: string;
-  showSliderProgress: boolean;
+  showSliderProgress?: boolean;
   viewAllLink?: string;
   listItemsPriority?: boolean;
   largeListItem?: boolean;
