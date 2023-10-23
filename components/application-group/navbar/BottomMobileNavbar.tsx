@@ -19,7 +19,7 @@ const BottomMobileNavbar = () => {
 
   return (
     <nav
-      className="border-t-1 fixed bottom-0 h-[60px] w-full border-white/20 bg-[#000000]  md:hidden"
+      className="border-t-1 fixed bottom-0 z-[10] h-[60px] w-full border-white/20 bg-[#000000]  md:hidden"
       role="navigation"
       aria-label="mobile navigation"
     >

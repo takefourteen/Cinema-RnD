@@ -56,18 +56,18 @@ function Controls({
       <SliderButton
         handleClick={handlePrev}
         aria-label="previous slide"
-        className="absolute left-[-12px] top-0 z-10 h-full bg-gradient-to-l from-black/60 via-black/80 to-black"
+        className="absolute left-[-12px] top-1/2 z-10  translate-y-[-50%] "
       >
-        <IoIosArrowBack className=" h-[80%] w-[80%]" />
+        <IoIosArrowBack className="h-[80%] w-[80%] text-[#181818]" />
       </SliderButton>
 
       {/* right btn */}
       <SliderButton
         handleClick={handleNext}
         aria-label="next slide"
-        className="absolute right-[-12px] top-0 z-10 h-full bg-gradient-to-r from-black/60 via-black/80 to-black"
+        className="absolute right-[-12px] top-1/2 z-10  translate-y-[-50%] "
       >
-        <IoIosArrowForward className=" h-[80%] w-[80%]" />
+        <IoIosArrowForward className="h-[80%] w-[80%] text-[#181818]" />
       </SliderButton>
     </div>
   );

@@ -16,7 +16,7 @@ const SliderButton = ({
     <DetailsButton
       variant={"outline"}
       size={"icon"}
-      className={`rounded-none border-none text-white hover:bg-primaryBlack/80 ${className}`}
+      className={`h-9  w-9 rounded-full  border-white bg-white  text-white hover:bg-white/70 md:h-10 md:w-10 ${className}`}
       onClick={handleClick}
       {...props}
     >
