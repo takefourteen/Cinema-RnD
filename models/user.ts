@@ -10,6 +10,7 @@ const UserSchema = new Schema({
       /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       "Invalid email address",
     ],
+    lowercase: true,
   },
   password: {
     type: String,

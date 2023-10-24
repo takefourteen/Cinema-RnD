@@ -41,7 +41,13 @@ const CreateAccountForm = ({ callbackUrl }: CreateAccountFormProps) => {
 
     try {
       // Create account
-      await createNewUser(userData, callbackUrl);
+      await createNewUser(
+        {
+          ...userData,
+          email: userData.email.toLowerCase(),
+        },
+        callbackUrl,
+      );
     } finally {
       // Set loading to false after a delay
       setTimeout(() => {
