@@ -7,17 +7,15 @@ import LoadingSpinner from "@/components/LoadingSpinner";
 import InfiniteScrollSearchResults from "../../../components/application-group/search-route/InfiniteScrollSearchResults";
 
 type Props = {
-  searchParams: { [key: string]: string };
+  searchParams: { term: string };
 };
 
 const page = ({ searchParams }: Props) => {
-  const { term, page } = searchParams;
-
   return (
     <section className="master-container relative mt-[70px] pb-[80px] pt-10 lg:mt-[90px]">
       <h1 className=" text-3xl font-bold md:text-4xl lg:text-5xl">
         Search Results for:{" "}
-        <span className="text-red-600">&quot;{term}&quot;</span>
+        <span className="text-red-600">&quot;{searchParams.term}&quot;</span>
       </h1>
 
       <Separator className="mb-8 mt-4 h-[1px] bg-gray-800" />
@@ -29,7 +27,7 @@ const page = ({ searchParams }: Props) => {
         className="relative"
       >
         <Suspense fallback={<LoadingSpinner />}>
-          <InfiniteScrollSearchResults searchParams={searchParams} />
+          <InfiniteScrollSearchResults searchTerm={searchParams.term} />
         </Suspense>
       </ul>
     </section>
