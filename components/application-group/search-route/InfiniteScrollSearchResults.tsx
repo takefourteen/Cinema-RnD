@@ -9,11 +9,11 @@ import NoResultsMessage from "./NoResultsMessage";
 import LoadingSpinner from "@/components/LoadingSpinner";
 
 interface InfiniteScrollSearchResultsProps {
-  searchParams: { [key: string]: string };
+  searchTerm: string;
 }
 
 const InfiniteScrollSearchResults = ({
-  searchParams,
+  searchTerm,
 }: InfiniteScrollSearchResultsProps) => {
   // state to show spinner when loading more results
   const [showSpinner, setShowSpinner] = useState(true);
@@ -26,7 +26,7 @@ const InfiniteScrollSearchResults = ({
   const loadMore = useCallback(async () => {
     let newPage = page;
     const newResults = await fetchSearchResults(
-      searchParams.term || "game of thrones",
+      searchTerm || "game of thrones",
       newPage,
     );
 
@@ -38,7 +38,7 @@ const InfiniteScrollSearchResults = ({
     } else {
       setShowSpinner(false); // hide spinner when there are no more results
     }
-  }, [searchParams, page, searchResults]);
+  }, [searchTerm, page, searchResults]);
 
   useEffect(() => {
     if (inView) {
@@ -83,7 +83,7 @@ const InfiniteScrollSearchResults = ({
       {/* no results message */}
       {!showSpinner &&
         (!searchResults.length || searchResults.length === 0) && (
-          <NoResultsMessage searchTerm={searchParams.term} />
+          <NoResultsMessage searchTerm={searchTerm} />
         )}
     </>
   );
