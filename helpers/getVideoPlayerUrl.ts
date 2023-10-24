@@ -23,7 +23,7 @@ export async function getVideoPlayerUrl(
     const response = await fetch(requestUrl);
     const playerUrl = await response.text();
     if (playerUrl.startsWith("https://")) {
-      console.log(`videoId: ${videoId}, playerUrl: ${playerUrl}`);
+      // console.log(`videoId: ${videoId}, playerUrl: ${playerUrl}`);
 
       return playerUrl;
     } else {
