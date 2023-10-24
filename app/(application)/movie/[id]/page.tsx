@@ -5,10 +5,7 @@ import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
 import MovieDetailsTop from "@/components/application-group/movie-route/MovieDetailsTop";
-// import RecommendedMediaList from "@/components/application-group/recommendations/RecommendedMediaList";
-// import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
-// import ExplorerPanel from "@/components/application-group/ExplorerPanel";
-import AnimatedStringLoader from "@/components/AnimatedStringLoader";
+import ListLoadingSkeleton from "@/components/loadingStateComponents/ListLoadingSkeleton";
 
 // lazy load the following components
 const ExplorerPanel = dynamic(
@@ -21,10 +18,7 @@ const RecommendedMediaList = dynamic(
     ),
   {
     loading: () => (
-      <div className="relative flex h-full w-full  justify-start">
-        <span className="text-white/70 font-semibold"> loading recommendations </span> &nbsp;
-        <AnimatedStringLoader loadingString="..." />
-      </div>
+      <ListLoadingSkeleton />
     ),
   },
 );
