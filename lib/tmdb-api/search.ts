@@ -67,10 +67,14 @@ export async function searchTVShows(
 // Function to get all results for any search query
 export async function searchAll(query: string, page: number = 1) {
   const movieResults = await searchMovies(query, page);
+
   const tvResults = await searchTVShows(query, page);
 
   //  combine movie and tv results into one array
   const allResults = [...movieResults.results, ...tvResults.results];
 
-  return allResults;
+  // filter out results that don't have a video url
+  const filteredResults = filterMediaWithVideoUrl(allResults);
+
+  return filteredResults;
 }
