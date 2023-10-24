@@ -1,6 +1,6 @@
 import { getVideoPlayerUrl } from "@/helpers/getVideoPlayerUrl";
 
-import LoadingSpinner from "../LoadingSpinner";
+import LoadingSpinner from "../loadingStateComponents/LoadingSpinner";
 
 interface VideoPlayerProps {
   videoId: string;
@@ -27,7 +27,7 @@ const VideoPlayer: React.FC<VideoPlayerProps> = async ({
 
   return (
     <iframe
-    id="video-player"
+      id="video-player"
       src={playerUrl}
       frameBorder="0"
       allowFullScreen

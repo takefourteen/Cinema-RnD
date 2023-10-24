@@ -6,7 +6,7 @@ import { useInView } from "react-intersection-observer";
 import { fetchSearchResults } from "@/lib/actions";
 import DataFetchingMediaCard from "@/components/cards/DataFetchingMediaCard";
 import NoResultsMessage from "./NoResultsMessage";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import LoadingSpinner from "@/components/loadingStateComponents/LoadingSpinner";
 
 interface InfiniteScrollSearchResultsProps {
   searchTerm: string;

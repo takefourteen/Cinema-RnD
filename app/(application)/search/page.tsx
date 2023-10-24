@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { v4 as uuid } from "uuid";
 
 import { Separator } from "@/components/ui/separator";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import LoadingSpinner from "@/components/loadingStateComponents/LoadingSpinner";
 import InfiniteScrollSearchResults from "../../../components/application-group/search-route/InfiniteScrollSearchResults";
 
 type Props = {

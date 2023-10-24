@@ -12,7 +12,7 @@ import { isTVSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
 import DetailsOnMediaCard from "../application-group/DetailsOnMediaCard";
-import Skeleton from "../Skeleton";
+import Skeleton from "../loadingStateComponents/Skeleton";
 
 type DataFetchingMediaCardProps = {
   mediaId: string;
@@ -53,7 +53,6 @@ const DataFetchingMediaCard = ({
   imgSize = "default",
   inAGrid = false,
 }: DataFetchingMediaCardProps) => {
-
   // Define the fetcher function based on the mediaType
   const fetcher: () => Promise<MovieDetailsData | TVSeriesData> =
     mediaType === "movie"

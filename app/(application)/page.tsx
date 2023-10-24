@@ -5,7 +5,7 @@ import { fetchAllDataForHome } from "@/helpers/fetchAllDataForHome";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 
-import LoadingSpinner from "@/components/LoadingSpinner";
+import LoadingSpinner from "@/components/loadingStateComponents/LoadingSpinner";
 import DiscoverySlider from "@/components/application-group/home-route/hero-section/slider/DiscoverySlider";
 import DiscoveryHeroSectionSliderBody from "@/components/application-group/home-route/hero-section/slider/DiscoveryHeroSectionSliderBody";
 import YourLibrary from "@/components/application-group/home-route/YourLibrary";
@@ -16,6 +16,7 @@ import ColorFulBanner from "@/components/application-group/legecy-home-route/Col
 // dynamically import the slider
 const RenderSlider = dynamic(() => import("@/components/slider/RenderSlider"), {
   ssr: false,
+  loading: () => <LoadingSpinner />,
 });
 
 // ===================================
@@ -55,12 +56,11 @@ const page = async () => {
        */}
       <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
         <ul className="flex gap-x-0">
-          {movieAndTvShowDetails.map((item, index) => (
-            <Suspense key={item.id} fallback={<LoadingSpinner />}>
-              <DiscoveryHeroSectionSliderBody
-                movieOrTvShowDetails={item}
-              />
-            </Suspense>
+          {movieAndTvShowDetails.map((item) => (
+            <DiscoveryHeroSectionSliderBody
+              key={item.id}
+              movieOrTvShowDetails={item}
+            />
           ))}
         </ul>
       </DiscoverySlider>

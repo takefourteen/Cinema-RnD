@@ -6,9 +6,9 @@ import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { calculateDaysFromToday } from "@/helpers/calculateDaysFromToday";
 
 import EpisodeListItem from "./EpisodeListItem";
-import AnimatedStringLoader from "@/components/AnimatedStringLoader";
+import AnimatedStringLoader from "@/components/loadingStateComponents/AnimatedStringLoader";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import LoadingSpinner from "@/components/LoadingSpinner";
+import LoadingSpinner from "@/components/loadingStateComponents/LoadingSpinner";
 
 type EpisodesListProps = {
   tvSeriesId: string;

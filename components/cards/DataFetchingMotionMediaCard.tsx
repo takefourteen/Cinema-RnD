@@ -12,7 +12,7 @@ import { isTVSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
 import DetailsOnMediaCard from "../application-group/DetailsOnMediaCard";
-import Skeleton from "../Skeleton";
+import Skeleton from "../loadingStateComponents/Skeleton";
 
 type DataFetchingMotionMediaCardProps = {
   mediaId: string;

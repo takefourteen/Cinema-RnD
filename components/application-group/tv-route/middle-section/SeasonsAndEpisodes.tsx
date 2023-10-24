@@ -6,8 +6,8 @@ import { useState } from "react";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import SeasonSelect from "./SeasonSelect";
 import EpisodesList from "./EpisodesList";
-import LoadingSpinner from "@/components/LoadingSpinner";
-import Skeleton from "@/components/Skeleton";
+import LoadingSpinner from "@/components/loadingStateComponents/LoadingSpinner";
+import Skeleton from "@/components/loadingStateComponents/Skeleton";
 
 type SeasonsAndEpisodesProps = {
   tvSeriesId: string;
