@@ -53,6 +53,7 @@ const DataFetchingMediaCard = ({
   imgSize = "default",
   inAGrid = false,
 }: DataFetchingMediaCardProps) => {
+
   // Define the fetcher function based on the mediaType
   const fetcher: () => Promise<MovieDetailsData | TVSeriesData> =
     mediaType === "movie"
@@ -61,6 +62,12 @@ const DataFetchingMediaCard = ({
 
   // Fetch the media details based on the mediaType
   const { data: mediaDetails, error, isLoading } = useSWR(mediaId, fetcher);
+
+  if (error) {
+    // throw error;
+    console.error(error);
+    return null;
+  }
 
   if (isLoading) {
     return (
@@ -74,10 +81,6 @@ const DataFetchingMediaCard = ({
         </AspectRatio>
       </div>
     );
-  }
-
-  if (error) {
-    throw error;
   }
 
   // if data is undefined, return null
