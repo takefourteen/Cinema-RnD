@@ -16,7 +16,7 @@ const LoadingSpinner = () => {
           y2="64"
           strokeLinecap="round"
           strokeLinejoin="round"
-          stroke-width="24"
+          strokeWidth="24"
         ></line>
         <line
           x1="195.9"
@@ -25,7 +25,7 @@ const LoadingSpinner = () => {
           y2="82.7"
           strokeLinecap="round"
           strokeLinejoin="round"
-          stroke-width="24"
+          strokeWidth="24"
         ></line>
         <line
           x1="224"
@@ -34,7 +34,7 @@ const LoadingSpinner = () => {
           y2="128"
           strokeLinecap="round"
           strokeLinejoin="round"
-          stroke-width="24"
+          strokeWidth="24"
         ></line>
         <line
           x1="195.9"
@@ -43,7 +43,7 @@ const LoadingSpinner = () => {
           y2="173.3"
           strokeLinecap="round"
           strokeLinejoin="round"
-          stroke-width="24"
+          strokeWidth="24"
         ></line>
         <line
           x1="128"
@@ -52,7 +52,7 @@ const LoadingSpinner = () => {
           y2="192"
           strokeLinecap="round"
           strokeLinejoin="round"
-          stroke-width="24"
+          strokeWidth="24"
         ></line>
         <line
           x1="60.1"
@@ -61,7 +61,7 @@ const LoadingSpinner = () => {
           y2="173.3"
           strokeLinecap="round"
           strokeLinejoin="round"
-          stroke-width="24"
+          strokeWidth="24"
         ></line>
         <line
           x1="32"
@@ -70,7 +70,7 @@ const LoadingSpinner = () => {
           y2="128"
           strokeLinecap="round"
           strokeLinejoin="round"
-          stroke-width="24"
+          strokeWidth="24"
         ></line>
         <line
           x1="60.1"
@@ -79,7 +79,7 @@ const LoadingSpinner = () => {
           y2="82.7"
           strokeLinecap="round"
           strokeLinejoin="round"
-          stroke-width="24"
+          strokeWidth="24"
         ></line>
       </svg>
     </div>
