@@ -1,22 +1,19 @@
-"use client"
-
 import React from "react";
 import Link from "next/link";
 
 import { getImagePathFromImagesData } from "@/helpers/getImagePathFromImagesData";
 import { slugify } from "@/helpers/slugify";
 
-import {
-  AiOutlineInfoCircle as InfoIcon,
-  AiOutlineCheck as Check,
-} from "react-icons/ai";
+
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
+import { DetailsButton } from "@/components/DetailsButton";
 import ResponsiveBackgroundPoster from "../ResponsiveBackgroundPoster";
 import TitleLogo from "../TitleLogo";
 import ImdbRating from "../ImdbRating";
 import Overview from "../Overview";
-import { DetailsButton } from "@/components/DetailsButton";
 import Chip from "../Chip";
+import AddToLibraryButton from "../AddToLibraryButton";
+
 
 type TvSeriesDetailsProps = {
   tvSeriesData: TVSeriesData;
@@ -28,22 +25,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
   imagesData,
 }) => {
 
-  // add the tv series to the library
- const handleAddToLibrary = async () => {
-  // make a post request to the server - api/library/add
-  const response = await fetch("/api/library/add", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      mediaType: "tv",
-      mediaId: tvSeriesData.id,
-      mediaName: tvSeriesData.original_name,
-    }),
-  });
-}
-
+  // get the backdrop path
   const backdropPath = getImagePathFromImagesData(
     "backdropPath",
     imagesData,
@@ -125,13 +107,11 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
             </DetailsButton>
 
             {/* add to library button */}
-            <DetailsButton
-              onClick={handleAddToLibrary}
-              variant={"outline"}
-              className="font-button-text flex h-10 gap-x-2 capitalize text-white "
-            >
-              <Check className=" h-7 w-7" /> <span>my List</span>
-            </DetailsButton>
+            <AddToLibraryButton
+              mediaType="tv"
+              mediaId={tvSeriesData.id}
+              mediaName={tvSeriesData.original_name}
+            />
           </div>
 
           {/* tv starring, if there is a cast to display */}
