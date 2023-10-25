@@ -2,19 +2,14 @@ import Link from "next/link";
 
 import { slugify } from "@/helpers/slugify";
 
-import { IoMdAdd } from "react-icons/io";
-import {
-  AiOutlineInfoCircle as InfoIcon,
-  AiOutlineCheck as Check,
-} from "react-icons/ai";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
-import { Button } from "@/components/ui/button";
 import { DetailsButton } from "@/components/DetailsButton";
 import Chip from "../Chip";
 import Overview from "../Overview";
 import ResponsiveBackgroundPoster from "../ResponsiveBackgroundPoster";
 import ImdbRating from "../ImdbRating";
 import TitleLogo from "../TitleLogo";
+import AddToLibraryButton from "../AddToLibraryButton";
 
 interface MovieHeaderProps {
   movieDetails: MovieDetailsData;
@@ -121,12 +116,11 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = ({
               </Link>
             </DetailsButton>
             {/* add to library button */}
-            <DetailsButton
-              variant={"outline"}
-              className="font-button-text flex h-10 gap-x-2 capitalize text-white "
-            >
-              <Check className=" h-7 w-7" /> <span>my List</span>
-            </DetailsButton>
+            <AddToLibraryButton
+              mediaType="movie"
+              mediaId={movieDetails.id}
+              mediaName={movieDetails.original_title}
+            />
           </div>
 
           {/* movie starring, if there is a cast to display */}
