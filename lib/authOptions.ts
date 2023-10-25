@@ -60,13 +60,15 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as { id: string }).id = token.id as string;
-        (session.user as { role: string }).role = token.role as string;
-        (session.user as { email: string }).email = token.email as string;
-        (session.user as { firstName: string }).firstName =
-          token.firstName as string;
-        (session.user as { lastName: string }).lastName =
-          token.lastName as string;
+        //   (session.user as { id: string }).id = token.id as string;
+        //   (session.user as { role: string }).role = token.role as string;
+        //   (session.user as { email: string }).email = token.email as string;
+        //   (session.user as { firstName: string }).firstName =
+        //     token.firstName as string;
+        //   (session.user as { lastName: string }).lastName =
+        //     token.lastName as string;
+
+        session.user = token;
       }
       return session;
     },

@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import Link from "next/link";
 
@@ -26,6 +28,21 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
   imagesData,
 }) => {
 
+  // add the tv series to the library
+ const handleAddToLibrary = async () => {
+  // make a post request to the server - api/library/add
+  const response = await fetch("/api/library/add", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      mediaType: "tv",
+      mediaId: tvSeriesData.id,
+      mediaName: tvSeriesData.original_name,
+    }),
+  });
+}
 
   const backdropPath = getImagePathFromImagesData(
     "backdropPath",
@@ -106,8 +123,10 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
                 <PlayIcon className="h-8 w-8" /> Play S1 EP1
               </Link>
             </DetailsButton>
+
             {/* add to library button */}
             <DetailsButton
+              onClick={handleAddToLibrary}
               variant={"outline"}
               className="font-button-text flex h-10 gap-x-2 capitalize text-white "
             >

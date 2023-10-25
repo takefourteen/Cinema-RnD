@@ -36,6 +36,10 @@ const UserSchema = new Schema({
           type: String,
           required: true,
         },
+        title: {
+          type: String,
+          required: true,
+        },
         type: {
           type: String,
           enum: ["movie", "tv"],
@@ -55,6 +59,10 @@ const UserSchema = new Schema({
         type: {
           type: String,
           enum: ["movie", "tv"],
+          required: true,
+        },
+        title: {
+          type: String,
           required: true,
         },
         watchedAt: {
