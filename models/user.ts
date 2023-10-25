@@ -1,6 +1,18 @@
 import { Model, Schema, model, models } from "mongoose";
 import bcrypt from "bcrypt";
 
+const MediaSchema = new Schema({
+  id: {
+    type: String,
+    required: true,
+  },
+  type: {
+    type: String,
+    enum: ["movie", "tv"],
+    required: true,
+  },
+});
+
 const UserSchema = new Schema(
   {
     email: {
@@ -29,6 +41,10 @@ const UserSchema = new Schema(
       type: String,
       enum: ["user", "admin"],
       default: "user",
+    },
+    library: {
+      type: [MediaSchema],
+      default: [],
     },
   },
   { timestamps: true },
