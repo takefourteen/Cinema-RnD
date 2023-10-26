@@ -119,7 +119,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = ({
             <AddToLibraryButton
               mediaType="movie"
               mediaId={movieDetails.id}
-              mediaName={movieDetails.original_title}
+              mediaTitle={movieDetails.original_title}
             />
           </div>
 

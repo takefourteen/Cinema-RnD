@@ -4,7 +4,6 @@ import Link from "next/link";
 import { getImagePathFromImagesData } from "@/helpers/getImagePathFromImagesData";
 import { slugify } from "@/helpers/slugify";
 
-
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { DetailsButton } from "@/components/DetailsButton";
 import ResponsiveBackgroundPoster from "../ResponsiveBackgroundPoster";
@@ -13,7 +12,6 @@ import ImdbRating from "../ImdbRating";
 import Overview from "../Overview";
 import Chip from "../Chip";
 import AddToLibraryButton from "../AddToLibraryButton";
-
 
 type TvSeriesDetailsProps = {
   tvSeriesData: TVSeriesData;
@@ -24,7 +22,6 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
   tvSeriesData,
   imagesData,
 }) => {
-
   // get the backdrop path
   const backdropPath = getImagePathFromImagesData(
     "backdropPath",
@@ -110,7 +107,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
             <AddToLibraryButton
               mediaType="tv"
               mediaId={tvSeriesData.id}
-              mediaName={tvSeriesData.original_name}
+              mediaTitle={tvSeriesData.original_name}
             />
           </div>
 
