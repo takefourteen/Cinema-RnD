@@ -76,8 +76,7 @@ const DetailsAboutShowSection = async ({
         {/* -------------------------------------------- */}
 
         {/* poster image on large screens and above */}
-        <div className="hidden lg:block">
-          <div className="relative h-auto w-[200px] lg:w-[300px]">
+          <div className="relative hidden lg:block h-auto w-[200px] lg:w-[300px]">
             <AspectRatio ratio={2 / 3}>
               <ImageLoader
                 loaderType="spinner"
@@ -90,16 +89,7 @@ const DetailsAboutShowSection = async ({
             </AspectRatio>
           </div>
 
-          {/* add to library button - shows on large screens */}
-          <div className="mt-6">
-            <Button
-              variant={"outline"}
-              className="flex w-full items-center justify-center rounded-sm text-base font-semibold text-white "
-            >
-              <IoMdAdd className="mr-2 inline-block h-5 w-5" /> Add to Library
-            </Button>
-          </div>
-        </div>
+         
 
         <div className="text-start text-white ">
           {/* movie title*/}
@@ -115,7 +105,7 @@ const DetailsAboutShowSection = async ({
           {/* ------------------------------------------------ */}
           {/* movie overview */}
           {/* ------------------------------------------------ */}
-          <p className="font-body-text mt-6 tracking-wide text-white lg:mt-8 lg:max-w-[36rem] ">
+          <p className="font-body-text mt-6 max-w-[32rem] tracking-wide text-white md:max-w-[36rem] lg:mt-8 lg:max-w-[42rem]">
             {showDetails.overview}
           </p>
 
@@ -147,6 +137,9 @@ const DetailsAboutShowSection = async ({
             </div>
           )}
 
+
+<div className="flex flex-col w-max">
+
           {/* movie rating, movie duration or num of seasons, and release date */}
           <div className="items-cemter font-small-text mt-4 flex flex-wrap lg:mt-6">
             {/* <p className="flex items-center tracking-wide text-white/70 ">
@@ -169,14 +162,15 @@ const DetailsAboutShowSection = async ({
           </div>
 
           {/* add to library button - shows on small screens */}
-          <div className="mt-6 lg:hidden">
+          <div className="mt-6">
             <Button
               variant={"outline"}
-              className="font-button-text flex w-full items-center justify-center rounded-sm  text-white "
+              className="font-button-text flex items-center justify-center rounded-sm  text-white "
             >
               <IoMdAdd className="mr-2 inline-block h-5 w-5" /> Add to Library
             </Button>
           </div>
+</div>
         </div>
       </div>
     </section>
