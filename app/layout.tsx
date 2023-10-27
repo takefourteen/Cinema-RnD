@@ -55,7 +55,7 @@ export default async function RootLayout({
 
           {/* Get Toast Notifications */}
           <Suspense fallback={null}>
-            <Toaster richColors position="top-center" closeButton expand />
+            <Toaster richColors position="top-center" expand />
           </Suspense>
         </Providers>
       </body>

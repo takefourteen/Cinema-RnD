@@ -5,14 +5,13 @@ import { slugify } from "@/helpers/slugify";
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
-import { IoMdAdd as AddIcon } from "react-icons/io";
-// import { IoInformation as InfoIcon } from "react-icons/io5";
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { AiOutlineInfo as InfoIcon } from "react-icons/ai";
 import { DetailsButton } from "@/components/DetailsButton";
 import ImdbRating from "../ImdbRating";
 import TitleLogo from "../TitleLogo";
 import ImageLoader from "@/components/ImageLoader";
+import ServerAddToLibraryButton from "../addToLibraryComponent/ServerAddToLibraryButton";
 
 type ShowDetailsSmallScreenProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
@@ -163,16 +162,15 @@ const ShowDetailsSmallScreen = async ({
         <ImdbRating rating={voteAverage} />
       </div>
 
-      {/* play and info btns */}
+      {/*library, play and info btns */}
       <div className="mt-6 flex h-max w-full items-start justify-center gap-x-10 md:gap-x-12 lg:mt-4 ">
         {/* add to library button */}
-        <DetailsButton
-          variant={"outline"}
-          className="flex flex-col items-center justify-center gap-y-1 border-none p-0   text-white transition-colors hover:bg-transparent hover:text-white/70"
-        >
-          <AddIcon className=" h-6 w-6 rounded-full ring-1 ring-white ring-offset-1" />{" "}
-          <span>Library</span>
-        </DetailsButton>
+        <ServerAddToLibraryButton
+          mediaType={type}
+          mediaId={movieOrTvShowDetails.id}
+          mediaTitle={movieOrTvShowTitle}
+          size="small"
+        />
 
         {/* play button */}
         <DetailsButton asChild className=" font-button-text h-10 px-8 ">

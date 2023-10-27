@@ -19,8 +19,9 @@ const Navbar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
+  const callbackUrl = `${pathname}?${searchParams}`;
   const { data: session, status } = useSession();
+  
   const [scroll, setScroll] = useState(false);
   const [darkenBackground, setDarkenBackground] = useState<boolean>(false);
   const isScreenWithoutNavbarScrollEffect = [
@@ -33,12 +34,6 @@ const Navbar = () => {
   ].includes(pathname.split("/")[1]);
   const scrollThreshold = 90; // Adjust this threshold as needed
 
-  const [currentUrl, setCurrentUrl] = useState<string>("/");
-
-  useEffect(() => {
-    const url = `${pathname}?${searchParams}`;
-    setCurrentUrl(url);
-  }, [pathname, searchParams]);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -135,7 +130,7 @@ const Navbar = () => {
               <ProfileMenu
                 userData={session?.user as UserProfileData}
                 onSignOut={handleSignOut}
-                callbackUrl={currentUrl}
+                callbackUrl={callbackUrl}
               />
             )}
           </div>

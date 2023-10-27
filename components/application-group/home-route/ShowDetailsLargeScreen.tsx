@@ -1,7 +1,5 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { Suspense } from "react";
 
 import { slugify } from "@/helpers/slugify";
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
@@ -17,6 +15,7 @@ import { DetailsButton } from "@/components/DetailsButton";
 import ImdbRating from "../ImdbRating";
 import Overview from "../Overview";
 import TitleLogo from "../TitleLogo";
+import ServerAddToLibraryButton from "../addToLibraryComponent/ServerAddToLibraryButton";
 
 type ShowDetailsLargeScreenProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
@@ -161,12 +160,11 @@ const ShowDetailsLargeScreen = async ({
       <div className="mt-2 flex h-max w-max flex-col gap-y-2  capitalize lg:mt-4 ">
         <div className="flex gap-x-2">
           {/* add to lib button */}
-          <DetailsButton
-            variant={"outline"}
-            className="font-button-text flex h-10 items-center justify-center gap-x-2 capitalize text-white "
-          >
-            <Check className=" h-7 w-7" /> <span>my List</span>
-          </DetailsButton>
+          <ServerAddToLibraryButton
+            mediaId={movieOrTvShowDetails.id}
+            mediaType={type}
+            mediaTitle={movieOrTvShowTitle}
+          />
 
           {/* info button */}
           <DetailsButton

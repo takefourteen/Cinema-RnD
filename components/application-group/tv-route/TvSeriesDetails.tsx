@@ -11,7 +11,7 @@ import TitleLogo from "../TitleLogo";
 import ImdbRating from "../ImdbRating";
 import Overview from "../Overview";
 import Chip from "../Chip";
-import AddToLibraryButton from "../AddToLibraryButton";
+import ServerAddToLibraryButton from "../addToLibraryComponent/ServerAddToLibraryButton";
 
 type TvSeriesDetailsProps = {
   tvSeriesData: TVSeriesData;
@@ -104,7 +104,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
             </DetailsButton>
 
             {/* add to library button */}
-            <AddToLibraryButton
+            <ServerAddToLibraryButton
               mediaType="tv"
               mediaId={tvSeriesData.id}
               mediaTitle={tvSeriesData.original_name}

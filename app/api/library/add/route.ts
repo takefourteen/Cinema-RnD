@@ -61,14 +61,16 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
       return NextResponse.json(response, { status: 422 });
     }
 
-    // Add the new item to the user's library
+    // Add the new item to the beginning of the user's library
     const result = await User.findOneAndUpdate(
       { email: session.user?.email },
       {
-        $push: { library: { id: mediaId, type: mediaType, title: mediaTitle } },
+        $push: { library: { $each: [{ id: mediaId, type: mediaType, title: mediaTitle }], $position: 0 } },
       },
       { new: true },
     );
+    
+
     const response: LibraryResponse = {
       message: "Item added to library",
       library: result.library,
