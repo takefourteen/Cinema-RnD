@@ -93,7 +93,7 @@ const ClientAddToLibraryButton = ({
     } finally {
       setAddingToLibrary(false);
     }
-  }, [mediaType, mediaId, mediaTitle, session, toast]);
+  }, [mediaType, mediaId, mediaTitle, session, router]);
 
   // Create a button component
   const ButtonComponent = useMemo(() => {
