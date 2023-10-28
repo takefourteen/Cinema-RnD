@@ -99,7 +99,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
             {/* play button */}
             <DetailsButton asChild className=" font-button-text  h-10 gap-x-1 ">
               <Link href={`${watchTvUrl}`}>
-                <PlayIcon className="h-8 w-8" /> Play S1 EP1
+                <PlayIcon className="h-8 w-8" /> S1 EP1
               </Link>
             </DetailsButton>
 

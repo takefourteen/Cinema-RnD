@@ -38,7 +38,7 @@ const Tabs = () => {
           ref={(el) => (tabRef.current[1] = el!)}
           className="border-none text-center hover:bg-transparent"
         >
-          More like this
+          Similar
         </DetailsButton>
         <DetailsButton
           variant={"outline"}

@@ -46,11 +46,9 @@ const ServerAddToLibraryButton = async ({
     mediaType as "movie" | "tv",
   );
 
-  console.log("isSavedToLibrary", isSavedToLibrary);
-
   // If the item is already in the library, show a tag
   if (isSavedToLibrary) {
-    return <SavedToLibraryTag />;
+    return <SavedToLibraryTag size={size} />;
   }
 
   return (

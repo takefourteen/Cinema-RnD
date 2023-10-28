@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useState,  useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
@@ -104,7 +104,7 @@ const ClientAddToLibraryButton = ({
         variant={"outline"}
         className={`${
           size === "small"
-            ? "flex flex-col items-center justify-center gap-y-1 border-none p-0 capitalize text-white transition-colors hover:bg-transparent hover:text-white/70"
+            ? "flex flex-col items-center justify-center gap-y-0 border-none p-0 capitalize text-white transition-colors hover:bg-transparent hover:text-white/70"
             : `font-button-text flex h-10 gap-x-2 capitalize text-white ${className}`
         }`}
       >
@@ -117,12 +117,12 @@ const ClientAddToLibraryButton = ({
           <>
             {size === "small" ? (
               <>
-                <AddIcon className="h-6 w-6 rounded-full ring-1 ring-white ring-offset-1" />{" "}
-                <span>my List</span>
+                <Check className="h-6 w-6 " />{" "}
+                <span>Save</span>
               </>
             ) : (
               <>
-                <Check className="h-7 w-7" /> <span>my List</span>
+                <AddIcon className="h-7 w-7" /> <span>Add to Library</span>
               </>
             )}
           </>

@@ -98,7 +98,7 @@ const page = async ({ params, searchParams }: PageProps) => {
     },
     {
       key: "recommended",
-      title: "More Like This",
+      title: "Similar",
       content: (
         <RecommendedMediaList
           mediaId={tvSeriesId}

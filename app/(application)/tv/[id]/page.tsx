@@ -14,9 +14,7 @@ const RecommendedMediaList = dynamic(
       "@/components/application-group/recommendations/RecommendedMediaList"
     ),
   {
-    loading: () => (
-      <ListLoadingSkeleton />
-    ),
+    loading: () => <ListLoadingSkeleton />,
   },
 );
 
@@ -31,9 +29,7 @@ const SeasonsAndEpisodes = dynamic(
     ),
 
   {
-    loading: () => (
-      <ListLoadingSkeleton />
-    ),
+    loading: () => <ListLoadingSkeleton />,
   },
 );
 
@@ -78,7 +74,7 @@ const page = async ({ params }: PageProps) => {
     },
     {
       key: "recommended",
-      title: "More Like This",
+      title: "Similar",
       content: (
         <RecommendedMediaList
           mediaId={tvSeriesId}
