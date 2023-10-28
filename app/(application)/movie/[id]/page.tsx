@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
@@ -31,8 +32,14 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
-  //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
+  // get the movie id from the params
   const movieId = params.id.split("-").pop() as string;
+
+
+  // if there is no movie id in the url, redirect to the not found page
+  if (!movieId || movieId === "") {
+    return notFound();
+  }
 
   // fetch the tv details and images
   const moviesPromise = fetchMovieDetails(movieId, 0);
