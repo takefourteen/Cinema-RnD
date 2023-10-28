@@ -1,11 +1,16 @@
 "use client";
 
 import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
 import SectionHeader from "@/components/SectionHeader";
 import SliderBody from "@/components/slider/SliderBody";
 import Slider from "@/components/slider/Slider";
-import DataFetchingMotionMediaCard from "@/components/cards/DataFetchingMotionMediaCard";
+
+const DataFetchingMotionMediaCard = dynamic(
+  () => import("@/components/cards/DataFetchingMotionMediaCard"),
+  { ssr: false },
+);
 
 interface RenderSliderProps {
   sliderData: any[];
