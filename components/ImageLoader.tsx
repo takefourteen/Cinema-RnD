@@ -3,8 +3,8 @@
 import Image, { StaticImageData } from "next/image";
 import { useState } from "react";
 
-import LoadingSpinner from "./loadingStateComponents/LoadingSpinner";
-import Skeleton from "@/components/loadingStateComponents/Skeleton";
+import LoadingSpinner from "./skeletons/LoadingSpinner";
+import Skeleton from "@/components/skeletons/Skeleton";
 
 interface ImageLoaderProps
   extends React.ComponentPropsWithoutRef<typeof Image> {

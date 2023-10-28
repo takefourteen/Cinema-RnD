@@ -1,6 +1,6 @@
 import { getVideoPlayerUrl } from "@/helpers/getVideoPlayerUrl";
 
-import LoadingSpinner from "../loadingStateComponents/LoadingSpinner";
+import LoadingSpinner from "../skeletons/LoadingSpinner";
 
 interface VideoPlayerProps {
   videoId: string;

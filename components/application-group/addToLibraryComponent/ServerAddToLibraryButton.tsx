@@ -5,16 +5,19 @@ import dynamic from "next/dynamic";
 import { isItemInUserLibrary } from "@/lib/mongodb-api/isItemInUserLibrary";
 
 import SavedToLibraryTag from "../../ui/SavedToLibraryTag";
-import LoadingSpinner from "@/components/loadingStateComponents/LoadingSpinner";
+import LoadingSpinner from "@/components/skeletons/LoadingSpinner";
 // import ClientAddToLibraryButton from "./ClientAddToLibraryButton";
 // dynamically load the ClientAddToLibraryButton component
 const ClientAddToLibraryButton = dynamic(
   () => import("./ClientAddToLibraryButton"),
   {
-    ssr: false, 
-    loading: () =>  <div className="h-10 w-10 p-1"><LoadingSpinner /></div>,
-  }
-  
+    ssr: false,
+    loading: () => (
+      <div className="h-10 w-10 p-1">
+        <LoadingSpinner />
+      </div>
+    ),
+  },
 );
 
 type Props = {

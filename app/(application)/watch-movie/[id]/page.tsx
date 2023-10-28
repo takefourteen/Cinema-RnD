@@ -7,7 +7,7 @@ import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 
 import VideoPlayer from "@/components/application-group/VideoPlayer";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
-import ListLoadingSkeleton from "@/components/loadingStateComponents/ListLoadingSkeleton";
+import ListLoadingSkeleton from "@/components/skeletons/ListLoadingSkeleton";
 
 // lazy load the following components
 const RecommendedMediaList = dynamic(

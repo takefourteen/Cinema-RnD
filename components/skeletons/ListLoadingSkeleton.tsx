@@ -1,4 +1,4 @@
-import Skeleton from "@/components/loadingStateComponents/Skeleton";
+import Skeleton from "@/components/skeletons/Skeleton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import React from "react";
 

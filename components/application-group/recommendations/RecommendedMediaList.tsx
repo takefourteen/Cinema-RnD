@@ -8,7 +8,7 @@ import {
 } from "@/lib/tmdb-api/recommendations";
 import { fetchShowsByGenre } from "@/helpers/fetchShowsByGenres";
 
-import Skeleton from "@/components/loadingStateComponents/Skeleton";
+import Skeleton from "@/components/skeletons/Skeleton";
 import RecommendedMediaImage from "./RecommendedMediaImage";
 
 type RecommendedMediaListProps = {

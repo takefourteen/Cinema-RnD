@@ -1,4 +1,4 @@
-import LoadingSpinner from "@/components/loadingStateComponents/LoadingSpinner";
+import LoadingSpinner from "@/components/skeletons/LoadingSpinner";
 import {
   fetchMultiplePagesOfPopularMovies,
   fetchMultiplePagesOfPopularTvSeries,
@@ -23,8 +23,16 @@ const page = async () => {
           my list
         </h1>
       </div>
-      <RenderSlider sectionTitle="Saved Movies" sliderData={popularMovies} largeListItem={false} />
-      <RenderSlider sectionTitle="Saved TV Series" sliderData={popularTvSeries} largeListItem={false}/>
+      <RenderSlider
+        sectionTitle="Saved Movies"
+        sliderData={popularMovies}
+        largeListItem={false}
+      />
+      <RenderSlider
+        sectionTitle="Saved TV Series"
+        sliderData={popularTvSeries}
+        largeListItem={false}
+      />
     </section>
   );
 };

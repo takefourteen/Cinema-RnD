@@ -5,7 +5,7 @@ import Hero from "@/components/application-group/legecy-home-route/hero-section/
 import ColorFulBanner from "@/components/application-group/legecy-home-route/ColorFulBanner";
 import FAQ from "@/components/application-group/legecy-home-route/FAQ";
 import Discovery from "@/components/application-group/legecy-home-route/Discovery";
-import LoadingSpinner from "@/components/loadingStateComponents/LoadingSpinner";
+import LoadingSpinner from "@/components/skeletons/LoadingSpinner";
 
 // ===================================
 // Time-based Revalidation in Next.js

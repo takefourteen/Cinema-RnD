@@ -6,7 +6,7 @@ import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
 import MovieDetailsTop from "@/components/application-group/movie-route/MovieDetailsTop";
-import ListLoadingSkeleton from "@/components/loadingStateComponents/ListLoadingSkeleton";
+import ListLoadingSkeleton from "@/components/skeletons/ListLoadingSkeleton";
 
 // lazy load the following components
 const ExplorerPanel = dynamic(

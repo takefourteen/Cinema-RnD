@@ -4,7 +4,7 @@ import { fetchAllDataForHome } from "@/helpers/fetchAllDataForHome";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 
-import LoadingSpinner from "@/components/loadingStateComponents/LoadingSpinner";
+import LoadingSpinner from "@/components/skeletons/LoadingSpinner";
 import DiscoverySlider from "@/components/application-group/home-route/hero-section/slider/DiscoverySlider";
 import DiscoveryHeroSectionSliderBody from "@/components/application-group/home-route/hero-section/slider/DiscoveryHeroSectionSliderBody";
 import YourLibrary from "@/components/application-group/home-route/YourLibrary";
