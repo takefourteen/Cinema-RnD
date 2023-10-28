@@ -1,4 +1,5 @@
 import dynamic from "next/dynamic";
+import { notFound } from "next/navigation";
 
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchImages } from "@/lib/tmdb-api/images";
@@ -40,18 +41,24 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
-  // id from the params is a string with the tv series id and the tv series name seperated by a dash, so we split the string and get the id
+  // get the tv series id from the params
   const tvSeriesId: string = params.id.split("-").pop() as string;
 
-  // fetch the tv details and images
-  const tvSeriesPromise = fetchTvSeriesDetails(tvSeriesId, 0, "credits");
-  const imagesPromise = fetchImages(tvSeriesId, "tv");
+  // if there is no tv series id in the url, redirect to the not found page
+  if (!tvSeriesId || tvSeriesId === "") {
+    return notFound();
+  }
 
-  // wait for both promises to resolve
-  const [tvSeriesData, imagesData] = await Promise.all([
-    tvSeriesPromise,
-    imagesPromise,
-  ]);
+  // fetch the tv details and images
+  let tvSeriesData;
+  let imagesData;
+  try {
+    tvSeriesData = await fetchTvSeriesDetails(tvSeriesId, 0);
+    imagesData = await fetchImages(tvSeriesId, "tv");
+  } catch (error) {
+    console.error("error: ", error);
+    return notFound();
+  }
 
   // Calculate the number of valid seasons
   const numberOfSeasons = tvSeriesData.seasons.filter(

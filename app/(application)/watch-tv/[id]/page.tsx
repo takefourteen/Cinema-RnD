@@ -1,8 +1,7 @@
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Script from "next/script";
-import { getServerSession } from "next-auth";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchTvSeriesExternalIds } from "@/lib/tmdb-api/external-ids";
@@ -50,34 +49,26 @@ type PageProps = {
 };
 
 const page = async ({ params, searchParams }: PageProps) => {
-  // if there is no season or episode in the url, redirect to the not found page
-  if (!searchParams.season || !searchParams.episode) {
-    return notFound();
-  }
-
-  const session = await getServerSession();
-
   //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
   const tvSeriesId = params.id.split("-").pop() as string;
   const season = searchParams.season;
   const episode = searchParams.episode;
 
-  const callbackUrl = encodeURIComponent(
-    `/watch-tv/${params.id}?season=${season}&episode=${episode}`,
-  );
-
-  if (!session) {
-    redirect(`/login?callbackUrl=${callbackUrl}`);
+  // if there is no season, episode or id in the url, redirect to the not found page
+  if (!searchParams.season || !searchParams.episode || !tvSeriesId) {
+    return notFound();
   }
 
   // fetch external ids - imdb id & fetch the tv series details
-  const externalIdsPromise = fetchTvSeriesExternalIds(tvSeriesId);
-  const tvSeriesDetailsPromise = fetchTvSeriesDetails(tvSeriesId, 0);
-
-  const [externalIds, tvSeriesDetails] = await Promise.all([
-    externalIdsPromise,
-    tvSeriesDetailsPromise,
-  ]);
+  let externalIds;
+  let tvSeriesDetails;
+  try {
+    externalIds = await fetchTvSeriesExternalIds(tvSeriesId);
+    tvSeriesDetails = await fetchTvSeriesDetails(tvSeriesId, 0, "credits");
+  } catch (error) {
+    console.error("error: ", error);
+    return notFound();
+  }
 
   console.log("imdb id: ", externalIds.imdb_id);
 

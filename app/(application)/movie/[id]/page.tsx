@@ -35,21 +35,21 @@ const page = async ({ params }: PageProps) => {
   // get the movie id from the params
   const movieId = params.id.split("-").pop() as string;
 
-
   // if there is no movie id in the url, redirect to the not found page
   if (!movieId || movieId === "") {
     return notFound();
   }
 
   // fetch the tv details and images
-  const moviesPromise = fetchMovieDetails(movieId, 0);
-  const imagesPromise = fetchImages(movieId, "movie");
-
-  // wait for both promises to resolve
-  const [moviesData, imagesData] = await Promise.all([
-    moviesPromise,
-    imagesPromise,
-  ]);
+  let moviesData;
+  let imagesData;
+  try {
+    moviesData = await fetchMovieDetails(movieId, 0);
+    imagesData = await fetchImages(movieId, "movie");
+  } catch (error) {
+    console.error("error: ", error);
+    return notFound();
+  }
 
   // structure genreIds as an array of numbers
   const genreIds = moviesData.genres.map((genre) => genre.id);

@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 import Script from "next/script";
-import {  notFound } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 
@@ -30,10 +30,8 @@ type PageProps = {
 };
 
 const page = async ({ params }: PageProps) => {
- //  get the movie id from the params
+  //  get the movie id from the params
   const movieId = params.id.split("-").pop() as string;
-
-  console.log("movie id: ", movieId);
 
   // if there is no movie id in the url, redirect to the not found page
   if (!movieId || movieId === "") {
@@ -41,7 +39,13 @@ const page = async ({ params }: PageProps) => {
   }
 
   // fetch the movie details
-  const movieDetails = await fetchMovieDetails(movieId);
+  let movieDetails;
+  try {
+    movieDetails = await fetchMovieDetails(movieId, 0);
+  } catch (error) {
+    console.log("error: ", error);
+    return notFound();
+  }
 
   // log imdb id
   console.log("imdb id: ", movieDetails.imdb_id);
