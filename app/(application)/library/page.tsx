@@ -1,9 +1,11 @@
+import LoadingSpinner from "@/components/loadingStateComponents/LoadingSpinner";
 import {
   fetchMultiplePagesOfPopularMovies,
   fetchMultiplePagesOfPopularTvSeries,
 } from "@/lib/tmdb-api/popular";
-
 import RenderSlider from "@/components/slider/RenderSlider";
+
+export const revalidate = 3600 * 24; // 24 hours
 
 const page = async () => {
   const popularMoviesPromise = fetchMultiplePagesOfPopularMovies(1);
@@ -21,8 +23,8 @@ const page = async () => {
           my list
         </h1>
       </div>
-      <RenderSlider sectionTitle="Saved Movies" sliderData={popularMovies} />
-      <RenderSlider sectionTitle="Saved TV Series" sliderData={popularTvSeries} />
+      <RenderSlider sectionTitle="Saved Movies" sliderData={popularMovies} largeListItem={false} />
+      <RenderSlider sectionTitle="Saved TV Series" sliderData={popularTvSeries} largeListItem={false}/>
     </section>
   );
 };

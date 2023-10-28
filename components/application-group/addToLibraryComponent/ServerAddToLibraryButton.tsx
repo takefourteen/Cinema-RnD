@@ -1,10 +1,21 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
+import dynamic from "next/dynamic";
 
 import { isItemInUserLibrary } from "@/lib/mongodb-api/isItemInUserLibrary";
 
 import SavedToLibraryTag from "../../ui/SavedToLibraryTag";
-import ClientAddToLibraryButton from "./ClientAddToLibraryButton";
+import LoadingSpinner from "@/components/loadingStateComponents/LoadingSpinner";
+// import ClientAddToLibraryButton from "./ClientAddToLibraryButton";
+// dynamically load the ClientAddToLibraryButton component
+const ClientAddToLibraryButton = dynamic(
+  () => import("./ClientAddToLibraryButton"),
+  {
+    ssr: false, 
+    loading: () =>  <div className="h-10 w-10 p-1"><LoadingSpinner /></div>,
+  }
+  
+);
 
 type Props = {
   mediaType: string;

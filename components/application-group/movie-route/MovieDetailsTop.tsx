@@ -9,7 +9,8 @@ import Overview from "../Overview";
 import ResponsiveBackgroundPoster from "../ResponsiveBackgroundPoster";
 import ImdbRating from "../ImdbRating";
 import TitleLogo from "../TitleLogo";
-import ServerAddToLibraryButton from "../addToLibraryComponent/ServerAddToLibraryButton";
+import ServerAddToLibraryButton from "@/components/application-group/addToLibraryComponent/ServerAddToLibraryButton";
+
 
 interface MovieHeaderProps {
   movieDetails: MovieDetailsData;

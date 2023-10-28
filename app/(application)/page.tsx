@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-import dynamic from "next/dynamic";
 
 import { fetchAllDataForHome } from "@/helpers/fetchAllDataForHome";
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
@@ -12,12 +11,7 @@ import YourLibrary from "@/components/application-group/home-route/YourLibrary";
 import StreamingServicesSlideShow from "@/components/application-group/home-route/streaming-services/StreamingServicesSlideShow";
 import CollectionsSlideShow from "@/components/application-group/home-route/collections/CollectionsSlideShow";
 import ColorFulBanner from "@/components/application-group/legecy-home-route/ColorFulBanner";
-
-// dynamically import the slider
-const RenderSlider = dynamic(() => import("@/components/slider/RenderSlider"), {
-  ssr: false,
-  loading: () => <LoadingSpinner />,
-});
+import RenderSlider from "@/components/slider/RenderSlider";
 
 // ===================================
 // Time-based Revalidation in Next.js

@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 
 import { getImagePathFromImagesData } from "@/helpers/getImagePathFromImagesData";
@@ -11,7 +10,7 @@ import TitleLogo from "../TitleLogo";
 import ImdbRating from "../ImdbRating";
 import Overview from "../Overview";
 import Chip from "../Chip";
-import ServerAddToLibraryButton from "../addToLibraryComponent/ServerAddToLibraryButton";
+import ServerAddToLibraryButton from "@/components/application-group/addToLibraryComponent/ServerAddToLibraryButton";
 
 type TvSeriesDetailsProps = {
   tvSeriesData: TVSeriesData;

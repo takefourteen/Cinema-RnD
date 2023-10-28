@@ -1,4 +1,3 @@
-import React from "react";
 import Link from "next/link";
 
 import { slugify } from "@/helpers/slugify";
@@ -11,7 +10,7 @@ import { DetailsButton } from "@/components/DetailsButton";
 import ImdbRating from "../ImdbRating";
 import TitleLogo from "../TitleLogo";
 import ImageLoader from "@/components/ImageLoader";
-import ServerAddToLibraryButton from "../addToLibraryComponent/ServerAddToLibraryButton";
+import ServerAddToLibraryButton from "@/components/application-group/addToLibraryComponent/ServerAddToLibraryButton";
 
 type ShowDetailsSmallScreenProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;

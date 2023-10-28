@@ -15,7 +15,7 @@ import { DetailsButton } from "@/components/DetailsButton";
 import ImdbRating from "../ImdbRating";
 import Overview from "../Overview";
 import TitleLogo from "../TitleLogo";
-import ServerAddToLibraryButton from "../addToLibraryComponent/ServerAddToLibraryButton";
+import ServerAddToLibraryButton from "@/components/application-group/addToLibraryComponent/ServerAddToLibraryButton";
 
 type ShowDetailsLargeScreenProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;

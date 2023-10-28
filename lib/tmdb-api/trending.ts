@@ -2,7 +2,6 @@ const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = "https://api.themoviedb.org/3";
 
 import { filterResultsByLanguage } from "@/helpers/filterResults";
-import { getVideoPlayerUrl } from "@/helpers/getVideoPlayerUrl";
 import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
 
 export async function fetchTrendingMovies(
@@ -11,7 +10,7 @@ export async function fetchTrendingMovies(
 ): Promise<TrendingMovie[]> {
   try {
     const url = `${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`;
-    const response = await fetch(url);
+    const response = await fetch(url, {next: {revalidate: 3600 * 24}});
 
     if (!response.ok) {
       const errorResponse = await response.json();
@@ -38,7 +37,7 @@ export async function fetchTrendingTVShows(
 ): Promise<TrendingTVSeries[]> {
   try {
     const url = `${BASE_URL}/trending/tv/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`;
-    const response = await fetch(url);
+    const response = await fetch(url, {next: {revalidate: 3600 * 24}});
 
     if (!response.ok) {
       const errorResponse = await response.json();
