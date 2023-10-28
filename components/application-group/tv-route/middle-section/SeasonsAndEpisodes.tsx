@@ -7,7 +7,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import SeasonSelect from "./SeasonSelect";
 import EpisodesList from "./EpisodesList";
 import LoadingSpinner from "@/components/skeletons/LoadingSpinner";
-import Skeleton from "@/components/skeletons/Skeleton";
+import CardSkeleton from "@/components/skeletons/CardSkeleton";
 
 type SeasonsAndEpisodesProps = {
   tvSeriesId: string;

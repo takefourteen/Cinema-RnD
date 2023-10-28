@@ -1,6 +1,5 @@
-import Skeleton from "@/components/skeletons/Skeleton";
+import CardSkeleton from "@/components/skeletons/CardSkeleton";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import React from "react";
 
 const ListLoadingSkeleton = () => {
   return (
@@ -8,7 +7,7 @@ const ListLoadingSkeleton = () => {
       {Array.from({ length: 8 }).map((_, index) => (
         <div key={index} className="relative w-full ">
           <AspectRatio ratio={16 / 9}>
-            <Skeleton rows={0} />
+            <CardSkeleton rows={0} />
           </AspectRatio>
         </div>
       ))}

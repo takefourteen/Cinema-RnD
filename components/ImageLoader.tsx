@@ -4,7 +4,7 @@ import Image, { StaticImageData } from "next/image";
 import { useState } from "react";
 
 import LoadingSpinner from "./skeletons/LoadingSpinner";
-import Skeleton from "@/components/skeletons/Skeleton";
+import CardSkeleton from "@/components/skeletons/CardSkeleton";
 
 interface ImageLoaderProps
   extends React.ComponentPropsWithoutRef<typeof Image> {
@@ -29,7 +29,7 @@ const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
       {isLoading && (
         <div className="absolute inset-0">
           {loaderType === "skeleton" && (
-            <Skeleton rows={0} showOverlay={false} />
+            <CardSkeleton rows={0} showOverlay={false} />
           )}
           {loaderType === "spinner" && <LoadingSpinner />}
         </div>

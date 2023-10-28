@@ -1,16 +1,16 @@
-import "./Skeleton.css";
+import "./CardSkeleton.css";
 
-interface SkeletonProps {
+interface CardSkeletonProps {
   rows?: number;
   mainItemHeight?: string;
   showOverlay?: boolean;
 }
 
-const Skeleton = ({
+const CardSkeleton = ({
   rows = 1,
   mainItemHeight = "50px",
   showOverlay = true,
-}: SkeletonProps) => {
+}: CardSkeletonProps) => {
   return (
     <div className="relative flex h-full flex-1 flex-col">
       <div
@@ -43,4 +43,4 @@ const Skeleton = ({
   );
 };
 
-export default Skeleton;
+export default CardSkeleton;

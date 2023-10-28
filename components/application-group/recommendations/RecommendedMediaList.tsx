@@ -8,7 +8,7 @@ import {
 } from "@/lib/tmdb-api/recommendations";
 import { fetchShowsByGenre } from "@/helpers/fetchShowsByGenres";
 
-import Skeleton from "@/components/skeletons/Skeleton";
+import CardSkeleton from "@/components/skeletons/CardSkeleton";
 import RecommendedMediaImage from "./RecommendedMediaImage";
 
 type RecommendedMediaListProps = {
@@ -25,6 +25,9 @@ const RecommendedMediaList = async ({
   let similarMedia: SimilarMovie[] | SimilarTvSeries[] = [];
   let recommendedMedia: RecommendedMovie[] | RecommendedTvSeries[] = [];
   let showsByGenre: DiscoverMovieResult[] | DiscoverTVSeriesResult[] = [];
+
+  // artificial dealy using promise
+  await new Promise((resolve) => setTimeout(resolve, 100000));
 
   if (mediaType === "movie") {
     [similarMedia, recommendedMedia, showsByGenre] = await Promise.all([
@@ -52,7 +55,7 @@ const RecommendedMediaList = async ({
       <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
         {Array.from({ length: 8 }, (_, i) => i + 1).map((_, i) => (
           <li key={i}>
-            <Skeleton rows={0} mainItemHeight={"100px"} />
+            <CardSkeleton rows={0} mainItemHeight={"100px"} />
           </li>
         ))}
       </ul>

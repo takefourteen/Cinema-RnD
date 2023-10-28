@@ -1,0 +1,24 @@
+.gradientAnimation {
+  background: linear-gradient(
+    120deg,
+    hsl(0, 0%, 70%) 30%,
+    hsl(0, 0%, 90%) 38%,
+    hsl(0, 0%, 90%) 40%,
+    hsl(0, 0%, 70%) 48%
+  );
+  background-size: 400%;
+  background-position: 0 0;
+  animation: load 2s ease-in-out infinite;
+}
+
+@keyframes load {
+  0% {
+    background-position-x: 0%;
+  }
+  50% {
+    background-position-x: 100%;
+  }
+  100% {
+    background-position-x: 0%;
+  }
+}

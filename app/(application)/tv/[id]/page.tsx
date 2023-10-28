@@ -77,16 +77,6 @@ const page = async ({ params }: PageProps) => {
 
   const tabConfigs = [
     {
-      key: "episodes",
-      title: "Episodes",
-      content: (
-        <SeasonsAndEpisodes
-          tvSeriesId={tvSeriesId}
-          totalNumberOfSeasons={numberOfSeasons}
-        />
-      ),
-    },
-    {
       key: "recommended",
       title: "Similar",
       content: (
@@ -94,6 +84,16 @@ const page = async ({ params }: PageProps) => {
           mediaId={tvSeriesId}
           mediaType="tv"
           genreIds={genreIds}
+        />
+      ),
+    },
+    {
+      key: "episodes",
+      title: "Episodes",
+      content: (
+        <SeasonsAndEpisodes
+          tvSeriesId={tvSeriesId}
+          totalNumberOfSeasons={numberOfSeasons}
         />
       ),
     },

@@ -12,7 +12,7 @@ import { isTVSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
 import DetailsOnMediaCard from "../application-group/DetailsOnMediaCard";
-import Skeleton from "../skeletons/Skeleton";
+import CardSkeleton from "../skeletons/CardSkeleton";
 
 type DataFetchingMotionMediaCardProps = {
   mediaId: string;
@@ -59,7 +59,7 @@ const DataFetchingMotionMediaCard = ({
     return (
       <div className={`relative h-auto flex-1  ${listItemSize[imgSize].width}`}>
         <AspectRatio ratio={2 / 3}>
-          <Skeleton rows={0} showOverlay={false} />
+          <CardSkeleton rows={0} showOverlay={false} />
         </AspectRatio>
       </div>
     );
