@@ -53,7 +53,7 @@ const ClientAddToLibraryButton = ({
 
       // Send a request to the server to add the item to the user's library
       const res = await fetch("/api/library/add", {
-        method: "POST",
+        method: "PUT", // PUT request used instead of POST, so that nextjs can revalidate the page
         headers: {
           "Content-Type": "application/json",
         },
@@ -82,18 +82,14 @@ const ClientAddToLibraryButton = ({
             { position: "bottom-left", duration: 5000 },
           )
         : toast(toastMessage, { position: "bottom-left" });
-
-      // if the item was added to the library, refresh the page
-      if (isAdded) {
-        router.refresh();
-      }
+        
     } catch (error) {
       console.error("Error adding item to library:", error);
       toast.error("An error occurred while adding the item.");
     } finally {
       setAddingToLibrary(false);
     }
-  }, [mediaType, mediaId, mediaTitle, session, router]);
+  }, [mediaType, mediaId, mediaTitle, session]);
 
   // Create a button component
   const ButtonComponent = useMemo(() => {
@@ -117,8 +113,7 @@ const ClientAddToLibraryButton = ({
           <>
             {size === "small" ? (
               <>
-                <Check className="h-6 w-6 " />{" "}
-                <span>Save</span>
+                <Check className="h-6 w-6 " /> <span>Save</span>
               </>
             ) : (
               <>

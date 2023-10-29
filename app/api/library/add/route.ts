@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/models/user";
+import { revalidatePath } from "next/cache";
 
 interface Media {
   mediaId: string;
@@ -26,7 +27,7 @@ interface LibraryResponse {
   library?: LibraryItem[];
 }
 
-export const POST = async (req: NextRequest): Promise<NextResponse> => {
+export const PUT = async (req: NextRequest): Promise<NextResponse> => {
   try {
     const { mediaId, mediaType, mediaTitle } = (await req.json()) as Media;
 
@@ -65,16 +66,24 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
     const result = await User.findOneAndUpdate(
       { email: session.user?.email },
       {
-        $push: { library: { $each: [{ id: mediaId, type: mediaType, title: mediaTitle }], $position: 0 } },
+        $push: {
+          library: {
+            $each: [{ id: mediaId, type: mediaType, title: mediaTitle }],
+            $position: 0,
+          },
+        },
       },
       { new: true },
     );
-    
 
     const response: LibraryResponse = {
       message: "Item added to library",
       library: result.library,
     };
+
+    const path = req.nextUrl.pathname;
+    revalidatePath(path);
+
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
     console.error("Error adding item to library:", error);
