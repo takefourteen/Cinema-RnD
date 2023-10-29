@@ -6,23 +6,20 @@ import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
 import MovieDetailsTop from "@/components/application-group/movie-route/MovieDetailsTop";
-import ListLoadingSkeleton from "@/components/skeletons/ListLoadingSkeleton";
+import ExplorerPanel from "@/components/application-group/ExplorerPanel";
+import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
+
+import RecommendedMediaSkeleton from "@/components/skeletons/RecommendedMediaSkeleton";
 
 // lazy load the following components
-const ExplorerPanel = dynamic(
-  () => import("@/components/application-group/ExplorerPanel"),
-);
 const RecommendedMediaList = dynamic(
   () =>
     import(
       "@/components/application-group/recommendations/RecommendedMediaList"
     ),
   {
-    loading: () => <ListLoadingSkeleton />,
+    loading: () => <RecommendedMediaSkeleton />,
   },
-);
-const DetailsAboutShowSection = dynamic(
-  () => import("@/components/application-group/DetailsAboutShowSection"),
 );
 
 type PageProps = {

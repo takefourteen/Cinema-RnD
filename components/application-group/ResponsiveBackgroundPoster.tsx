@@ -29,29 +29,16 @@ const ResponsiveBackgroundPoster = ({
          if backdrop_path is null, use the poster_path
       */}
       <div className="relative ml-auto flex aspect-[2/3] h-full w-full md:w-[60%] lg:aspect-video">
-        {/* <AspectRatio ratio={16 / 9}> */}
         <ImageLoader
           loaderType="spinner"
           src={`${backdropImgSrc ? backdropImgSrc : posterImgSrc}`}
           alt={alt}
           fill
-          sizes="(max-width: 768px) 100vw, 70vw"
           priority={priority}
+          sizes="(max-width: 768px) 100vw, (min-width: 769px) 60vw"
           className={`object-cover ${imageClassNames}`}
         />
-        {/* </AspectRatio> */}
       </div>
-
-      {/* show the poster_path img on smaller screens */}
-      {/* <ImageLoader
-        loaderType="spinner"
-        src={posterImgSrc}
-        alt={alt}
-        fill
-        sizes="(max-width: 768px) 100vw, 640px"
-        priority={priority}
-        className={`object-cover md:hidden  ${imageClassNames}`}
-      /> */}
     </>
   );
 };

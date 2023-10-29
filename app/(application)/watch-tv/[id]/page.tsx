@@ -8,23 +8,18 @@ import { fetchTvSeriesExternalIds } from "@/lib/tmdb-api/external-ids";
 
 import VideoPlayer from "@/components/application-group/VideoPlayer";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
-import ListLoadingSkeleton from "@/components/skeletons/ListLoadingSkeleton";
+import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
+import RecommendedMediaSkeleton from "@/components/skeletons/RecommendedMediaSkeleton";
+import EpisodesListSkeleton from "@/components/skeletons/EpisodesListSkeleton";
 
-// lazy load the following components
+// lazy load the following components:
 const RecommendedMediaList = dynamic(
   () =>
     import(
       "@/components/application-group/recommendations/RecommendedMediaList"
     ),
   {
-    loading: () => <ListLoadingSkeleton />,
-  },
-);
-
-const DetailsAboutShowSection = dynamic(
-  () => import("@/components/application-group/DetailsAboutShowSection"),
-  {
-    loading: () => <ListLoadingSkeleton />,
+    loading: () => <RecommendedMediaSkeleton />,
   },
 );
 
@@ -33,10 +28,12 @@ const SeasonsAndEpisodes = dynamic(
     import(
       "@/components/application-group/tv-route/middle-section/SeasonsAndEpisodes"
     ),
+
   {
-    loading: () => <ListLoadingSkeleton />,
+    loading: () => <EpisodesListSkeleton />,
   },
 );
+
 type PageProps = {
   params: {
     id: string;

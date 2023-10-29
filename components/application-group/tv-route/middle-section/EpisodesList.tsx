@@ -6,9 +6,7 @@ import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { calculateDaysFromToday } from "@/helpers/calculateDaysFromToday";
 
 import EpisodeListItem from "./EpisodeListItem";
-import AnimatedStringLoader from "@/components/skeletons/AnimatedStringLoader";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import LoadingSpinner from "@/components/skeletons/LoadingSpinner";
+import EpisodesListSkeleton from "@/components/skeletons/EpisodesListSkeleton";
 
 type EpisodesListProps = {
   tvSeriesId: string;
@@ -29,24 +27,7 @@ const EpisodesList = ({ tvSeriesId, selectedSeason }: EpisodesListProps) => {
 
   if (error) throw new Error("Failed to load tv data in EpisodesList.tsx");
 
-  if (isLoading)
-    return (
-      <div className="grid  gap-x-4  gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        <div className="font-body-text absolute right-0 top-2 font-bold lg:top-4">
-          <span className="flex">
-            <AnimatedStringLoader loadingString="..." /> &nbsp; Episodes
-          </span>
-        </div>
-
-        {Array.from({ length: 8 }).map((_, index) => (
-          <div key={index} className="relative w-full ">
-            <AspectRatio ratio={16 / 9}>
-              <LoadingSpinner />
-            </AspectRatio>
-          </div>
-        ))}
-      </div>
-    );
+  if (isLoading) return <EpisodesListSkeleton />;
 
   if (!tvSeriesDetails) return null;
 
@@ -69,7 +50,7 @@ const EpisodesList = ({ tvSeriesId, selectedSeason }: EpisodesListProps) => {
         {numberOfEpisodes} Episodes
       </p>
 
-      <ul className="mt-4 grid gap-x-4  gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <ul className=" grid gap-x-4  gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {(
           tvSeriesDetails[appendSeasonNumberToResponse] as SeasonData
         ).episodes.map((episode) => (

@@ -37,11 +37,10 @@ const ProfileMenu = ({
 }: ProfileMenuProps) => {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="group hover:bg-transparent hover:text-white focus-visible:outline-none">
+      <DropdownMenuTrigger className="group rounded-full hover:bg-transparent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
         {userData ? (
           <div
             className="relative h-[40px] w-[40px] rounded-full p-0 lg:h-[48px] lg:w-[48px]"
-            tabIndex={0}
             aria-label="User profile image"
           >
             <Image
@@ -54,8 +53,7 @@ const ProfileMenu = ({
           </div>
         ) : (
           <div
-            className="relative h-[32px] w-[32px] rounded-full p-0 group-focus-visible:ring-2 group-focus-visible:ring-white lg:h-[40px] lg:w-[40px]"
-            tabIndex={0}
+            className="relative h-[32px] w-[32px] rounded-full p-0  lg:h-[40px] lg:w-[40px]"
             aria-label="User profile icon"
           >
             <ProfileIcon />

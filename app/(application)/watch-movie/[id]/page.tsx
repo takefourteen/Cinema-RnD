@@ -7,7 +7,9 @@ import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 
 import VideoPlayer from "@/components/application-group/VideoPlayer";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
-import ListLoadingSkeleton from "@/components/skeletons/ListLoadingSkeleton";
+import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
+
+import RecommendedMediaSkeleton from "@/components/skeletons/RecommendedMediaSkeleton";
 
 // lazy load the following components
 const RecommendedMediaList = dynamic(
@@ -16,11 +18,8 @@ const RecommendedMediaList = dynamic(
       "@/components/application-group/recommendations/RecommendedMediaList"
     ),
   {
-    loading: () => <ListLoadingSkeleton />,
+    loading: () => <RecommendedMediaSkeleton />,
   },
-);
-const DetailsAboutShowSection = dynamic(
-  () => import("@/components/application-group/DetailsAboutShowSection"),
 );
 
 type PageProps = {

@@ -46,6 +46,7 @@ const TitleLogo = ({ logoData, alt }: Props) => {
             src={titleLogoSrc}
             alt={alt}
             fill
+            priority
             sizes="(max-width: 768px) 200px,
                  (max-width: 1024px) 225px,
                   250px,"

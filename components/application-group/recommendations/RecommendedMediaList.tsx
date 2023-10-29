@@ -8,8 +8,8 @@ import {
 } from "@/lib/tmdb-api/recommendations";
 import { fetchShowsByGenre } from "@/helpers/fetchShowsByGenres";
 
-import CardSkeleton from "@/components/skeletons/CardSkeleton";
 import RecommendedMediaImage from "./RecommendedMediaImage";
+import RecommendedMediaSkeleton from "@/components/skeletons/RecommendedMediaSkeleton";
 
 type RecommendedMediaListProps = {
   mediaId: string;
@@ -25,9 +25,6 @@ const RecommendedMediaList = async ({
   let similarMedia: SimilarMovie[] | SimilarTvSeries[] = [];
   let recommendedMedia: RecommendedMovie[] | RecommendedTvSeries[] = [];
   let showsByGenre: DiscoverMovieResult[] | DiscoverTVSeriesResult[] = [];
-
-  // artificial dealy using promise
-  await new Promise((resolve) => setTimeout(resolve, 100000));
 
   if (mediaType === "movie") {
     [similarMedia, recommendedMedia, showsByGenre] = await Promise.all([
@@ -50,17 +47,7 @@ const RecommendedMediaList = async ({
   const displayShowsByGenre = similarMedia.length + recommendedMedia.length < 8;
 
   // If both similarMedia and recommendedMovies are not there , return a loading state
-  if (!similarMedia && !recommendedMedia) {
-    return (
-      <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
-        {Array.from({ length: 8 }, (_, i) => i + 1).map((_, i) => (
-          <li key={i}>
-            <CardSkeleton rows={0} mainItemHeight={"100px"} />
-          </li>
-        ))}
-      </ul>
-    );
-  }
+  if (!similarMedia && !recommendedMedia) return <RecommendedMediaSkeleton />;
 
   // if displayShowsByGenre is true, return showsByGenre
   if (displayShowsByGenre) {

@@ -5,29 +5,21 @@ import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchImages } from "@/lib/tmdb-api/images";
 
 import TvSeriesDetails from "@/components/application-group/tv-route/TvSeriesDetails";
-// import ExplorerPanel from "@/components/application-group/ExplorerPanel";
-import ListLoadingSkeleton from "@/components/skeletons/ListLoadingSkeleton";
+import ExplorerPanel from "@/components/application-group/ExplorerPanel";
+import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
+
+import RecommendedMediaSkeleton from "@/components/skeletons/RecommendedMediaSkeleton";
+import EpisodesListSkeleton from "@/components/skeletons/EpisodesListSkeleton";
 
 // lazy load the following components
-const ExplorerPanel = dynamic(
-  () => import("@/components/application-group/ExplorerPanel"),
-  {
-    loading: () => <ListLoadingSkeleton />,
-  },
-);
-
 const RecommendedMediaList = dynamic(
   () =>
     import(
       "@/components/application-group/recommendations/RecommendedMediaList"
     ),
   {
-    loading: () => <ListLoadingSkeleton />,
+    loading: () => <RecommendedMediaSkeleton />,
   },
-);
-
-const DetailsAboutShowSection = dynamic(
-  () => import("@/components/application-group/DetailsAboutShowSection"),
 );
 
 const SeasonsAndEpisodes = dynamic(
@@ -37,7 +29,7 @@ const SeasonsAndEpisodes = dynamic(
     ),
 
   {
-    loading: () => <ListLoadingSkeleton />,
+    loading: () => <EpisodesListSkeleton />,
   },
 );
 
@@ -77,6 +69,16 @@ const page = async ({ params }: PageProps) => {
 
   const tabConfigs = [
     {
+      key: "episodes",
+      title: "Episodes",
+      content: (
+        <SeasonsAndEpisodes
+          tvSeriesId={tvSeriesId}
+          totalNumberOfSeasons={numberOfSeasons}
+        />
+      ),
+    },
+    {
       key: "recommended",
       title: "Similar",
       content: (
@@ -84,16 +86,6 @@ const page = async ({ params }: PageProps) => {
           mediaId={tvSeriesId}
           mediaType="tv"
           genreIds={genreIds}
-        />
-      ),
-    },
-    {
-      key: "episodes",
-      title: "Episodes",
-      content: (
-        <SeasonsAndEpisodes
-          tvSeriesId={tvSeriesId}
-          totalNumberOfSeasons={numberOfSeasons}
         />
       ),
     },

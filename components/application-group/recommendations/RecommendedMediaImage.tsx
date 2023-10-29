@@ -82,7 +82,6 @@ const RecommendedMediaImage = async ({
             alt={`${title} poster`}
             fill
             sizes=" (max-width: 1024px) 50vw, (max-width: 1280px) 25vw, 25vw"
-            priority={false}
             className="object-cover transition-all duration-300 ease-in-out group-hover:ring-4 group-hover:ring-slate-950 group-hover:ring-offset-2 group-focus-visible:ring-4  group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
             style={{ filter: "brightness(0.9)" }}
           />

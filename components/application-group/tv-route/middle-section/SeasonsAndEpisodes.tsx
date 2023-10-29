@@ -3,11 +3,9 @@
 import { Suspense } from "react";
 import { useState } from "react";
 
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import SeasonSelect from "./SeasonSelect";
 import EpisodesList from "./EpisodesList";
-import LoadingSpinner from "@/components/skeletons/LoadingSpinner";
-import CardSkeleton from "@/components/skeletons/CardSkeleton";
+import EpisodesListSkeleton from "@/components/skeletons/EpisodesListSkeleton";
 
 type SeasonsAndEpisodesProps = {
   tvSeriesId: string;
@@ -25,7 +23,7 @@ const SeasonsAndEpisodes = ({
   );
 
   return (
-    <div className="relative flex flex-col gap-y-4 lg:gap-y-8">
+    <div className="relative flex flex-col gap-y-8 md:gap-y-10">
       <SeasonSelect
         numberOfSeasons={totalNumberOfSeasons}
         selectedSeason={selectedSeason}
@@ -33,17 +31,7 @@ const SeasonsAndEpisodes = ({
       />
 
       <Suspense
-        fallback={
-          <div className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
-            {Array.from({ length: 8 }).map((_, index) => (
-              <div key={index} className="relative w-full ">
-                <AspectRatio ratio={16 / 9}>
-                  <LoadingSpinner />
-                </AspectRatio>
-              </div>
-            ))}
-          </div>
-        }
+        fallback={<EpisodesListSkeleton/>}
       >
         <EpisodesList tvSeriesId={tvSeriesId} selectedSeason={selectedSeason} />
       </Suspense>

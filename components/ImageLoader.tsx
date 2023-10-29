@@ -1,28 +1,28 @@
-"use client";
+"use client"
 
+import { useState, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
-import { useState } from "react";
-
 import LoadingSpinner from "./skeletons/LoadingSpinner";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
 
-interface ImageLoaderProps
-  extends React.ComponentPropsWithoutRef<typeof Image> {
+interface ImageLoaderProps extends React.ComponentPropsWithoutRef<typeof Image> {
   loaderType: "spinner" | "skeleton";
   src: StaticImageData | string;
   alt: string;
 }
 
 const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (!src) {
+      setIsLoading(false);
+    }
+  }, [src]);
 
   const handleImageLoad = () => {
-    // set isLoading to false after a delay
     setIsLoading(false);
   };
-
-  // if src is null, return null
-  if (!src) return null;
 
   return (
     <>
@@ -35,14 +35,15 @@ const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
         </div>
       )}
 
-      <Image
-        src={src}
-        alt={alt !== "" ? alt : "image"}
-        onLoad={handleImageLoad}
-        // when image does not load
-        onError={handleImageLoad}
-        {...props}
-      />
+      {src && (
+        <Image
+          src={src}
+          alt={alt || "image"}
+          onLoad={handleImageLoad}
+          onError={handleImageLoad}
+          {...props}
+        />
+      )}
     </>
   );
 };
