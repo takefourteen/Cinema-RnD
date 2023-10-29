@@ -5,10 +5,11 @@ import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/models/user";
 import { revalidatePath } from "next/cache";
 
-interface Media {
+interface Request {
   mediaId: string;
   mediaType: "movie" | "tv";
   mediaTitle: string;
+  requestPath: string;
 }
 
 interface LibraryItem {
@@ -29,7 +30,8 @@ interface LibraryResponse {
 
 export const PUT = async (req: NextRequest): Promise<NextResponse> => {
   try {
-    const { mediaId, mediaType, mediaTitle } = (await req.json()) as Media;
+    const { mediaId, mediaType, mediaTitle, requestPath } =
+      (await req.json()) as Request;
 
     // Ensure the user is authenticated and has the necessary role
     const session = await getServerSession(authOptions);
@@ -81,8 +83,7 @@ export const PUT = async (req: NextRequest): Promise<NextResponse> => {
       library: result.library,
     };
 
-    const path = req.nextUrl.pathname;
-    revalidatePath(path);
+    revalidatePath(requestPath);
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
