@@ -28,6 +28,8 @@ interface LibraryResponse {
   library?: LibraryItem[];
 }
 
+export const revalidate = true;
+
 export const PUT = async (req: NextRequest): Promise<NextResponse> => {
   try {
     const { mediaId, mediaType, mediaTitle, requestPath } =
