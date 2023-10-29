@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
 import { BookmarkIcon2 } from "@/components/ui/icons/Icons";
-import SectionHeader from "@/components/SectionHeader";
 import { DetailsButton } from "@/components/DetailsButton";
+import SectionHeader from "@/components/SectionHeader";
 
 const YourLibrary = async () => {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
-  // if user has session return null
+  // if user has no session return null
   if (session?.user) return null;
 
   return (

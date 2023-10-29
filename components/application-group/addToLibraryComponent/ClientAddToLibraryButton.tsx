@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useState, useCallback, useMemo } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
 
@@ -39,6 +39,7 @@ const ClientAddToLibraryButton = ({
   const { data: session, status } = useSession();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const router = useRouter();
   const [addingToLibrary, setAddingToLibrary] = useState(false);
 
   const callbackUrl = `${pathname}?${searchParams}`;
@@ -52,7 +53,7 @@ const ClientAddToLibraryButton = ({
 
       // Send a request to the server to add the item to the user's library
       const res = await fetch("/api/library/add", {
-        method: "PUT", // PUT request used instead of POST, so that nextjs can revalidate the page
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -60,7 +61,6 @@ const ClientAddToLibraryButton = ({
           mediaType,
           mediaId,
           mediaTitle,
-          requestPath: callbackUrl,
         }),
       });
 
@@ -73,7 +73,7 @@ const ClientAddToLibraryButton = ({
             <div className="flex w-full justify-between text-sm font-semibold tracking-wide text-black">
               {toastMessage}
               <Link
-                href="/library"
+                href={`/library?tab=${mediaType}`}
                 className="font-base text-blue-600 transition hover:underline"
               >
                 view library
@@ -82,13 +82,18 @@ const ClientAddToLibraryButton = ({
             { position: "bottom-left", duration: 5000 },
           )
         : toast(toastMessage, { position: "bottom-left" });
+
+      // If the item was added to the library, refresh the page
+      if (isAdded) {
+        router.refresh();
+      }
     } catch (error) {
       console.error("Error adding item to library:", error);
       toast.error("An error occurred while adding the item.");
     } finally {
       setAddingToLibrary(false);
     }
-  }, [mediaType, mediaId, mediaTitle, session, callbackUrl]);
+  }, [mediaType, mediaId, mediaTitle, session]);
 
   // Create a button component
   const ButtonComponent = useMemo(() => {

@@ -12,7 +12,7 @@ type Props = {
 
 const page = ({ searchParams }: Props) => {
   return (
-    <section className="master-container relative mt-[70px] pb-[80px] pt-10 lg:mt-[90px]">
+    <section className="master-container w-full relative mt-[70px] pb-[80px] pt-10 lg:mt-[90px]">
       <h1 className=" text-3xl font-bold md:text-4xl lg:text-5xl">
         Search Results for:{" "}
         <span className="text-red-600">&quot;{searchParams.term}&quot;</span>

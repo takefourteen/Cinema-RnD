@@ -30,17 +30,15 @@ const Slider = ({
 
   return (
     <AnimatePresence>
-      <section className=" master-container pt-[64px] lg:pt-[72px]" ref={ref}>
-        <div className="flex h-full w-full flex-col ">
-          {sliderHeaderComponent}
+      <div className="flex h-full w-full flex-col " ref={ref}>
+        {sliderHeaderComponent}
 
-          {inView && (
-            <div className=" mt-4 flex h-full flex-1 flex-col justify-start md:justify-center ">
-              {sliderBodyComponent}
-            </div>
-          )}
-        </div>
-      </section>
+        {inView && (
+          <div className=" mt-4 flex h-full flex-1 flex-col justify-start md:justify-center ">
+            {sliderBodyComponent}
+          </div>
+        )}
+      </div>
     </AnimatePresence>
   );
 };

@@ -1,40 +1,77 @@
-import LoadingSpinner from "@/components/skeletons/LoadingSpinner";
-import {
-  fetchMultiplePagesOfPopularMovies,
-  fetchMultiplePagesOfPopularTvSeries,
-} from "@/lib/tmdb-api/popular";
-import RenderSlider from "@/components/slider/RenderSlider";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 
-export const revalidate = 3600 * 24; // 24 hours
+import { fetchUserLibrary } from "../../../lib/mongodb-api/fetchUserLibrary";
 
-const page = async () => {
-  const popularMoviesPromise = fetchMultiplePagesOfPopularMovies(1);
-  const popularTvSeriesPromise = fetchMultiplePagesOfPopularTvSeries(1);
+import UserNotSignedIn from "@/components/application-group/library-route/UserNotSignedIn";
+import ExplorerPanel from "@/components/application-group/ExplorerPanel";
+import LibraryList from "@/components/application-group/library-route/LibraryList";
 
-  const [popularMovies, popularTvSeries] = await Promise.all([
-    popularMoviesPromise,
-    popularTvSeriesPromise,
-  ]);
+type LibraryItem = {
+  id: string;
+  type: "movie" | "tv";
+  title: string;
+};
+
+type LibraryPageProps = {
+  searchParams?: {
+    tab?: "tv" | "movie";
+  };
+};
+
+const page = async ({ searchParams }: LibraryPageProps) => {
+  const session = await getServerSession(authOptions);
+  const tabType = searchParams?.tab || "tv";
+
+  // the user is not logged in
+  if (!session?.user) {
+    return (
+      <UserNotSignedIn />
+    );
+  }
+
+  const userLibrary = await fetchUserLibrary(session.user?.email as string);
+
+  // Separate items into movies and TV shows
+  const { movies, tvShows }: { movies: LibraryItem[]; tvShows: LibraryItem[] } =
+    userLibrary.reduce(
+      (acc, item) => {
+        if (item.type === "movie") {
+          acc.movies.push(item as LibraryItem);
+        } else if (item.type === "tv") {
+          acc.tvShows.push(item as LibraryItem);
+        }
+        return acc;
+      },
+      { movies: [] as LibraryItem[], tvShows: [] as LibraryItem[] },
+    );
+
+  // config for the tabs
+  const movieTabConfig = {
+    key: "movies",
+    title: "Movies",
+    content: <LibraryList libraryItems={movies} />,
+  };
+
+  const tvTabConfig = {
+    key: "tv-series",
+    title: "TV Series",
+    content: <LibraryList libraryItems={tvShows} />,
+  };
+
+  // depending on the list type, set the active tab
+  const tabConfigs =
+    tabType === "tv"
+      ? [tvTabConfig, movieTabConfig]
+      : [movieTabConfig, tvTabConfig];
 
   return (
-    <section className=" relative mt-[70px] pb-[80px] pt-10 lg:mt-[90px]">
-      <div className="master-container">
-        <h1 className="font-header-2 w-max border-b-4 border-b-primaryRed capitalize">
-          my list
-        </h1>
-      </div>
-      <RenderSlider
-        sectionTitle="Saved Movies"
-        sliderData={popularMovies}
-        largeListItem={false}
-      />
-      <RenderSlider
-        sectionTitle="Saved TV Series"
-        sliderData={popularTvSeries}
-        largeListItem={false}
-      />
+    <section className=" relative mt-[40px] pb-[80px] pt-10 lg:mt-[60px]">
+      <ExplorerPanel tabConfigs={tabConfigs} panelPosition="center" />
     </section>
   );
 };
+
+
 
 export default page;

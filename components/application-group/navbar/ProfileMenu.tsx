@@ -1,7 +1,9 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, memo, useState } from "react";
 import Link from "next/link";
+
+import { avatars } from "@/constants/avatars";
 
 import { SignInIcon, SignOutIcon } from "@/components/ui/icons/Icons";
 import { ProfileIcon, CreateAccountIcon } from "@/components/ui/icons/Icons";
@@ -35,6 +37,10 @@ const ProfileMenu = ({
   onSignOut,
   callbackUrl,
 }: ProfileMenuProps) => {
+  const [randomAvatarIndex, setRandomAvatarIndex] = useState(
+    Math.floor(Math.random() * avatars.length),
+  );
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="group rounded-full hover:bg-transparent hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
@@ -44,9 +50,10 @@ const ProfileMenu = ({
             aria-label="User profile image"
           >
             <Image
-              src={profileSignedIn}
+              src={avatars[randomAvatarIndex]}
               alt="profile"
               fill
+              priority
               sizes="(max-width: 1024px) 40px, 48px"
               className="rounded-full object-cover ring-1 ring-white ring-offset-1"
             />
@@ -136,4 +143,4 @@ const ProfileMenu = ({
   );
 };
 
-export default ProfileMenu;
+export default memo(ProfileMenu);

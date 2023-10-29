@@ -63,7 +63,7 @@ const page = async () => {
         Streaming services 
         ------------------
        */}
-      <StreamingServicesSlideShow />
+      {/* <StreamingServicesSlideShow /> */}
 
       {/*
         -----------------
@@ -73,9 +73,10 @@ const page = async () => {
       <YourLibrary />
 
       {/* map through homeData and render a slider */}
-      {homeData.map((sliderData) => (
+      {homeData.map((sliderData, index) => (
         <RenderSlider
           key={sliderData.title}
+          isFirstChild={index === 0}
           sliderData={sliderData.data}
           sectionTitle={sliderData.title}
           listItemsPriority={sliderData.hasPriority}

@@ -12,7 +12,7 @@ export default function ApplicationLayout({
       {/* use the top navbar on medium and large screens */}
       <Navbar />
 
-      <main className="flex-1">{children}</main>
+      <main className="flex flex-col flex-1">{children}</main>
 
       <Footer />
 

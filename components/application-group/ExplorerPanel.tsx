@@ -12,9 +12,13 @@ type TabConfig = {
 
 type TabsNavigationProps = {
   tabConfigs: TabConfig[];
+  panelPosition?: "center" | "left" ;
 };
 
-const ExplorerPanel = ({ tabConfigs }: TabsNavigationProps) => {
+const ExplorerPanel = ({
+  tabConfigs,
+  panelPosition = "center",
+}: TabsNavigationProps) => {
   const [selectedTab, setSelectedTab] = useState(0);
 
   const handleTabChange = (index: number) => {
@@ -23,7 +27,11 @@ const ExplorerPanel = ({ tabConfigs }: TabsNavigationProps) => {
 
   return (
     <div className="master-container mx-auto mt-8 flex flex-col gap-y-10 md:gap-y-12">
-      <div className="flex w-max gap-1 rounded-full border border-white/20 px-2 py-1">
+      <div
+        className={`flex w-max gap-1 rounded-full border border-white/50
+      ${panelPosition === "center" ? "mx-auto" : ""}
+      `}
+      >
         {tabConfigs.map((config, index) => (
           <div key={config.key}>
             <DetailsButton

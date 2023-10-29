@@ -3,13 +3,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import { connectToDatabase } from "@/lib/mongodb";
 import User from "@/models/user";
-import { revalidatePath } from "next/cache";
 
 interface Request {
   mediaId: string;
   mediaType: "movie" | "tv";
   mediaTitle: string;
-  requestPath: string;
 }
 
 interface LibraryItem {
@@ -28,11 +26,9 @@ interface LibraryResponse {
   library?: LibraryItem[];
 }
 
-export const revalidate = true;
-
-export const PUT = async (req: NextRequest): Promise<NextResponse> => {
+export const POST = async (req: NextRequest): Promise<NextResponse> => {
   try {
-    const { mediaId, mediaType, mediaTitle, requestPath } =
+    const { mediaId, mediaType, mediaTitle } =
       (await req.json()) as Request;
 
     // Ensure the user is authenticated and has the necessary role
@@ -84,8 +80,6 @@ export const PUT = async (req: NextRequest): Promise<NextResponse> => {
       message: "Item added to library",
       library: result.library,
     };
-
-    revalidatePath(requestPath);
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {

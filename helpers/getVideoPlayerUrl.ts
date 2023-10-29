@@ -6,13 +6,13 @@ export async function getVideoPlayerUrl(
 ): Promise<string | null> {
   const playerSettings = {
     playerFont: "Poppins",
-    playerBgColor: "#FFFFFF",
-    playerFontColor: "#000000",
-    playerPrimaryColor: "#e50914ff",
-    playerSecondaryColor: "#002be7ff",
-    playerLoader: 1,
-    preferredServer: 1,
-    playerSourcesToggleType: 1,
+    playerBgColor: "000000",
+    playerFontColor: "FFFFFF",
+    playerPrimaryColor: "e50914ff",
+    playerSecondaryColor: "002be7ff",
+    playerLoader: 5,
+    preferredServer: 0,
+    playerSourcesToggleType: 2,
   };
 
   //   const requestUrl = `https://getsuperembed.link/?video_id=${videoId}&tmdb=${isTmdb}&season=${season}&episode=${episode}&player_font=${playerFont}&player_bg_color=${playerBgColor}&player_font_color=${playerFontColor}&player_primary_color=${playerPrimaryColor}&player_secondary_color=${playerSecondaryColor}&player_loader=${playerLoader}&preferred_server=${preferredServer}&player_sources_toggle_type=${playerSourcesToggleType}`;

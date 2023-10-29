@@ -19,7 +19,7 @@ const BottomMobileNavbar = () => {
 
   return (
     <nav
-      className="fixed bottom-0 z-10 h-[60px] w-full border-t-[1px] border-t-gray-800  bg-[#000000]  md:hidden"
+      className="fixed bottom-2 z-10  left-1/2 transform -translate-x-1/2 w-[95%] backdrop-filter backdrop-blur-lg  rounded-full border-[1px] border-gray-700  bg-black/50  md:hidden"
       role="navigation"
       aria-label="mobile navigation"
     >
@@ -91,7 +91,7 @@ const BottomMobileNavbarLink = ({
         isActive
           ? "pointer-events-none  border-t-primaryRed "
           : " border-t-transparent hover:border-t-primaryRed"
-      } relative h-fit w-max flex-1 flex-col rounded-none border-t-0 bg-transparent px-[10px] py-[8px] uppercase  tracking-wide hover:bg-transparent   `}
+      } relative h-fit w-max flex-1 flex-col rounded-none border-t-0 bg-transparent hover:opacity-80 py-1 px-0 uppercase  tracking-wide hover:bg-transparent   `}
       role="link"
       aria-label={text}
     >

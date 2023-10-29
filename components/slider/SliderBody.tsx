@@ -38,7 +38,6 @@ function SliderBody({
       <div className="relative">
         {/* Slider Controls */}
         <Controls
-          currentSlideData={currentSlideData}
           data={data}
           transitionData={transitionData}
           initData={initData}

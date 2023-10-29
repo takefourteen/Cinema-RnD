@@ -27,9 +27,9 @@ const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
 const listItemSize = {
   default: {
     width:
-      "min-w-[165px] sm:min-w-[175px] md:min-w-[180px] lg:min-w-[215px] xl:min-w-[250px] 2xl:min-w-[300px]",
+      "min-w-[150px] sm:min-w-[170px] md:min-w-[180px] lg:min-w-[215px] xl:min-w-[250px] 2xl:min-w-[300px]",
     sizes:
-      "(max-width: 640px) 165px, (max-width: 768px) 175px, (max-width: 1024px) 180px, (max-width: 1280px) 215px, (max-width: 1536px) 250px, 300px",
+      "(max-width: 640px) 150px, (max-width: 768px) 170px, (max-width: 1024px) 180px, (max-width: 1280px) 215px, (max-width: 1536px) 250px, 300px",
   },
 
   large: {

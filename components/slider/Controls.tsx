@@ -3,7 +3,6 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import SliderButton from "./SliderButton";
 
 type Props = {
-  currentSlideData: CurrentSlideData;
   sliderData: any[];
   data: any[];
   transitionData: any;
@@ -19,7 +18,6 @@ function Controls({
   sliderData,
   data,
   transitionData,
-  currentSlideData,
   handleData,
   handleTransitionData,
   handleCurrentSlideData,
@@ -51,7 +49,7 @@ function Controls({
   };
 
   return (
-    <div className="flex items-center gap-3 px-0 md:px-1">
+    <div className="hidden md:flex items-center gap-3 px-0 md:px-1">
       {/* left btn */}
       <SliderButton
         handleClick={handlePrev}

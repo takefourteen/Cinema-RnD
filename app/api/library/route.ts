@@ -9,7 +9,7 @@ interface LibraryItem {
     type: "movie" | "tv";
 }
 
-export type CheckForItemLibraryResponse = {
+export type ApiLibraryResponse = {
     message: string;
     items: LibraryItem[];
 };
@@ -21,7 +21,7 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
 
         // if there is no session, return an error message and status code letting the user know they are not authenticated
         if (!session?.user) {
-            const response: CheckForItemLibraryResponse = {
+            const response: ApiLibraryResponse = {
                 message: "Not authenticated",
                 items: [],
             };
@@ -37,21 +37,21 @@ export const GET = async (req: NextRequest): Promise<NextResponse> => {
         const items = user.library;
 
         if (items.length > 0) {
-            const response: CheckForItemLibraryResponse = {
+            const response: ApiLibraryResponse = {
                 message: `Found ${items.length} items in your library`,
                 items,
             };
             return NextResponse.json(response, { status: 200 });
         }
 
-        const response: CheckForItemLibraryResponse = {
+        const response: ApiLibraryResponse = {
             message: "No items found in your library",
             items: [],
         };
         return NextResponse.json(response, { status: 200 });
     } catch (error) {
         console.error("Error checking items in library:", error);
-        const response: CheckForItemLibraryResponse = {
+        const response: ApiLibraryResponse = {
             message: "Error checking items in library",
             items: [],
         };

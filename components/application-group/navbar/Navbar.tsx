@@ -57,6 +57,7 @@ const Navbar = () => {
   const handleSignOut = async () => {
     await signOutUser();
     router.push("/");
+    router.refresh();
   };
 
   /*

@@ -51,7 +51,7 @@ const InfiniteScrollSearchResults = ({
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-x-2 gap-y-12 md:grid-cols-3 lg:grid-cols-4 lg:gap-y-16 xl:grid-cols-5">
+      <div className="grid grid-cols-2 gap-x-2 gap-y-12 sm:grid-cols-3 md:grid-cols-4 md:gap-y-16 lg:grid-cols-5 xl:grid-cols-6">
         {searchResults.map((media, index) => (
           <DataFetchingMediaCard
             key={media.id}
