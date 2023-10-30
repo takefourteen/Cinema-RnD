@@ -6,6 +6,8 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
 
+import { addMediaToLibrary } from "@/lib/mongodb-api/addMediaToLibrary";
+
 import { AiOutlineCheck as Check } from "react-icons/ai";
 import { PiSpinnerBold } from "react-icons/pi";
 import { IoMdAdd as AddIcon } from "react-icons/io";
@@ -22,8 +24,8 @@ import {
 import { DetailsButton } from "../../DetailsButton";
 
 type Props = {
-  mediaType: string;
-  mediaId: number;
+  mediaType: "movie" | "tv";
+  mediaId: string;
   mediaTitle: string;
   className?: string;
   size?: "small" | "large";
@@ -39,7 +41,6 @@ const ClientAddToLibraryButton = ({
   const { data: session, status } = useSession();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const router = useRouter();
   const [addingToLibrary, setAddingToLibrary] = useState(false);
 
   const callbackUrl = `${pathname}?${searchParams}`;
@@ -51,49 +52,35 @@ const ClientAddToLibraryButton = ({
       // if user is not authenticated, just return
       if (!session?.user) return;
 
-      // Send a request to the server to add the item to the user's library
-      const res = await fetch("/api/library/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          mediaType,
-          mediaId,
-          mediaTitle,
-        }),
+      // add the item to the library
+      await addMediaToLibrary({
+        mediaId,
+        mediaType,
+        mediaTitle,
+        userEmail: session.user.email as string,
+        currentPath: callbackUrl,
       });
 
-      const data = await res.json();
-      const isAdded = data.message.includes("added to library");
-      const toastMessage = isAdded ? "Item added to library" : data.message;
-
-      isAdded
-        ? toast(
-            <div className="flex w-full justify-between text-sm font-semibold tracking-wide text-black">
-              {toastMessage}
-              <Link
-                href={`/library?tab=${mediaType}`}
-                className="font-base text-blue-600 transition hover:underline"
-              >
-                view library
-              </Link>
-            </div>,
-            { position: "bottom-left", duration: 5000 },
-          )
-        : toast(toastMessage, { position: "bottom-left" });
-
-      // If the item was added to the library, refresh the page
-      if (isAdded) {
-        router.refresh();
-      }
+      // display a toast notification
+      toast(
+        <div className="flex w-full justify-between text-sm font-semibold tracking-wide text-black">
+          Item successfully added to library!
+          <Link
+            href={`/library?tab=${mediaType}`}
+            className="font-base text-blue-600 transition hover:underline"
+          >
+            view library
+          </Link>
+        </div>,
+        { position: "bottom-left", duration: 5000 },
+      );
     } catch (error) {
       console.error("Error adding item to library:", error);
-      toast.error("An error occurred while adding the item.");
+      toast.error("Error adding item to library.");
     } finally {
       setAddingToLibrary(false);
     }
-  }, [mediaType, mediaId, mediaTitle, session, router]);
+  }, [mediaType, mediaId, mediaTitle, session, callbackUrl]);
 
   // Create a button component
   const ButtonComponent = useMemo(() => {
