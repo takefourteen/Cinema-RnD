@@ -4,7 +4,7 @@ import { authOptions } from "@/lib/authOptions";
 import { fetchUserLibrary } from "../../../lib/mongodb-api/fetchUserLibrary";
 
 import UserNotSignedIn from "@/components/application-group/library-route/UserNotSignedIn";
-import ExplorerPanel from "@/components/application-group/ExplorerPanel";
+import LibraryExplorerPanel from "@/components/application-group/library-route/LibraryExplorerPanel";
 import LibraryList from "@/components/application-group/library-route/LibraryList";
 
 type LibraryItem = {
@@ -68,14 +68,11 @@ const page = async ({ searchParams }: LibraryPageProps) => {
   };
 
   // depending on the list type, set the active tab
-  const tabConfigs =
-    tabType === "tv"
-      ? [tvTabConfig, movieTabConfig]
-      : [movieTabConfig, tvTabConfig];
+  const tabConfigs = [tvTabConfig, movieTabConfig];
 
   return (
     <section className=" relative mt-[40px] pb-[80px] pt-10 lg:mt-[60px]">
-      <ExplorerPanel tabConfigs={tabConfigs} panelPosition="center" />
+      <LibraryExplorerPanel tabConfigs={tabConfigs} panelPosition="center" urlSelectedTab={tabType}/>
     </section>
   );
 };
