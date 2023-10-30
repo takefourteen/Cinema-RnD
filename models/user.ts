@@ -1,7 +1,33 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, Document } from "mongoose";
 import bcrypt from "bcrypt";
 
-const UserSchema = new Schema({
+// Define the structure of your User document
+interface UserDocument extends Document {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  role: "user" | "admin";
+  library: LibraryItem[];
+  watchHistory: WatchHistoryItem[];
+}
+
+// Define the structure of the LibraryItem
+interface LibraryItem {
+  id: string;
+  title: string;
+  type: "movie" | "tv";
+}
+
+// Define the structure of the WatchHistoryItem
+interface WatchHistoryItem {
+  id: string;
+  type: "movie" | "tv";
+  title: string;
+  watchedAt: Date;
+}
+
+const UserSchema = new Schema<UserDocument>({
   email: {
     type: String,
     unique: true,
@@ -75,6 +101,11 @@ const UserSchema = new Schema({
   },
 });
 
+// Define the interface of the User model
+interface UserModel extends UserDocument {
+  comparePassword(candidatePassword: string): Promise<boolean>;
+}
+
 // hash password before saving
 UserSchema.pre("save", async function (next) {
   try {
@@ -98,13 +129,22 @@ UserSchema.methods.comparePassword = async function (
   candidatePassword: string,
 ) {
   try {
-    const match = await bcrypt.compare(candidatePassword, this.password);
+    const user = this as UserDocument;
+    const match = await bcrypt.compare(candidatePassword, user.password);
     return match;
   } catch (error) {
     return false;
   }
 };
 
-const User = models.User || model("User", UserSchema);
+// Create a TypeScript model
+let User: UserModel;
 
+try {
+  // Try to retrieve the model if it has already been registered
+  User = model<UserDocument, UserModel>("User");
+} catch {
+  // If the model does not exist, create a new one
+  User = model<UserDocument, UserModel>("User", UserSchema);
+}
 export default User;
