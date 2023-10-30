@@ -25,9 +25,7 @@ const page = async ({ searchParams }: LibraryPageProps) => {
 
   // the user is not logged in
   if (!session?.user) {
-    return (
-      <UserNotSignedIn />
-    );
+    return <UserNotSignedIn />;
   }
 
   const userLibrary = await fetchUserLibrary(session.user?.email as string);
@@ -50,13 +48,23 @@ const page = async ({ searchParams }: LibraryPageProps) => {
   const movieTabConfig = {
     key: "movies",
     title: "Movies",
-    content: <LibraryList libraryItems={movies} />,
+    content: (
+      <LibraryList
+        libraryItems={movies}
+        userEmail={session.user?.email as string}
+      />
+    ),
   };
 
   const tvTabConfig = {
     key: "tv-series",
     title: "TV Series",
-    content: <LibraryList libraryItems={tvShows} />,
+    content: (
+      <LibraryList
+        libraryItems={tvShows}
+        userEmail={session.user?.email as string}
+      />
+    ),
   };
 
   // depending on the list type, set the active tab
@@ -71,7 +79,5 @@ const page = async ({ searchParams }: LibraryPageProps) => {
     </section>
   );
 };
-
-
 
 export default page;
