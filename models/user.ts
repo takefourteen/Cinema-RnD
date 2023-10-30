@@ -1,4 +1,4 @@
-import { Schema, model, models, Document } from "mongoose";
+import { Schema, model, Document, Model } from "mongoose";
 import bcrypt from "bcrypt";
 
 // Define the structure of your User document
@@ -20,10 +20,13 @@ interface LibraryItem {
 }
 
 // Define the structure of the WatchHistoryItem
-interface WatchHistoryItem {
+export interface WatchHistoryItem {
   id: string;
   type: "movie" | "tv";
+  season?: number;
+  episode?: number;
   title: string;
+
   watchedAt: Date;
 }
 
@@ -91,6 +94,12 @@ const UserSchema = new Schema<UserDocument>({
           type: String,
           required: true,
         },
+        season: {
+          type: Number,
+        },
+        episode: {
+          type: Number,
+        },
         watchedAt: {
           type: Date,
           required: true,
@@ -102,7 +111,7 @@ const UserSchema = new Schema<UserDocument>({
 });
 
 // Define the interface of the User model
-interface UserModel extends UserDocument {
+interface UserModel extends Model<UserDocument> {
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
