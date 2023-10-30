@@ -58,7 +58,6 @@ const ClientAddToLibraryButton = ({
         mediaType,
         mediaTitle,
         userEmail: session.user.email as string,
-        currentPath: callbackUrl,
       });
 
       // display a toast notification
@@ -80,7 +79,7 @@ const ClientAddToLibraryButton = ({
     } finally {
       setAddingToLibrary(false);
     }
-  }, [mediaType, mediaId, mediaTitle, session, callbackUrl]);
+  }, [mediaType, mediaId, mediaTitle, session?.user]);
 
   // Create a button component
   const ButtonComponent = useMemo(() => {

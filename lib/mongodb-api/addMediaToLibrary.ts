@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 import { connectToDatabase } from "../mongodb";
 import User from "@/models/user";
 
@@ -15,12 +15,11 @@ type FunctionParams = {
   mediaType: "movie" | "tv";
   mediaTitle: string;
   userEmail: string;
-  currentPath: string;
 };
 
 export async function addMediaToLibrary(data: FunctionParams): Promise<void> {
   // Destructure the data object
-  const { userEmail, mediaId, mediaType, mediaTitle, currentPath } = data;
+  const { userEmail, mediaId, mediaType, mediaTitle } = data;
 
   // Connect to the database
   await connectToDatabase(); // Implement your database connection logic here
@@ -57,6 +56,13 @@ export async function addMediaToLibrary(data: FunctionParams): Promise<void> {
     { new: true },
   );
 
-  // Revalidate the current page
-  revalidatePath(currentPath);
+  // Revalidate the fetch functions tagged with tv-details if mediaType is tv
+  if (mediaType === "tv") {
+    revalidateTag("tv-details");
+  }
+
+  // Revalidate the fetch functions tagged with movie-details if mediaType is movie
+  if (mediaType === "movie") {
+    revalidateTag("movie-details");
+  }
 }
