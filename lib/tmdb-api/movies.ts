@@ -10,7 +10,7 @@ export async function fetchMovieDetails(
     if (delay > 0) await new Promise((resolve) => setTimeout(resolve, delay));
 
     const url = `${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=en-US&append_to_response=credits`;
-    const response = await fetch(url, { cache: "force-cache" });
+    const response = await fetch(url, {next:{tags:["movie-details"]}});
 
     if (!response.ok) {
       // Parse the error response as JSON to extract status_message
