@@ -42,8 +42,8 @@ const ServerAddToLibraryButton = async ({
   if (!session || !session.user) {
     return (
       <ClientAddToLibraryButton
-        mediaType={mediaType}
-        mediaId={mediaId}
+        mediaType={mediaType as "movie" | "tv"}
+        mediaId={mediaId.toString()}
         mediaTitle={mediaTitle}
         className={className}
         size={size}
@@ -67,8 +67,8 @@ const ServerAddToLibraryButton = async ({
 
   return (
     <ClientAddToLibraryButton
-      mediaType={mediaType}
-      mediaId={mediaId}
+      mediaType={mediaType as "movie" | "tv"}
+      mediaId={mediaId.toString()}
       mediaTitle={mediaTitle}
       className={className}
       size={size}
