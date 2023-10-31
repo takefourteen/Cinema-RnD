@@ -45,7 +45,7 @@ const loading = () => {
             key={i}
             className={`animate-bounce text-xl font-bold text-white lg:text-2xl`}
             style={{
-              animationDelay: `${i * 0.1}s`,
+              animationDelay: `-${i * 0.1}s`,
               animationDuration: `1.5s`,
             }}
           >

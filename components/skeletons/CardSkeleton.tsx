@@ -27,7 +27,7 @@ const CardSkeleton = ({
               key={i}
               className="gradientAnimation h-3 w-full"
               style={{
-                // animationDelay: `${i * 0.1}s`,
+                // animationDelay: `-${i * 0.1}s`,
                 // animationDuration: "1s",
                 width: `${Math.floor(Math.random() * 71) + 30}%`, // Generates a random number between 30 and 100 (inclusive)
               }}
