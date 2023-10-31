@@ -27,7 +27,7 @@ const AnimatedStringLoader = ({
         i === 0 ? "" : margin
       }`}
       style={{
-        animationDelay: `${i * 0.1}s`,
+        animationDelay: `-${i * 0.1}s`,
         animationDuration: `1.5s`,
       }}
     >

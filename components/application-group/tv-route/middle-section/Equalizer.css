@@ -1,0 +1,44 @@
+.equalizer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  height: 0px;
+  transform: rotate(180deg);
+}
+
+.bar {
+  fill: #fff;
+  height: 30px;
+  width: 15px;
+  transform: scaleY(0.1);
+}
+
+.equalizer.animate-equalizer .bar:nth-child(1) {
+  animation: equalize 2s ease-in-out infinite;
+  animation-delay: -0.6s; /* Adjust the delay as needed */
+}
+
+.equalizer.animate-equalizer .bar:nth-child(2) {
+  animation: equalize 2s ease-in-out infinite;
+  animation-delay: -1.2s; /* Adjust the delay as needed */
+}
+
+.equalizer.animate-equalizer .bar:nth-child(3) {
+  animation: equalize 2s ease-in-out infinite;
+  animation-delay: -1.8s; /* Adjust the delay as needed */
+}
+
+@keyframes equalize {
+  0% {
+    transform: scaleY(0.1);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+
+  100% {
+    transform: scaleY(0.1);
+  }
+}

@@ -12,6 +12,7 @@ import { PlayIcon } from "@/components/ui/icons/Icons";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
 import Overview from "@/components/application-group/Overview";
+import Equalizer from "./Equalizer";
 
 const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
@@ -75,20 +76,22 @@ const EpisodeListItem = ({
   return (
     <li className="w-full">
       <Link
-        href={episodeIsPlaying ? `#video-player` : episodeUrl}
+        href={episodeIsPlaying ? `#video-frame-player` : episodeUrl}
         shallow={true}
         className={`group relative grid grid-cols-2 sm:flex`}
       >
         <div className="relative w-full">
           <AspectRatio ratio={16 / 9}>
             {/* now playing design */}
-            {/* {episodeIsPlaying && (
-            <div className="absolute top-0 z-10 h-[30px] w-full bg-primaryBlue">
-            <p className="text-center font-small-text font-semibold text-gray-400">
-            Now Playing
-            </p>
-            </div>
-          )} */}
+            {episodeIsPlaying && (
+              <div className="absolute inset-0 z-10 flex w-full items-center justify-center bg-black/80">
+                <p className="font-small-text text-center uppercase  text-white">
+                  Now Playing
+                </p>
+
+                <Equalizer />
+              </div>
+            )}
 
             {/* episode poster */}
 
@@ -98,9 +101,7 @@ const EpisodeListItem = ({
               alt={`${episodeData.name} poster`}
               fill
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-              className={`${
-                episodeIsPlaying ? styles.active.image : styles.default.image
-              } object-cover transition-all duration-300 ease-in-out`}
+              className={`${styles.default.image} object-cover transition-all duration-300 ease-in-out`}
             />
 
             {/* play icon */}
@@ -112,10 +113,7 @@ const EpisodeListItem = ({
           </AspectRatio>
         </div>
 
-        <EpisodeDetailsOnSmallScreen
-          episodeData={episodeData}
-          episodeIsPlaying={episodeIsPlaying}
-        />
+        <EpisodeDetailsOnSmallScreen episodeData={episodeData} />
       </Link>
 
       {/* overview of ep */}
@@ -131,11 +129,7 @@ const EpisodeListItem = ({
       <div className="hidden flex-col gap-y-2 pe-1 sm:flex lg:pe-2">
         {/* name and duration of ep */}
         <div className="mt-2  flex justify-between ">
-          <h3
-            className={`${
-              episodeIsPlaying ? styles.active.title : styles.default.title
-            }`}
-          >
+          <h3 className={`${styles.default.title}`}>
             {episodeData.episode_number}. &nbsp;{episodeData.name}
           </h3>
           <p className="font-extra-small-text text-gray-400">
@@ -155,22 +149,16 @@ const EpisodeListItem = ({
 
 type EpisodeDetailsOnSmallScreenProps = {
   episodeData: EpisodeData;
-  episodeIsPlaying: boolean;
 };
 
 const EpisodeDetailsOnSmallScreen = ({
   episodeData,
-  episodeIsPlaying,
 }: EpisodeDetailsOnSmallScreenProps) => {
   return (
     <>
       {/* name and duration of ep */}
       <div className="ml-2 flex flex-1 flex-col justify-center gap-y-1 sm:hidden">
-        <h3
-          className={`text-lg font-semibold ${
-            episodeIsPlaying && "text-[#7e1de0]"
-          }`}
-        >
+        <h3 className={`} text-lg font-semibold`}>
           {episodeData.episode_number}. &nbsp;{episodeData.name}
         </h3>
         <p className="font-small-text text-gray-400">
