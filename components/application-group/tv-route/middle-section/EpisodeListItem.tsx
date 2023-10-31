@@ -1,19 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import useSWR from "swr";
+import { Session } from "next-auth";
+import { useSearchParams, usePathname } from "next/navigation";
 
 import { slugify } from "@/helpers/slugify";
 import { calculateDaysFromToday } from "@/helpers/calculateDaysFromToday";
 import { hasWatchedTVSeriesEpisode } from "@/lib/mongodb-api/hasWatchedTVSeriesEpisode";
 
-import { PlayIcon } from "@/components/ui/icons/Icons";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
 import Overview from "@/components/application-group/Overview";
 import AlreadyWatched from "@/components/ui/AlreadyWatched";
 import NowPlaying from "@/components/ui/NowPlaying";
-import { Session } from "next-auth";
+import WatchEpisode from "@/components/ui/WatchEpisode";
 
 const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
@@ -55,27 +56,35 @@ const EpisodeListItem = ({
   userSession,
 }: EpisodeListItemProps) => {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const currentPath = pathname.split("/")[1];
   const activeSeason: string | null = searchParams.get("season");
   const activeEpisode: string | null = searchParams.get("episode");
 
-  // if user has a session, check if they have watched the episode
-  let alreadyWatchedEpisode: Promise<boolean> | null = null;
-  if (userSession?.user) {
-    alreadyWatchedEpisode = hasWatchedTVSeriesEpisode({
-      id: tvSeriesId,
-      season: episodeData.season_number,
-      episode: episodeData.episode_number,
-      userEmail: userSession.user.email as string,
-    });
+  const { data: alreadyWatchedEpisode } = useSWR(
+    userSession
+      ? [
+          tvSeriesId,
+          episodeData.season_number,
+          episodeData.episode_number,
+          userSession?.user?.email,
+        ]
+      : null,
+    () => {
+      return hasWatchedTVSeriesEpisode({
+        episode: episodeData.episode_number,
+        season: episodeData.season_number,
+        id: tvSeriesId,
+        userEmail: userSession?.user?.email as string,
+      });
+    },
+  );
 
-    console.log(
-      `already watched episode ${episodeData.episode_number} : ${alreadyWatchedEpisode}`,
-    );
-  }
-
+  // check if the episode is playing, by checking if the pathname is watch-tv, and if the season and episode params match the episode data
   const episodeIsPlaying =
     activeSeason === episodeData.season_number.toString() &&
-    activeEpisode === episodeData.episode_number.toString();
+    activeEpisode === episodeData.episode_number.toString() &&
+    currentPath === "watch-tv";
 
   // calculate the number of days from today's date to the air date of the episode
   const daysFromToday = calculateDaysFromToday(episodeData.air_date);
@@ -105,14 +114,8 @@ const EpisodeListItem = ({
             ) : alreadyWatchedEpisode ? (
               <AlreadyWatched />
             ) : !episodeIsPlaying ? (
-              <div
-                className={`absolute  inset-0 flex items-center justify-center bg-black bg-opacity-10 `}
-              >
-                <PlayIcon />
-              </div>
+              <WatchEpisode />
             ) : null}
-
-            {/* {alreadyWatchedEpisode && <AlreadyWatched />} */}
 
             {/* episode image */}
             <ImageLoader
