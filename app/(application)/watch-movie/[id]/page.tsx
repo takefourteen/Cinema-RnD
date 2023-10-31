@@ -1,17 +1,19 @@
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
+import { getServerSession, Session } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 import dynamic from "next/dynamic";
 import Script from "next/script";
-import { notFound } from "next/navigation";
 
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
+import { addMediaToWatchHistory } from "@/lib/mongodb-api/addMediaToWatchHistory";
 
 import VideoPlayer from "@/components/application-group/VideoPlayer";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
 import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
-
 import RecommendedMediaSkeleton from "@/components/skeletons/RecommendedMediaSkeleton";
 
-// lazy load the following components
+// dynamically import the following component
 const RecommendedMediaList = dynamic(
   () =>
     import(
@@ -28,7 +30,39 @@ type PageProps = {
   };
 };
 
+const fetchMovie = async (movieId: string) => {
+  try {
+    return await fetchMovieDetails(movieId, 0);
+  } catch (error) {
+    console.error("error: ", error);
+    throw error;
+  }
+};
+
+const addMovieToWatchHistory = async (
+  movieId: string,
+  movieDetails: MovieDetailsData,
+  session: Session,
+) => {
+  try {
+    await addMediaToWatchHistory({
+      id: movieId,
+      title: movieDetails.title,
+      type: "movie",
+      season: 0,
+      episode: 0,
+      userEmail: session.user?.email as string,
+      watchedAt: new Date(),
+    });
+  } catch (error) {
+    console.error("error adding movie to watch history: ", error);
+  }
+};
+
 const page = async ({ params }: PageProps) => {
+  // get the session
+  const session = await getServerSession(authOptions);
+
   //  get the movie id from the params
   const movieId = params.id.split("-").pop() as string;
 
@@ -38,11 +72,10 @@ const page = async ({ params }: PageProps) => {
   }
 
   // fetch the movie details
-  let movieDetails;
+  let movieDetails: MovieDetailsData;
   try {
-    movieDetails = await fetchMovieDetails(movieId, 0);
+    movieDetails = await fetchMovie(movieId);
   } catch (error) {
-    console.log("error: ", error);
     return notFound();
   }
 
@@ -71,6 +104,11 @@ const page = async ({ params }: PageProps) => {
     },
   ];
 
+  //  add the movie to watch history if the user is logged in
+  if (session?.user) {
+    addMovieToWatchHistory(movieId, movieDetails, session);
+  }
+
   return (
     <section>
       {/* Top Section */}
@@ -90,7 +128,7 @@ const page = async ({ params }: PageProps) => {
       <ExplorerPanel tabConfigs={tabConfigs} />
 
       {/* Script */}
-      <Script src="../js/clearThePath.js" />
+      {/* <Script src="../js/clearThePath.js" /> */}
     </section>
   );
 };

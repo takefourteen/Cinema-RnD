@@ -1,10 +1,13 @@
 import { Suspense } from "react";
+import { notFound } from "next/navigation";
+import { getServerSession, Session } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
 import dynamic from "next/dynamic";
 import Script from "next/script";
-import { notFound } from "next/navigation";
 
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchTvSeriesExternalIds } from "@/lib/tmdb-api/external-ids";
+import { addMediaToWatchHistory } from "@/lib/mongodb-api/addMediaToWatchHistory";
 
 import VideoPlayer from "@/components/application-group/VideoPlayer";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
@@ -12,7 +15,7 @@ import DetailsAboutShowSection from "@/components/application-group/DetailsAbout
 import RecommendedMediaSkeleton from "@/components/skeletons/RecommendedMediaSkeleton";
 import EpisodesListSkeleton from "@/components/skeletons/EpisodesListSkeleton";
 
-// lazy load the following components:
+// dynamically load the following components:
 const RecommendedMediaList = dynamic(
   () =>
     import(
@@ -45,8 +48,33 @@ type PageProps = {
   };
 };
 
+const addTvSeriesToWatchHistory = async (
+  tvSeriesId: string,
+  tvSeriesDetails: TVSeriesData,
+  season: number,
+  episode: number,
+  session: Session,
+) => {
+  try {
+    await addMediaToWatchHistory({
+      id: tvSeriesId,
+      title: tvSeriesDetails.name,
+      type: "tv",
+      season,
+      episode,
+      watchedAt: new Date(),
+      userEmail: session.user?.email as string,
+    });
+  } catch (error) {
+    console.error("error adding tv series to watch history: ", error);
+  }
+}
+
 const page = async ({ params, searchParams }: PageProps) => {
-  //  id from the params is a string with the movie id and the movie name seperated by a dash, so we split the string and get the id
+  // get the session
+  const session = await getServerSession(authOptions);
+
+  //  get the tv series id from the params
   const tvSeriesId = params.id.split("-").pop() as string;
   const season = searchParams.season;
   const episode = searchParams.episode;
@@ -101,6 +129,11 @@ const page = async ({ params, searchParams }: PageProps) => {
       content: <DetailsAboutShowSection mediaId={tvSeriesId} mediaType="tv" />,
     },
   ];
+
+  // add tv series to watch history
+  if (session?.user) {
+    addTvSeriesToWatchHistory(tvSeriesId, tvSeriesDetails, Number(season), Number(episode), session);
+  }
 
   return (
     <section>

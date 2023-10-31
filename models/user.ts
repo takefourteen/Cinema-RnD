@@ -23,10 +23,9 @@ interface LibraryItem {
 export interface WatchHistoryItem {
   id: string;
   type: "movie" | "tv";
-  season?: number;
-  episode?: number;
+  season: number;
+  episode: number;
   title: string;
-
   watchedAt: Date;
 }
 
@@ -96,9 +95,11 @@ const UserSchema = new Schema<UserDocument>({
         },
         season: {
           type: Number,
+          required: true,
         },
         episode: {
           type: Number,
+          required: true,
         },
         watchedAt: {
           type: Date,

@@ -28,18 +28,35 @@ export async function addMediaToWatchHistory(
     throw new Error("User not found");
   }
 
-  // Check if the item is already in the user's watch history to prevent duplicates
-  const existingItem = user.watchHistory.find(
-    (item: WatchHistoryItem) => item.id === id && item.type === type,
-  );
+  /*
+   Check if the item is already in the user's watch history to prevent duplicates.
+   the check is different for movies and tv shows because tv shows have seasons and episodes.   
+   */
+  const existingItem = user.watchHistory.find((item: WatchHistoryItem) => {
+    if (item.type === "movie") {
+      return item.id === id && item.type === type;
+    }
+
+    if (item.type === "tv") {
+      return (
+        item.id === id &&
+        item.type === type &&
+        item.season === season &&
+        item.episode === episode
+      );
+    }
+
+    return false;
+  });
 
   if (existingItem) {
+    console.log("Item already in watch history:\n", existingItem);
     // Handle the case where the item is already in the watch history
-    throw new Error("Item already in watch history");
+    return;
   }
 
   // Add the item to the user's watch history in the first position
-  await User.findOneAndUpdate(
+  const updatedUser = await User.findOneAndUpdate(
     { email: userEmail },
     {
       $push: {
@@ -51,6 +68,10 @@ export async function addMediaToWatchHistory(
     },
     { new: true },
   );
+
+  if (updatedUser) {
+    console.log("Item added to watch history:\n", updatedUser.watchHistory[0]);
+  }
 
   // Revalidate the fetch functions tagged with tv-details if mediaType is tv
   if (type === "tv") {
