@@ -8,7 +8,6 @@ import Script from "next/script";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchTvSeriesExternalIds } from "@/lib/tmdb-api/external-ids";
 import { addMediaToWatchHistory } from "@/lib/mongodb-api/addMediaToWatchHistory";
-import { hasWatchedTVSeriesEpisode } from "@/lib/mongodb-api/hasWatchedTVSeriesEpisode";
 
 import VideoPlayer from "@/components/application-group/VideoPlayer";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
@@ -133,7 +132,7 @@ const page = async ({ params, searchParams }: PageProps) => {
 
   // add tv series to watch history
   if (session?.user) {
-    addTvSeriesToWatchHistory(
+    await addTvSeriesToWatchHistory(
       tvSeriesId,
       tvSeriesDetails,
       Number(season),

@@ -15,7 +15,7 @@ type EpisodesListProps = {
 };
 
 const EpisodesList = ({ tvSeriesId, selectedSeason }: EpisodesListProps) => {
-  const { data: session } = useSession();
+const { data: session } = useSession();
   const seasonNumber = selectedSeason.toString();
   const appendSeasonNumberToResponse = `season/${seasonNumber}`;
 
@@ -27,13 +27,15 @@ const EpisodesList = ({ tvSeriesId, selectedSeason }: EpisodesListProps) => {
     fetchTvSeriesDetails(tvSeriesId, 0, appendSeasonNumberToResponse),
   );
 
+  // console.log("watchedEpisodes: ", watchedEpisodes);
+
   if (error) throw new Error("Failed to load tv data in EpisodesList.tsx");
 
   if (isLoading) return <EpisodesListSkeleton />;
 
   if (!tvSeriesDetails) return null;
 
-  /* 
+/* 
     display number of episodes in the season.
     go through each episode in the season and check if the episode
     air date is less than or equal to today's date. If it is, then
