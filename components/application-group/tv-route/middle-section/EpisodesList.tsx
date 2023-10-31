@@ -1,6 +1,7 @@
 "use client";
 
 import useSWR from "swr";
+import { useSession } from "next-auth/react";
 
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { calculateDaysFromToday } from "@/helpers/calculateDaysFromToday";
@@ -14,6 +15,7 @@ type EpisodesListProps = {
 };
 
 const EpisodesList = ({ tvSeriesId, selectedSeason }: EpisodesListProps) => {
+  const { data: session } = useSession();
   const seasonNumber = selectedSeason.toString();
   const appendSeasonNumberToResponse = `season/${seasonNumber}`;
 
@@ -59,6 +61,7 @@ const EpisodesList = ({ tvSeriesId, selectedSeason }: EpisodesListProps) => {
             episodeData={episode}
             tvSeriesId={tvSeriesId}
             tvSeriesTitle={tvSeriesDetails.original_name}
+            userSession={session}
           />
         ))}
       </ul>

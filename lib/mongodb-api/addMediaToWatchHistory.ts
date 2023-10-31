@@ -17,6 +17,8 @@ export async function addMediaToWatchHistory(
   // Destructure the data object
   const { userEmail, id, type, title, season, episode, watchedAt } = data;
 
+  console.log("\nAdding item to watch history:\n", data);
+
   // Connect to the database
   await connectToDatabase(); // Implement your database connection logic here
 

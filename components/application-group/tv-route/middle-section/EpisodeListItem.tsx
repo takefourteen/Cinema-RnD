@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 
 import { slugify } from "@/helpers/slugify";
 import { calculateDaysFromToday } from "@/helpers/calculateDaysFromToday";
+import { hasWatchedTVSeriesEpisode } from "@/lib/mongodb-api/hasWatchedTVSeriesEpisode";
 
 import { PlayIcon } from "@/components/ui/icons/Icons";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -12,6 +13,7 @@ import ImageLoader from "@/components/ImageLoader";
 import Overview from "@/components/application-group/Overview";
 import AlreadyWatched from "@/components/ui/AlreadyWatched";
 import NowPlaying from "@/components/ui/NowPlaying";
+import { Session } from "next-auth";
 
 const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
@@ -19,6 +21,7 @@ type EpisodeListItemProps = {
   episodeData: EpisodeData;
   tvSeriesId: string;
   tvSeriesTitle: string;
+  userSession: Session | null;
 };
 
 type Styles = {
@@ -49,10 +52,26 @@ const EpisodeListItem = ({
   episodeData,
   tvSeriesId,
   tvSeriesTitle,
+  userSession,
 }: EpisodeListItemProps) => {
   const searchParams = useSearchParams();
   const activeSeason: string | null = searchParams.get("season");
   const activeEpisode: string | null = searchParams.get("episode");
+
+  // if user has a session, check if they have watched the episode
+  let alreadyWatchedEpisode: Promise<boolean> | null = null;
+  if (userSession?.user) {
+    alreadyWatchedEpisode = hasWatchedTVSeriesEpisode({
+      id: tvSeriesId,
+      season: episodeData.season_number,
+      episode: episodeData.episode_number,
+      userEmail: userSession.user.email as string,
+    });
+
+    console.log(
+      `already watched episode ${episodeData.episode_number} : ${alreadyWatchedEpisode}`,
+    );
+  }
 
   const episodeIsPlaying =
     activeSeason === episodeData.season_number.toString() &&
@@ -81,11 +100,19 @@ const EpisodeListItem = ({
       >
         <div className="relative w-full">
           <AspectRatio ratio={16 / 9}>
-            {/* Now Playing design */}
-            {episodeIsPlaying && <NowPlaying />}
+            {episodeIsPlaying ? (
+              <NowPlaying />
+            ) : alreadyWatchedEpisode ? (
+              <AlreadyWatched />
+            ) : !episodeIsPlaying ? (
+              <div
+                className={`absolute  inset-0 flex items-center justify-center bg-black bg-opacity-10 `}
+              >
+                <PlayIcon />
+              </div>
+            ) : null}
 
-            {/* Already Watched design */}
-            {true && <AlreadyWatched />}
+            {/* {alreadyWatchedEpisode && <AlreadyWatched />} */}
 
             {/* episode image */}
             <ImageLoader
@@ -98,11 +125,6 @@ const EpisodeListItem = ({
             />
 
             {/* play icon */}
-            <div
-              className={`absolute  inset-0 flex items-center justify-center bg-black bg-opacity-10 `}
-            >
-              {!episodeIsPlaying && <PlayIcon />}
-            </div>
           </AspectRatio>
         </div>
 

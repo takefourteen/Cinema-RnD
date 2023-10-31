@@ -8,6 +8,7 @@ import Script from "next/script";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchTvSeriesExternalIds } from "@/lib/tmdb-api/external-ids";
 import { addMediaToWatchHistory } from "@/lib/mongodb-api/addMediaToWatchHistory";
+import { hasWatchedTVSeriesEpisode } from "@/lib/mongodb-api/hasWatchedTVSeriesEpisode";
 
 import VideoPlayer from "@/components/application-group/VideoPlayer";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
@@ -68,7 +69,7 @@ const addTvSeriesToWatchHistory = async (
   } catch (error) {
     console.error("error adding tv series to watch history: ", error);
   }
-}
+};
 
 const page = async ({ params, searchParams }: PageProps) => {
   // get the session
@@ -95,7 +96,7 @@ const page = async ({ params, searchParams }: PageProps) => {
     return notFound();
   }
 
-  console.log("imdb id: ", externalIds.imdb_id);
+  // console.log("imdb id: ", externalIds.imdb_id);
 
   // structure genreIds as an array of numbers
   const genreIds = tvSeriesDetails.genres.map((genre) => genre.id);
@@ -132,7 +133,13 @@ const page = async ({ params, searchParams }: PageProps) => {
 
   // add tv series to watch history
   if (session?.user) {
-    addTvSeriesToWatchHistory(tvSeriesId, tvSeriesDetails, Number(season), Number(episode), session);
+    addTvSeriesToWatchHistory(
+      tvSeriesId,
+      tvSeriesDetails,
+      Number(season),
+      Number(episode),
+      session,
+    );
   }
 
   return (
