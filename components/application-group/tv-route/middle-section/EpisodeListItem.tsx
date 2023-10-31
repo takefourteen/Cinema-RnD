@@ -5,14 +5,13 @@ import { useSearchParams } from "next/navigation";
 
 import { slugify } from "@/helpers/slugify";
 import { calculateDaysFromToday } from "@/helpers/calculateDaysFromToday";
-import { getVideoPlayerUrl } from "@/helpers/getVideoPlayerUrl";
-import { fetchTvSeriesExternalIds } from "@/lib/tmdb-api/external-ids";
 
 import { PlayIcon } from "@/components/ui/icons/Icons";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
 import Overview from "@/components/application-group/Overview";
-import Equalizer from "../../../ui/equalizer/Equalizer";
+import AlreadyWatched from "@/components/ui/AlreadyWatched";
+import NowPlaying from "@/components/ui/NowPlaying";
 
 const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
@@ -82,19 +81,13 @@ const EpisodeListItem = ({
       >
         <div className="relative w-full">
           <AspectRatio ratio={16 / 9}>
-            {/* now playing design */}
-            {episodeIsPlaying && (
-              <div className="absolute inset-0 z-10 flex w-full items-center justify-center bg-black/80">
-                <p className="font-small-text text-center uppercase  text-white">
-                  Now Playing
-                </p>
+            {/* Now Playing design */}
+            {episodeIsPlaying && <NowPlaying />}
 
-                <Equalizer />
-              </div>
-            )}
+            {/* Already Watched design */}
+            {true && <AlreadyWatched />}
 
-            {/* episode poster */}
-
+            {/* episode image */}
             <ImageLoader
               loaderType="skeleton"
               src={`${BASE_IMG_URL}${episodeData.still_path}`}
