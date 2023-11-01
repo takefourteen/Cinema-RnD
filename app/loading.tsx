@@ -2,9 +2,10 @@ import Image from "next/image";
 
 import logo from "@/assets/images/logos/cozycinema-logo.webp";
 import logoC from "@/assets/images/logos/cozycinema-logo-c.webp";
+
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 
-const loading = () => {
+export default function Loading() {
   const loading = "COZYCINEMA";
 
   return (
@@ -22,6 +23,7 @@ const loading = () => {
             src={logoC}
             alt="cozycinema logo"
             fill
+            sizes="(max-width: 1024px) 75px, 0px"
             className="object-cover object-top"
           />
         </AspectRatio>
@@ -34,6 +36,7 @@ const loading = () => {
             src={logo}
             alt="cozycinema logo"
             fill
+            sizes="(min-width: 1024px) 250px, 0px"
             className="object-cover object-top"
           />
         </AspectRatio>
@@ -55,9 +58,7 @@ const loading = () => {
       </div>
     </div>
   );
-};
-
-export default loading;
+}
 
 {
   /* map through loading and display every letter animated with a delay */

@@ -1,6 +1,9 @@
+import { Suspense } from "react";
+
 import Footer from "@/components/Footer";
 import Navbar from "@/components/application-group/navbar/Navbar";
 import BottomMobileNavbar from "@/components/application-group/navbar/BottomMobileNavbar";
+import Loading from "../loading";
 
 export default function ApplicationLayout({
   children,
@@ -12,7 +15,9 @@ export default function ApplicationLayout({
       {/* use the top navbar on medium and large screens */}
       <Navbar />
 
-      <main className="flex flex-col flex-1">{children}</main>
+      <main className="flex flex-1 flex-col">
+        <Suspense fallback={<Loading />}>{children}</Suspense>
+      </main>
 
       <Footer />
 

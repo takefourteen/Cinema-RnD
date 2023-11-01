@@ -2,12 +2,11 @@ import "./globals.css";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Suspense } from "react";
-import { getServerSession } from "next-auth/next"
+import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/authOptions";
 
 import { Toaster } from "sonner";
 import Providers from "@/providers/Providers";
-
 
 const maxSans = localFont({
   src: [
@@ -43,7 +42,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions)
+  const session = await getServerSession(authOptions);
 
   return (
     <html lang="en" className="scroll-smooth">
@@ -55,7 +54,7 @@ export default async function RootLayout({
 
           {/* Get Toast Notifications */}
           <Suspense fallback={null}>
-            <Toaster richColors position="top-center" expand />
+            <Toaster richColors position="top-center" expand closeButton />
           </Suspense>
         </Providers>
       </body>
