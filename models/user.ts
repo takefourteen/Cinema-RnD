@@ -10,6 +10,7 @@ interface UserDocument extends Document {
   role: "user" | "admin";
   library: LibraryItem[];
   watchHistory: WatchHistoryItem[];
+  comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 // Define the structure of the LibraryItem
