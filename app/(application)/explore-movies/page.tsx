@@ -1,7 +1,9 @@
-type Props = {}
-const page = (props: Props) => {
+
+import ComingSoon from "@/components/ui/ComingSoon"
+
+const page = () => {
   return (
-    <div>Explore Movies</div>
+    <ComingSoon />
   )
 }
 export default page
