@@ -28,7 +28,7 @@ const ExplorerPanel = ({
   return (
     <div className="master-container mx-auto mt-8 flex flex-col gap-y-10 md:gap-y-12">
       <div
-        className={`flex w-max gap-1 rounded-full border border-white/50
+        className={`flex w-max gap-1 rounded-full border p-1 border-white/50
       ${panelPosition === "center" ? "mx-auto" : ""}
       `}
       >
@@ -39,7 +39,7 @@ const ExplorerPanel = ({
               role="tab"
               aria-selected={selectedTab === index}
               onClick={() => handleTabChange(index)}
-              className={`font-button-text rounded-full border-none py-1 text-center tracking-wide transition-colors lg:py-1.5  ${
+              className={`font-button-text rounded-full border-none py-1 text-center tracking-wide transition-colors  ${
                 selectedTab === index
                   ? "bg-white text-black hover:bg-white"
                   : "text-white hover:bg-transparent hover:text-white/70"

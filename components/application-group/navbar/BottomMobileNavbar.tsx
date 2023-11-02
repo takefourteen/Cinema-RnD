@@ -19,7 +19,7 @@ const BottomMobileNavbar = () => {
 
   return (
     <nav
-      className="fixed bottom-2 z-10  left-1/2 transform -translate-x-1/2 w-[95%] backdrop-filter backdrop-blur-lg  rounded-full border-[1px] border-gray-700  bg-black/50  md:hidden"
+      className="fixed bottom-2 left-1/2  z-10 w-[95%] -translate-x-1/2 transform rounded-full border-[1px]  border-gray-700 bg-black/50 backdrop-blur-lg  backdrop-filter  md:hidden"
       role="navigation"
       aria-label="mobile navigation"
     >
@@ -28,8 +28,8 @@ const BottomMobileNavbar = () => {
         <BottomMobileNavbarLink
           href="/"
           activeLink={pathname === "/"}
-          defaultIcon={<PiHouse className="h-full w-full" />}
-          activeIcon={<PiHouseFill className="h-full w-full" />}
+          defaultIcon={<PiHouse className="text-xl sm:text-2xl" />}
+          activeIcon={<PiHouseFill className="text-xl sm:text-2xl" />}
           text={"Home"}
         />
 
@@ -37,8 +37,8 @@ const BottomMobileNavbar = () => {
         <BottomMobileNavbarLink
           href="/explore-movies"
           activeLink={pathname === "/explore-movies"}
-          defaultIcon={<PiFilmSlate className="h-full w-full" />}
-          activeIcon={<PiFilmSlateFill className="h-full w-full" />}
+          defaultIcon={<PiFilmSlate className="text-xl sm:text-2xl" />}
+          activeIcon={<PiFilmSlateFill className="text-xl sm:text-2xl" />}
           text={"Movies"}
         />
 
@@ -46,8 +46,8 @@ const BottomMobileNavbar = () => {
         <BottomMobileNavbarLink
           href="/explore-tv-series"
           activeLink={pathname === "/explore-tv-series"}
-          defaultIcon={<PiMonitor className="h-full w-full" />}
-          activeIcon={<PiMonitorFill className="h-full w-full" />}
+          defaultIcon={<PiMonitor className="text-xl sm:text-2xl" />}
+          activeIcon={<PiMonitorFill className="text-xl sm:text-2xl" />}
           text={"TV Series"}
         />
 
@@ -55,8 +55,8 @@ const BottomMobileNavbar = () => {
         <BottomMobileNavbarLink
           href="/library"
           activeLink={pathname === "/library"}
-          defaultIcon={<BsCollectionPlay className="h-full w-full" />}
-          activeIcon={<BsCollectionPlayFill className="h-full w-full" />}
+          defaultIcon={<BsCollectionPlay className="text-xl sm:text-2xl" />}
+          activeIcon={<BsCollectionPlayFill className="text-xl sm:text-2xl" />}
           text={"Library"}
         />
       </div>
@@ -91,18 +91,14 @@ const BottomMobileNavbarLink = ({
         isActive
           ? "pointer-events-none  border-t-primaryRed "
           : " border-t-transparent hover:border-t-primaryRed"
-      } relative h-fit w-max flex-1 flex-col rounded-none border-t-0 bg-transparent hover:opacity-80 py-1 px-0 uppercase  tracking-wide hover:bg-transparent   `}
+      } relative h-fit w-max flex-1 flex-col rounded-none border-t-0 bg-transparent px-0 py-1 uppercase tracking-wide  hover:bg-transparent hover:opacity-80   `}
       role="link"
       aria-label={text}
     >
       <Link href={`${href}`}>
         {/* use absolutely positioned span to add a red underline to the active link */}
 
-        <span
-          className={`${
-            isActive ? activeClasses : inactiveClasses
-          } text-xl sm:text-2xl`}
-        >
+        <span className={`${isActive ? activeClasses : inactiveClasses} `}>
           {isActive ? activeIcon : defaultIcon}
         </span>
         <span
