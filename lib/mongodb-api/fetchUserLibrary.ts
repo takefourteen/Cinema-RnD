@@ -12,7 +12,7 @@ interface LibraryItem {
   ): Promise<LibraryItem[]> {
     try {
       // Connect to the database
-      await connectToDatabase(); // Implement your database connection logic here
+      await connectToDatabase();
   
       // Find the user using their email address
       const user = await User.findOne({ email: userEmail });

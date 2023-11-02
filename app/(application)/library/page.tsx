@@ -6,6 +6,7 @@ import { fetchUserLibrary } from "../../../lib/mongodb-api/fetchUserLibrary";
 import UserNotSignedIn from "@/components/application-group/library-route/UserNotSignedIn";
 import LibraryExplorerPanel from "@/components/application-group/library-route/LibraryExplorerPanel";
 import LibraryList from "@/components/application-group/library-route/LibraryList";
+import WatchHistory from "@/components/application-group/library-route/WatchHistory";
 
 type LibraryItem = {
   id: string;
@@ -15,7 +16,7 @@ type LibraryItem = {
 
 type LibraryPageProps = {
   searchParams?: {
-    tab?: "tv" | "movie";
+    tab?: "tv" | "movie" | "history";
   };
 };
 
@@ -67,12 +68,22 @@ const page = async ({ searchParams }: LibraryPageProps) => {
     ),
   };
 
+  const watchHistoryTabConfig = {
+    key: "history",
+    title: "History",
+    content: <WatchHistory userEmail={session.user?.email as string} />,
+  };
+
   // depending on the list type, set the active tab
-  const tabConfigs = [tvTabConfig, movieTabConfig];
+  const tabConfigs = [tvTabConfig, movieTabConfig, watchHistoryTabConfig];
 
   return (
     <section className=" relative mt-[40px] pb-[80px] pt-10 lg:mt-[60px]">
-      <LibraryExplorerPanel tabConfigs={tabConfigs} panelPosition="center" urlSelectedTab={tabType}/>
+      <LibraryExplorerPanel
+        tabConfigs={tabConfigs}
+        panelPosition="center"
+        urlSelectedTab={tabType}
+      />
     </section>
   );
 };

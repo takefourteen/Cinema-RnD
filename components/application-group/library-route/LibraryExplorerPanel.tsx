@@ -14,7 +14,7 @@ type TabConfig = {
 type TabsNavigationProps = {
   tabConfigs: TabConfig[];
   panelPosition?: "center" | "left";
-  urlSelectedTab: "tv" | "movie";
+  urlSelectedTab: "tv" | "movie" | "history";
 };
 
 const LibraryExplorerPanel = ({
@@ -24,17 +24,17 @@ const LibraryExplorerPanel = ({
 }: TabsNavigationProps) => {
   const router = useRouter();
 
-  const selectedTab = urlSelectedTab === "tv" ? 0 : 1;
+  const selectedTab = urlSelectedTab === "tv" ? 0 : urlSelectedTab === "movie" ? 1 : 2;
 
   const handleTabChange = (index: number) => {
-    const newTab = index === 0 ? "tv" : "movie";
+    const newTab = index === 0 ? "tv" : index === 1 ? "movie" : "history";
     router.push(`/library?tab=${newTab}`);
   };
 
   return (
     <div className="master-container mx-auto mt-8 flex flex-col gap-y-10 md:gap-y-12">
       <div
-        className={`flex w-max gap-1 rounded-full p-1 border border-white/50
+        className={`flex w-max gap-1 rounded-full border border-white/50 p-1
       ${panelPosition === "center" ? "mx-auto" : ""}
       `}
       >
