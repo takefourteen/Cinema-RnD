@@ -8,6 +8,11 @@ interface Image {
   width: number;
 }
 
+interface TvEpisodeImagesData {
+  id: number;
+  stills: Image[];
+}
+
 interface ImagesData {
   backdrops: Image[];
   id: number;
