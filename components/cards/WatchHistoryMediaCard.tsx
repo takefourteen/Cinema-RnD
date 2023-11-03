@@ -76,51 +76,49 @@ const WatchHistoryMediaCard = async ({
   const imageSrc = mediaType === "movie" ? movieImageSrc : tvSeriesImageSrc;
 
   return (
-    <li className={`relative h-auto flex-1`}>
-      <Link
-        href={mediaPageUrl as string}
-        className="group grid flex-1 grid-cols-2 gap-x-2 sm:flex sm:flex-col sm:gap-x-0 sm:gap-y-2"
-      >
-        <AspectRatio ratio={16 / 9}>
-          <ImageLoader
-            loaderType={loaderType}
-            src={imageSrc as string}
-            alt={`${mediaTitle} poster`}
-            fill
-            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
-            priority={priority}
-            className=" object-cover transition-all duration-300 ease-in-out group-hover:ring-4 group-hover:ring-slate-950 group-hover:ring-offset-2 group-focus-visible:ring-4  group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
-            style={{ filter: "brightness(0.9)" }}
-          />
+    <Link
+      href={mediaPageUrl as string}
+      className="group grid flex-1 grid-cols-2 gap-x-2 sm:flex sm:flex-col sm:gap-x-0 sm:gap-y-2"
+    >
+      <AspectRatio ratio={16 / 9}>
+        <ImageLoader
+          loaderType={loaderType}
+          src={imageSrc as string}
+          alt={`${mediaTitle} poster`}
+          fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 25vw"
+          priority={priority}
+          className=" object-cover transition-all duration-300 ease-in-out group-hover:ring-4 group-hover:ring-slate-950 group-hover:ring-offset-2 group-focus-visible:ring-4  group-focus-visible:ring-slate-950 group-focus-visible:ring-offset-2"
+          style={{ filter: "brightness(0.9)" }}
+        />
 
-          {/* overlay the image with a grain texture */}
-          {/* <div className="absolute inset-0 bg-[url('/grain-texture-image.svg')] opacity-30" /> */}
+        {/* overlay the image with a grain texture */}
+        {/* <div className="absolute inset-0 bg-[url('/grain-texture-image.svg')] opacity-30" /> */}
 
-          {/* span to show if it is a movie ot tv series styles as a chip */}
-          <span
-            className={`absolute left-1 top-1 bg-black bg-opacity-90 px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-slate-50`}
-          >
-            {" "}
-            {mediaType === "movie" ? "Movie" : "TV Series"}
-          </span>
+        {/* span to show if it is a movie ot tv series styles as a chip */}
+        <span
+          className={`absolute left-1 top-1 bg-black bg-opacity-90 px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-slate-50`}
+        >
+          {" "}
+          {mediaType === "movie" ? "Movie" : "TV Series"}
+        </span>
 
-          {/* small dark overlay over the top and bottom of img to make the info readable */}
-          <AlreadyWatched showCheckMark={false} />
-        </AspectRatio>
+        {/* small dark overlay over the top and bottom of img to make the info readable */}
+        <AlreadyWatched showCheckMark={false} />
+      </AspectRatio>
 
-        {/* info on card */}
-        <div className="space-y-2 text-white sm:space-y-0">
-          <h3 className={` text-lg text-gray-200 `}>{mediaTitle}</h3>
+      {/* info on card */}
+      <div className="space-y-2 text-white sm:space-y-0">
+        <h3 className={` text-lg text-gray-200 `}>{mediaTitle}</h3>
 
-          {/* if mediaType is tv show season and episode info */}
-          {mediaType === "tv" && (
-            <p className="font-small-text text-gray-400 ">
-              S{seasonNumber} • E{episodeNumber}
-            </p>
-          )}
-        </div>
-      </Link>
-    </li>
+        {/* if mediaType is tv show season and episode info */}
+        {mediaType === "tv" && (
+          <p className="font-small-text text-gray-400 ">
+            S{seasonNumber} • E{episodeNumber}
+          </p>
+        )}
+      </div>
+    </Link>
   );
 };
 

@@ -1,6 +1,9 @@
+import { Suspense } from "react";
+
 import { IoMdAdd as AddIcon } from "react-icons/io";
 import DataFetchingMediaCard from "@/components/cards/DataFetchingMediaCard";
 import DeleteFromLibraryButton from "./DeleteFromLibraryButton";
+import CardSkeleton from "@/components/skeletons/CardSkeleton";
 
 type Props = {
   libraryItems: {
@@ -11,7 +14,7 @@ type Props = {
   userEmail: string;
 };
 
-const LibraryList = async ({ libraryItems, userEmail }: Props) => {
+const LibraryList = ({ libraryItems, userEmail }: Props) => {
   if (libraryItems.length === 0) {
     return (
       <p className="mx-auto max-w-sm text-center text-lg text-white/70 md:max-w-lg">
@@ -33,19 +36,20 @@ const LibraryList = async ({ libraryItems, userEmail }: Props) => {
       <ul className="grid grid-cols-2 gap-x-2 gap-y-12 sm:grid-cols-3 md:grid-cols-4 md:gap-y-16 lg:grid-cols-5 xl:grid-cols-6">
         {libraryItems.map((media, index) => (
           <li key={media.id} className="relative">
-            <DataFetchingMediaCard
-              mediaId={media.id.toString()}
-              mediaType={media.type}
-              loaderType="skeleton"
-              priority={index < 5 ? true : false}
-              inAGrid={true}
-            />
-
-            <DeleteFromLibraryButton
-              id={media.id}
-              type={media.type}
-              userEmail={userEmail}
-            />
+            <Suspense fallback={<CardSkeleton />}>
+              <DataFetchingMediaCard
+                mediaId={media.id.toString()}
+                mediaType={media.type}
+                loaderType="skeleton"
+                priority={index < 5 ? true : false}
+                inAGrid={true}
+              />
+              <DeleteFromLibraryButton
+                id={media.id}
+                type={media.type}
+                userEmail={userEmail}
+              />
+            </Suspense>
           </li>
         ))}
       </ul>

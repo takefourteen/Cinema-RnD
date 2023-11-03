@@ -1,9 +1,13 @@
+import { Suspense } from "react";
+
 // interface import
 import { WatchHistoryItem } from "@/models/user";
 
 import { fetchUserWatchHistory } from "@/lib/mongodb-api/fetchUserWatchHistory";
 
 import WatchHistoryMediaCard from "@/components/cards/WatchHistoryMediaCard";
+import CardSkeleton from "@/components/skeletons/CardSkeleton";
+import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 
 interface GroupedWatchHistory {
   [date: string]: WatchHistoryItem[];
@@ -59,16 +63,25 @@ const WatchHistory = async ({ userEmail }: Props) => {
             </h2>
             <ul className=" grid  gap-x-4 gap-y-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {groupedWatchHistory[date].map((media, index) => (
-                <WatchHistoryMediaCard
-                  key={media.id}
-                  mediaId={media.id.toString()}
-                  mediaTitle={media.title}
-                  seasonNumber={media.season}
-                  episodeNumber={media.episode}
-                  mediaType={media.type}
-                  loaderType="skeleton"
-                  priority={index < 5 ? true : false}
-                />
+                <li className={`relative h-auto flex-1`} key={media.id}>
+                  <Suspense
+                    fallback={
+                      <div className="aspect-video">
+                        <CardSkeleton rows={1} />
+                      </div>
+                    }
+                  >
+                    <WatchHistoryMediaCard
+                      mediaId={media.id.toString()}
+                      mediaTitle={media.title}
+                      seasonNumber={media.season}
+                      episodeNumber={media.episode}
+                      mediaType={media.type}
+                      loaderType="skeleton"
+                      priority={index < 5 ? true : false}
+                    />
+                  </Suspense>
+                </li>
               ))}
             </ul>
           </li>

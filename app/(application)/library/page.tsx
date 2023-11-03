@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
@@ -71,7 +72,13 @@ const page = async ({ searchParams }: LibraryPageProps) => {
   const watchHistoryTabConfig = {
     key: "history",
     title: "History",
-    content: <WatchHistory userEmail={session.user?.email as string} />,
+    content: (
+      <Suspense
+        fallback={<h1 className="text-4xl font-bold">Watch History</h1>}
+      >
+        <WatchHistory userEmail={session.user?.email as string} />
+      </Suspense>
+    ),
   };
 
   // depending on the list type, set the active tab
