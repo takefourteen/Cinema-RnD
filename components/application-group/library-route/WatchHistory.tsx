@@ -4,6 +4,7 @@ import { WatchHistoryItem } from "@/models/user";
 import { fetchUserWatchHistory } from "@/lib/mongodb-api/fetchUserWatchHistory";
 
 import DataFetchingMediaCard from "@/components/cards/DataFetchingMediaCard";
+import WatchHistoryMediaCard from "@/components/cards/WatchHistoryMediaCard";
 
 interface GroupedWatchHistory {
   [date: string]: WatchHistoryItem[];
@@ -34,15 +35,17 @@ const WatchHistory = async ({ userEmail }: Props) => {
         {Object.keys(groupedWatchHistory).map((date) => (
           <li key={date}>
             <h2>{date}</h2>
-            <ul className="grid grid-cols-2 gap-x-2 gap-y-12 sm:grid-cols-3 md:grid-cols-4 md:gap-y-16 lg:grid-cols-5 xl:grid-cols-6">
+            <ul className=" grid gap-x-4  gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {groupedWatchHistory[date].map((media, index) => (
-                <DataFetchingMediaCard
+                <WatchHistoryMediaCard
                   key={media.id}
                   mediaId={media.id.toString()}
+                  mediaTitle={media.title}
+                  seasonNumber={media.season}
+                  episodeNumber={media.episode}
                   mediaType={media.type}
                   loaderType="skeleton"
                   priority={index < 5 ? true : false}
-                  inAGrid={true}
                 />
               ))}
             </ul>
