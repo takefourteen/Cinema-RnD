@@ -15,7 +15,7 @@ import { DetailsButton } from "@/components/DetailsButton";
 import ImdbRating from "../ImdbRating";
 import Overview from "../Overview";
 import TitleLogo from "../TitleLogo";
-import ServerAddToLibraryButton from "@/components/application-group/addToLibraryComponent/ServerAddToLibraryButton";
+import AddToLibraryButton from "@/components/application-group/AddToLibraryButton";
 
 type ShowDetailsLargeScreenProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
@@ -160,8 +160,8 @@ const ShowDetailsLargeScreen = async ({
       <div className="mt-2 flex h-max w-max flex-col gap-y-2  capitalize lg:mt-4 ">
         <div className="flex gap-x-2">
           {/* add to lib button */}
-          <ServerAddToLibraryButton
-            mediaId={movieOrTvShowDetails.id}
+          <AddToLibraryButton
+            mediaId={movieOrTvShowDetails.id.toString()}
             mediaType={type}
             mediaTitle={movieOrTvShowTitle}
           />

@@ -10,7 +10,7 @@ import { DetailsButton } from "@/components/DetailsButton";
 import ImdbRating from "../ImdbRating";
 import TitleLogo from "../TitleLogo";
 import ImageLoader from "@/components/ImageLoader";
-import ServerAddToLibraryButton from "@/components/application-group/addToLibraryComponent/ServerAddToLibraryButton";
+import AddToLibraryButton from "@/components/application-group/AddToLibraryButton";
 
 type ShowDetailsSmallScreenProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
@@ -164,9 +164,9 @@ const ShowDetailsSmallScreen = async ({
       {/*library, play and info btns */}
       <div className="mt-6 flex h-max w-full items-start justify-center gap-x-10 md:gap-x-12 lg:mt-4 ">
         {/* add to library button */}
-        <ServerAddToLibraryButton
+        <AddToLibraryButton
           mediaType={type}
-          mediaId={movieOrTvShowDetails.id}
+          mediaId={movieOrTvShowDetails.id.toString()}
           mediaTitle={movieOrTvShowTitle}
           size="small"
         />

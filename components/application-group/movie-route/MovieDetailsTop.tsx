@@ -9,8 +9,7 @@ import Overview from "../Overview";
 import ResponsiveBackgroundPoster from "../ResponsiveBackgroundPoster";
 import ImdbRating from "../ImdbRating";
 import TitleLogo from "../TitleLogo";
-import ServerAddToLibraryButton from "@/components/application-group/addToLibraryComponent/ServerAddToLibraryButton";
-
+import AddToLibraryButton from "@/components/application-group/AddToLibraryButton";
 
 interface MovieHeaderProps {
   movieDetails: MovieDetailsData;
@@ -117,9 +116,9 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = ({
               </Link>
             </DetailsButton>
             {/* add to library button */}
-            <ServerAddToLibraryButton
+            <AddToLibraryButton
               mediaType="movie"
-              mediaId={movieDetails.id}
+              mediaId={movieDetails.id.toString()}
               mediaTitle={movieDetails.original_title}
             />
           </div>
