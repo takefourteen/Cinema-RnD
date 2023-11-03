@@ -1,7 +1,5 @@
-"use client";
-
 import { memo } from "react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { DetailsButton } from "@/components/DetailsButton";
 
@@ -22,14 +20,8 @@ const LibraryExplorerPanel = ({
   panelPosition = "center",
   urlSelectedTab,
 }: TabsNavigationProps) => {
-  const router = useRouter();
-
-  const selectedTab = urlSelectedTab === "tv" ? 0 : urlSelectedTab === "movie" ? 1 : 2;
-
-  const handleTabChange = (index: number) => {
-    const newTab = index === 0 ? "tv" : index === 1 ? "movie" : "history";
-    router.push(`/library?tab=${newTab}`);
-  };
+  const selectedTab =
+    urlSelectedTab === "tv" ? 0 : urlSelectedTab === "movie" ? 1 : 2;
 
   return (
     <div className="master-container mx-auto mt-8 flex flex-col gap-y-10 md:gap-y-12">
@@ -41,17 +33,23 @@ const LibraryExplorerPanel = ({
         {tabConfigs.map((config, index) => (
           <div key={config.key}>
             <DetailsButton
+              asChild
               variant={"outline"}
               role="tab"
               aria-selected={selectedTab === index}
-              onClick={() => handleTabChange(index)}
               className={`font-button-text rounded-full border-none py-1 text-center tracking-wide transition-colors  ${
                 selectedTab === index
                   ? "bg-white text-black hover:bg-white"
                   : "text-white hover:bg-transparent hover:text-white/70"
               }`}
             >
-              {config.title}
+              <Link
+                href={`/library?tab=${
+                  index === 0 ? "tv" : index === 1 ? "movie" : "history"
+                }`}
+              >
+                {config.title}
+              </Link>
             </DetailsButton>
           </div>
         ))}
