@@ -7,7 +7,6 @@ import { fetchUserWatchHistory } from "@/lib/mongodb-api/fetchUserWatchHistory";
 
 import WatchHistoryMediaCard from "@/components/cards/WatchHistoryMediaCard";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
-import { AspectRatio } from "@radix-ui/react-aspect-ratio";
 import AnimatedStringLoader from "@/components/skeletons/AnimatedStringLoader";
 
 interface GroupedWatchHistory {
