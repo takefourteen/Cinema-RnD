@@ -12,7 +12,7 @@ type Props = {
 };
 
 const LibraryList = async ({ libraryItems, userEmail }: Props) => {
-   if (libraryItems.length === 0) {
+  if (libraryItems.length === 0) {
     return (
       <p className="mx-auto max-w-sm text-center text-lg text-white/70 md:max-w-lg">
         Use the{" "}
@@ -24,21 +24,32 @@ const LibraryList = async ({ libraryItems, userEmail }: Props) => {
   }
 
   return (
-    <ul className="grid grid-cols-2 gap-x-2 gap-y-12 sm:grid-cols-3 md:grid-cols-4 md:gap-y-16 lg:grid-cols-5 xl:grid-cols-6">
-      {libraryItems.map((media, index) => (
-        <li key={media.id} className="relative">
-          <DataFetchingMediaCard
-            mediaId={media.id.toString()}
-            mediaType={media.type}
-            loaderType="skeleton"
-            priority={index < 5 ? true : false}
-            inAGrid={true}
-          />
+    <div>
+      <h1 className="pb-6 text-4xl font-bold">
+        Saved
+        {libraryItems[0].type === "movie" ? " Movies" : " TV Series"}
+      </h1>
 
-          <DeleteFromLibraryButton id={media.id} type={media.type} userEmail={userEmail} />
-        </li>
-      ))}
-    </ul>
+      <ul className="grid grid-cols-2 gap-x-2 gap-y-12 sm:grid-cols-3 md:grid-cols-4 md:gap-y-16 lg:grid-cols-5 xl:grid-cols-6">
+        {libraryItems.map((media, index) => (
+          <li key={media.id} className="relative">
+            <DataFetchingMediaCard
+              mediaId={media.id.toString()}
+              mediaType={media.type}
+              loaderType="skeleton"
+              priority={index < 5 ? true : false}
+              inAGrid={true}
+            />
+
+            <DeleteFromLibraryButton
+              id={media.id}
+              type={media.type}
+              userEmail={userEmail}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };
 
