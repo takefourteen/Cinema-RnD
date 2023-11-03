@@ -76,8 +76,11 @@ const WatchHistoryMediaCard = async ({
   const imageSrc = mediaType === "movie" ? movieImageSrc : tvSeriesImageSrc;
 
   return (
-    <li className={`relative h-auto flex-1 `}>
-      <Link href={mediaPageUrl as string} className="group ">
+    <li className={`relative h-auto flex-1`}>
+      <Link
+        href={mediaPageUrl as string}
+        className="group grid flex-1 grid-cols-2 gap-x-2 sm:flex sm:flex-col sm:gap-x-0 sm:gap-y-2"
+      >
         <AspectRatio ratio={16 / 9}>
           <ImageLoader
             loaderType={loaderType}
@@ -93,10 +96,29 @@ const WatchHistoryMediaCard = async ({
           {/* overlay the image with a grain texture */}
           {/* <div className="absolute inset-0 bg-[url('/grain-texture-image.svg')] opacity-30" /> */}
 
+          {/* span to show if it is a movie ot tv series styles as a chip */}
+          <span
+            className={`absolute left-1 top-1 bg-black bg-opacity-90 px-1.5 py-0.5 text-xs font-semibold uppercase tracking-wide text-slate-50`}
+          >
+            {" "}
+            {mediaType === "movie" ? "Movie" : "TV Series"}
+          </span>
+
           {/* small dark overlay over the top and bottom of img to make the info readable */}
           <AlreadyWatched showCheckMark={false} />
-
         </AspectRatio>
+
+        {/* info on card */}
+        <div className="space-y-2 text-white sm:space-y-0">
+          <h3 className={` text-lg `}>{mediaTitle}</h3>
+
+          {/* if mediaType is tv show season and episode info */}
+          {mediaType === "tv" && (
+            <p className="font-small-text text-gray-400 ">
+              S{seasonNumber} • E{episodeNumber}
+            </p>
+          )}
+        </div>
       </Link>
     </li>
   );
