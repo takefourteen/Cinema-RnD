@@ -112,7 +112,7 @@ const EpisodeListItem = ({
             {episodeIsPlaying ? (
               <NowPlaying />
             ) : alreadyWatchedEpisode ? (
-              <AlreadyWatched />
+              <AlreadyWatched showCheckMark />
             ) : !episodeIsPlaying ? (
               <WatchEpisode />
             ) : null}
