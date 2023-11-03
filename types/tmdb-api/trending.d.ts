@@ -7,7 +7,7 @@ interface TrendingMovie {
   original_title: string;
   overview: string;
   poster_path: string | null;
-  media_type: string;
+  media_type: "movie" | "tv";
   genre_ids: number[];
   popularity: number;
   release_date: string;
@@ -32,7 +32,7 @@ interface TrendingTVSeries {
   original_name: string;
   overview: string;
   poster_path: string | null;
-  media_type: string;
+  media_type: "movie" | "tv";
   genre_ids: number[];
   popularity: number;
   first_air_date: string;
