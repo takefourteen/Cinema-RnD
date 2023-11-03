@@ -8,6 +8,7 @@ import { fetchUserWatchHistory } from "@/lib/mongodb-api/fetchUserWatchHistory";
 import WatchHistoryMediaCard from "@/components/cards/WatchHistoryMediaCard";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
 import { AspectRatio } from "@radix-ui/react-aspect-ratio";
+import AnimatedStringLoader from "@/components/skeletons/AnimatedStringLoader";
 
 interface GroupedWatchHistory {
   [date: string]: WatchHistoryItem[];
@@ -66,8 +67,14 @@ const WatchHistory = async ({ userEmail }: Props) => {
                 <li className={`relative h-auto flex-1`} key={media.id}>
                   <Suspense
                     fallback={
-                      <div className="aspect-video">
-                        <CardSkeleton rows={1} />
+                      <div className=" grid flex-1 grid-cols-2 gap-x-2 sm:flex sm:flex-col sm:gap-x-0 sm:gap-y-2">
+                        <div className="aspect-video">
+                          <CardSkeleton rows={0} />
+                        </div>
+
+                        <span className="flex h-fit">
+                          <AnimatedStringLoader loadingString="..." />
+                        </span>
                       </div>
                     }
                   >
