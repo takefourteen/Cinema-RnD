@@ -110,7 +110,7 @@ const WatchHistoryMediaCard = async ({
 
         {/* info on card */}
         <div className="space-y-2 text-white sm:space-y-0">
-          <h3 className={` text-lg `}>{mediaTitle}</h3>
+          <h3 className={` text-lg text-gray-200 `}>{mediaTitle}</h3>
 
           {/* if mediaType is tv show season and episode info */}
           {mediaType === "tv" && (
