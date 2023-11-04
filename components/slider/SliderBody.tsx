@@ -1,9 +1,11 @@
 "use client";
 
 import { Fragment, ReactNode, useState } from "react";
+import dynamic from "next/dynamic";
 
-import Controls from "./Controls";
-import Progress from "./Progress";
+// import Controls from "./Controls";
+
+const Controls = dynamic(() => import("./Controls"));
 
 interface DataWithId {
   id?: string | number; // Make id optional
@@ -13,7 +15,6 @@ interface DataWithId {
 type Props = {
   sliderData: DataWithId[];
   initData: DataWithId;
-  showSliderProgress?: boolean;
   classNames?: {
     ulList: string;
   };
@@ -23,7 +24,6 @@ type Props = {
 function SliderBody({
   sliderData,
   initData,
-  showSliderProgress,
   classNames,
   renderSliderList,
 }: Props) {
@@ -60,13 +60,7 @@ function SliderBody({
         </ul>
       </div>
 
-      {/* Slider Progress */}
-      {/* {showSliderProgress && (
-        <Progress
-          curIndex={currentSlideData.index}
-          length={sliderData.length}
-        />
-      )} */}
+     
     </Fragment>
   );
 }
