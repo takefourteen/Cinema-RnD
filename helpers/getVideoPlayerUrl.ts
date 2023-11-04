@@ -5,13 +5,13 @@ export async function getVideoPlayerUrl(
   episode: number,
 ): Promise<string | null> {
   const playerSettings = {
-    playerFont: "Poppins",
+    playerFont: "Inter",
     playerBgColor: "000000",
     playerFontColor: "FFFFFF",
     playerPrimaryColor: "e50914ff",
     playerSecondaryColor: "002be7ff",
-    playerLoader: 5,
-    preferredServer: 0,
+    playerLoader: 1,
+    preferredServer: 21,
     playerSourcesToggleType: 2,
   };
 
