@@ -30,13 +30,12 @@ export async function addMediaToWatchHistory(
     throw new Error("User not found");
   }
 
-  /*
-   Check if the item is already in the user's watch history to prevent duplicates.
-   the check is different for movies and tv shows because tv shows have seasons and episodes.   
-   */
+  // Check if the item is already in the user's watch history to prevent duplicates.
   const existingItem = user.watchHistory.find((item: WatchHistoryItem) => {
     if (item.type === "movie") {
-      return item.id === id && item.type === type;
+      return (
+        item.id === id && item.type === type && item.watchedAt === watchedAt
+      );
     }
 
     if (item.type === "tv") {
@@ -44,7 +43,8 @@ export async function addMediaToWatchHistory(
         item.id === id &&
         item.type === type &&
         item.season === season &&
-        item.episode === episode
+        item.episode === episode &&
+        item.watchedAt === watchedAt
       );
     }
 
