@@ -15,13 +15,11 @@ import { tvSeriesGenres } from "@/constants/tvSeriesGenres";
 
 interface ContentOptions {
   hasPriority: boolean;
-  viewWithProgressBar: boolean;
   standOut: boolean;
 }
 
 const defaultContentOptions: ContentOptions = {
   hasPriority: false,
-  viewWithProgressBar: true,
   standOut: false,
 };
 

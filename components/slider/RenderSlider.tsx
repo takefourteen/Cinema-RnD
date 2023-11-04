@@ -1,5 +1,3 @@
-"use client";
-
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
@@ -26,7 +24,6 @@ interface RenderSliderProps {
   isFirstChild?: boolean;
   sliderData: any[];
   sectionTitle: string;
-  showSliderProgress?: boolean;
   viewAllLink?: string;
   listItemsPriority?: boolean;
   largeListItem?: boolean;
@@ -38,7 +35,6 @@ const RenderSlider = ({
   sectionTitle,
   viewAllLink,
   listItemsPriority = false,
-  showSliderProgress = true,
   largeListItem = false,
 }: RenderSliderProps) => {
   // Define slider header component
