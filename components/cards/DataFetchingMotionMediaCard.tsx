@@ -71,7 +71,13 @@ const DataFetchingMotionMediaCard = ({
 
   // if data is undefined, return null
   if (!mediaDetails) {
-    return null;
+    return (
+      <div className={`relative h-auto flex-1  ${listItemSize[imgSize].width}`}>
+        <AspectRatio ratio={2 / 3}>
+          <CardSkeleton rows={0} showOverlay={false} />
+        </AspectRatio>
+      </div>
+    );
   }
 
   //   prepare url path for the media page
