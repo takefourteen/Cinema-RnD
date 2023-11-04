@@ -21,7 +21,7 @@ const Navbar = () => {
   const searchParams = useSearchParams();
   const callbackUrl = `${pathname}?${searchParams}`;
   const { data: session, status } = useSession();
-  
+
   const [scroll, setScroll] = useState(false);
   const [darkenBackground, setDarkenBackground] = useState<boolean>(false);
   const isScreenWithoutNavbarScrollEffect = [
@@ -33,7 +33,6 @@ const Navbar = () => {
     "watch-tv",
   ].includes(pathname.split("/")[1]);
   const scrollThreshold = 90; // Adjust this threshold as needed
-
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -112,7 +111,7 @@ const Navbar = () => {
               href="/explore-tv-series"
               active={pathname === "/explore-tv-series"}
             >
-              tv series
+              series
             </NavLink>
             <NavLink href="/library" active={pathname === "/library"}>
               library

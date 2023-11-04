@@ -48,7 +48,7 @@ const BottomMobileNavbar = () => {
           activeLink={pathname === "/explore-tv-series"}
           defaultIcon={<PiMonitor className="text-xl sm:text-2xl" />}
           activeIcon={<PiMonitorFill className="text-xl sm:text-2xl" />}
-          text={"TV Series"}
+          text={"Series"}
         />
 
         {/* Library */}
