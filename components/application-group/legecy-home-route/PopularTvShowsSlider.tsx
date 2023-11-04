@@ -12,7 +12,6 @@ const PopularTvShowsSlider = async () => {
       sectionTitle="Popular Tv Shows"
       listItemsPriority={true}
       viewAllLink="/tv/popular"
-      showSliderProgress={false}
     />
   );
 };

@@ -12,7 +12,6 @@ const PopularMoviesSlider = async () => {
       sectionTitle="Popular Movies"
       listItemsPriority={true}
       viewAllLink="/movies/popular"
-      showSliderProgress={false}
     />
   );
 };
