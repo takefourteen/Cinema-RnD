@@ -1,22 +1,9 @@
-import dynamic from "next/dynamic";
+import { Suspense } from "react";
 
 import Footer from "@/components/Footer";
-// import Navbar from "@/components/application-group/navbar/Navbar";
-// import BottomMobileNavbar from "@/components/application-group/navbar/BottomMobileNavbar";
-
-const Navbar = dynamic(
-  () => import("@/components/application-group/navbar/Navbar"),
-  {
-    ssr: false,
-  },
-);
-
-const BottomMobileNavbar = dynamic(
-  () => import("@/components/application-group/navbar/BottomMobileNavbar"),
-  {
-    ssr: false,
-  },
-);
+import Navbar from "@/components/application-group/navbar/Navbar";
+import BottomMobileNavbar from "@/components/application-group/navbar/BottomMobileNavbar";
+import Loading from "./loading";
 
 export default function ApplicationLayout({
   children,
@@ -28,7 +15,10 @@ export default function ApplicationLayout({
       {/* use the top navbar on medium and large screens */}
       <Navbar />
 
-      <main className="flex flex-1 flex-col">{children}</main>
+      <main className="flex flex-1 flex-col">
+        {/* use suspense to display a loading screen while the page is loading */}
+        <Suspense fallback={<Loading />}>{children}</Suspense>
+      </main>
 
       <Footer />
 

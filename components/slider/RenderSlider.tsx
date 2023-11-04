@@ -1,3 +1,5 @@
+"use client";
+
 import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
@@ -6,18 +8,10 @@ import SliderBody from "@/components/slider/SliderBody";
 import Slider from "@/components/slider/Slider";
 import { AspectRatio } from "../ui/aspect-ratio";
 import CardSkeleton from "../skeletons/CardSkeleton";
+import DataFetchingMediaCardSkeleton from "../skeletons/DataFetchingMediaCardSkeleton";
 
 const DataFetchingMotionMediaCard = dynamic(
   () => import("@/components/cards/DataFetchingMotionMediaCard"),
-  {
-    loading: () => (
-      <div className="relative h-auto min-w-[150px] sm:min-w-[170px] md:min-w-[180px] lg:min-w-[215px] xl:min-w-[250px] 2xl:min-w-[300px]">
-        <AspectRatio ratio={2 / 3}>
-          <CardSkeleton />
-        </AspectRatio>
-      </div>
-    ),
-  },
 );
 
 interface RenderSliderProps {
@@ -55,7 +49,7 @@ const RenderSlider = ({
         ulList: "relative gap-x-2 ",
       }}
       renderSliderList={(item) => (
-        <Suspense>
+        <Suspense fallback={<DataFetchingMediaCardSkeleton />}>
           <DataFetchingMotionMediaCard
             key={item.id}
             mediaId={item.id}
