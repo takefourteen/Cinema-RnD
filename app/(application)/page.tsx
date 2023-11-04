@@ -48,16 +48,24 @@ const page = async () => {
         Hero Section 
         -----------
        */}
-      <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
-        <ul className="flex gap-x-0">
-          {movieAndTvShowDetails.map((item) => (
-            <DiscoveryHeroSectionSliderBody
-              key={item.id}
-              movieOrTvShowDetails={item}
-            />
-          ))}
-        </ul>
-      </DiscoverySlider>
+      <Suspense fallback={null}>
+        <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
+          <ul className="flex gap-x-0">
+            {movieAndTvShowDetails.map((item) => (
+              <Suspense
+                key={item.id}
+                fallback={
+                  <div className=" h-[70dvh] w-[100vw] flex-1 md:h-[75dvh]">
+                    <LoadingSpinner />
+                  </div>
+                }
+              >
+                <DiscoveryHeroSectionSliderBody movieOrTvShowDetails={item} />
+              </Suspense>
+            ))}
+          </ul>
+        </DiscoverySlider>
+      </Suspense>
       {/*
         ------------------
         Streaming services 
@@ -73,17 +81,24 @@ const page = async () => {
       <YourLibrary />
 
       {/* map through homeData and render a slider */}
-      {homeData.map((sliderData, index) => (
-        <RenderSlider
-          key={sliderData.title}
-          isFirstChild={index === 0}
-          sliderData={sliderData.data}
-          sectionTitle={sliderData.title}
-          listItemsPriority={sliderData.hasPriority}
-          showSliderProgress={sliderData.viewWithProgressBar}
-          largeListItem={sliderData.standOut}
-        />
-      ))}
+      <Suspense
+        fallback={
+          <div className="flex h-full w-full">
+            <LoadingSpinner />
+          </div>
+        }
+      >
+        {homeData.map((sliderData, index) => (
+          <RenderSlider
+            key={sliderData.title}
+            isFirstChild={index === 0}
+            sliderData={sliderData.data}
+            sectionTitle={sliderData.title}
+            listItemsPriority={sliderData.hasPriority}
+            largeListItem={sliderData.standOut}
+          />
+        ))}
+      </Suspense>
 
       {/*
         -----------------
