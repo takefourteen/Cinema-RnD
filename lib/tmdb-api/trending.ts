@@ -10,7 +10,7 @@ export async function fetchTrendingMovies(
 ): Promise<TrendingMovie[]> {
   try {
     const url = `${BASE_URL}/trending/movie/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`;
-    const response = await fetch(url, {next: {revalidate: 3600 * 24}});
+    const response = await fetch(url);
 
     if (!response.ok) {
       const errorResponse = await response.json();
@@ -37,7 +37,7 @@ export async function fetchTrendingTVShows(
 ): Promise<TrendingTVSeries[]> {
   try {
     const url = `${BASE_URL}/trending/tv/${timeWindow}?api_key=${API_KEY}&language=en-US&page=${page}`;
-    const response = await fetch(url, {next: {revalidate: 3600 * 24}});
+    const response = await fetch(url);
 
     if (!response.ok) {
       const errorResponse = await response.json();

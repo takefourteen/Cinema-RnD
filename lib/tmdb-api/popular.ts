@@ -11,7 +11,7 @@ export async function getPopularMovies(
   const url = `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&region=${region}&page=${page}`;
 
   try {
-    const response = await fetch(url, {next: {revalidate: 3600 * 24}});
+    const response = await fetch(url);
 
     if (!response.ok) {
       // Parse the error response as JSON to extract status_message
@@ -41,7 +41,7 @@ export async function getPopularTvSeries(
   const url = `${BASE_URL}/tv/popular?api_key=${API_KEY}&language=en-US&region=${originCountry}&page=${page}`;
 
   try {
-    const response = await fetch(url, {next: {revalidate: 3600 * 24}});
+    const response = await fetch(url);
 
     if (!response.ok) {
       // Parse the error response as JSON to extract status_message

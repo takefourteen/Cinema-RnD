@@ -32,8 +32,8 @@ type HomePageData<T> = {
 
 export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
   const trendingPromises = [
-    fetchMultiplePagesOfTrendingMovies(2),
-    fetchMultiplePagesOfTrendingTVShows(2),
+    fetchMultiplePagesOfTrendingMovies(1),
+    fetchMultiplePagesOfTrendingTVShows(1),
   ];
 
   const [trendingMovies, trendingTvShows] = await Promise.all(trendingPromises);

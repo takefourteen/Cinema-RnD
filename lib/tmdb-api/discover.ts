@@ -38,7 +38,10 @@ export const fetchCategory = async (
   type: "movie" | "tvSeries",
   categoryTitle: string,
   filterOptions: FilterOptions,
-): Promise<{ title: string, results: DiscoverMovieResult[] | DiscoverTVSeriesResult[] }> => {
+): Promise<{
+  title: string;
+  results: DiscoverMovieResult[] | DiscoverTVSeriesResult[];
+}> => {
   try {
     const url = generateAPIUrl(type, filterOptions);
 
@@ -48,11 +51,10 @@ export const fetchCategory = async (
         accept: "application/json",
         Authorization: `Bearer ${BEARER_TOKEN}`,
       },
-      next: { revalidate: 3600 * 24 },
     };
 
     // add an artificial delay to prevent hitting the API too quickly
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 125));
 
     // Fetch the data
     const response = await fetch(url, options);
@@ -73,9 +75,15 @@ export const fetchCategory = async (
     data.results = await filterMediaWithVideoUrl(data.results || []);
 
     if (type === "movie") {
-      return { title: categoryTitle, results: data.results as DiscoverMovieResult[] };
+      return {
+        title: categoryTitle,
+        results: data.results as DiscoverMovieResult[],
+      };
     } else {
-      return { title: categoryTitle, results: data.results as DiscoverTVSeriesResult[] };
+      return {
+        title: categoryTitle,
+        results: data.results as DiscoverTVSeriesResult[],
+      };
     }
   } catch (error) {
     console.error(`Error fetching discovery ${type}:`, error);
