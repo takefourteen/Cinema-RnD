@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { Check } from "lucide-react";
 import { IoCaretDownSharp as ChevronDown } from "react-icons/io5";
@@ -18,9 +18,13 @@ type Props = {
 };
 
 const GenreSelect: FC<Props> = ({ genres }) => {
+  const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const urlGenres = searchParams.get("genres")?.split("~") as string[] | null;
+  const [selectedGenres, setSelectedGenres] = useState<string[]>(
+    urlGenres || [],
+  );
 
   const toggleGenre = (genre: string) => {
     setSelectedGenres((prev) =>
