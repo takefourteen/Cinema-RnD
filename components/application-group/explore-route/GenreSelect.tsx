@@ -1,12 +1,11 @@
 "use client";
 
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
-
+import { useDebouncedCallback } from "use-debounce";
 import { Check } from "lucide-react";
 import { IoCaretDownSharp as ChevronDown } from "react-icons/io5";
 import { DetailsButton } from "@/components/DetailsButton";
-
 import {
   Popover,
   PopoverContent,
@@ -18,6 +17,8 @@ type Props = {
   urlGenres: string[] | null;
 };
 
+const DEBOUNCE_DELAY = 200;
+
 const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
   const pathname = usePathname();
   const router = useRouter();
@@ -25,15 +26,13 @@ const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
     urlGenres || [],
   );
 
-  console.log(urlGenres, "in GenreSelect.tsx");
-
-  const toggleGenre = (genre: string) => {
+  const toggleGenre = useCallback((genre: string) => {
     setSelectedGenres((prev) =>
       prev.includes(genre) ? prev.filter((g) => g !== genre) : [...prev, genre],
     );
-  };
+  }, []);
 
-  useEffect(() => {
+  const debouncedCallback = useDebouncedCallback(() => {
     if (selectedGenres.length === 0) {
       router.push(pathname);
       return;
@@ -42,13 +41,12 @@ const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
     const params = new URLSearchParams({
       genres: selectedGenres.join("~"),
     });
-    const timer = setTimeout(() => {
-      router.push(`${pathname}?${params.toString()}`);
-    }, 500);
+    router.push(`${pathname}?${params.toString()}`);
+  }, DEBOUNCE_DELAY);
 
-    // revaildate the cache
-    // revalidateTag("explore-movies");
-  }, [selectedGenres, pathname, router]);
+  useEffect(() => {
+    debouncedCallback();
+  }, [selectedGenres, pathname, router, debouncedCallback]);
 
   return (
     <Popover>
@@ -57,6 +55,7 @@ const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
         <ChevronDown
           className="relative top-[1px] ml-4 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180"
           aria-hidden="true"
+          aria-label="Expand genres dropdown"
         />
       </PopoverTrigger>
       <PopoverContent>
@@ -68,6 +67,7 @@ const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
                 variant={"outline"}
                 size={"sm"}
                 className="font-small-text w-full justify-start rounded-none border-none py-0.5 text-left font-semibold hover:bg-slate-50 hover:text-slate-950 focus-visible:border-none focus-visible:ring-1 focus-visible:ring-white"
+                aria-label={`Select genre ${genre.title}`}
               >
                 {selectedGenres.includes(genre.title) && (
                   <span className="mr-2 flex h-3.5 w-3.5 items-center justify-center">
