@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/application-group/navbar/Navbar";
 import Footer from "@/components/Footer";
+import BottomMobileNavbar from "@/components/application-group/navbar/BottomMobileNavbar";
 
 import { BsArrowUpLeft } from "react-icons/bs";
 import { BsArrowLeft as LeftArrow } from "react-icons/bs";
@@ -38,14 +39,12 @@ export default function NotFound() {
         >
           We Lost You!
         </h1>
-        <div className="text-center ">
+        <div className="text-center w-full ">
           <h2 className="mt-4 text-xl font-bold uppercase text-white/80 md:text-2xl lg:text-3xl">
             404 - Page not found
           </h2>
-          <p className="font-body-text my-4 w-[30rem] font-normal lg:w-[38rem]">
-            Sorry, it seems you&apos;ve reached a dead end. The page you were
-            searching for might have been moved, renamed, or temporarily
-            vanished.
+          <p className="font-body-text mb-4 max-w-[90%] mx-auto font-normal lg:w-[38rem]">
+            Sorry, it seems you&apos;ve reached a dead end.
           </p>
         </div>
         {/* <Link
@@ -69,8 +68,10 @@ export default function NotFound() {
         absolute bottom-0 left-0 right-0
       "
       >
-        <Footer />
+        <Footer />        
       </div>
+
+      <BottomMobileNavbar />
     </section>
   );
 }
