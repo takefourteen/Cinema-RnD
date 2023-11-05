@@ -85,7 +85,7 @@ const page = async ({ searchParams }: LibraryPageProps) => {
   const tabConfigs = [tvTabConfig, movieTabConfig, watchHistoryTabConfig];
 
   return (
-    <section className=" relative mt-[40px] pb-[80px] pt-10 lg:mt-[60px]">
+    <section className="master-container w-full relative mt-[72px] pb-[80px] pt-10 lg:mt-[92px]">
       <LibraryExplorerPanel
         tabConfigs={tabConfigs}
         panelPosition="center"

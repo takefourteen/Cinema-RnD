@@ -24,7 +24,7 @@ const LibraryExplorerPanel = ({
     urlSelectedTab === "tv" ? 0 : urlSelectedTab === "movie" ? 1 : 2;
 
   return (
-    <div className="master-container mx-auto mt-8 flex flex-col gap-y-10 md:gap-y-12">
+    <div className="flex flex-col gap-y-10 md:gap-y-12">
       <div
         className={`flex w-max gap-1 rounded-full border border-white/50 p-1
       ${panelPosition === "center" ? "mx-auto" : ""}
