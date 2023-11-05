@@ -13,7 +13,9 @@ export default function ApplicationLayout({
   return (
     <section className="flex min-h-screen flex-col overflow-x-hidden ">
       {/* use the top navbar on medium and large screens */}
-      <Navbar />
+      <Suspense fallback={null}>
+        <Navbar />
+      </Suspense>
 
       <main className="flex flex-1 flex-col">
         {/* use suspense to display a loading screen while the page is loading */}
