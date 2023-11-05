@@ -109,14 +109,14 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
     <div ref={searchContainerRef}>
       {/* search icon to toggle the input field */}
       <Button
-        variant="ghost"
+        variant="outline"
         size={"icon"}
-        className="flex h-12 w-12 items-center justify-center rounded-full hover:bg-[#40445999] hover:text-white"
+        className="flex lg:h-12 lg:w-12  items-center justify-center rounded-full border-none bg-[#2c2c2c] font-bold ring-1 ring-primaryRed ring-offset-1 ring-offset-primaryRed hover:bg-[#2b2b2bbb] hover:text-white/80"
         onClick={toggleSearchBar}
         aria-label="Open search bar"
       >
         {/* <SearchIcon className="h-4 w-4 sm:h-5 sm:w-5" /> */}
-        <SearchIcon className="h-7 w-7 lg:h-8 lg:w-8" />
+        <SearchIcon className="h-6 w-6 -rotate-3 lg:h-7 lg:w-7" />
       </Button>
 
       {/* search bar input*/}
