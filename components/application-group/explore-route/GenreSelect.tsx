@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useState, useEffect } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Check } from "lucide-react";
 import { IoCaretDownSharp as ChevronDown } from "react-icons/io5";
@@ -15,16 +15,17 @@ import {
 
 type Props = {
   genres: { title: string }[];
+  urlGenres: string[] | null;
 };
 
-const GenreSelect: FC<Props> = ({ genres }) => {
-  const searchParams = useSearchParams();
+const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
   const pathname = usePathname();
   const router = useRouter();
-  const urlGenres = searchParams.get("genres")?.split("~") as string[] | null;
   const [selectedGenres, setSelectedGenres] = useState<string[]>(
     urlGenres || [],
   );
+
+  console.log(urlGenres, "in GenreSelect.tsx");
 
   const toggleGenre = (genre: string) => {
     setSelectedGenres((prev) =>
@@ -44,6 +45,9 @@ const GenreSelect: FC<Props> = ({ genres }) => {
     const timer = setTimeout(() => {
       router.push(`${pathname}?${params.toString()}`);
     }, 500);
+
+    // revaildate the cache
+    // revalidateTag("explore-movies");
   }, [selectedGenres, pathname, router]);
 
   return (
