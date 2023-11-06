@@ -9,13 +9,9 @@ const DataFetchingMediaCard = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="mt-8 grid grid-cols-3 gap-x-2 gap-y-12 md:grid-cols-4 md:gap-y-16 lg:grid-cols-5 xl:grid-cols-6">
-        {Array.from({ length: 20 }).map((_, index) => (
-          <AspectRatio key={index} ratio={2 / 3}>
-            <CardSkeleton rows={3} showOverlay={false} />
-          </AspectRatio>
-        ))}
-      </div>
+      <AspectRatio ratio={2 / 3}>
+        <CardSkeleton rows={0} showOverlay={false} />
+      </AspectRatio>
     ),
   },
 );
