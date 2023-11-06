@@ -30,26 +30,36 @@ export async function addMediaToWatchHistory(
     throw new Error("User not found");
   }
 
-  // Check if the item is already in the user's watch history to prevent duplicates.
-  const existingItem = user.watchHistory.find((item: WatchHistoryItem) => {
-    if (item.type === "movie") {
-      return (
-        item.id === id && item.type === type && item.watchedAt === watchedAt
-      );
-    }
+ // Check if the item is already in the user's watch history to prevent duplicates.
+const existingItem = user.watchHistory.find((item: WatchHistoryItem) => {
+  const watchedDate = new Date(item.watchedAt);
+  const newItemDate = new Date(watchedAt);
 
-    if (item.type === "tv") {
-      return (
-        item.id === id &&
-        item.type === type &&
-        item.season === season &&
-        item.episode === episode &&
-        item.watchedAt === watchedAt
-      );
-    }
+  if (item.type === "movie") {
+    return (
+      item.id === id &&
+      item.type === type &&
+      watchedDate.getDate() === newItemDate.getDate() && // compare day
+      watchedDate.getMonth() === newItemDate.getMonth() && // compare month
+      watchedDate.getFullYear() === newItemDate.getFullYear() // compare year
+    );
+  }
 
-    return false;
-  });
+  if (item.type === "tv") {
+    return (
+      item.id === id &&
+      item.type === type &&
+      item.season === season &&
+      item.episode === episode &&
+      watchedDate.getDate() === newItemDate.getDate() &&
+      watchedDate.getMonth() === newItemDate.getMonth() &&
+      watchedDate.getFullYear() === newItemDate.getFullYear()
+    );
+  }
+
+  return false;
+});
+
 
   if (existingItem) {
     console.log("Item already in watch history:\n", existingItem);
