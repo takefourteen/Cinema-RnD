@@ -117,7 +117,7 @@ const page = async ({ searchParams }: Props) => {
   );
 
   return (
-    <section className="master-container \pt-10 relative mt-[72px] flex w-full flex-1 flex-col lg:mt-[92px]">
+    <section className="master-container pt-10 relative mt-[72px] flex w-full flex-1 flex-col lg:mt-[92px]">
       <div className="flex flex-col gap-x-8 gap-y-4 md:flex-row md:items-center md:gap-x-12">
         <h1 className="text-3xl font-bold md:text-4xl">Movies</h1>
         <Suspense fallback={null}>
