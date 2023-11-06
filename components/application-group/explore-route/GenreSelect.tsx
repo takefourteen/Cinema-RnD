@@ -41,6 +41,7 @@ const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
     const params = new URLSearchParams({
       genres: selectedGenres.join("~"),
     });
+    params.set("page", "1");
     router.push(`${pathname}?${params.toString()}`);
   }, DEBOUNCE_DELAY);
 
@@ -59,7 +60,7 @@ const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
         />
       </PopoverTrigger>
       <PopoverContent>
-        <ul className="grid  min-w-max grid-cols-2 gap-x-3 px-4 py-2">
+        <ul className="grid  min-w-max grid-cols-2 md:grid-cols-3 gap-x-3 px-4 py-2">
           {genres.map((genre) => (
             <li key={genre.title} className="relative h-full w-full">
               <DetailsButton
@@ -71,7 +72,7 @@ const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
               >
                 {selectedGenres.includes(genre.title) && (
                   <span className="mr-2 flex h-3.5 w-3.5 items-center justify-center">
-                    <Check className="h-4 w-4" />
+                    <Check className="h-4 w-4 text-primaryRed" />
                   </span>
                 )}
                 {genre.title}
