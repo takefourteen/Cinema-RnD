@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 
 import { movieGenres } from "@/constants/movieGenres";
+import { exploreMovies } from "@/lib/tmdb-api/explore-movies";
 
 import LoadingSpinner from "@/components/skeletons/LoadingSpinner";
 import FilteredAndSortedMediaList from "@/components/application-group/explore-route/FilteredAndSortedMediaList";
@@ -94,7 +95,7 @@ type Props = {
   };
 };
 
-const page = ({ searchParams }: Props) => {
+const page = async ({ searchParams }: Props) => {
   const urlGenres = searchParams.genres?.split("~") as string[] | null;
   const urlPage = searchParams.page ? parseInt(searchParams.page) : 1;
 
@@ -109,6 +110,12 @@ const page = ({ searchParams }: Props) => {
       .filter(Boolean) as number[];
   }
 
+  const movies: DiscoverMovieApiResponse = await exploreMovies(
+    urlGenresAsIds,
+    urlPage,
+    "popularity.desc",
+  );
+
   return (
     <section className="master-container \pt-10 relative mt-[72px] flex w-full flex-1 flex-col lg:mt-[92px]">
       <div className="flex flex-col gap-x-8 gap-y-4 md:flex-row md:items-center md:gap-x-12">
@@ -119,15 +126,8 @@ const page = ({ searchParams }: Props) => {
       </div>
 
       {/* Display all the filtered and sorted content */}
-      <Suspense
-        fallback={
-          <div className="flex w-full  flex-1 items-center justify-center">
-            <LoadingSpinner />
-          </div>
-        }
-      >
-        <FilteredAndSortedMediaList urlGenres={urlGenresAsIds} page={urlPage} />
-      </Suspense>
+
+      <FilteredAndSortedMediaList movies={movies} />
     </section>
   );
 };
