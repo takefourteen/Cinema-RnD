@@ -1,23 +1,37 @@
-import { FC, Suspense } from "react";
+import { FC } from "react";
+import dynamic from "next/dynamic";
 
-import { exploreMovies } from "@/lib/tmdb-api/explore-movies";
-
-import DataFetchingMediaCard from "@/components/cards/DataFetchingMediaCard";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
-import Pagination from "./Pagination";
+
+const DataFetchingMediaCard = dynamic(
+  () => import("@/components/cards/DataFetchingMediaCard"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="mt-8 grid grid-cols-3 gap-x-2 gap-y-12 md:grid-cols-4 md:gap-y-16 lg:grid-cols-5 xl:grid-cols-6">
+        {Array.from({ length: 20 }).map((_, index) => (
+          <AspectRatio key={index} ratio={2 / 3}>
+            <CardSkeleton rows={3} showOverlay={false} />
+          </AspectRatio>
+        ))}
+      </div>
+    ),
+  },
+);
+
+const Pagination = dynamic(
+  () => import("@/components/application-group/explore-route/Pagination"),
+  {
+    ssr: false,
+  },
+);
 
 type Props = {
-  urlGenres: number[] | null;
-  page: number;
+  movies: DiscoverMovieApiResponse;
 };
 
-const FilteredAndSortedMediaList: FC<Props> = async ({ urlGenres, page }) => {
-  const movies: DiscoverMovieApiResponse = await exploreMovies(
-    urlGenres,
-    page,
-    "popularity.desc",
-  );
-
+const FilteredAndSortedMediaList: FC<Props> = ({ movies }) => {
   // console.log(urlGenres, "in FilterAndSortedMediaList.tsx");
   // console.log("length of movies: ", movies?.results.length);
   // console.log("total pages: ", movies.total_pages);
@@ -26,7 +40,6 @@ const FilteredAndSortedMediaList: FC<Props> = async ({ urlGenres, page }) => {
     return (
       <div className="flex h-full flex-1 flex-col items-center justify-center">
         <p className="text-2xl font-bold">No movies found</p>
-        
       </div>
     );
   }
@@ -35,15 +48,14 @@ const FilteredAndSortedMediaList: FC<Props> = async ({ urlGenres, page }) => {
     <>
       <ul className="mt-8 grid grid-cols-3 gap-x-2 gap-y-12 md:grid-cols-4 md:gap-y-16 lg:grid-cols-5 xl:grid-cols-6">
         {movies?.results.map((media, index) => (
-          <Suspense key={media.id} fallback={<CardSkeleton />}>
-            <DataFetchingMediaCard
-              mediaId={media.id.toString()}
-              mediaType={"movie"}
-              loaderType="skeleton"
-              priority={index <= 5 ? true : false}
-              inAGrid={true}
-            />
-          </Suspense>
+          <DataFetchingMediaCard
+            key={media.title + media.id}
+            mediaId={media.id.toString()}
+            mediaType={"movie"}
+            loaderType="skeleton"
+            priority={index <= 5 ? true : false}
+            inAGrid={true}
+          />
         ))}
       </ul>
       {/* Pagination component if movvies.results is not empty*/}
