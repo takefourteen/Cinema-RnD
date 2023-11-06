@@ -90,11 +90,13 @@ const genres: { title: string; id: number }[] = [
 type Props = {
   searchParams: {
     genres?: string | undefined;
+    page?: string | undefined;
   };
 };
 
 const page = ({ searchParams }: Props) => {
   const urlGenres = searchParams.genres?.split("~") as string[] | null;
+  const urlPage = searchParams.page ? parseInt(searchParams.page) : 1;
 
   // convert the string array to number array, where the genres match their given id
   let urlGenresAsIds: number[] | null = null;
@@ -108,8 +110,8 @@ const page = ({ searchParams }: Props) => {
   }
 
   return (
-    <section className="master-container relative mt-[72px] w-full pb-[80px] pt-10 lg:mt-[92px]">
-      <div className="flex items-center gap-x-8 md:gap-x-12">
+    <section className="master-container relative mt-[72px] flex w-full flex-1 flex-col pb-[80px] pt-10 lg:mt-[92px]">
+      <div className="flex flex-col gap-x-8 gap-y-4 md:flex-row md:items-center md:gap-x-12">
         <h1 className="text-3xl font-bold md:text-4xl">Movies</h1>
         <Suspense fallback={null}>
           <GenreSelect genres={genres} urlGenres={urlGenres} />
@@ -117,8 +119,14 @@ const page = ({ searchParams }: Props) => {
       </div>
 
       {/* Display all the filtered and sorted content */}
-      <Suspense fallback={<LoadingSpinner />}>
-        <FilteredAndSortedMediaList urlGenres={urlGenresAsIds} />
+      <Suspense
+        fallback={
+          <div className="flex w-full  flex-1 items-center justify-center">
+            <LoadingSpinner />
+          </div>
+        }
+      >
+        <FilteredAndSortedMediaList urlGenres={urlGenresAsIds} page={urlPage} />
       </Suspense>
     </section>
   );
