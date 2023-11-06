@@ -15,10 +15,10 @@ const CardSkeleton = ({
     <div className="relative flex h-full flex-1 flex-col">
       <div
         className="gradientAnimation h-full w-full"
-        style={{
-          // animationDuration: "1s",
-          minHeight: `${mainItemHeight}`,
-        }}
+        // style={{
+        //   // animationDuration: "1s",
+        //   minHeight: `${mainItemHeight}`,
+        // }}
       />
       {rows >= 1 && (
         <div className="mt-4 flex flex-col gap-2">
