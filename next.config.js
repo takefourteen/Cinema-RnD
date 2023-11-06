@@ -4,12 +4,12 @@ const nextConfig = {
     serverComponentsExternalPackages: ["mongoose"],
   },
   images: {
-    domains: [
-      "tmdb.org",
-      "image.tmdb.org",
-      "themoviedb.org",
-      "api.themoviedb.org",
-      "https://www.thermofisher.com/",
+    remotePatterns: [
+      // configure images from a remote source, only tmdb.org in this case
+      {
+        protocol: "https",
+        hostname: "image.tmdb.org",
+      },
     ],
   },
 };
