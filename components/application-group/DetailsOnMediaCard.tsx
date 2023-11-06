@@ -1,5 +1,6 @@
 import { AiFillStar } from "react-icons/ai";
 import Chip from "./Chip";
+import ImdbRating from "./ImdbRating";
 
 type DetailsOnMediaCardProps = {
   title: string;
@@ -60,6 +61,11 @@ const DetailsOnMediaCard = ({
           ? `${numberOfSeasons} Seasons`
           : `${numberOfSeasons} Season`}
       </p>
+
+      {/* the imdb rating as a component */}
+      <div className="absolute bottom-2  left-2">
+        <ImdbRating rating={rating} size="small" />
+      </div>
     </div>
   );
 };
