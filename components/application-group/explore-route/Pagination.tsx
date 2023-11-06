@@ -26,14 +26,14 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
 
   return (
     <>
-      <div className="mt-8 inline-flex w-full justify-center">
+      <div className="mt-16 mb-8 inline-flex w-full justify-center">
         <PaginationArrow
           direction="left"
           href={createPageURL(currentPage - 1)}
           isDisabled={currentPage <= 1}
         />
 
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 ">
           {allPages.map((page, index) => {
             let position: "first" | "last" | "single" | "middle" | undefined;
 
@@ -75,9 +75,9 @@ function PaginationNumber({
   isActive: boolean;
 }) {
   const className = clsx(
-    "flex h-10 w-10 items-center bg-[#151515] justify-center text-sm font-semibold md:font-button-text ",
+    "flex h-[40px] min-w-[40px] rounded-md tracking-wide md:min-w-[50px] md:h-[50px] px-2 items-center bg-[#151515] justify-center text-sm font-semibold md:font-button-text ",
     {
-      "z-10 border-2  border-primaryRed text-white": isActive,
+      "z-10 border-2 border-primaryRed text-white": isActive,
       "hover:bg-[#3f3f3f]": !isActive && position !== "middle",
       "text-gray-300": position === "middle",
     },
@@ -102,7 +102,7 @@ function PaginationArrow({
   isDisabled?: boolean;
 }) {
   const className = clsx(
-    "flex h-10 w-max px-2 text-sm font-semibold md:font-button-text items-center justify-center rounded-none ",
+    "flex h-10 w-max px-2 md:h-[50px] md:px-4 text-sm font-semibold  rounded-md md:font-button-text items-center justify-center",
     {
       "pointer-events-none bg-[#0e0e0e] text-[#2f2f2f]": isDisabled,
       "hover:bg-primaryRed/80 transition bg-primaryRed ": !isDisabled,
