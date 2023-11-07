@@ -19,7 +19,7 @@ const PopoverContent = React.forwardRef<
       align={align}
       sideOffset={sideOffset}
       className={cn(
-        "z-50 ml-4 mt-1 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-none border border-white bg-[#0e0e0e] text-white shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 md:ml-0 md:w-[var(--radix-navigation-menu-viewport-width)]",
+        "z-50 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-none border border-white bg-[#0e0e0e] text-white shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 md:ml-0 md:w-[var(--radix-navigation-menu-viewport-width)]",
         className,
       )}
       {...props}
