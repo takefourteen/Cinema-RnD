@@ -35,7 +35,7 @@ const FilteredAndSortedMediaList: FC<Props> = async ({
   page,
   type,
 }) => {
-  const data = await explore(type, urlGenres, page, urlSortOption)
+  const data = await explore(type, urlGenres, page, urlSortOption);
 
   // console.log(urlGenres, "in FilterAndSortedMediaList.tsx");
   // console.log("length of data: ", data?.results.length);
@@ -44,9 +44,9 @@ const FilteredAndSortedMediaList: FC<Props> = async ({
   if (data?.results.length === 0) {
     return (
       <div className="flex h-full flex-1 flex-col items-center justify-center">
-        <p className="text-2xl font-bold">No {
-          type === "movie" ? "Movies" : "Tv Series"
-        } found</p>
+        <p className="text-2xl font-bold">
+          No {type === "movie" ? "Movies" : "Tv Series"} found
+        </p>
       </div>
     );
   }
@@ -58,7 +58,7 @@ const FilteredAndSortedMediaList: FC<Props> = async ({
           <DataFetchingMediaCard
             key={media.id + media.title}
             mediaId={media.id.toString()}
-            mediaType={"movie"}
+            mediaType={type}
             loaderType="skeleton"
             priority={index <= 5 ? true : false}
             inAGrid={true}
