@@ -1,12 +1,10 @@
 "use client";
 
-import { Suspense } from "react";
 import dynamic from "next/dynamic";
 
 import SectionHeader from "@/components/SectionHeader";
 import SliderBody from "@/components/slider/SliderBody";
 import Slider from "@/components/slider/Slider";
-import DataFetchingMediaCardSkeleton from "../skeletons/DataFetchingMediaCardSkeleton";
 
 const DataFetchingMotionMediaCard = dynamic(
   () => import("@/components/cards/DataFetchingMotionMediaCard"),
@@ -47,16 +45,14 @@ const RenderSlider = ({
         ulList: "relative gap-x-2 ",
       }}
       renderSliderList={(item) => (
-        <Suspense fallback={<DataFetchingMediaCardSkeleton />}>
-          <DataFetchingMotionMediaCard
-            key={item.id}
-            mediaId={item.id}
-            mediaType={item.original_name ? "tv" : "movie"}
-            priority={listItemsPriority}
-            imgSize={largeListItem ? "large" : "default"}
-            padding="p-[2px]"
-          />
-        </Suspense>
+        <DataFetchingMotionMediaCard
+          key={item.id}
+          mediaId={item.id}
+          mediaType={item.original_name ? "tv" : "movie"}
+          priority={listItemsPriority}
+          imgSize={largeListItem ? "large" : "default"}
+          padding="p-[2px]"
+        />
       )}
     />
   );
