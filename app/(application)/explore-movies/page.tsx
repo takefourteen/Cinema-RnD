@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import dynamic from "next/dynamic";
 
 import { movieGenres } from "@/constants/movieGenres";
 
@@ -6,8 +7,21 @@ import FilteredAndSortedMediaList from "@/components/application-group/explore-r
 
 // import ComingSoon from "@/components/ui/ComingSoon"
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import GenreSelect from "@/components/application-group/explore-route/GenreSelect";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
+
+const GenreSelect = dynamic(
+  () => import("@/components/application-group/explore-route/GenreSelect"),
+  {
+    ssr: false,
+  },
+);
+
+const SortSelect = dynamic(
+  () => import("@/components/application-group/explore-route/SortSelect"),
+  {
+    ssr: false,
+  },
+);
 
 const genres: { title: string; id: number }[] = [
   {
@@ -91,6 +105,7 @@ const genres: { title: string; id: number }[] = [
 type Props = {
   searchParams: {
     genres?: string | undefined;
+    sort?: string | undefined;
     page?: string | undefined;
   };
 };
@@ -98,6 +113,7 @@ type Props = {
 const page = ({ searchParams }: Props) => {
   const urlGenres = searchParams.genres?.split("~") as string[] | null;
   const urlPage = searchParams.page ? parseInt(searchParams.page) : 1;
+  const urlSortOption = searchParams.sort || "popularity.desc";
 
   // convert the string array to number array, where the genres match their given id
   let urlGenresAsIds: number[] | null = null;
@@ -114,9 +130,17 @@ const page = ({ searchParams }: Props) => {
     <section className="master-container relative mt-[72px] flex w-full flex-1 flex-col pt-10 lg:mt-[92px]">
       <div className="flex flex-col gap-x-8 gap-y-4 md:flex-row md:items-center md:gap-x-12">
         <h1 className="text-3xl font-bold md:text-4xl">Movies</h1>
-        <Suspense fallback={null}>
-          <GenreSelect genres={genres} urlGenres={urlGenres} />
-        </Suspense>
+
+        {/* Genre and Sort Select */}
+        <div className="flex w-full justify-between">
+          <Suspense fallback={null}>
+            <GenreSelect genres={genres} urlGenres={urlGenres} />
+          </Suspense>
+
+          <Suspense fallback={null}>
+            <SortSelect urlSortOption={urlSortOption} />
+          </Suspense>
+        </div>
       </div>
 
       {/* Display all the filtered and sorted content */}
@@ -131,7 +155,11 @@ const page = ({ searchParams }: Props) => {
           </div>
         }
       >
-        <FilteredAndSortedMediaList urlGenres={urlGenresAsIds} page={urlPage} />
+        <FilteredAndSortedMediaList
+          urlGenres={urlGenresAsIds}
+          page={urlPage}
+          urlSortOption={urlSortOption}
+        />
       </Suspense>
     </section>
   );
