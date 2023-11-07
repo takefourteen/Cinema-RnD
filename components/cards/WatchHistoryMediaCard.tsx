@@ -2,16 +2,10 @@ import Link from "next/link";
 
 import { slugify } from "@/helpers/slugify";
 
-import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
-import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
-import { isMovieDetails } from "@/lib/tmdb-api/movies";
-import { isTVSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchEpisodeImages, fetchImages } from "@/lib/tmdb-api/images";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
-import DetailsOnMediaCard from "../application-group/DetailsOnMediaCard";
-import CardSkeleton from "../skeletons/CardSkeleton";
 import AlreadyWatched from "../ui/AlreadyWatched";
 
 type WatchHistoryMediaCardProps = {
