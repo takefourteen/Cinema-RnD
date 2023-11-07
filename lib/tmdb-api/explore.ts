@@ -16,12 +16,12 @@ const BASE_MOVIE_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${AP
  *
  * @returns A promise that resolves to an array of DiscoverMovieResult objects.
  */
-export const exploreMovies = async (
+export const explore = async (
   type: "movie" | "tv",
   genres: number[] | null,
   page: number,
-  sortBy: string | null
-): Promise<DiscoverMovieApiResponse> => {
+  sortBy: string | null,
+): Promise<DiscoverMovieApiResponse | DiscoverTVSeriesApiResponse> => {
   try {
     // Create a new URLSearchParams object
     const params = new URLSearchParams({
@@ -51,7 +51,7 @@ export const exploreMovies = async (
 
     // Create a new URL object with the base url and the params object
     const url = new URL(
-      `${type === "movie" ? BASE_MOVIE_URL : BASE_TV_URL}${params}`
+      `${type === "movie" ? BASE_MOVIE_URL : BASE_TV_URL}${params}`,
     );
 
     // Fetch the data
@@ -65,7 +65,7 @@ export const exploreMovies = async (
     }
 
     // Parse the response body as JSON
-    const data: DiscoverMovieApiResponse = await response.json();
+    const data: DiscoverMovieApiResponse | DiscoverTVSeriesApiResponse = await response.json();
 
     // Filter out media with zero ratings
     data.results = filterOutZeroRatedResults(data.results);
@@ -73,8 +73,12 @@ export const exploreMovies = async (
     // Filter out media with no video url
     data.results = await filterMediaWithVideoUrl(data.results || []);
 
-    // Return the data
-    return data;
+    // Return the data with its correct type
+    if (type === "movie") {
+      return data as DiscoverMovieApiResponse
+    } else {
+      return data as DiscoverTVSeriesApiResponse
+    }
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
