@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 
 import { movieGenres } from "@/constants/movieGenres";
-import { exploreMovies } from "@/lib/tmdb-api/explore-movies";
 
-import LoadingSpinner from "@/components/skeletons/LoadingSpinner";
 import FilteredAndSortedMediaList from "@/components/application-group/explore-route/FilteredAndSortedMediaList";
 
 // import ComingSoon from "@/components/ui/ComingSoon"
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 import GenreSelect from "@/components/application-group/explore-route/GenreSelect";
+import CardSkeleton from "@/components/skeletons/CardSkeleton";
 
 const genres: { title: string; id: number }[] = [
   {
@@ -95,7 +95,7 @@ type Props = {
   };
 };
 
-const page = async ({ searchParams }: Props) => {
+const page = ({ searchParams }: Props) => {
   const urlGenres = searchParams.genres?.split("~") as string[] | null;
   const urlPage = searchParams.page ? parseInt(searchParams.page) : 1;
 
@@ -110,14 +110,8 @@ const page = async ({ searchParams }: Props) => {
       .filter(Boolean) as number[];
   }
 
-  const movies: DiscoverMovieApiResponse = await exploreMovies(
-    urlGenresAsIds,
-    urlPage,
-    "popularity.desc",
-  );
-
   return (
-    <section className="master-container pt-10 relative mt-[72px] flex w-full flex-1 flex-col lg:mt-[92px]">
+    <section className="master-container relative mt-[72px] flex w-full flex-1 flex-col pt-10 lg:mt-[92px]">
       <div className="flex flex-col gap-x-8 gap-y-4 md:flex-row md:items-center md:gap-x-12">
         <h1 className="text-3xl font-bold md:text-4xl">Movies</h1>
         <Suspense fallback={null}>
@@ -126,8 +120,19 @@ const page = async ({ searchParams }: Props) => {
       </div>
 
       {/* Display all the filtered and sorted content */}
-
-      <FilteredAndSortedMediaList movies={movies} />
+      <Suspense
+        fallback={
+          <div className="mt-8 grid grid-cols-3 gap-x-2 gap-y-12 md:grid-cols-4 md:gap-y-16 lg:grid-cols-5 xl:grid-cols-6">
+            {Array.from({ length: 20 }).map((_, index) => (
+              <AspectRatio key={index} ratio={2 / 3}>
+                <CardSkeleton rows={0} showOverlay={false} />
+              </AspectRatio>
+            ))}
+          </div>
+        }
+      >
+        <FilteredAndSortedMediaList urlGenres={urlGenresAsIds} page={urlPage} />
+      </Suspense>
     </section>
   );
 };
