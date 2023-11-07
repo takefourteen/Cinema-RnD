@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useState, useEffect, useCallback } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { Check } from "lucide-react";
 import { IoCaretDownSharp as ChevronDown } from "react-icons/io5";
@@ -17,11 +17,12 @@ type Props = {
   urlGenres: string[] | null;
 };
 
-const DEBOUNCE_DELAY = 200;
+const DEBOUNCE_DELAY = 100;
 
 const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
   const pathname = usePathname();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [selectedGenres, setSelectedGenres] = useState<string[]>(
     urlGenres || [],
   );
@@ -33,14 +34,16 @@ const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
   }, []);
 
   const debouncedCallback = useDebouncedCallback(() => {
+    const params = new URLSearchParams(searchParams);
+
     if (selectedGenres.length === 0) {
-      router.push(pathname);
+      params.delete("genres");
+      params.set("page", "1");
+      router.push(`${pathname}?${params.toString()}`);
       return;
     }
 
-    const params = new URLSearchParams({
-      genres: selectedGenres.join("~"),
-    });
+    params.set("genres", selectedGenres.join("~"));
     params.set("page", "1");
     router.push(`${pathname}?${params.toString()}`);
   }, DEBOUNCE_DELAY);
@@ -59,8 +62,8 @@ const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
           aria-label="Expand genres dropdown"
         />
       </PopoverTrigger>
-      <PopoverContent>
-        <ul className="grid  min-w-max grid-cols-2 md:grid-cols-3 gap-x-3 px-4 py-2">
+      <PopoverContent className="ml-4 mt-1">
+        <ul className="grid  min-w-max grid-cols-2 gap-x-3 px-4 py-2 md:grid-cols-3">
           {genres.map((genre) => (
             <li key={genre.title} className="relative h-full w-full">
               <DetailsButton
@@ -72,7 +75,10 @@ const GenreSelect: FC<Props> = ({ genres, urlGenres }) => {
               >
                 {selectedGenres.includes(genre.title) && (
                   <span className="mr-2 flex h-3.5 w-3.5 items-center justify-center">
-                    <Check className="h-4 w-4 text-primaryRed" />
+                    <Check
+                      className="h-4 w-4 text-primaryRed"
+                      aria-hidden={true}
+                    />
                   </span>
                 )}
                 {genre.title}
