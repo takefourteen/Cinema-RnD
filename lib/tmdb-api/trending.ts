@@ -31,7 +31,7 @@ export async function fetchTrendingMovies(
   }
 }
 
-export async function fetchTrendingTVShows(
+export async function fetchTrendingTVSeries(
   page: number = 1,
   timeWindow: "day" | "week" = "day",
 ): Promise<TrendingTVSeries[]> {
@@ -89,7 +89,7 @@ export async function fetchMultiplePagesOfTrendingTVShows(
 
   for (let page = 1; page <= numPages; page++) {
     try {
-      const intialFetch = await fetchTrendingTVShows(page);
+      const intialFetch = await fetchTrendingTVSeries(page);
 
       // Filter the results to retain only those with a video URL
       const filteredResults = await filterMediaWithVideoUrl(intialFetch);
