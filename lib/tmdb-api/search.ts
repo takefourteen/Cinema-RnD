@@ -1,8 +1,7 @@
-import axios from "axios";
 import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
 
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-const BASE_URL = "https://api.themoviedb.org/3";
+const BASE_URL = `https://api.themoviedb.org/3`;
 
 // ========================================
 // Function to search for movies by a query
@@ -12,22 +11,18 @@ export async function searchMovies(
   region: string = "US",
 ): Promise<SearchResults<MovieSearchResult[]>> {
   try {
-    const params = {
-      api_key: API_KEY,
-      language: "en-US",
-      query: query,
-      page: page,
-      include_adult: false,
-      region: region,
+    const url = `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false&region=${region}`;
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     };
-    const response = await axios.get<SearchResults<MovieSearchResult[]>>(
-      `${BASE_URL}/search/movie`,
-      { params },
-    );
 
-    // console.log("Movie results: ", response.data.results);
+    const response = await fetch(url, options);
+    const data: SearchResults<MovieSearchResult[]> = await response.json();
 
-    return response.data;
+    return data;
   } catch (error) {
     throw new Error(`Error searching for movies: ${error}`);
   }
@@ -40,24 +35,18 @@ export async function searchTVShows(
   page: number = 1,
 ): Promise<SearchResults<TvShowSearchResult[]>> {
   try {
-    const params = {
-      api_key: API_KEY,
-      language: "en-US",
-      page: page,
-      query: query,
-      include_adult: "false",
+    const url = `${BASE_URL}/search/tv?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`;
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     };
 
-    // const paramsString = params.toString();
+    const response = await fetch(url, options);
+    const data: SearchResults<TvShowSearchResult[]> = await response.json();
 
-    const response = await axios.get<SearchResults<TvShowSearchResult[]>>(
-      `${BASE_URL}/search/tv`,
-      { params },
-    );
-
-    // console.log("TV results: ", response.data.results);
-
-    return response.data;
+    return data;
   } catch (error) {
     throw new Error(`Error searching for TV shows: ${error}`);
   }
@@ -66,15 +55,19 @@ export async function searchTVShows(
 // ===============================================
 // Function to get all results for any search query
 export async function searchAll(query: string, page: number = 1) {
-  const movieResults = await searchMovies(query, page);
+  const movieResultsPromise = searchMovies(query, page);
+  const tvResultsPromise = searchTVShows(query, page);
 
-  const tvResults = await searchTVShows(query, page);
+  const [movieResults, tvResults] = await Promise.all([
+    movieResultsPromise,
+    tvResultsPromise,
+  ]);
 
   //  combine movie and tv results into one array
   const allResults = [...movieResults.results, ...tvResults.results];
 
   // filter out results that don't have a video url
-  const filteredResults = filterMediaWithVideoUrl(allResults);
+  const filteredResults = await filterMediaWithVideoUrl(allResults);
 
   return filteredResults;
 }
