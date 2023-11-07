@@ -170,9 +170,10 @@ const DataFetchingMotionMediaCard = ({
             date={date}
             runtime={runtime}
             numberOfSeasons={numberOfSeasons}
-            showRating={false}
+            showRating={true}
             showYear={true}
             showTitle={false}
+            ratingPostion="bottom"
           />
         </AspectRatio>
       </Link>

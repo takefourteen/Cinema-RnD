@@ -101,6 +101,7 @@ const RecommendedMediaImage = async ({
             runtime={runtime}
             numberOfSeasons={numberOfSeasons}
             showRating={true}
+            ratingPostion="top"
           />
         </AspectRatio>
       </Link>
