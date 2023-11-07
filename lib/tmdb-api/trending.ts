@@ -21,10 +21,13 @@ export async function fetchTrendingMovies(
 
     const data: TrendingMoviesResponse = await response.json();
 
-    // Filter out movies that are not in English
-    const englishMovies = filterResultsByLanguage(data.results || [], "en");
+    // filter out movies without a video URL
+    data.results = await filterMediaWithVideoUrl(data.results || []);
 
-    return englishMovies;
+    // Filter out movies that are not in English
+    data.results = filterResultsByLanguage(data.results || [], "en");
+
+    return data.results;
   } catch (error) {
     console.error("Error fetching trending movies:", error);
     return [];
@@ -48,10 +51,13 @@ export async function fetchTrendingTVSeries(
 
     const data: TrendingTVShowsResponse = await response.json();
 
-    // Filter out TV shows that are not in English
-    const englishTvShows = filterResultsByLanguage(data.results || [], "en");
+    // filter out tv series without a video URL
+    data.results = await filterMediaWithVideoUrl(data.results || []);
 
-    return englishTvShows;
+    // Filter out TV shows that are not in English
+    data.results = filterResultsByLanguage(data.results || [], "en");
+
+    return data.results;
   } catch (error) {
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
@@ -89,13 +95,9 @@ export async function fetchMultiplePagesOfTrendingTVShows(
 
   for (let page = 1; page <= numPages; page++) {
     try {
-      const intialFetch = await fetchTrendingTVSeries(page);
+      const results = await fetchTrendingTVSeries(page);
 
-      // Filter the results to retain only those with a video URL
-      const filteredResults = await filterMediaWithVideoUrl(intialFetch);
-
-      // Put the filtered results into the final results
-      finalResults = [...finalResults, ...filteredResults];
+      finalResults = [...finalResults, ...results];
     } catch (error) {
       throw new Error(`Error fetching data for page ${page}: ${error}`);
     }
