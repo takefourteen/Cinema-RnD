@@ -24,12 +24,16 @@ const sortOptions = [
     id: "popularity.desc",
   },
   {
-    title: "Highest Revenue",
-    id: "revenue.desc",
+    title: "Latest Releases",
+    id: "primary_release_date.desc",
   },
   {
     title: "Top Rated",
     id: "vote_average.desc",
+  },
+  {
+    title: "Highest Revenue",
+    id: "revenue.desc",
   },
   {
     title: "Most Voted",
@@ -42,7 +46,7 @@ const SortSelect: FC<Props> = ({ urlSortOption }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedSortOption, setSelectedSortOption] = useState<string>(
-    urlSortOption || "popularity.desc",
+    urlSortOption || "popularity.desc"
   );
 
   const handleSortOptionChange = useCallback((sortOption: string) => {
@@ -62,7 +66,7 @@ const SortSelect: FC<Props> = ({ urlSortOption }) => {
 
   //   sortOption title to be displayed
   const sortOptionTitle = sortOptions.find(
-    (sortOption) => sortOption.id === selectedSortOption,
+    (sortOption) => sortOption.id === selectedSortOption
   )?.title;
 
   return (

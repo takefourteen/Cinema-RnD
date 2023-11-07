@@ -20,7 +20,7 @@ export const explore = async (
   type: "movie" | "tv",
   genres: number[] | null,
   page: number,
-  sortBy: string | null,
+  sortBy: string | null
 ): Promise<DiscoverMovieApiResponse | DiscoverTVSeriesApiResponse> => {
   try {
     // Create a new URLSearchParams object
@@ -40,6 +40,10 @@ export const explore = async (
       if (sortBy === "vote_average.desc") {
         params.append("vote_count.gte", "200");
       }
+      // if sort by primary_release_date, add vote_count.gte=50
+      if (sortBy === "primary_release_date.desc") {
+        params.append("vote_count.gte", "50");
+      }
 
       params.append("sort_by", sortBy);
     }
@@ -51,7 +55,7 @@ export const explore = async (
 
     // Create a new URL object with the base url and the params object
     const url = new URL(
-      `${type === "movie" ? BASE_MOVIE_URL : BASE_TV_URL}${params}`,
+      `${type === "movie" ? BASE_MOVIE_URL : BASE_TV_URL}${params}`
     );
 
     // Fetch the data
@@ -65,7 +69,8 @@ export const explore = async (
     }
 
     // Parse the response body as JSON
-    const data: DiscoverMovieApiResponse | DiscoverTVSeriesApiResponse = await response.json();
+    const data: DiscoverMovieApiResponse | DiscoverTVSeriesApiResponse =
+      await response.json();
 
     // Filter out media with zero ratings
     data.results = filterOutZeroRatedResults(data.results);
@@ -75,9 +80,9 @@ export const explore = async (
 
     // Return the data with its correct type
     if (type === "movie") {
-      return data as DiscoverMovieApiResponse
+      return data as DiscoverMovieApiResponse;
     } else {
-      return data as DiscoverTVSeriesApiResponse
+      return data as DiscoverTVSeriesApiResponse;
     }
   } catch (error) {
     const errorMessage =
