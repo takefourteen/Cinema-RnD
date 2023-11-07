@@ -17,7 +17,8 @@ const BASE_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}
 export const exploreMovies = async (
   genres: number[] | null,
   page: number,
-  sortBy: "popularity.desc" | "vote_average.desc" | "primary_release_date.desc",
+  // sortBy: "popularity.desc" | "vote_average.desc" | "primary_release_date.desc",
+  sortBy: string | null,
 ): Promise<DiscoverMovieApiResponse> => {
   try {
     // Create a new URLSearchParams object
@@ -27,8 +28,19 @@ export const exploreMovies = async (
       language: "en-US",
       page: page.toString(),
       with_original_language: "en",
-      sort_by: sortBy,
     });
+
+    // If sortBy is null add default sort order
+    if (!sortBy) {
+      params.append("sort_by", "popularity.desc");
+    } else {
+      // if sort by vote_average, add vote_count.gte=200
+      if (sortBy === "vote_average.desc") {
+        params.append("vote_count.gte", "200");
+      }
+
+      params.append("sort_by", sortBy);
+    }
 
     // If genres is not null, add genres to params
     if (genres?.length) {
