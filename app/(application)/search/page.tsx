@@ -1,6 +1,5 @@
 import React from "react";
 import { Suspense } from "react";
-import { v4 as uuid } from "uuid";
 
 import { Separator } from "@/components/ui/separator";
 import LoadingSpinner from "@/components/skeletons/LoadingSpinner";
@@ -23,7 +22,7 @@ const page = ({ searchParams }: Props) => {
       {/* Display the search results as a component that has infinite scroll */}
       <ul
         // this is a hack to force the component to re-render when the search term changes, otherwise the component will not re-render because of the router caching behavior in Next.js
-        key={uuid()}
+        key={crypto.randomUUID()}
         className="relative"
       >
         <Suspense fallback={<LoadingSpinner />}>

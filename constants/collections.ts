@@ -1,5 +1,4 @@
 import { StaticImageData } from "next/image";
-import { v4 as uuid } from "uuid";
 
 // images
 import marvel from "@/assets/images/collections/marvel-logo.webp";
@@ -18,31 +17,31 @@ export type Collection = {
 // will be written as "Beyond the Ordinary: Collections" on the Home Screen
 export const collections: Collection[] = [
   {
-    id: uuid(),
+    id: crypto.randomUUID(),
     title: "Marvel",
     image: marvel,
     videoPath: "marvel-intro.mp4",
   },
   {
-    id: uuid(),
+    id: crypto.randomUUID(),
     title: "DC",
     image: dc,
     videoPath: "dc-intro.mp4",
   },
   {
-    id: uuid(),
+    id: crypto.randomUUID(),
     title: "National Geographic",
     image: nationalGeographic,
     videoPath: "national-geographic-intro.mp4",
   },
   {
-    id: uuid(),
+    id: crypto.randomUUID(),
     title: "Star Wars",
     image: starwars,
     videoPath: "starwars-intro.mp4",
   },
   {
-    id: uuid(),
+    id: crypto.randomUUID(),
     title: "Pixar",
     image: pixar,
     videoPath: "pixar-intro.mp4",
