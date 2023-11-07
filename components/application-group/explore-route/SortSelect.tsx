@@ -16,23 +16,23 @@ type Props = {
   urlSortOption: string | null;
 };
 
-const DEBOUNCE_DELAY = 100;
+const DEBOUNCE_DELAY = 0;
 
 const sortOptions = [
   {
-    title: "Popularity",
+    title: "Most Popular",
     id: "popularity.desc",
   },
   {
-    title: "Revenue",
+    title: "Highest Revenue",
     id: "revenue.desc",
   },
   {
-    title: "Vote Average",
+    title: "Top Rated",
     id: "vote_average.desc",
   },
   {
-    title: "Vote Count",
+    title: "Most Voted",
     id: "vote_count.desc",
   },
 ];
@@ -75,31 +75,31 @@ const SortSelect: FC<Props> = ({ urlSortOption }) => {
           aria-label="Expand sort options dropdown"
         />
       </PopoverTrigger>
-        <PopoverContent className="mt-1">
-          <ul className="grid  min-w-max  gap-x-3 px-4 py-2">
-            {sortOptions.map((sortOption) => (
-              <li key={sortOption.title} className="relative h-full w-full">
-                <DetailsButton
-                  onClick={() => handleSortOptionChange(sortOption.id)}
-                  variant={"outline"}
-                  size={"sm"}
-                  className="font-small-text w-full justify-start rounded-none border-none py-0.5 text-left font-semibold hover:bg-slate-50 hover:text-slate-950 focus-visible:border-none focus-visible:ring-1 focus-visible:ring-white"
-                  aria-label={`Sort by ${sortOption.title}`}
-                >
-                  {sortOption.id === selectedSortOption && (
-                    <span className="mr-2 flex h-3.5 w-3.5 items-center justify-center">
-                      <Check
-                        className="h-4 w-4 text-primaryRed"
-                        aria-hidden={true}
-                      />
-                    </span>
-                  )}
-                  <span className="font-button-text">{sortOption.title}</span>
-                </DetailsButton>
-              </li>
-            ))}
-          </ul>
-        </PopoverContent>
+      <PopoverContent className="mt-1">
+        <ul className="grid  min-w-max  gap-x-3 px-4 py-2">
+          {sortOptions.map((sortOption) => (
+            <li key={sortOption.title} className="relative h-full w-full">
+              <DetailsButton
+                onClick={() => handleSortOptionChange(sortOption.id)}
+                variant={"outline"}
+                size={"sm"}
+                className="font-small-text w-full justify-start rounded-none border-none py-0.5 text-left font-semibold hover:bg-slate-50 hover:text-slate-950 focus-visible:border-none focus-visible:ring-1 focus-visible:ring-white"
+                aria-label={`Sort by ${sortOption.title}`}
+              >
+                {sortOption.id === selectedSortOption && (
+                  <span className="mr-2 flex h-3.5 w-3.5 items-center justify-center">
+                    <Check
+                      className="h-4 w-4 text-primaryRed"
+                      aria-hidden={true}
+                    />
+                  </span>
+                )}
+                <span className="font-button-text">{sortOption.title}</span>
+              </DetailsButton>
+            </li>
+          ))}
+        </ul>
+      </PopoverContent>
     </Popover>
   );
 };
