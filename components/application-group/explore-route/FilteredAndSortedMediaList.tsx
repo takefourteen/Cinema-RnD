@@ -1,7 +1,7 @@
 import { FC } from "react";
 import dynamic from "next/dynamic";
 
-import { exploreMovies } from "@/lib/tmdb-api/explore-movies";
+import { explore } from "@/lib/tmdb-api/explore";
 
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
@@ -26,23 +26,27 @@ type Props = {
   urlGenres: number[] | null;
   urlSortOption: string | null;
   page: number;
+  type: "movie" | "tv";
 };
 
-const FilteredAndSortedMediaList: FC<Props> = async ({ urlGenres, urlSortOption, page }) => {
-  const movies: DiscoverMovieApiResponse = await exploreMovies(
-    urlGenres,
-    page,
-    urlSortOption,
-  );
+const FilteredAndSortedMediaList: FC<Props> = async ({
+  urlGenres,
+  urlSortOption,
+  page,
+  type,
+}) => {
+  const data = await explore(type, urlGenres, page, urlSortOption)
 
   // console.log(urlGenres, "in FilterAndSortedMediaList.tsx");
-  // console.log("length of movies: ", movies?.results.length);
-  // console.log("total pages: ", movies.total_pages);
+  // console.log("length of data: ", data?.results.length);
+  // console.log("total pages: ", data.total_pages);
 
-  if (movies?.results.length === 0) {
+  if (data?.results.length === 0) {
     return (
       <div className="flex h-full flex-1 flex-col items-center justify-center">
-        <p className="text-2xl font-bold">No movies found</p>
+        <p className="text-2xl font-bold">No {
+          type === "movie" ? "Movies" : "Tv Series"
+        } found</p>
       </div>
     );
   }
@@ -50,7 +54,7 @@ const FilteredAndSortedMediaList: FC<Props> = async ({ urlGenres, urlSortOption,
   return (
     <>
       <ul className="mt-8 grid grid-cols-3 gap-x-2 gap-y-12 md:grid-cols-4 md:gap-y-16 lg:grid-cols-5 xl:grid-cols-6">
-        {movies?.results.map((media, index) => (
+        {data?.results.map((media, index) => (
           <DataFetchingMediaCard
             key={media.id + media.title}
             mediaId={media.id.toString()}
@@ -61,9 +65,9 @@ const FilteredAndSortedMediaList: FC<Props> = async ({ urlGenres, urlSortOption,
           />
         ))}
       </ul>
-      {/* Pagination component if movvies.results is not empty*/}
-      {movies?.results.length > 0 && (
-        <Pagination totalPages={movies.total_pages - 1} />
+      {/* Pagination component if data.results is not empty*/}
+      {data?.results.length > 0 && (
+        <Pagination totalPages={data.total_pages - 1} />
       )}
     </>
   );

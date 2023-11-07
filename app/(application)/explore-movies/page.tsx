@@ -159,6 +159,7 @@ const page = ({ searchParams }: Props) => {
           urlGenres={urlGenresAsIds}
           page={urlPage}
           urlSortOption={urlSortOption}
+          type="movie"
         />
       </Suspense>
     </section>
