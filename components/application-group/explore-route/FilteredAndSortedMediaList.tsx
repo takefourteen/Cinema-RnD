@@ -24,14 +24,15 @@ const Pagination = dynamic(
 
 type Props = {
   urlGenres: number[] | null;
+  urlSortOption: string | null;
   page: number;
 };
 
-const FilteredAndSortedMediaList: FC<Props> = async ({ urlGenres, page }) => {
+const FilteredAndSortedMediaList: FC<Props> = async ({ urlGenres, urlSortOption, page }) => {
   const movies: DiscoverMovieApiResponse = await exploreMovies(
     urlGenres,
     page,
-    "popularity.desc",
+    urlSortOption,
   );
 
   // console.log(urlGenres, "in FilterAndSortedMediaList.tsx");
