@@ -5,9 +5,13 @@ import dynamic from "next/dynamic";
 import SectionHeader from "@/components/SectionHeader";
 import SliderBody from "@/components/slider/SliderBody";
 import Slider from "@/components/slider/Slider";
+import DataFetchingMediaCardSkeleton from "../skeletons/DataFetchingMediaCardSkeleton";
 
 const DataFetchingMotionMediaCard = dynamic(
   () => import("@/components/cards/DataFetchingMotionMediaCard"),
+  {
+    loading: () => <DataFetchingMediaCardSkeleton />,
+  }
 );
 
 interface RenderSliderProps {
