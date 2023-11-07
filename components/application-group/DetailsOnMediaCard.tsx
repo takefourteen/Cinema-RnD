@@ -1,6 +1,11 @@
-import { AiFillStar } from "react-icons/ai";
+import dynamic from "next/dynamic";
+
 import Chip from "./Chip";
-import ImdbRating from "./ImdbRating";
+// import ImdbRating from "./ImdbRating";
+
+const ImdbRating = dynamic(() => import("./ImdbRating"), {
+  ssr: false,
+});
 
 type DetailsOnMediaCardProps = {
   title: string;
@@ -8,9 +13,10 @@ type DetailsOnMediaCardProps = {
   date: string;
   runtime?: string | null;
   numberOfSeasons?: number | null;
-  showRating?: boolean;
   showYear?: boolean;
   showTitle?: boolean;
+  showRating?: boolean;
+  ratingPostion?: "top" | "bottom";
 };
 
 const DetailsOnMediaCard = ({
@@ -22,6 +28,7 @@ const DetailsOnMediaCard = ({
   showRating = false,
   showYear = true,
   showTitle = true,
+  ratingPostion,
 }: DetailsOnMediaCardProps) => {
   return (
     <div className="absolute inset-0 h-full">
@@ -30,13 +37,8 @@ const DetailsOnMediaCard = ({
      components, if they should be displayed
     */}
       <div className="absolute left-0 right-0 top-0 mx-2 mt-2 flex flex-wrap justify-end gap-1">
-        {showRating && (
-          <Chip borderStyle="border border-white/10">
-            <span className="flex items-center">
-              <AiFillStar className="mr-1 inline-block fill-yellow-500 text-yellow-600" />
-              {rating}
-            </span>
-          </Chip>
+        {showRating && ratingPostion === "top" && (
+          <ImdbRating rating={rating} size="small" />
         )}
 
         {showYear && (
@@ -63,9 +65,11 @@ const DetailsOnMediaCard = ({
       </p>
 
       {/* the imdb rating as a component */}
-      <div className="absolute bottom-2  left-2">
-        <ImdbRating rating={rating} size="small" />
-      </div>
+      {showRating && ratingPostion === "bottom" && (
+        <div className="absolute bottom-2  left-2">
+          <ImdbRating rating={rating} size="small" />
+        </div>
+      )}
     </div>
   );
 };
