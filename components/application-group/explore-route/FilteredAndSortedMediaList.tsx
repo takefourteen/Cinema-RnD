@@ -1,6 +1,8 @@
 import { FC } from "react";
 import dynamic from "next/dynamic";
 
+import { exploreMovies } from "@/lib/tmdb-api/explore-movies";
+
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
 
@@ -18,16 +20,20 @@ const DataFetchingMediaCard = dynamic(
 
 const Pagination = dynamic(
   () => import("@/components/application-group/explore-route/Pagination"),
-  {
-    ssr: false,
-  },
 );
 
 type Props = {
-  movies: DiscoverMovieApiResponse;
+  urlGenres: number[] | null;
+  page: number;
 };
 
-const FilteredAndSortedMediaList: FC<Props> = ({ movies }) => {
+const FilteredAndSortedMediaList: FC<Props> = async ({ urlGenres, page }) => {
+  const movies: DiscoverMovieApiResponse = await exploreMovies(
+    urlGenres,
+    page,
+    "popularity.desc",
+  );
+
   // console.log(urlGenres, "in FilterAndSortedMediaList.tsx");
   // console.log("length of movies: ", movies?.results.length);
   // console.log("total pages: ", movies.total_pages);
@@ -45,7 +51,7 @@ const FilteredAndSortedMediaList: FC<Props> = ({ movies }) => {
       <ul className="mt-8 grid grid-cols-3 gap-x-2 gap-y-12 md:grid-cols-4 md:gap-y-16 lg:grid-cols-5 xl:grid-cols-6">
         {movies?.results.map((media, index) => (
           <DataFetchingMediaCard
-            key={media.title + media.id}
+            key={media.id + media.title}
             mediaId={media.id.toString()}
             mediaType={"movie"}
             loaderType="skeleton"
