@@ -38,8 +38,6 @@ export const exploreMovies = async (
     // Create a new URL object with the base url and the params object
     const url = new URL(`${BASE_URL}${params}`);
 
-    console.log(url.toString());
-
     // Fetch the data
     const response = await fetch(url.toString(), {
       next: { tags: ["explore-movies"] },
