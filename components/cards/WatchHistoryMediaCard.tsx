@@ -16,6 +16,7 @@ type WatchHistoryMediaCardProps = {
   episodeNumber: number;
   loaderType: "skeleton" | "spinner";
   priority: boolean;
+  switchLayout: boolean;
 };
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
@@ -28,6 +29,7 @@ const WatchHistoryMediaCard = async ({
   episodeNumber,
   loaderType,
   priority,
+  switchLayout,
 }: WatchHistoryMediaCardProps) => {
   // Define the fetcher function based on the mediaType
   const imageFetcher: () => Promise<ImagesData | TvEpisodeImagesData> =
@@ -72,7 +74,7 @@ const WatchHistoryMediaCard = async ({
   return (
     <Link
       href={mediaPageUrl as string}
-      className="group grid flex-1 grid-cols-2 gap-x-2 sm:flex sm:flex-col sm:gap-x-0 sm:gap-y-2"
+      className={`${switchLayout ? "grid grid-cols-2" : "flex"} group  flex-1 gap-2 sm:flex sm:flex-col `}
     >
       <AspectRatio ratio={16 / 9}>
         <ImageLoader
