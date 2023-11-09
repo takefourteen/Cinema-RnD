@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import LoadingSpinner from "./skeletons/LoadingSpinner";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
@@ -17,12 +17,6 @@ interface ImageLoaderProps
 const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false); // new state for error tracking
-
-  useEffect(() => {
-    if (!src) {
-      setIsLoading(false);
-    }
-  }, [src]);
 
   const handleImageLoad = () => {
     setIsLoading(false);
