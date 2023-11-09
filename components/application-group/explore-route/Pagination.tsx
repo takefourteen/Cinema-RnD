@@ -6,11 +6,6 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 import { generatePagination } from "@/lib/utils";
 
-import {
-  PiCaretLeft as ArrowLeftIcon,
-  PiCaretRight as ArrowRightIcon,
-} from "react-icons/pi";
-
 export default function Pagination({ totalPages }: { totalPages: number }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -26,7 +21,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
 
   return (
     <>
-      <div className="mt-16 mb-8 inline-flex w-full justify-center">
+      <div className="mb-8 mt-16 inline-flex w-full justify-center">
         <PaginationArrow
           direction="left"
           href={createPageURL(currentPage - 1)}
