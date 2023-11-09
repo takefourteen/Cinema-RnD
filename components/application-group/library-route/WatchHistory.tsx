@@ -87,6 +87,7 @@ const WatchHistory = async ({ userEmail }: Props) => {
                       seasonNumber={media.season}
                       episodeNumber={media.episode}
                       mediaType={media.type}
+                      switchLayout={true}
                       loaderType="skeleton"
                       priority={index < 5 ? true : false}
                     />
