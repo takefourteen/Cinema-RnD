@@ -16,7 +16,7 @@ export default function Error({
 }) {
   console.log(error.message);
   return (
-    <section className="master-container mx-auto flex h-screen flex-col items-center justify-center gap-y-6 text-white">
+    <main className="master-container mx-auto flex h-screen flex-col items-center justify-center gap-y-6 text-white">
       <Navbar />
 
       {/* <Image src={logo} alt="Logo" width={200} className="mb-10" /> */}
@@ -38,25 +38,16 @@ export default function Error({
         {/* refresh screen btn */}
         <Button
           onClick={() => {
-            // router.refresh();
             reset();
           }}
           className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-primaryRed px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#454545] hover:bg-primaryRed/80 hover:text-white hover:outline-2 lg:text-base"
+          aria-label="Retry"
         >
           <AiOutlineReload className="mr-2 h-4 w-4 lg:h-5 lg:w-5" /> Retry
         </Button>
-
-        {/* <Button
-          asChild
-          className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#454545] hover:bg-[#002be7ff] hover:text-white hover:outline-2 lg:text-base"
-        >
-          <Link href="/">
-            <PiHouse className="mr-1 h-4 w-4 lg:h-5 lg:w-5" /> <span>Home</span>
-          </Link>
-        </Button> */}
       </div>
 
       <BottomMobileNavbar />
-    </section>
+    </main>
   );
 }
