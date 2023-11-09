@@ -74,7 +74,9 @@ const WatchHistoryMediaCard = async ({
   return (
     <Link
       href={mediaPageUrl as string}
-      className={`${switchLayout ? "grid grid-cols-2" : "flex"} group  flex-1 gap-2 sm:flex sm:flex-col `}
+      className={`${
+        switchLayout ? "grid grid-cols-2 sm:flex sm:flex-col" : "flex flex-col"
+      } group  flex-1 gap-2  `}
     >
       <AspectRatio ratio={16 / 9}>
         <ImageLoader
@@ -104,7 +106,9 @@ const WatchHistoryMediaCard = async ({
       </AspectRatio>
 
       {/* info on card */}
-      <div className="space-y-2 text-white sm:space-y-0">
+      <div
+        className={`${switchLayout ? "space-y-2 sm:space-y-0" : "space-y-0"}`}
+      >
         <h3 className={` text-lg text-gray-200 `}>{mediaTitle}</h3>
 
         {/* if mediaType is tv show season and episode info */}
