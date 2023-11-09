@@ -58,6 +58,8 @@ export async function fetchEpisodeImages(
     const errorMessage =
       error instanceof Error ? error.message : "An unknown error occurred";
 
-    throw new Error(errorMessage);
+    // throw new Error(errorMessage);
+    console.error(errorMessage);
+    return { id: 0, stills: [] };
   }
 }
