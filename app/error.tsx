@@ -5,15 +5,19 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
-import { BiArrowBack } from "react-icons/bi";
-import { BsArrowLeft as LeftArrow } from "react-icons/bs";
-
 import { AiOutlineReload } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
 import { DetailsButton } from "@/components/DetailsButton";
 // import logo from "@/assets/images/netflix-logo.webp";
 import logo from "@/assets/images/logos/cozycinema-logo.webp";
 import smLogo from "@/assets/images/logos/cozycinema-logo-c.webp";
+import NoInternetDisplay from "@/components/NoInternetDisplay";
+import { useEffect, useState } from "react";
+import Navbar from "@/components/application-group/navbar/Navbar";
+import BottomMobileNavbar from "@/components/application-group/navbar/BottomMobileNavbar";
+import { PiHouse } from "react-icons/pi";
+
+import noInternetImg from "@/assets/images/error/no-internet.svg";
 
 export default function Error({
   error,
@@ -22,48 +26,55 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
-  console.log(error.message);
   const router = useRouter();
 
   const handleGoBack = () => {
     router.back();
   };
 
+  console.log(error.message);
   return (
-    <div className="master-container mx-auto flex h-screen flex-col items-center justify-center text-white  lg:max-w-[80%]">
-      <Image src={logo} alt="Logo" width={200} className="mb-10" />
+    <section className="master-container mx-auto flex h-screen flex-col items-center justify-center gap-y-6 text-white">
+      <Navbar />
 
-      <h1 className="mb-2 text-center text-3xl font-bold md:text-4xl lg:text-5xl">
-        Something Went Wrong
-      </h1>
-      <p className="mb-8 text-center text-lg md:text-xl">
-        We&apos;re sorry, but an error occurred while processing your request.
-      </p>
+      {/* <Image src={logo} alt="Logo" width={200} className="mb-10" /> */}
 
-      {/* display error message */}
-      <p className="font-text-body mb-8 max-w-[80%] text-center text-[#e50914] lg:max-w-[36rem]">
-        {error.message}
-      </p>
+      <NoInternetDisplay />
+      <div className="flex flex-col items-center gap-y-2">
+        <h1 className="text-center text-3xl font-bold md:text-4xl lg:text-5xl">
+          Something Went Wrong
+        </h1>
+
+        {/* display error message */}
+        <p className="font-text-body  text-center text-[#e50914] lg:max-w-[36rem]">
+          {error.message}
+        </p>
+      </div>
 
       {/* return home and back btns */}
-      <DetailsButton
-        onClick={handleGoBack}
-        className="group flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#002be7ff] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
-      >
-        <LeftArrow className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-0.5 group-hover:scale-110" />{" "}
-        Go Back
-      </DetailsButton>
+      <div className="flex gap-x-4">
+        {/* refresh screen btn */}
+        <Button
+          onClick={() => {
+            // router.refresh();
+            reset();
+          }}
+          className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-primaryRed px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#454545] hover:bg-primaryRed/80 hover:text-white hover:outline-2 lg:text-base"
+        >
+          <AiOutlineReload className="mr-2 h-4 w-4 lg:h-5 lg:w-5" /> Retry
+        </Button>
 
-      {/* refresh screen btn */}
-      {/* <Button
-        onClick={() => {
-          router.refresh();
-          reset();
-        }}
-        className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#454545] hover:bg-[#002be7ff] hover:text-white hover:outline-2"
-      >
-        <AiOutlineReload className="mr-2 h-4 w-4" /> Reload
-      </Button> */}
-    </div>
+        {/* <Button
+          asChild
+          className="flex h-fit w-max items-center rounded-lg border-[#002be7ff] bg-[#0035F0FF] px-4 py-2 text-sm font-bold uppercase text-white outline outline-0 outline-[#454545] hover:bg-[#002be7ff] hover:text-white hover:outline-2 lg:text-base"
+        >
+          <Link href="/">
+            <PiHouse className="mr-1 h-4 w-4 lg:h-5 lg:w-5" /> <span>Home</span>
+          </Link>
+        </Button> */}
+      </div>
+
+      <BottomMobileNavbar />
+    </section>
   );
 }
