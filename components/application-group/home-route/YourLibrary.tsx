@@ -2,6 +2,8 @@ import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 
+import { fetchUserWatchHistory } from "@/lib/mongodb-api/fetchUserWatchHistory";
+
 import { BookmarkIcon2 } from "@/components/ui/icons/Icons";
 import { DetailsButton } from "@/components/DetailsButton";
 import SectionHeader from "@/components/SectionHeader";
@@ -9,11 +11,22 @@ import SectionHeader from "@/components/SectionHeader";
 const YourLibrary = async () => {
   const session = await getServerSession(authOptions);
 
-  // if user has no session return null
-  if (session?.user) return null;
+  // if user has a session return null
+  // if (session?.user) return null;
 
+  // if user does not have a session return the component
+  if (!session?.user) {
+    return (
+      <section className=" master-container pt-[64px] text-white lg:pt-[72px]">
+        <SignInToViewYourLibrary />
+      </section>
+    );
+  }
+};
+
+const SignInToViewYourLibrary = () => {
   return (
-    <section className=" master-container pt-[64px] text-white lg:pt-[72px]">
+    <>
       <SectionHeader sectionTitle="From Your Library" viewAllLink="library" />
 
       <div className="mt-6 flex flex-col items-center justify-center lg:mt-6">
@@ -37,7 +50,7 @@ const YourLibrary = async () => {
           <Link href="/sign-up">Sign Up</Link>
         </DetailsButton>
       </div>
-    </section>
+    </>
   );
 };
 
