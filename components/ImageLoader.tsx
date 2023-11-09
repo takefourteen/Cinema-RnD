@@ -1,11 +1,14 @@
-"use client"
+"use client";
 
 import { useState, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
 import LoadingSpinner from "./skeletons/LoadingSpinner";
 import CardSkeleton from "@/components/skeletons/CardSkeleton";
 
-interface ImageLoaderProps extends React.ComponentPropsWithoutRef<typeof Image> {
+import fallbackSrc from "@/assets/images/error/fallback.jpg";
+
+interface ImageLoaderProps
+  extends React.ComponentPropsWithoutRef<typeof Image> {
   loaderType: "spinner" | "skeleton";
   src: StaticImageData | string;
   alt: string;
@@ -13,6 +16,7 @@ interface ImageLoaderProps extends React.ComponentPropsWithoutRef<typeof Image> 
 
 const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false); // new state for error tracking
 
   useEffect(() => {
     if (!src) {
@@ -22,6 +26,12 @@ const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
 
   const handleImageLoad = () => {
     setIsLoading(false);
+    setHasError(false); // reset error state on successful load
+  };
+
+  const handleImageError = () => {
+    setIsLoading(false);
+    setHasError(true); // set error state on image load failure
   };
 
   return (
@@ -37,10 +47,10 @@ const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
 
       {src && (
         <Image
-          src={src}
+          src={hasError ? fallbackSrc : src} // use fallback image if main image fails to load
           alt={alt || "image"}
           onLoad={handleImageLoad}
-          onError={handleImageLoad}
+          onError={handleImageError} // handle image load failure
           {...props}
         />
       )}
