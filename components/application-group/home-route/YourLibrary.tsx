@@ -57,17 +57,31 @@ const YourLibrary = async () => {
       <ul className="flex gap-2 overflow-x-scroll">
         {filteredUserWatchHistory.length > 0 ? (
           filteredUserWatchHistory.map((item) => (
-            <li key={item.id} className="w-[200px] flex-shrink-0 lg:w-[300px]">
-              <WatchHistoryMediaCard
-                mediaId={item.id}
-                mediaTitle={item.title}
-                mediaType={item.type}
-                seasonNumber={item.season}
-                episodeNumber={item.episode}
-                switchLayout={false}
-                loaderType={"skeleton"}
-                priority={false}
-              />
+            <li key={item.id} className="w-[200px] flex-shrink-0 lg:w-[350px]">
+              <Suspense
+                fallback={
+                  <div className=" flex flex-1 flex-col gap-x-0 gap-y-2">
+                    <div className="aspect-video">
+                      <CardSkeleton rows={0} />
+                    </div>
+
+                    <span className="flex h-fit">
+                      <AnimatedStringLoader loadingString="..." />
+                    </span>
+                  </div>
+                }
+              >
+                <WatchHistoryMediaCard
+                  mediaId={item.id}
+                  mediaTitle={item.title}
+                  mediaType={item.type}
+                  seasonNumber={item.season}
+                  episodeNumber={item.episode}
+                  switchLayout={false}
+                  loaderType={"skeleton"}
+                  priority={false}
+                />
+              </Suspense>
             </li>
           ))
         ) : (
