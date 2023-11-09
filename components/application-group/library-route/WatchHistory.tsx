@@ -39,8 +39,12 @@ const formatDate = (dateString: string) => {
 };
 
 const WatchHistory = async ({ userEmail }: Props) => {
-  const watchHistory: WatchHistoryItem[] | [] =
-    await fetchUserWatchHistory(userEmail);
+  const watchHistory: WatchHistoryItem[] | [] = await fetchUserWatchHistory(
+    userEmail,
+    10,
+    1,
+    true,
+  ); // the 10 and 1 are just there to satisfy the function signature
 
   // Group the watch history by date
   const groupedWatchHistory: GroupedWatchHistory = {};
