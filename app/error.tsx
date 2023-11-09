@@ -1,23 +1,11 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import { redirect } from "next/navigation";
-import { useRouter } from "next/navigation";
-
 import { AiOutlineReload } from "react-icons/ai";
 import { Button } from "@/components/ui/button";
-import { DetailsButton } from "@/components/DetailsButton";
-// import logo from "@/assets/images/netflix-logo.webp";
-import logo from "@/assets/images/logos/cozycinema-logo.webp";
-import smLogo from "@/assets/images/logos/cozycinema-logo-c.webp";
 import NoInternetDisplay from "@/components/NoInternetDisplay";
-import { useEffect, useState } from "react";
 import Navbar from "@/components/application-group/navbar/Navbar";
 import BottomMobileNavbar from "@/components/application-group/navbar/BottomMobileNavbar";
 import { PiHouse } from "react-icons/pi";
-
-import noInternetImg from "@/assets/images/error/no-internet.svg";
 
 export default function Error({
   error,
@@ -26,12 +14,6 @@ export default function Error({
   error: Error;
   reset: () => void;
 }) {
-  const router = useRouter();
-
-  const handleGoBack = () => {
-    router.back();
-  };
-
   console.log(error.message);
   return (
     <section className="master-container mx-auto flex h-screen flex-col items-center justify-center gap-y-6 text-white">
