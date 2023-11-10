@@ -44,14 +44,12 @@ const page = async () => {
         -----------
        */}
       <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
-        <ul className="flex gap-x-0">
-          {movieAndTvShowDetails.map((item) => (
-            <DiscoveryHeroSectionSliderBody
-              key={item.id}
-              movieOrTvShowDetails={item}
-            />
-          ))}
-        </ul>
+        {movieAndTvShowDetails.map((item) => (
+          <DiscoveryHeroSectionSliderBody
+            key={item.id}
+            movieOrTvShowDetails={item}
+          />
+        ))}
       </DiscoverySlider>
       {/*
         ------------------
@@ -65,7 +63,7 @@ const page = async () => {
         Your Library 
         -----------------
        */}
-        <YourLibrary />
+      <YourLibrary />
 
       {/* map through homeData and render a slider */}
       <Suspense
