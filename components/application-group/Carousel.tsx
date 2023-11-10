@@ -59,9 +59,6 @@ const Carousel = ({ translateSliderBtnBy100, children }: Props) => {
           scrollSnapType: "x mandatory",
           scrollPadding: "0 24px",
           scrollBehavior: "smooth",
-          WebkitOverflowScrolling: "touch",
-          msOverflowStyle: "none",
-          scrollbarWidth: "none",
         }}
       >
         {children}
