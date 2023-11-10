@@ -1,7 +1,6 @@
 "use client";
 
-import { ReactNode, useRef } from "react";
-
+import { ReactNode, useEffect, useRef, useState, useCallback } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import SliderButton from "@/components/slider/SliderButton";
 
@@ -12,24 +11,44 @@ type Props = {
 
 const Carousel = ({ translateSliderBtnBy100, children }: Props) => {
   const scrollContainerRef = useRef<HTMLUListElement>(null);
+  const [scrollState, setScrollState] = useState({
+    canScrollLeft: false,
+    canScrollRight: false,
+  });
 
-  const scrollToNext = () => {
+  const checkScrollability = useCallback(() => {
     if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: window.innerWidth * 0.5,
-        behavior: "smooth",
+      const { scrollLeft, scrollWidth, clientWidth } =
+        scrollContainerRef.current;
+      setScrollState({
+        canScrollLeft: scrollLeft > 0,
+        canScrollRight: scrollLeft < scrollWidth - clientWidth,
       });
     }
-  };
+  }, []);
 
-  const scrollToPrevious = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: window.innerWidth * -0.5,
-        behavior: "smooth",
-      });
-    }
-  };
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    checkScrollability();
+    scrollContainer?.addEventListener("scroll", checkScrollability);
+    return () => {
+      scrollContainer?.removeEventListener("scroll", checkScrollability);
+    };
+  }, [checkScrollability]);
+
+  const scrollToNext = useCallback(() => {
+    scrollContainerRef.current?.scrollBy({
+      left: window.innerWidth * 0.5,
+      behavior: "smooth",
+    });
+  }, []);
+
+  const scrollToPrevious = useCallback(() => {
+    scrollContainerRef.current?.scrollBy({
+      left: window.innerWidth * -0.5,
+      behavior: "smooth",
+    });
+  }, []);
 
   return (
     <div className="relative">
@@ -51,30 +70,34 @@ const Carousel = ({ translateSliderBtnBy100, children }: Props) => {
       {/* Previous and Next Buttons */}
       <div className="hidden  md:flex">
         {/* left btn */}
-        <SliderButton
-          handleClick={scrollToPrevious}
-          aria-label="previous slide"
-          className={`absolute left-[-20px] top-1/2 z-10 ${
-            translateSliderBtnBy100
-              ? "translate-y-[-100%]"
-              : "translate-y-[-50%]"
-          }`}
-        >
-          <IoIosArrowBack className=" h-[80%] w-[80%]" />
-        </SliderButton>
+        {scrollState.canScrollLeft && (
+          <SliderButton
+            handleClick={scrollToPrevious}
+            aria-label="previous slide"
+            className={`absolute left-[-20px] top-1/2 z-10 ${
+              translateSliderBtnBy100
+                ? "translate-y-[-100%]"
+                : "translate-y-[-50%]"
+            }`}
+          >
+            <IoIosArrowBack className=" h-[80%] w-[80%]" />
+          </SliderButton>
+        )}
 
         {/* right btn */}
-        <SliderButton
-          handleClick={scrollToNext}
-          aria-label="next slide"
-          className={`absolute right-[-20px] top-1/2 z-10 ${
-            translateSliderBtnBy100
-              ? "translate-y-[-100%]"
-              : "translate-y-[-50%]"
-          }`}
-        >
-          <IoIosArrowForward className=" h-[80%] w-[80%]" />
-        </SliderButton>
+        {scrollState.canScrollRight && (
+          <SliderButton
+            handleClick={scrollToNext}
+            aria-label="next slide"
+            className={`absolute right-[-20px] top-1/2 z-10 ${
+              translateSliderBtnBy100
+                ? "translate-y-[-100%]"
+                : "translate-y-[-50%]"
+            }`}
+          >
+            <IoIosArrowForward className=" h-[80%] w-[80%]" />
+          </SliderButton>
+        )}
       </div>
     </div>
   );
