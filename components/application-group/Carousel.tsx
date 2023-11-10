@@ -17,14 +17,16 @@ const Carousel = ({ translateSliderBtnBy100, children }: Props) => {
   });
 
   const checkScrollability = useCallback(() => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } =
-        scrollContainerRef.current;
-      setScrollState({
-        canScrollLeft: scrollLeft > 0,
-        canScrollRight: scrollLeft < scrollWidth - clientWidth,
-      });
+    if (!scrollContainerRef.current) {
+      console.error("No reference to scroll container.");
+      return;
     }
+
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+    setScrollState({
+      canScrollLeft: scrollLeft > 0,
+      canScrollRight: scrollLeft < scrollWidth - clientWidth,
+    });
   }, []);
 
   useEffect(() => {
@@ -37,14 +39,24 @@ const Carousel = ({ translateSliderBtnBy100, children }: Props) => {
   }, [checkScrollability]);
 
   const scrollToNext = useCallback(() => {
-    scrollContainerRef.current?.scrollBy({
+    if (!scrollContainerRef.current) {
+      console.error("No reference to scroll container.");
+      return;
+    }
+
+    scrollContainerRef.current.scrollBy({
       left: window.innerWidth * 0.5,
       behavior: "smooth",
     });
   }, []);
 
   const scrollToPrevious = useCallback(() => {
-    scrollContainerRef.current?.scrollBy({
+    if (!scrollContainerRef.current) {
+      console.error("No reference to scroll container.");
+      return;
+    }
+
+    scrollContainerRef.current.scrollBy({
       left: window.innerWidth * -0.5,
       behavior: "smooth",
     });
