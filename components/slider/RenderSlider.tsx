@@ -1,17 +1,19 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useInView } from "react-intersection-observer";
 
 import SectionHeader from "@/components/SectionHeader";
-import SliderBody from "@/components/slider/SliderBody";
-import Slider from "@/components/slider/Slider";
 import DataFetchingMediaCardSkeleton from "../skeletons/DataFetchingMediaCardSkeleton";
+import Carousel from "../application-group/Carousel";
+// import DataFetchingMediaCard from "../cards/DataFetchingMediaCard";
 
-const DataFetchingMotionMediaCard = dynamic(
-  () => import("@/components/cards/DataFetchingMotionMediaCard"),
+const DataFetchingMediaCard = dynamic(
+  () => import("@/components/cards/DataFetchingMediaCard"),
   {
     loading: () => <DataFetchingMediaCardSkeleton />,
-  }
+    ssr: false,
+  },
 );
 
 interface RenderSliderProps {
@@ -29,45 +31,39 @@ const RenderSlider = ({
   listItemsPriority = false,
   largeListItem = false,
 }: RenderSliderProps) => {
-  // Define slider header component
-  const sliderHeaderComponent = (
-    <SectionHeader
-      sectionTitle={sectionTitle}
-      viewAllLink={viewAllLink}
-      showBorder={false}
-    />
-  );
-
-  // Define slider body component
-  const sliderBodyComponent = (
-    <SliderBody
-      sliderData={sliderData}
-      initData={sliderData[0]}
-      classNames={{
-        ulList: "relative gap-x-2 ",
-      }}
-      renderSliderList={(item) => (
-        <DataFetchingMotionMediaCard
-          key={item.id}
-          mediaId={item.id}
-          mediaType={item.original_name ? "tv" : "movie"}
-          priority={listItemsPriority}
-          imgSize={largeListItem ? "large" : "default"}
-          padding="p-[2px]"
-        />
-      )}
-    />
-  );
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    rootMargin: "0px 0px -100px 0px",
+  });
 
   return (
-    <section
-      className={`master-container  pt-[64px] lg:pt-[72px]"}
-    `}
-    >
-      <Slider
-        sliderHeaderComponent={sliderHeaderComponent}
-        sliderBodyComponent={sliderBodyComponent}
-      />
+    <section className="master-container pt-[64px] lg:pt-[72px]" ref={ref}>
+      {inView && (
+        <>
+          <SectionHeader
+            sectionTitle={sectionTitle}
+            viewAllLink={viewAllLink}
+            showBorder={false}
+          />
+
+          <Carousel>
+            {sliderData.map((item) => (
+              <DataFetchingMediaCard
+                key={item.id}
+                mediaId={item.id}
+                mediaType={item.original_name ? "tv" : "movie"}
+                priority={listItemsPriority}
+                imgSize={"default"}
+                loaderType="skeleton"
+                style={{
+                  scrollSnapAlign: "start",
+                  scrollMargin: "0 10px",
+                }}
+              />
+            ))}
+          </Carousel>
+        </>
+      )}
     </section>
   );
 };
