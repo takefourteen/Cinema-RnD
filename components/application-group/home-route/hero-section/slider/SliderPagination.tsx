@@ -7,23 +7,20 @@ import {
 
 export interface SliderIndicatorsProps {
   activeIndex: number;
-  length: number;
-  maxIndicatorVisible?: number;
+  lengthOfList: number;
   onSetActiveIndex: (index: number) => void;
 }
 
 const SliderPagination = ({
   activeIndex,
-  length,
-  maxIndicatorVisible = 5,
+  lengthOfList,
   onSetActiveIndex,
 }: SliderIndicatorsProps) => {
-  const maxIndicator =
-    length > maxIndicatorVisible ? maxIndicatorVisible : length;
+  const maxIndicator = lengthOfList;
 
   // function that sets the slideNumber to the index of the indicator that was clicked, wrapped in useCallback
   const handleRightClick = () => {
-    if (activeIndex === length - 1) {
+    if (activeIndex === lengthOfList - 1) {
       onSetActiveIndex(0);
     } else {
       onSetActiveIndex(activeIndex + 1);
@@ -32,7 +29,7 @@ const SliderPagination = ({
 
   function handleLeftClick() {
     if (activeIndex === 0) {
-      onSetActiveIndex(length - 1);
+      onSetActiveIndex(lengthOfList - 1);
     } else {
       onSetActiveIndex(activeIndex - 1);
     }
