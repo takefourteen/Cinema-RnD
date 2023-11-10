@@ -16,7 +16,12 @@ const DiscoveryHeroSectionSliderBody = ({
     : movieOrTvShowDetails.original_name;
 
   return (
-    <li className="relative  h-[70dvh] w-[100vw] flex-1 md:h-[75dvh]">
+    <li
+      className="relative h-[70dvh] w-[100%] flex-shrink-0 grow-0 md:h-[75dvh]"
+      style={{
+        scrollSnapAlign: "start",
+      }}
+    >
       {/* Carousel Image */}
       <ResponsiveBackgroundPoster
         poster_path={movieOrTvShowDetails.poster_path}
