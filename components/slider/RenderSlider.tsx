@@ -15,7 +15,6 @@ const DataFetchingMotionMediaCard = dynamic(
 );
 
 interface RenderSliderProps {
-  isFirstChild?: boolean;
   sliderData: any[];
   sectionTitle: string;
   viewAllLink?: string;
@@ -24,7 +23,6 @@ interface RenderSliderProps {
 }
 
 const RenderSlider = ({
-  isFirstChild = false,
   sliderData,
   sectionTitle,
   viewAllLink,
@@ -63,8 +61,7 @@ const RenderSlider = ({
 
   return (
     <section
-      className={`master-container 
-    ${isFirstChild ? "mt-4" : " pt-[64px] lg:pt-[72px]"}
+      className={`master-container  pt-[64px] lg:pt-[72px]"}
     `}
     >
       <Slider

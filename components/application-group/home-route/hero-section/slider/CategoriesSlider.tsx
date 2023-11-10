@@ -26,7 +26,6 @@ const CategoriesSlider = async () => {
   return homeData.map((sliderData, index) => (
     <RenderSlider
       key={sliderData.title}
-      isFirstChild={index === 0}
       sliderData={sliderData.data}
       sectionTitle={sliderData.title}
       listItemsPriority={sliderData.hasPriority}
