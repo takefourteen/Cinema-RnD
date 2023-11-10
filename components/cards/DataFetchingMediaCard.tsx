@@ -14,23 +14,24 @@ import ImageLoader from "@/components/ImageLoader";
 import DetailsOnMediaCard from "../application-group/DetailsOnMediaCard";
 import CardSkeleton from "../skeletons/CardSkeleton";
 
-type DataFetchingMediaCardProps = {
+interface DataFetchingMediaCardProps
+  extends React.LiHTMLAttributes<HTMLLIElement> {
   mediaId: string;
   mediaType: "movie" | "tv";
   loaderType: "skeleton" | "spinner";
   priority: boolean;
   imgSize?: "default" | "large";
   inAGrid?: boolean;
-};
+}
 
 const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
 
 const listItemSize = {
   default: {
     width:
-      "min-w-[200px] sm:min-w-[225px] md:min-w-[250px] lg:min-w-[275px] xl:min-w-[300px] ",
+      "min-w-[150px] sm:min-w-[170px] md:min-w-[180px] lg:min-w-[215px] xl:min-w-[250px] 2xl:min-w-[300px]",
     sizes:
-      "(max-width: 640px) 200px, (max-width: 768px) 250px, (max-width: 1024px) 275px, 300px",
+      "(max-width: 640px) 150px, (max-width: 768px) 170px, (max-width: 1024px) 180px, (max-width: 1280px) 215px, (max-width: 1536px) 250px, 300px",
   },
 
   inAGrid: {
@@ -52,6 +53,7 @@ const DataFetchingMediaCard = ({
   priority,
   imgSize = "default",
   inAGrid = false,
+  ...props
 }: DataFetchingMediaCardProps) => {
   // Define the fetcher function based on the mediaType
   const fetcher: () => Promise<MovieDetailsData | TVSeriesData> =
@@ -150,6 +152,7 @@ const DataFetchingMediaCard = ({
       className={`relative h-auto flex-1  ${
         inAGrid ? listItemSize.inAGrid.width : listItemSize[imgSize].width
       }`}
+      {...props}
     >
       <Link href={mediaPageUrl} className="group ">
         <AspectRatio ratio={2 / 3}>
