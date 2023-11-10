@@ -12,11 +12,6 @@ import AnimatedStringLoader from "@/components/skeletons/AnimatedStringLoader";
 import DataFetchingMediaCardSkeleton from "@/components/skeletons/DataFetchingMediaCardSkeleton";
 import CategoriesSlider from "@/components/application-group/home-route/hero-section/slider/CategoriesSlider";
 
-// ===================================
-// Time-based Revalidation in Next.js
-// ===================================
-export const revalidate = 3600 * 24; // 24 hours
-
 const page = async () => {
   // fetch trending movies and tv shows
   const [trendingMovies, trendingTVSeries] = await Promise.all([
@@ -70,7 +65,7 @@ const page = async () => {
         Your Library 
         -----------------
        */}
-      <YourLibrary />
+        <YourLibrary />
 
       {/* map through homeData and render a slider */}
       <Suspense

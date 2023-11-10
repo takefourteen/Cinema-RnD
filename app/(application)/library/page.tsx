@@ -27,7 +27,11 @@ const page = async ({ searchParams }: LibraryPageProps) => {
 
   // the user is not logged in
   if (!session?.user) {
-    return <UserNotSignedIn />;
+    return (
+      <section className=" master-container my-auto flex h-full flex-1 text-white">
+        <UserNotSignedIn />;
+      </section>
+    );
   }
 
   const userLibrary = await fetchUserLibrary(session.user?.email as string);
@@ -85,7 +89,7 @@ const page = async ({ searchParams }: LibraryPageProps) => {
   const tabConfigs = [tvTabConfig, movieTabConfig, watchHistoryTabConfig];
 
   return (
-    <section className="master-container w-full relative mt-[72px] pb-[80px] pt-10 lg:mt-[92px]">
+    <section className="master-container relative mt-[72px] w-full pb-[80px] pt-10 lg:mt-[92px]">
       <LibraryExplorerPanel
         tabConfigs={tabConfigs}
         panelPosition="center"
