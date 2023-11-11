@@ -44,7 +44,7 @@ const page = async () => {
         -----------
        */}
       <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
-        {movieAndTvShowDetails.map((item) => (
+        {movieAndTvShowDetails.slice(0, 15).map((item) => (
           <DiscoveryHeroSectionSliderBody
             key={item.id}
             movieOrTvShowDetails={item}
@@ -67,7 +67,7 @@ const page = async () => {
 
       {/* map through homeData and render a slider */}
       <Suspense
-        fallback={Array.from({ length: 5 }).map((_, i) => (
+        fallback={Array.from({ length: 2 }).map((_, i) => (
           <div
             key={i}
             className="master-container mt-4 flex h-full w-full flex-col"
@@ -78,7 +78,7 @@ const page = async () => {
             </h2>
             <div className="mt-4 flex gap-x-2 overflow-hidden">
               {Array.from({ length: 8 }, (_, j) => (
-                <DataFetchingMediaCardSkeleton key={j} />
+                <DataFetchingMediaCardSkeleton key={j} loader="spinner" />
               ))}
             </div>
           </div>
