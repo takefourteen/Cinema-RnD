@@ -77,11 +77,6 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
       with_genres: `${tvSeriesGenres.comedy}`,
       with_keywords: `${keywords.sitcom}|${keywords.comedy}`,
     }),
-    // 7. Reality TV (Reality)
-    fetchCategory("tvSeries", "Reality TV", {
-      sort_by: "popularity.desc",
-      with_genres: `${tvSeriesGenres.reality}|${tvSeriesGenres.drama}`,
-    }),
 
     // ============================
     //      Movies & Tv Series
@@ -127,7 +122,6 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     familyAdventuresMovies, // 4
     wildWestAdventuresMovies, // 5
     laughOutLoudSitcomsTvSeries, // 6
-    realityTvSeries, // 7
     heartfeltRomanticEscapesMovies, // 8 - combined
     heartfeltRomanticEscapesTvSeries, // 8 -  combined
     mindBendingMysteryTalesMovies, // 9 - combined
@@ -158,7 +152,6 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
       ...smallTownDramaTvSeries.results.slice(0, 10),
     ],
   };
-
 
   // Sort the combined array by popularity
   sortResultsByVoteCount(heartfeltRomanticEscapesCombined.results);
@@ -220,11 +213,6 @@ export async function fetchAllDataForHome(): Promise<HomePageData<any>[]> {
     {
       data: smallTownDramaCombined.results.slice(0, 15),
       title: smallTownDramaCombined.title,
-      ...defaultContentOptions,
-    },
-    {
-      data: realityTvSeries.results.slice(0, 15),
-      title: realityTvSeries.title,
       ...defaultContentOptions,
     },
   ];
