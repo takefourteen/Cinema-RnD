@@ -52,7 +52,7 @@ const RenderSlider = ({
                 mediaType={item.original_name ? "tv" : "movie"}
                 priority={listItemsPriority}
                 imgSize={"default"}
-                loaderType="skeleton"
+                loaderType="spinner"
                 style={{
                   scrollSnapAlign: "start",
                   scrollMargin: "0 10px",
