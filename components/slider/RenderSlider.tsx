@@ -31,7 +31,7 @@ const RenderSlider = ({
   listItemsPriority = false,
   largeListItem = false,
 }: RenderSliderProps) => {
-  const [ref, inView] = useInView({
+  const {ref, inView} = useInView({
     triggerOnce: true,
     rootMargin: "0px 0px 50px 0px",
   });
