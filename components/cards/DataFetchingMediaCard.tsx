@@ -58,8 +58,8 @@ const DataFetchingMediaCard = ({
   // Define the fetcher function based on the mediaType
   const fetcher: () => Promise<MovieDetailsData | TVSeriesData> =
     mediaType === "movie"
-      ? () => fetchMovieDetails(mediaId, 100)
-      : () => fetchTvSeriesDetails(mediaId, 100);
+      ? () => fetchMovieDetails(mediaId, 150)
+      : () => fetchTvSeriesDetails(mediaId, 150);
 
   // Fetch the media details based on the mediaType
   const { data: mediaDetails, error, isLoading } = useSWR(mediaId, fetcher);
