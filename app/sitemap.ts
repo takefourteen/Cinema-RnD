@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date().toISOString(),
         },
         {
-            url: `${baseUrl}/explore-tv-shows`,
+            url: `${baseUrl}/explore-tv-series`,
             lastModified: new Date().toISOString(),
         },
         {
