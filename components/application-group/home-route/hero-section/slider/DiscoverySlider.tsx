@@ -14,6 +14,7 @@ const AUTO_SCROLL_INTERVAL = 3500;
 const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
   const scrollContainerRef = useRef<HTMLUListElement>(null);
   const [slideNumber, setSlideNumber] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   const handleSetActiveIndex = useCallback((index: number) => {
     if (!scrollContainerRef.current) {
@@ -26,6 +27,7 @@ const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
 
   // auto scroll
   useEffect(() => {
+    if (isPaused) return;
     const scrollContainer = scrollContainerRef.current;
     if (!scrollContainer) {
       console.error("No reference to scroll container");
@@ -41,10 +43,14 @@ const DiscoverySlider: React.FC<SliderProps> = ({ lengthOfList, children }) => {
       }
     }, AUTO_SCROLL_INTERVAL);
     return () => clearInterval(interval);
-  }, [slideNumber, lengthOfList]);
+  }, [slideNumber, lengthOfList, isPaused]);
 
   return (
-    <section className="group relative h-full w-full overflow-hidden">
+    <section
+      className="group relative h-full w-full overflow-hidden"
+      onMouseOver={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <ul
         ref={scrollContainerRef}
         className=" flex gap-x-0 overflow-y-hidden overflow-x-scroll "
