@@ -12,19 +12,21 @@ export default async function sitemap() {
     fetchTrendingTVSeries(),
   ]);
 
-  const moviesRoutes: MetadataRoute.Sitemap = trendingMovies.map((movie) => ({
-    url: `${baseUrl}/movie/${slugify(movie.original_title)}-${movie.id}`,
-    priority: 0.8,
-    lastModified: new Date().toISOString(),
-  }));
+  const moviesRoutes: MetadataRoute.Sitemap = trendingMovies
+    .slice(0, 5)
+    .map((movie) => ({
+      url: `${baseUrl}/movie/${slugify(movie.original_title)}-${movie.id}`,
+      priority: 0.8,
+      lastModified: new Date().toISOString(),
+    }));
 
-  const tvSeriesRoutes: MetadataRoute.Sitemap = trendingTVSeries.map(
-    (tvSeries) => ({
+  const tvSeriesRoutes: MetadataRoute.Sitemap = trendingTVSeries
+    .slice(0, 5)
+    .map((tvSeries) => ({
       url: `${baseUrl}/tv/${slugify(tvSeries.original_name)}-${tvSeries.id}`,
       priority: 0.8,
       lastModified: new Date().toISOString(),
-    }),
-  );
+    }));
 
   return [
     {
