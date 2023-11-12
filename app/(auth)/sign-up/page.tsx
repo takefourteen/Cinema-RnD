@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 
@@ -13,6 +14,23 @@ type PageProps = {
     callbackUrl: string;
   };
 };
+
+// ===== METADATA ===== //
+export const metadata: Metadata = {
+  title: {
+    absolute: "Join CozyCinema - Sign Up for Free Entertainment",
+  },
+  description:
+    "Join CozyCinema for free and unlock a world of entertainment. Access your personalized library, dive into unlimited streaming, spanning genres like drama, comedy, action, and more, and enjoy high-quality, cost-free streaming. CozyCinema - Your haven for high-quality, cost-free entertainment.",
+};
+
+/* 
+export const signupMetadata: Metadata = {
+  title: "Join CozyCinema - Sign Up for Free Entertainment",
+  description:
+    "Join CozyCinema for free and embark on a cinematic adventure. Sign up to explore a vast array of movies and TV shows, curated just for you. Dive into unlimited streaming, spanning genres like drama, comedy, action, and more. CozyCinema - Your haven for high-quality, cost-free entertainment.",
+};
+*/
 
 const CreateAccount = async ({ searchParams }: PageProps) => {
   const session = await getServerSession(authOptions);

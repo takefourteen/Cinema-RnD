@@ -1,9 +1,11 @@
 import { Suspense } from "react";
+import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchImages } from "@/lib/tmdb-api/images";
+import { slugify } from "@/helpers/slugify";
 
 import MovieDetailsTop from "@/components/application-group/movie-route/MovieDetailsTop";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
@@ -27,6 +29,48 @@ type PageProps = {
     id: string;
   };
 };
+
+// ========== METADATA ========== //
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<ResolvingMetadata | Metadata> {
+  // get the movie id from the params
+  const movieId = params.id.split("-").pop() as string;
+
+  // if there is no movie id in the url, display relavent metadata
+  if (!movieId || movieId === "") {
+    return {
+      title: "Movie Not Found",
+      description:
+        "The movie you are looking for does not exist. Please try again.",
+    };
+  }
+
+  // fetch the movie details
+  let moviesData;
+  try {
+    moviesData = await fetchMovieDetails(movieId, 0);
+  } catch (error) {
+    console.error("error: ", error);
+    return {
+      title: "Movie Not Found",
+      description:
+        "The movie you are looking for does not exist. Please try again.",
+    };
+  }
+
+  const metadata: Metadata = {
+    title: moviesData.title,
+    description: moviesData.overview,
+    alternates: {
+      canonical: `https://cozycinema.app/movie/${slugify(moviesData.title)}-${
+        moviesData.id
+      }`,
+    },
+  };
+
+  return metadata;
+}
 
 const page = async ({ params }: PageProps) => {
   // get the movie id from the params

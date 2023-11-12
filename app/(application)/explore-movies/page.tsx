@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
 import { movieGenres } from "@/constants/movieGenres";
@@ -22,6 +23,13 @@ const SortSelect = dynamic(
     ssr: false,
   },
 );
+
+// METADATA FOR SEO
+export const metadata: Metadata = {
+  title: "Explore Movies",
+  description:
+    "Discover a cinematic universe at CozyCinema's Explore Movies. Stream a diverse range of films for free, anytime, anywhere. Find comfort in our handpicked collection of movies spanning genres like drama, comedy, action, and more. Your ultimate destination for high-quality, cost-free movie streaming experiences.",
+};
 
 const genres: { title: string; id: number }[] = [
   {

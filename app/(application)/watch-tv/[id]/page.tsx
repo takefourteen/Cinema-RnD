@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 import { getServerSession, Session } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
@@ -8,6 +9,7 @@ import Script from "next/script";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchTvSeriesExternalIds } from "@/lib/tmdb-api/external-ids";
 import { addMediaToWatchHistory } from "@/lib/mongodb-api/addMediaToWatchHistory";
+import { slugify } from "@/helpers/slugify";
 
 import VideoPlayer from "@/components/application-group/VideoPlayer";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
@@ -48,6 +50,51 @@ type PageProps = {
     episode: string;
   };
 };
+
+// ========== METADATA ========== //
+export async function generateMetadata({
+  params,
+  searchParams,
+}: PageProps): Promise<ResolvingMetadata | Metadata> {
+  //  get the tv series id from the params
+  const tvSeriesId = params.id.split("-").pop() as string;
+  const season = searchParams.season;
+  const episode = searchParams.episode;
+
+  // if there is no season, episode or id in the url, redirect to the not found page
+  if (!searchParams.season || !searchParams.episode || !tvSeriesId) {
+    return {
+      title: "TV Series Not Found",
+      description: "The TV series you are looking for does not exist.",
+    };
+  }
+
+  // fetch the tv details
+  let tvSeriesData;
+  try {
+    tvSeriesData = await fetchTvSeriesDetails(tvSeriesId, 0);
+  } catch (error) {
+    console.error("error: ", error);
+    return {
+      title: "TV Series Not Found",
+      description:
+        "The TV series you are looking for does not exist. Please try again.",
+    };
+  }
+
+  // return the metadata
+  return {
+    title: `Watch ${tvSeriesData.original_name} (${
+      tvSeriesData.first_air_date.split("-")[0]
+    }) - Season ${season} • Episode ${episode}`,
+    description: tvSeriesData.overview,
+    alternates: {
+      canonical: `https://cozycinema.vercel.app/watch-tv/${slugify(
+        tvSeriesData.original_name,
+      )}-${tvSeriesData.id}?season=${season}&episode=${episode}`,
+    },
+  };
+}
 
 const addTvSeriesToWatchHistory = async (
   tvSeriesId: string,
@@ -149,7 +196,7 @@ const page = async ({ params, searchParams }: PageProps) => {
         <Suspense
           fallback={
             <div className="flex h-full w-full items-center justify-center">
-              <AnimatedStringLoader loadingString="..."/>
+              <AnimatedStringLoader loadingString="..." />
             </div>
           }
         >

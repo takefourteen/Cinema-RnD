@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 
@@ -13,6 +14,16 @@ type PageProps = {
     callbackUrl: string;
   };
 };
+
+// ===== METADATA ===== //
+export const metadata: Metadata = {
+  title: {
+    absolute: "Login to CozyCinema",
+  },
+  description:
+    "Login to CozyCinema and unlock a world of entertainment. Access your personalized library, explore diverse genres, and enjoy high-quality, cost-free streaming. Your cinematic journey begins with a cozy login at CozyCinema.",
+};
+
 
 const Login = async ({ searchParams }: PageProps) => {
   const session = await getServerSession(authOptions);

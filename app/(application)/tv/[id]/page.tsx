@@ -1,13 +1,15 @@
-import dynamic from "next/dynamic";
+import { Suspense } from "react";
+import { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
+import dynamic from "next/dynamic";
 
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
 import { fetchImages } from "@/lib/tmdb-api/images";
+import { slugify } from "@/helpers/slugify";
 
 import TvSeriesDetails from "@/components/application-group/tv-route/TvSeriesDetails";
 import ExplorerPanel from "@/components/application-group/ExplorerPanel";
 import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
-
 import RecommendedMediaSkeleton from "@/components/skeletons/RecommendedMediaSkeleton";
 import EpisodesListSkeleton from "@/components/skeletons/EpisodesListSkeleton";
 
@@ -38,6 +40,49 @@ type PageProps = {
     id: string;
   };
 };
+
+// ========== METADATA ========== //
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<ResolvingMetadata | Metadata> {
+  // get the tv series id from the params
+  const tvSeriesId = params.id.split("-").pop() as string;
+
+  // if there is no tv series id in the url, display relavent metadata
+  if (!tvSeriesId || tvSeriesId === "") {
+    return {
+      title: "TV Series Not Found",
+      description:
+        "The TV series you are looking for does not exist. Please try again.",
+    };
+  }
+
+  // fetch the tv details
+  let tvSeriesData;
+  try {
+    tvSeriesData = await fetchTvSeriesDetails(tvSeriesId, 0);
+  } catch (error) {
+    console.error("error: ", error);
+    return {
+      title: "TV Series Not Found",
+      description:
+        "The TV series you are looking for does not exist. Please try again.",
+    };
+  }
+
+  // return the metadata
+  return {
+    title: `${tvSeriesData.original_name} (${
+      tvSeriesData.first_air_date.split("-")[0]
+    })`,
+    description: tvSeriesData.overview,
+    alternates: {
+      canonical: `https://cozycinema.vercel.app/tv/${slugify(
+        tvSeriesData.original_name,
+      )}-${tvSeriesData.id}`,
+    },
+  };
+}
 
 const page = async ({ params }: PageProps) => {
   // get the tv series id from the params
@@ -96,12 +141,8 @@ const page = async ({ params }: PageProps) => {
     ),
   };
 
-  const tabConfigs = [
-    detailsTab,
-    episodesTab,
-    recommendedTab,
-  ];
-  
+  const tabConfigs = [detailsTab, episodesTab, recommendedTab];
+
   return (
     <section>
       {/* Top Section */}
@@ -112,7 +153,9 @@ const page = async ({ params }: PageProps) => {
       </pre> */}
 
       {/* Middle Section */}
-      <ExplorerPanel tabConfigs={tabConfigs} />
+      <Suspense fallback={null}>
+        <ExplorerPanel tabConfigs={tabConfigs} />
+      </Suspense>
     </section>
   );
 };

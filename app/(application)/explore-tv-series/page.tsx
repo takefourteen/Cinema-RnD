@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
 import { tvSeriesGenres } from "@/constants/tvSeriesGenres";
@@ -22,6 +23,12 @@ const SortSelect = dynamic(
     ssr: false,
   },
 );
+
+export const metadata: Metadata = {
+  title: "Explore TV Shows",
+  description:
+    "Immerse yourself in captivating TV shows at CozyCinema's Explore TV Shows. From drama to comedy, explore our curated series collection for free. Stream endlessly, find your favorite shows, and embark on a cozy binge-watching journey. CozyCinema - Where TV entertainment meets comfort, offering genres like mystery, romance, and more.",
+};
 
 const genres: { title: string; id: number }[] = [
   {

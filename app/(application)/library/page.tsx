@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
+import { Metadata, ResolvingMetadata } from "next";
 
 import { fetchUserLibrary } from "../../../lib/mongodb-api/fetchUserLibrary";
 
@@ -20,6 +21,44 @@ type LibraryPageProps = {
     tab?: "tv" | "movie" | "history";
   };
 };
+
+// ========== METADATA ========== //
+// export const metadata: Metadata = {
+//   title: "Your CozyCinema Library - Explore a World of Entertainment",
+//   description:
+//     "Welcome to your personal CozyCinema Library, where a vast array of movies and TV shows awaits. Dive into a curated collection spanning genres like drama, comedy, action, and more. Enjoy unlimited streaming, all for free. CozyCinema - Your haven for high-quality, cost-free entertainment.",
+// };
+
+// metadata depending on whether the user is logged in or not
+type User = {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+};
+export async function generateMetadata(): Promise<
+  ResolvingMetadata | Metadata
+> {
+  const session = await getServerSession(authOptions);
+
+  // Default metadata for users not logged in
+  let metadata: Metadata = {
+    title: "Your CozyCinema Library - Explore a World of Entertainment",
+    description:
+      "Welcome to your personal CozyCinema Library, where a vast array of movies and TV shows awaits. Dive into a curated collection spanning genres like drama, comedy, action, and more. Enjoy unlimited streaming, all for free. CozyCinema - Your haven for high-quality, cost-free entertainment.",
+  };
+
+  // If the user is logged in, update metadata
+  if (session?.user) {
+    const userInSession = session.user as User;
+    metadata = {
+      title: `Welcome back, ${userInSession.firstName}, Explore Your CozyCinema Library`,
+      description:
+        "Discover and enjoy a vast array of movies and TV shows in your personalized CozyCinema Library. Dive into a curated collection spanning genres like drama, comedy, action, and more. Enjoy unlimited streaming, all for free. CozyCinema - Your haven for high-quality, cost-free entertainment.",
+    };
+  }
+
+  return metadata;
+}
 
 const page = async ({ searchParams }: LibraryPageProps) => {
   const session = await getServerSession(authOptions);

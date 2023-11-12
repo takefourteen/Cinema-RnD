@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import { Metadata } from "next";
 
 import { fetchMovieDetails } from "@/lib/tmdb-api/movies";
 import { fetchTvSeriesDetails } from "@/lib/tmdb-api/tv-series";
@@ -11,6 +12,12 @@ import YourLibrary from "@/components/application-group/home-route/YourLibrary";
 import AnimatedStringLoader from "@/components/skeletons/AnimatedStringLoader";
 import DataFetchingMediaCardSkeleton from "@/components/skeletons/DataFetchingMediaCardSkeleton";
 import CategoriesSlider from "@/components/application-group/home-route/hero-section/slider/CategoriesSlider";
+
+export const metadata: Metadata = {
+  title: "CozyCinema - Stream Movies and TV Shows for Free",
+  description:
+    "Indulge in a cozy streaming experience at CozyCinema. Watch unlimited movies and TV series for free, anytime, anywhere. Discover a vast collection of cinematic gems tailored for your comfort. No subscription required. Your ultimate destination for premium, cost-free entertainment.",
+};
 
 const page = async () => {
   // fetch trending movies and tv shows
