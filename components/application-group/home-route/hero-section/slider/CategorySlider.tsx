@@ -44,7 +44,7 @@ const CategorySlider: FC<CategorySliderProps> = async (props) => {
   return data.map((category) => (
     <RenderSlider
       key={category.title}
-      sliderData={category.results}
+      sliderData={category.results.slice(0, 10)}
       sectionTitle={category.title}
     />
   ));
