@@ -141,7 +141,7 @@ const page = async ({ params }: PageProps) => {
     ),
   };
 
-  const tabConfigs = [detailsTab, episodesTab, recommendedTab];
+  const tabConfigs = [episodesTab, detailsTab, recommendedTab];
 
   return (
     <section>
