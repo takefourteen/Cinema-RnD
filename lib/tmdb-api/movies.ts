@@ -3,7 +3,7 @@ const BASE_URL = "https://api.themoviedb.org/3";
 
 export async function fetchMovieDetails(
   movieId: string | number,
-  delay: number = 0 
+  delay: number = 50 
 ): Promise<MovieDetailsData> {
   try {
     // Introduce a delay before the fetch operation

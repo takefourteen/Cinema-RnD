@@ -3,7 +3,7 @@ const BASE_URL = "https://api.themoviedb.org/3";
 
 export async function fetchTvSeriesDetails(
   tvSeriesId: string | number,
-  delay: number = 0,
+  delay: number = 50,
   appendToResponse: string = "",
 ): Promise<TVSeriesData> {
   try {
@@ -12,7 +12,7 @@ export async function fetchTvSeriesDetails(
 
     const url = `${BASE_URL}/tv/${tvSeriesId}?api_key=${API_KEY}&language=en-US&append_to_response=${appendToResponse}`;
 
-    const response = await fetch(url, {next: {tags: ["tv-details"]}});
+    const response = await fetch(url, { next: { tags: ["tv-details"] } });
 
     if (!response.ok) {
       // Parse the error response as JSON to extract status_message
