@@ -14,7 +14,9 @@ import DataFetchingMediaCardSkeleton from "@/components/skeletons/DataFetchingMe
 import CategoriesSlider from "@/components/application-group/home-route/hero-section/slider/CategoriesSlider";
 
 export const metadata: Metadata = {
-  title: "CozyCinema - Stream Movies and TV Shows for Free",
+  title: {
+    absolute: "CozyCinema - Stream Movies and TV Shows for Free",
+  },
   description:
     "Indulge in a cozy streaming experience at CozyCinema. Watch unlimited movies and TV series for free, anytime, anywhere. Discover a vast collection of cinematic gems tailored for your comfort. No subscription required. Your ultimate destination for premium, cost-free entertainment.",
 };
