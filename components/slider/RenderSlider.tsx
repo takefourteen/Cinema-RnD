@@ -1,20 +1,21 @@
-"use client";
-
 import dynamic from "next/dynamic";
-import { useInView } from "react-intersection-observer";
 
 import SectionHeader from "@/components/SectionHeader";
 import DataFetchingMediaCardSkeleton from "../skeletons/DataFetchingMediaCardSkeleton";
-import Carousel from "../application-group/Carousel";
-// import DataFetchingMediaCard from "../cards/DataFetchingMediaCard";
+import CarouselSkeleton from "../skeletons/CarouselSkeleton";
 
 const DataFetchingMediaCard = dynamic(
   () => import("@/components/cards/DataFetchingMediaCard"),
   {
-    loading: () => <DataFetchingMediaCardSkeleton loader="skeleton" />,
+    loading: () => <DataFetchingMediaCardSkeleton loader="spinner" />,
     ssr: false,
   },
 );
+
+const Carousel = dynamic(() => import("../application-group/Carousel"), {
+  loading: () => <CarouselSkeleton />,
+  ssr: false,
+});
 
 interface RenderSliderProps {
   sliderData: any[];
@@ -29,39 +30,30 @@ const RenderSlider = ({
   viewAllLink,
   listItemsPriority = false,
 }: RenderSliderProps) => {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    rootMargin: "0px 0px 0px 0px",
-  });
-
   return (
-    <section className="master-container pt-[64px] lg:pt-[72px]" ref={ref}>
-      {inView && (
-        <>
-          <SectionHeader
-            sectionTitle={sectionTitle}
-            viewAllLink={viewAllLink}
-            showBorder={false}
-          />
+    <section className="master-container pt-[64px] lg:pt-[72px]">
+      <SectionHeader
+        sectionTitle={sectionTitle}
+        viewAllLink={viewAllLink}
+        showBorder={false}
+      />
 
-          <Carousel>
-            {sliderData.map((item) => (
-              <DataFetchingMediaCard
-                key={item.id}
-                mediaId={item.id}
-                mediaType={item.original_name ? "tv" : "movie"}
-                priority={listItemsPriority}
-                imgSize={"default"}
-                loaderType="spinner"
-                style={{
-                  scrollSnapAlign: "start",
-                  scrollMargin: "0 10px",
-                }}
-              />
-            ))}
-          </Carousel>
-        </>
-      )}
+      <Carousel>
+        {sliderData.map((item) => (
+          <DataFetchingMediaCard
+            key={item.id}
+            mediaId={item.id}
+            mediaType={item.original_name ? "tv" : "movie"}
+            priority={listItemsPriority}
+            imgSize={"default"}
+            loaderType="spinner"
+            style={{
+              scrollSnapAlign: "start",
+              scrollMargin: "0 10px",
+            }}
+          />
+        ))}
+      </Carousel>
     </section>
   );
 };

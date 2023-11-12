@@ -9,9 +9,8 @@ import { fetchTrendingTVSeries } from "@/lib/tmdb-api/trending";
 import DiscoverySlider from "@/components/application-group/home-route/hero-section/slider/DiscoverySlider";
 import DiscoveryHeroSectionSliderBody from "@/components/application-group/home-route/hero-section/slider/DiscoveryHeroSectionSliderBody";
 import YourLibrary from "@/components/application-group/home-route/YourLibrary";
-import AnimatedStringLoader from "@/components/skeletons/AnimatedStringLoader";
-import DataFetchingMediaCardSkeleton from "@/components/skeletons/DataFetchingMediaCardSkeleton";
-import CategoriesSlider from "@/components/application-group/home-route/hero-section/slider/CategoriesSlider";
+import CategorySlider from "@/components/application-group/home-route/hero-section/slider/CategorySlider";
+import CarouselSkeleton from "@/components/skeletons/CarouselSkeleton";
 
 export const metadata: Metadata = {
   title: {
@@ -74,26 +73,25 @@ const page = async () => {
        */}
       <YourLibrary />
 
-      {/* map through homeData and render a slider */}
-      <Suspense
-        fallback={Array.from({ length: 2 }).map((_, i) => (
-          <div
-            key={i}
-            className="master-container mt-4 flex h-full w-full flex-col"
-          >
-            <h2 className="font-header-3 flex items-baseline font-bold capitalize text-white ">
-              Loading Category &nbsp;{" "}
-              <AnimatedStringLoader loadingString="..." />
-            </h2>
-            <div className="mt-4 flex gap-x-2 overflow-hidden">
-              {Array.from({ length: 8 }, (_, j) => (
-                <DataFetchingMediaCardSkeleton key={j} loader="spinner" />
-              ))}
-            </div>
-          </div>
-        ))}
-      >
-        <CategoriesSlider />
+      {/* Render Slider for each Category */}
+
+      <CategorySlider
+        type="trending"
+        title="Latest Blockbuster Movies"
+        data={trendingMovies.slice(0, 10)}
+      />
+
+      <CategorySlider
+        type="trending"
+        title="Latest BingeWorthy Tv Series"
+        data={trendingTVSeries.slice(0, 10)}
+      />
+
+      <Suspense fallback={<CarouselSkeleton />}>
+        <CategorySlider
+          type={"notTrending"}
+          // data={category}
+        />
       </Suspense>
 
       {/*
@@ -102,15 +100,6 @@ const page = async () => {
         -----------------
        */}
       {/* <CollectionsSlideShow /> */}
-
-      {/*
-        -----------------
-        Colourful Banner 
-        -----------------
-       */}
-      {/* <section className=" pt-[64px] text-white lg:pt-[72px]">
-        <ColorFulBanner />
-      </section> */}
     </section>
   );
 };
