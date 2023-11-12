@@ -11,17 +11,17 @@ import Providers from "@/providers/Providers";
 const maxSans = localFont({
   src: [
     {
-      path: "../assets/fonts/MaxSans-Regular.woff2",
+      path: "../public/fonts/MaxSans-Regular.woff2",
       style: "normal",
       weight: "400",
     },
     {
-      path: "../assets/fonts/MaxSans-Semi.woff2",
+      path: "../public/fonts/MaxSans-Semi.woff2",
       style: "normal",
       weight: "600",
     },
     {
-      path: "../assets/fonts/MaxSans-Bold.woff2",
+      path: "../public/fonts/MaxSans-Bold.woff2",
       style: "normal",
       weight: "700",
     },
