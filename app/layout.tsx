@@ -31,10 +31,15 @@ const maxSans = localFont({
   variable: "--font-max-sans",
 });
 
+// ===== METADATA ===== //
 export const metadata: Metadata = {
-  title: "CozyCinema - Where Every Screen Feels Like Home",
+  title: {
+    default: "CozyCinema - Stream Movies and TV Shows for Free",
+    template: "%s - CozyCinema",
+    
+  },
   description:
-    "Welcome to CozyCinema, where the magic of movies and the comfort of your favorite couch come together. Explore a vast selection of movies and TV series, all designed to wrap you in the cozy embrace of entertainment. Enjoy the cinematic escape without any cost. Your comfort, our priority.",
+    "Indulge in a cozy streaming experience at CozyCinema. Watch unlimited movies and TV series for free, anytime, anywhere. Discover a vast collection of cinematic gems tailored for your comfort. No subscription required. Your ultimate destination for premium, cost-free entertainment.",
 };
 
 export default async function RootLayout({
