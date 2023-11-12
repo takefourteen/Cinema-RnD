@@ -1,19 +1,29 @@
 import { isMovieDetails } from "@/lib/tmdb-api/movies";
 
-import ResponsiveBackgroundPoster from "@/components/application-group/ResponsiveBackgroundPoster";
 import ShowDetailsSmallScreen from "../../ShowDetailsSmallScreen";
 import ShowDetailsLargeScreen from "../../ShowDetailsLargeScreen";
+import ImageLoader from "@/components/ImageLoader";
 
 type DiscoveryHeroSectionSliderBodyProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
+  priority?: boolean;
 };
+
+const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
 const DiscoveryHeroSectionSliderBody = ({
   movieOrTvShowDetails,
+  priority = false,
 }: DiscoveryHeroSectionSliderBodyProps) => {
   const movieOrTvShowTitle = isMovieDetails(movieOrTvShowDetails)
     ? movieOrTvShowDetails.original_title
     : movieOrTvShowDetails.original_name;
+
+  const backdropImgSrc = movieOrTvShowDetails.backdrop_path
+    ? `${BASE_IMG_URL}${movieOrTvShowDetails.backdrop_path}`
+    : null;
+
+  const posterImgSrc = `${BASE_IMG_URL}${movieOrTvShowDetails.poster_path}`;
 
   return (
     <li
@@ -22,14 +32,18 @@ const DiscoveryHeroSectionSliderBody = ({
         scrollSnapAlign: "start",
       }}
     >
-      {/* Carousel Image */}
-      <ResponsiveBackgroundPoster
-        poster_path={movieOrTvShowDetails.poster_path}
-        backdrop_path={movieOrTvShowDetails.backdrop_path}
-        alt={movieOrTvShowTitle}
-        priority={true}
-        imageClassNames="object-cover object-center"
-      />
+      {/* Slider Image */}
+       <div className="relative ml-auto flex aspect-[2/3] h-full w-full md:w-[60%] lg:aspect-video">
+        <ImageLoader
+          loaderType="spinner"
+          src={`${backdropImgSrc ? backdropImgSrc : posterImgSrc}`}
+          alt={movieOrTvShowTitle}
+          fill
+          priority={priority}
+          sizes="(max-width: 768px) 100vw, (min-width: 769px) 60vw"
+          className={`object-cover object-center`}
+        />
+      </div>
 
       {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent " />

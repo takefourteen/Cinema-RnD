@@ -52,10 +52,11 @@ const page = async () => {
         -----------
        */}
       <DiscoverySlider lengthOfList={movieAndTvShowDetails.length}>
-        {movieAndTvShowDetails.slice(0, 15).map((item) => (
+        {movieAndTvShowDetails.slice(0, 15).map((item, index) => (
           <DiscoveryHeroSectionSliderBody
             key={item.id}
             movieOrTvShowDetails={item}
+            priority={index === 0 ? true : false}
           />
         ))}
       </DiscoverySlider>

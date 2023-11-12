@@ -6,15 +6,17 @@ import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { DetailsButton } from "@/components/DetailsButton";
 import Chip from "../Chip";
 import Overview from "../Overview";
-import ResponsiveBackgroundPoster from "../ResponsiveBackgroundPoster";
 import ImdbRating from "../ImdbRating";
 import TitleLogo from "../TitleLogo";
 import AddToLibraryButton from "@/components/application-group/AddToLibraryButton";
+import ImageLoader from "@/components/ImageLoader";
 
 interface MovieHeaderProps {
   movieDetails: MovieDetailsData;
   images: ImagesData;
 }
+
+const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
 const MovieDetailsTop: React.FC<MovieHeaderProps> = ({
   movieDetails,
@@ -46,11 +48,6 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = ({
     movieDetails.runtime % 60
   }m`;
 
-  // url encoded link to the watch-movie page
-  // const watchMovieUrl = `/watch-movie/${movieDetails.id}-${encodeURIComponent(
-  //   movieDetails.original_title,
-  // )}`;
-
   const watchMovieUrl = `/watch-movie/${slugify(movieDetails.original_title)}-${
     movieDetails.id
   }`;
@@ -58,12 +55,22 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = ({
   return (
     <div className="relative h-[90dvh] flex-1 sm:h-[90dvh] md:h-[85dvh] lg:h-[85dvh] ">
       {/* Image Display */}
-      <ResponsiveBackgroundPoster
-        poster_path={movieDetails.poster_path}
-        backdrop_path={backdropPath}
-        alt={movieDetails.original_title}
-        priority={true}
-      />
+
+      <div className="relative ml-auto flex aspect-[2/3] h-full w-full md:w-[60%] lg:aspect-video">
+        <ImageLoader
+          loaderType="spinner"
+          src={`${
+            backdropPath
+              ? `${BASE_IMG_URL}${backdropPath}`
+              : `${BASE_IMG_URL}${movieDetails.poster_path}`
+          } `}
+          alt={movieDetails.original_title}
+          fill
+          priority={true}
+          sizes="(max-width: 768px) 100vw, (min-width: 769px) 60vw"
+          className={`object-cover `}
+        />
+      </div>
 
       {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent " />

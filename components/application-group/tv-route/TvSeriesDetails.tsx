@@ -5,17 +5,19 @@ import { slugify } from "@/helpers/slugify";
 
 import { BsFillPlayFill as PlayIcon } from "react-icons/bs";
 import { DetailsButton } from "@/components/DetailsButton";
-import ResponsiveBackgroundPoster from "../ResponsiveBackgroundPoster";
 import TitleLogo from "../TitleLogo";
 import ImdbRating from "../ImdbRating";
 import Overview from "../Overview";
 import Chip from "../Chip";
 import AddToLibraryButton from "@/components/application-group/AddToLibraryButton";
+import ImageLoader from "@/components/ImageLoader";
 
 type TvSeriesDetailsProps = {
   tvSeriesData: TVSeriesData;
   imagesData: ImagesData;
 };
+
+const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
 const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
   tvSeriesData,
@@ -48,12 +50,21 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
   return (
     <div className="relative h-[90dvh] flex-1 sm:h-[90dvh] md:h-[85dvh] lg:h-[85dvh] ">
       {/* Image Display */}
-      <ResponsiveBackgroundPoster
-        poster_path={tvSeriesData.poster_path}
-        backdrop_path={backdropPath}
-        alt={tvSeriesData.original_name}
-        priority={true}
-      />
+      <div className="relative ml-auto flex aspect-[2/3] h-full w-full md:w-[60%] lg:aspect-video">
+        <ImageLoader
+          loaderType="spinner"
+          src={`${
+            backdropPath
+              ? `${BASE_IMG_URL}${backdropPath}`
+              : `${BASE_IMG_URL}${tvSeriesData.poster_path}`
+          } `}
+          alt={tvSeriesData.original_name}
+          fill
+          priority={true}
+          sizes="(max-width: 768px) 100vw, (min-width: 769px) 60vw"
+          className={`object-cover`}
+        />
+      </div>
 
       {/* Overlay gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-black  via-black/80 to-transparent  md:w-[80%] md:bg-gradient-to-r md:from-black md:via-black md:to-transparent " />
