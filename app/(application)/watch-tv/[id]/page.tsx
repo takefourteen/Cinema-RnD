@@ -14,6 +14,7 @@ import ExplorerPanel from "@/components/application-group/ExplorerPanel";
 import DetailsAboutShowSection from "@/components/application-group/DetailsAboutShowSection";
 import RecommendedMediaSkeleton from "@/components/skeletons/RecommendedMediaSkeleton";
 import EpisodesListSkeleton from "@/components/skeletons/EpisodesListSkeleton";
+import AnimatedStringLoader from "@/components/skeletons/AnimatedStringLoader";
 
 // dynamically load the following components:
 const RecommendedMediaList = dynamic(
@@ -145,7 +146,13 @@ const page = async ({ params, searchParams }: PageProps) => {
     <section>
       {/* Top Section */}
       <div className="relative h-[75dvh] flex-1 sm:h-[75dvh]">
-        <Suspense>
+        <Suspense
+          fallback={
+            <div className="flex h-full w-full items-center justify-center">
+              <AnimatedStringLoader loadingString="..."/>
+            </div>
+          }
+        >
           <VideoPlayer
             // videoId={movieId}
             videoId={
