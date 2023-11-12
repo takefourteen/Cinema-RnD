@@ -11,7 +11,7 @@ import Carousel from "../application-group/Carousel";
 const DataFetchingMediaCard = dynamic(
   () => import("@/components/cards/DataFetchingMediaCard"),
   {
-    loading: () => <DataFetchingMediaCardSkeleton />,
+    loading: () => <DataFetchingMediaCardSkeleton loader="skeleton" />,
     ssr: false,
   },
 );
