@@ -4,9 +4,6 @@ import dynamic from "next/dynamic";
 const RenderSlider = dynamic(() => import("@/components/slider/RenderSlider"));
 
 import {
-  type MovieCategory,
-  type MovieAndTvSeriesCategories,
-  type TvSeriesCategory,
   fetchAllDataForHome,
 } from "@/constants/categoriesOnHomePage";
 

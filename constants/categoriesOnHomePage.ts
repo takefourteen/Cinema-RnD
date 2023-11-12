@@ -5,38 +5,6 @@ import { keywords } from "@/constants/keywords";
 import { movieGenres } from "@/constants/movieGenres";
 import { tvSeriesGenres } from "@/constants/tvSeriesGenres";
 
-import type { FilterOptions } from "@/lib/tmdb-api/discover";
-
-export type MovieCategory = {
-  type: "movie";
-  title: string;
-  filterOptions: {
-    movieFilterOptions: FilterOptions;
-    tvSeriesFilterOptions: FilterOptions;
-  };
-};
-
-export type TvSeriesCategory = {
-  type: "tvSeries";
-  title: string;
-  filterOptions: {
-    movieFilterOptions: FilterOptions;
-    tvSeriesFilterOptions: FilterOptions;
-  };
-};
-
-export type MovieAndTvSeriesCategories = {
-  type: "movieAndTVSeries";
-  title: string;
-  filterOptions: {
-    movieFilterOptions: FilterOptions;
-    tvSeriesFilterOptions: FilterOptions;
-  };
-};
-
-type Category = MovieCategory | TvSeriesCategory | MovieAndTvSeriesCategories;
-
-
 export async function fetchAllDataForHome() {
   const promises = [
     // ============================
