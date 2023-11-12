@@ -67,35 +67,41 @@ const page = async ({ params }: PageProps) => {
   // structure genreIds as an array of numbers
   const genreIds = tvSeriesData.genres.map((genre) => genre.id);
 
-  const tabConfigs = [
-    {
-      key: "episodes",
-      title: "Episodes",
-      content: (
-        <SeasonsAndEpisodes
-          tvSeriesId={tvSeriesId}
-          totalNumberOfSeasons={numberOfSeasons}
-        />
-      ),
-    },
-    {
-      key: "recommended",
-      title: "Similar",
-      content: (
-        <RecommendedMediaList
-          mediaId={tvSeriesId}
-          mediaType="tv"
-          genreIds={genreIds}
-        />
-      ),
-    },
-    {
-      key: "details",
-      title: "Details",
-      content: <DetailsAboutShowSection mediaId={tvSeriesId} mediaType="tv" />,
-    },
-  ];
+  const detailsTab = {
+    key: "details",
+    title: "Details",
+    content: <DetailsAboutShowSection mediaId={tvSeriesId} mediaType="tv" />,
+  };
 
+  const recommendedTab = {
+    key: "recommended",
+    title: "Similar",
+    content: (
+      <RecommendedMediaList
+        mediaId={tvSeriesId}
+        mediaType="tv"
+        genreIds={genreIds}
+      />
+    ),
+  };
+
+  const episodesTab = {
+    key: "episodes",
+    title: "Episodes",
+    content: (
+      <SeasonsAndEpisodes
+        tvSeriesId={tvSeriesId}
+        totalNumberOfSeasons={numberOfSeasons}
+      />
+    ),
+  };
+
+  const tabConfigs = [
+    detailsTab,
+    episodesTab,
+    recommendedTab,
+  ];
+  
   return (
     <section>
       {/* Top Section */}
