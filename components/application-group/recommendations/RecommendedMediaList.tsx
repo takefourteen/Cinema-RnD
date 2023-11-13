@@ -10,6 +10,8 @@ import { fetchShowsByGenre } from "@/helpers/fetchShowsByGenres";
 
 import RecommendedMediaImage from "./RecommendedMediaImage";
 import RecommendedMediaSkeleton from "@/components/skeletons/RecommendedMediaSkeleton";
+import DataFetchingMediaCard from "@/components/cards/DataFetchingMediaCard";
+import DataFetchingMediaCardSkeleton from "@/components/skeletons/DataFetchingMediaCardSkeleton";
 
 type RecommendedMediaListProps = {
   mediaId: string;
@@ -47,19 +49,31 @@ const RecommendedMediaList = async ({
   const displayShowsByGenre = similarMedia.length + recommendedMedia.length < 8;
 
   // If both similarMedia and recommendedMovies are not there , return a loading state
-  if (!similarMedia && !recommendedMedia) return <RecommendedMediaSkeleton />;
+  if (!similarMedia && !recommendedMedia)
+    return <DataFetchingMediaCardSkeleton loader="skeleton" />;
 
   // if displayShowsByGenre is true, return showsByGenre
   if (displayShowsByGenre) {
     return (
-      <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
+      <ul className="grid  grid-cols-2  gap-x-4 gap-y-14 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6">
         {showsByGenre.slice(0, 12).map((media) => (
-          <RecommendedMediaImage
+          // <RecommendedMediaImage
+          //   key={media.id}
+          //   mediaId={media.id.toString()}
+          //   mediaType={
+          //     (media as DiscoverMovieResult).original_title ? "movie" : "tv"
+          //   }
+          // />
+          <DataFetchingMediaCard
             key={media.id}
+            loaderType="spinner"
             mediaId={media.id.toString()}
             mediaType={
               (media as DiscoverMovieResult).original_title ? "movie" : "tv"
             }
+            priority={false}
+            inAGrid={true}
+            showTitle={true}
           />
         ))}
       </ul>
@@ -69,12 +83,16 @@ const RecommendedMediaList = async ({
   // If recommendedMedia is undefined, return similarMedia
   if (!recommendedMedia) {
     return (
-      <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
+      <ul className="grid  grid-cols-2  gap-x-4 gap-y-14 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6">
         {similarMedia.slice(0, 12).map((media) => (
-          <RecommendedMediaImage
+          <DataFetchingMediaCard
             key={media.id}
+            loaderType="spinner"
             mediaId={media.id.toString()}
             mediaType={mediaType}
+            priority={false}
+            inAGrid={true}
+            showTitle={true}
           />
         ))}
       </ul>
@@ -84,13 +102,18 @@ const RecommendedMediaList = async ({
   // If similarMedia is undefined, return recommendedMedia
   if (!similarMedia) {
     return (
-      <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
+      <ul className="grid  grid-cols-2  gap-x-4 gap-y-14 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6">
         {recommendedMedia.slice(0, 12).map((media) => (
-          <RecommendedMediaImage
-            key={media.id}
-            mediaId={media.id.toString()}
-            mediaType={mediaType}
-          />
+          <li key={media.id}>
+            <DataFetchingMediaCard
+              loaderType="spinner"
+              mediaId={media.id.toString()}
+              mediaType={mediaType}
+              priority={false}
+              inAGrid={true}
+              showTitle={true}
+            />
+          </li>
         ))}
       </ul>
     );
@@ -98,20 +121,40 @@ const RecommendedMediaList = async ({
 
   // If both similarMedia and recommendedMedia are defined, return both
   return (
-    <ul className="grid  grid-cols-2  gap-x-4 gap-y-12 lg:grid-cols-3 xl:grid-cols-4">
+    <ul className="grid  grid-cols-2  gap-x-4 gap-y-14 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6">
       {recommendedMedia.slice(0, 8).map((media) => (
-        <RecommendedMediaImage
-          key={media.id}
-          mediaId={media.id.toString()}
-          mediaType={mediaType}
-        />
+        // <RecommendedMediaImage
+        //   key={media.id}
+        //   mediaId={media.id.toString()}
+        //   mediaType={mediaType}
+        // />
+        <li key={media.id}>
+          <DataFetchingMediaCard
+            loaderType="spinner"
+            mediaId={media.id.toString()}
+            mediaType={mediaType}
+            priority={false}
+            inAGrid={true}
+            showTitle={true}
+          />
+        </li>
       ))}
       {similarMedia.slice(0, 8).map((media) => (
-        <RecommendedMediaImage
-          key={media.id}
-          mediaId={media.id.toString()}
-          mediaType={mediaType}
-        />
+        // <RecommendedMediaImage
+        //   key={media.id}
+        //   mediaId={media.id.toString()}
+        //   mediaType={mediaType}
+        // />
+        <li key={media.id}>
+          <DataFetchingMediaCard
+            loaderType="spinner"
+            mediaId={media.id.toString()}
+            mediaType={mediaType}
+            priority={false}
+            inAGrid={true}
+            showTitle={true}
+          />
+        </li>
       ))}
     </ul>
   );
