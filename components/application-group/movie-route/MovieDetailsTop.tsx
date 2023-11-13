@@ -16,7 +16,7 @@ interface MovieHeaderProps {
   images: ImagesData;
 }
 
-const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
+const BASE_IMG_URL = "https://image.tmdb.org/t/p/original";
 
 const MovieDetailsTop: React.FC<MovieHeaderProps> = ({
   movieDetails,
