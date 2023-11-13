@@ -69,10 +69,10 @@ const AddToLibraryButton = ({
 
       toast(
         <div className="flex w-full justify-between text-sm font-semibold tracking-wide text-black">
-          Item successfully added to library!
+          Saved to library
           <Link
             href={`/library?tab=${mediaType}`}
-            className="font-base text-blue-600 transition hover:underline"
+            className="font-base text-blue-600 transition w-max hover:underline"
           >
             view library
           </Link>
@@ -105,7 +105,7 @@ const AddToLibraryButton = ({
       variant={"outline"}
       className={`${
         size === "small"
-          ? "flex flex-col items-center justify-center gap-y-0 border-none p-0 capitalize text-white transition-colors hover:bg-transparent hover:text-white/70"
+          ? "flex flex-col items-center justify-center gap-y-0 border-none px-0 py-1 capitalize text-white transition-colors hover:bg-transparent hover:text-white/70"
           : `font-button-text flex h-10 gap-x-2 capitalize text-white`
       }`}
     >
@@ -122,7 +122,8 @@ const AddToLibraryButton = ({
             </>
           ) : (
             <>
-              <AddIcon className="h-7 w-7" /> <span>Add to Library</span>
+              <AddIcon className="h-7 w-7" />{" "}
+              <span className="w-full">Add to Library</span>
             </>
           )}
         </>
