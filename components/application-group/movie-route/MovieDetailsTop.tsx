@@ -10,7 +10,6 @@ import ImdbRating from "../ImdbRating";
 import TitleLogo from "../TitleLogo";
 import AddToLibraryButton from "@/components/application-group/AddToLibraryButton";
 import ImageLoader from "@/components/ImageLoader";
-import Image from "next/image";
 
 interface MovieHeaderProps {
   movieDetails: MovieDetailsData;
@@ -30,6 +29,11 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = ({
   const backdropPath =
     images.backdrops[2]?.file_path ||
     images.backdrops[images.backdrops.length - 1]?.file_path;
+
+  const backdropImageSrc = backdropPath
+    ? `${BASE_IMG_URL}${backdropPath}`
+    : null;
+  const posterImageSrc = `${BASE_IMG_URL}${movieDetails.poster_path}`;
 
   // look for the first images.logos with a file_path
   const titleLogo = images.logos.find((logo) => logo.file_path);
@@ -58,12 +62,9 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = ({
       {/* Image Display */}
 
       <div className="relative ml-auto flex aspect-[2/3] h-full w-full md:w-[60%] lg:aspect-video">
-        <Image
-          src={`${
-            backdropPath
-              ? `${BASE_IMG_URL}${backdropPath}`
-              : `${BASE_IMG_URL}${movieDetails.poster_path}`
-          } `}
+        <ImageLoader
+          loaderType="spinner"
+          src={backdropImageSrc ? backdropImageSrc : posterImageSrc}
           alt={movieDetails.original_title}
           fill
           priority={true}
