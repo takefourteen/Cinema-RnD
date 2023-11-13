@@ -22,9 +22,10 @@ interface DataFetchingMediaCardProps
   priority: boolean;
   imgSize?: "default" | "large";
   inAGrid?: boolean;
+  showTitle?: boolean;
 }
 
-const imageBaseUrl = "https://image.tmdb.org/t/p/original/";
+const imageBaseUrl = "https://image.tmdb.org/t/p/w500/";
 
 const listItemSize = {
   default: {
@@ -53,6 +54,7 @@ const DataFetchingMediaCard = ({
   priority,
   imgSize = "default",
   inAGrid = false,
+  showTitle = false,
   ...props
 }: DataFetchingMediaCardProps) => {
   // Define the fetcher function based on the mediaType
@@ -189,6 +191,11 @@ const DataFetchingMediaCard = ({
             ratingPostion="bottom"
           />
         </AspectRatio>
+
+        {/* show the title if prop is true*/}
+        {showTitle && (
+          <p className="mt-2 text-sm text-white/70 md:text-base">{title}</p>
+        )}
       </Link>
     </li>
   );
