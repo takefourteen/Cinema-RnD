@@ -28,6 +28,8 @@ const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
     setHasError(true); // set error state on image load failure
   };
 
+  console.log("\nImageLoader: ", src);
+
   return (
     <>
       {isLoading && (
@@ -44,7 +46,7 @@ const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
           src={hasError ? fallbackSrc : src} // use fallback image if main image fails to load
           alt={alt || "image"}
           onLoad={handleImageLoad}
-          // onError={handleImageError} // handle image load failure
+          onError={handleImageError} // handle image load failure
           {...props}
         />
       )}
