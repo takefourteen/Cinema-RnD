@@ -30,6 +30,11 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
     0,
   );
 
+  const backdropImageSrc = backdropPath
+    ? `${BASE_IMG_URL}${backdropPath}`
+    : null;
+  const posterImageSrc = `${BASE_IMG_URL}${tvSeriesData.poster_path}`;
+
   const titleLogo = imagesData.logos.find((logo) => logo.file_path);
 
   // get the director name
@@ -53,11 +58,7 @@ const TvSeriesDetails: React.FC<TvSeriesDetailsProps> = ({
       <div className="relative ml-auto flex aspect-[2/3] h-full w-full md:w-[60%] lg:aspect-video">
         <ImageLoader
           loaderType="spinner"
-          src={`${
-            backdropPath
-              ? `${BASE_IMG_URL}${backdropPath}`
-              : `${BASE_IMG_URL}${tvSeriesData.poster_path}`
-          } `}
+          src={backdropImageSrc ? backdropImageSrc : posterImageSrc}
           alt={tvSeriesData.original_name}
           fill
           priority={true}
