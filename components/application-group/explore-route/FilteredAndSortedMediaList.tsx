@@ -12,7 +12,7 @@ const DataFetchingMediaCard = dynamic(
     ssr: false,
     loading: () => (
       <AspectRatio ratio={2 / 3}>
-        <CardSkeleton rows={0} showOverlay={false} />
+        <CardSkeleton rows={1} showOverlay={false} />
       </AspectRatio>
     ),
   },
@@ -53,7 +53,7 @@ const FilteredAndSortedMediaList: FC<Props> = async ({
 
   return (
     <>
-      <ul className="mt-8 grid grid-cols-3 gap-x-2 gap-y-12 md:grid-cols-4 md:gap-y-16 lg:grid-cols-5 xl:grid-cols-6">
+     <ul className="grid mt-8  grid-cols-2  gap-x-4 gap-y-14 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6">
         {data?.results.map((media, index) => (
           <DataFetchingMediaCard
             key={media.id + media.title}
@@ -62,6 +62,7 @@ const FilteredAndSortedMediaList: FC<Props> = async ({
             loaderType="skeleton"
             priority={index <= 5 ? true : false}
             inAGrid={true}
+            showTitle={true}
           />
         ))}
       </ul>
