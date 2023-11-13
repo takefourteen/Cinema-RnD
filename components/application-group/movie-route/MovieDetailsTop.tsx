@@ -10,6 +10,7 @@ import ImdbRating from "../ImdbRating";
 import TitleLogo from "../TitleLogo";
 import AddToLibraryButton from "@/components/application-group/AddToLibraryButton";
 import ImageLoader from "@/components/ImageLoader";
+import Image from "next/image";
 
 interface MovieHeaderProps {
   movieDetails: MovieDetailsData;
@@ -57,8 +58,7 @@ const MovieDetailsTop: React.FC<MovieHeaderProps> = ({
       {/* Image Display */}
 
       <div className="relative ml-auto flex aspect-[2/3] h-full w-full md:w-[60%] lg:aspect-video">
-        <ImageLoader
-          loaderType="spinner"
+        <Image
           src={`${
             backdropPath
               ? `${BASE_IMG_URL}${backdropPath}`
