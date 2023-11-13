@@ -1,6 +1,5 @@
+import Image from "next/image";
 import imdbImg from "@/assets/images/imdb-1.svg";
-import ImageLoader from "../ImageLoader";
-
 type Props = {
   rating: number;
   showFullRating?: boolean;
@@ -13,8 +12,7 @@ const ImdbRating = ({ rating, showFullRating, size = "default" }: Props) => {
   return (
     <div className="flex items-center gap-1">
       {/* <Image src={imdbImg} alt="imdb logo" width={40} /> */}
-      <ImageLoader
-        loaderType="skeleton"
+      <Image
         src={imdbImg}
         alt="imdb logo"
         width={imgSize}

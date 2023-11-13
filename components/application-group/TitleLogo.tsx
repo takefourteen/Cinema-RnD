@@ -2,6 +2,7 @@ import { convertAspectRatioToFraction } from "@/helpers/convertAspectRatioToFrac
 
 import { AspectRatio } from "../ui/aspect-ratio";
 import ImageLoader from "@/components/ImageLoader";
+import Image from "next/image";
 
 type Props = {
   logoData: {
@@ -19,30 +20,26 @@ type Props = {
 const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
 
 const TitleLogo = ({ logoData, alt }: Props) => {
-  
   const ratioNumerator = convertAspectRatioToFraction(
     logoData.aspect_ratio,
   ).numerator;
-  
+
   const ratioDenominator = convertAspectRatioToFraction(
     logoData.aspect_ratio,
   ).denominator;
 
-  const imgAspectRatio = ratioNumerator && ratioDenominator
-              ? ratioNumerator / ratioDenominator
-              : 1.84 / 1
+  const imgAspectRatio =
+    ratioNumerator && ratioDenominator
+      ? ratioNumerator / ratioDenominator
+      : 1.84 / 1;
 
   const titleLogoSrc = `${BASE_IMG_URL}${logoData.file_path}`;
-
 
   return (
     <>
       <div className="relative w-[200px] md:w-[225px] lg:w-[250px]">
-        <AspectRatio
-          ratio={imgAspectRatio}
-        >
-          <ImageLoader
-            loaderType="spinner"
+        <AspectRatio ratio={imgAspectRatio}>
+          <Image
             src={titleLogoSrc}
             alt={alt}
             fill
