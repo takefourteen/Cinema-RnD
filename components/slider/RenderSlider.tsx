@@ -13,7 +13,7 @@ const DataFetchingMediaCard = dynamic(
 );
 
 const Carousel = dynamic(() => import("../application-group/Carousel"), {
-  loading: () => <CarouselSkeleton />,
+  loading: () => <CarouselSkeleton showTitle={false} />,
   ssr: false,
 });
 
