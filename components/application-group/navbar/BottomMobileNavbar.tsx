@@ -14,12 +14,18 @@ import {
 } from "react-icons/pi";
 import { Button } from "@/components/ui/button";
 
+// youtube style bottom navbar, classes
+const youtubeStyle =
+  "fixed bottom-0 z-10 py-0.5 max-h-[50px] w-full border-t-[1px] border-t-gray-800  bg-[#000000]  md:hidden";
+const customStyle =
+  "fixed bottom-2 left-1/2 z-10 max-h-[50px] w-[95%] -translate-x-1/2 transform rounded-full border-[1px]  border-gray-700 bg-black/50 backdrop-blur-lg  backdrop-filter  md:hidden";
+
 const BottomMobileNavbar = () => {
   const pathname = usePathname();
 
   return (
     <nav
-      className="fixed bottom-2 left-1/2 z-10 max-h-[50px] w-[95%] -translate-x-1/2 transform rounded-full border-[1px]  border-gray-700 bg-black/50 backdrop-blur-lg  backdrop-filter  md:hidden"
+      className={youtubeStyle}
       role="navigation"
       aria-label="mobile navigation"
     >
