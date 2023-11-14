@@ -72,7 +72,7 @@ const AddToLibraryButton = ({
           Saved to library
           <Link
             href={`/library?tab=${mediaType}`}
-            className="font-base text-blue-600 transition w-max hover:underline"
+            className="font-base w-max text-blue-600 transition hover:underline"
           >
             view library
           </Link>
@@ -123,7 +123,7 @@ const AddToLibraryButton = ({
           ) : (
             <>
               <AddIcon className="h-7 w-7" />{" "}
-              <span className="w-full">Add to Library</span>
+              <span className="w-max">Add to Library</span>
             </>
           )}
         </>
