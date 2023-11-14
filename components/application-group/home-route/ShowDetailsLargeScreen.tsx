@@ -21,8 +21,6 @@ type ShowDetailsLargeScreenProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
 };
 
-const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
-
 const ShowDetailsLargeScreen = async ({
   movieOrTvShowDetails,
 }: ShowDetailsLargeScreenProps) => {

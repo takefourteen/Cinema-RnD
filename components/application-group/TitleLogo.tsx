@@ -17,7 +17,7 @@ type Props = {
   alt: string;
 };
 
-const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
+const BASE_IMG_URL = "https://image.tmdb.org/t/p/w300";
 
 const TitleLogo = ({ logoData, alt }: Props) => {
   const ratioNumerator = convertAspectRatioToFraction(

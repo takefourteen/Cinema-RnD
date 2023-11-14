@@ -16,8 +16,6 @@ type ShowDetailsSmallScreenProps = {
   movieOrTvShowDetails: MovieDetailsData | TVSeriesData;
 };
 
-const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
-
 const ShowDetailsSmallScreen = async ({
   movieOrTvShowDetails,
 }: ShowDetailsSmallScreenProps) => {
@@ -109,7 +107,7 @@ const ShowDetailsSmallScreen = async ({
               <div className="relative min-h-[40px] w-[150px] lg:h-[100px] lg:w-[200px]">
                 <ImageLoader
                   loaderType="skeleton"
-                  src={`${BASE_IMG_URL}${productionCompany.logo_path}`}
+                  src={`https://image.tmdb.org/t/p/w154${productionCompany.logo_path}`}
                   alt={productionCompany.name}
                   fill
                   sizes="300px"

@@ -16,7 +16,7 @@ import AlreadyWatched from "@/components/ui/AlreadyWatched";
 import NowPlaying from "@/components/ui/NowPlaying";
 import WatchEpisode from "@/components/ui/WatchEpisode";
 
-const BASE_IMG_URL = process.env.NEXT_PUBLIC_OG_TMBD_IMG_PATH;
+const BASE_IMG_URL = "https://image.tmdb.org/t/p/w300";
 
 type EpisodeListItemProps = {
   episodeData: EpisodeData;
