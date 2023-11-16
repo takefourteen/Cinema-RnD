@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { useSession } from "next-auth/react";
+import { usePathname, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import Link from "next/link";
 
@@ -13,6 +14,7 @@ import { PiSpinnerBold } from "react-icons/pi";
 import { IoMdAdd as AddIcon } from "react-icons/io";
 import SavedToLibraryTag from "@/components/ui/SavedToLibraryTag";
 import { DetailsButton } from "@/components/DetailsButton";
+import SignUpDialog from "./SignUpDialog";
 
 type Props = {
   mediaType: "movie" | "tv";
@@ -28,10 +30,14 @@ const AddToLibraryButton = ({
   size = "large",
 }: Props) => {
   const { data: session, status } = useSession();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const { email: userEmail } = session?.user || {};
   const [isSavedToLibrary, setIsSavedToLibrary] = useState(false);
   const [addingToLibrary, setAddingToLibrary] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+
+  const callbackUrl = `${pathname}?${searchParams}`;
 
   useEffect(() => {
     if (!userEmail) return;
@@ -90,6 +96,53 @@ const AddToLibraryButton = ({
     }
   }, [mediaType, mediaId, mediaTitle, userEmail]);
 
+  // Create a button component
+  const ButtonComponent = useMemo(() => {
+    return (
+      <DetailsButton
+        onClick={handleAddToLibrary}
+        disabled={addingToLibrary}
+        variant={"outline"}
+        className={`${
+          size === "small"
+            ? "flex flex-col items-center justify-center gap-y-0 border-none px-0 py-1 capitalize text-white transition-colors hover:bg-transparent hover:text-white/70"
+            : `font-button-text flex h-10 gap-x-2 capitalize text-white`
+        }`}
+      >
+        {addingToLibrary ? (
+          <div className="flex items-center">
+            <PiSpinnerBold className="animate-spin" /> &nbsp;
+            <span>Adding...</span>
+          </div>
+        ) : (
+          <>
+            {size === "small" ? (
+              <>
+                <Check className="h-6 w-6 " /> <span>Save</span>
+              </>
+            ) : (
+              <>
+                <AddIcon className="h-7 w-7" />{" "}
+                <span className="w-max">Add to Library</span>
+              </>
+            )}
+          </>
+        )}
+      </DetailsButton>
+    );
+  }, [addingToLibrary, handleAddToLibrary, size]);
+
+  // if the user is not authenticated, show the dialog
+  if (status === "unauthenticated") {
+    return (
+      <SignUpDialog
+        ButtonComponent={ButtonComponent}
+        callbackUrl={callbackUrl}
+        mediaType={mediaType}
+      />
+    );
+  }
+
   if (error) {
     return <div>Error: {error.message}</div>;
   }
@@ -98,38 +151,13 @@ const AddToLibraryButton = ({
     return <SavedToLibraryTag size={size} type={mediaType} />;
   }
 
-  return (
-    <DetailsButton
-      onClick={handleAddToLibrary}
-      disabled={addingToLibrary}
-      variant={"outline"}
-      className={`${
-        size === "small"
-          ? "flex flex-col items-center justify-center gap-y-0 border-none px-0 py-1 capitalize text-white transition-colors hover:bg-transparent hover:text-white/70"
-          : `font-button-text flex h-10 gap-x-2 capitalize text-white`
-      }`}
-    >
-      {addingToLibrary ? (
-        <div className="flex items-center">
-          <PiSpinnerBold className="animate-spin" /> &nbsp;
-          <span>Adding...</span>
-        </div>
-      ) : (
-        <>
-          {size === "small" ? (
-            <>
-              <Check className="h-6 w-6 " /> <span>Save</span>
-            </>
-          ) : (
-            <>
-              <AddIcon className="h-7 w-7" />{" "}
-              <span className="w-max">Add to Library</span>
-            </>
-          )}
-        </>
-      )}
-    </DetailsButton>
-  );
+  return { ButtonComponent };
+};
+
+type ButtonComponentProps = {
+  size: "small" | "large";
+  addingToLibrary: boolean;
+  handleAddToLibrary: () => void;
 };
 
 export default AddToLibraryButton;
