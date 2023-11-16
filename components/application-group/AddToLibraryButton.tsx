@@ -151,7 +151,7 @@ const AddToLibraryButton = ({
     return <SavedToLibraryTag size={size} type={mediaType} />;
   }
 
-  return { ButtonComponent };
+  return ButtonComponent;
 };
 
 type ButtonComponentProps = {
