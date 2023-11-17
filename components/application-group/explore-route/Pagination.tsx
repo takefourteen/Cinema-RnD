@@ -99,7 +99,7 @@ function PaginationArrow({
   const className = clsx(
     "flex h-10 w-max px-2 md:h-[50px] md:px-4 text-sm font-semibold  rounded-md md:font-button-text items-center justify-center",
     {
-      "pointer-events-none bg-[#0e0e0e] text-[#2f2f2f]": isDisabled,
+      "pointer-events-none bg-[#0e0e0e] text-white/70": isDisabled,
       "hover:bg-primaryRed/80 transition bg-primaryRed ": !isDisabled,
       "mr-2 md:mr-4": direction === "left",
       "ml-2 md:ml-4": direction === "right",
