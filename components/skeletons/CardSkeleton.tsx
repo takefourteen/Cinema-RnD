@@ -1,34 +1,35 @@
+import { AspectRatio } from "../ui/aspect-ratio";
 import "./CardSkeleton.css";
 
 interface CardSkeletonProps {
   rows?: number;
-  mainItemHeight?: string;
   showOverlay?: boolean;
 }
 
-const CardSkeleton = ({
-  rows = 1,
-  mainItemHeight = "50px",
-  showOverlay = true,
-}: CardSkeletonProps) => {
+const CardSkeleton = ({ rows = 1, showOverlay = true }: CardSkeletonProps) => {
   return (
     <div className="relative flex h-full flex-1 flex-col">
-      <div
-        className="gradientAnimation h-full w-full"
-        // style={{
-        //   // animationDuration: "1s",
-        //   minHeight: `${mainItemHeight}`,
-        // }}
-      />
+      {/* <div
+        className={`${
+          rows >= 1 ? "aspect-[9/16] bg-red-600" : "gradientAnimation"
+        }  h-full w-full `}
+      /> */}
+
+      {rows >= 1 ? (
+        <AspectRatio ratio={2 / 3}>
+          <div className="gradientAnimation h-full w-full" />
+        </AspectRatio>
+      ) : (
+        <div className="gradientAnimation h-full w-full" />
+      )}
+
       {rows >= 1 && (
-        <div className="mt-4 flex flex-col gap-2">
+        <div className="mt-2 flex flex-col gap-2">
           {Array.from({ length: rows }, (_, i) => i + 1).map((_, i) => (
             <div
               key={i}
               className="gradientAnimation h-3 w-full"
               style={{
-                // animationDelay: `-${i * 0.1}s`,
-                // animationDuration: "1s",
                 width: `${Math.floor(Math.random() * 71) + 30}%`, // Generates a random number between 30 and 100 (inclusive)
               }}
             />
