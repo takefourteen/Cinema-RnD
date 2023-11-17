@@ -28,8 +28,6 @@ const ImageLoader = ({ loaderType, src, alt, ...props }: ImageLoaderProps) => {
     setHasError(true); // set error state on image load failure
   };
 
-  console.log("\nImageLoader: ", src);
-
   return (
     <>
       {isLoading && (
