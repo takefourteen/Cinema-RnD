@@ -194,7 +194,9 @@ const DataFetchingMediaCard = ({
 
         {/* show the title if prop is true*/}
         {showTitle && (
-          <p className="mt-2 text-sm text-white/70 md:text-base">{title}</p>
+          <p className="mt-2 truncate text-sm text-white/70 md:text-base">
+            {title}
+          </p>
         )}
       </Link>
     </li>
