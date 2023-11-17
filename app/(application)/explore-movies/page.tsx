@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Fragment, Suspense } from "react";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
@@ -160,13 +160,13 @@ const page = ({ searchParams }: Props) => {
       {/* Display all the filtered and sorted content */}
       <Suspense
         fallback={
-          <div className="mt-8 grid  grid-cols-2  gap-x-4 gap-y-14 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6">
-            {Array.from({ length: 20 }).map((_, index) => (
-              <AspectRatio key={index} ratio={2 / 3}>
+          <ul className="mt-8 grid  grid-cols-2  gap-x-4 gap-y-14 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6">
+            {Array.from({ length: 20 }).map(() => (
+              <AspectRatio ratio={2 / 3} key={crypto.randomUUID()}>
                 <CardSkeleton rows={1} showOverlay={false} />
               </AspectRatio>
             ))}
-          </div>
+          </ul>
         }
       >
         <FilteredAndSortedMediaList

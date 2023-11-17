@@ -132,8 +132,8 @@ const page = ({ searchParams }: Props) => {
       <Suspense
         fallback={
           <div className="mt-8 grid  grid-cols-2  gap-x-4 gap-y-14 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-6">
-            {Array.from({ length: 20 }).map((_, index) => (
-              <AspectRatio key={index} ratio={2 / 3}>
+            {Array.from({ length: 20 }).map(() => (
+              <AspectRatio key={crypto.randomUUID()} ratio={2 / 3}>
                 <CardSkeleton rows={1} showOverlay={false} />
               </AspectRatio>
             ))}
