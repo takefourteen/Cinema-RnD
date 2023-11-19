@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-import { fetchSearchResults } from "@/lib/actions";
+import { searchAll } from "@/lib/tmdb-api/search";
 import DataFetchingMediaCard from "@/components/cards/DataFetchingMediaCard";
 import NoResultsMessage from "./NoResultsMessage";
 import LoadingSpinner from "@/components/skeletons/LoadingSpinner";
@@ -25,7 +25,7 @@ const InfiniteScrollSearchResults = ({
 
   const loadMore = useCallback(async () => {
     let newPage = page;
-    const newResults = await fetchSearchResults(
+    const newResults = await searchAll(
       searchTerm || "game of thrones",
       newPage,
     );
@@ -42,10 +42,10 @@ const InfiniteScrollSearchResults = ({
 
   useEffect(() => {
     if (inView) {
-      // load more after a delay
+      // load more results when the user scrolls to the bottom of the page after a delay
       const timeout = setTimeout(() => {
         loadMore();
-      }, 500);
+      }, 200);
     }
   }, [inView, loadMore]);
 
@@ -66,6 +66,7 @@ const InfiniteScrollSearchResults = ({
                 : false /* only set priority to true for first 5 results */
             }
             inAGrid={true}
+            showTitle={true}
           />
         ))}
       </div>
