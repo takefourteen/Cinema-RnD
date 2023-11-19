@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { MdOutlineClose as CloseIcon } from "react-icons/md";
@@ -17,11 +16,6 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchBarOpen, setIsSearchBarOpen] = useState<boolean>(false);
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
   const router = useRouter();
 
   // function that opens and closes the searchbar when the searh icon is clicked
@@ -57,35 +51,25 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
     };
   }, [isSearchBarOpen, handleClickOutside]);
 
-  // Close the search bar when the user clicks the escape key
-  useEffect(() => {
-    function handleEscape(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        toggleSearchBar();
-      }
-    }
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const searchQuery = formData.get("search") as string;
 
-    window.addEventListener("keydown", handleEscape);
-
-    return () => {
-      window.removeEventListener("keydown", handleEscape);
-    };
-  }, [toggleSearchBar]);
-
-  function onSubmit() {
-    // if there is no search query, clear the search bar and return
+    // if there is no search query, return
     if (searchQuery.trim() === "") {
-      setSearchQuery("");
       return;
     }
+
+    console.log(searchQuery);
 
     // if there is a search query, redirect to search page
     if (searchQuery) {
       // Navigate to the search route with the search term as a query parameter
       router.push(`/search?term=${encodeURIComponent(searchQuery)}`);
 
-      // clear the search query
-      setSearchQuery("");
+      // clear the form
+      event.currentTarget.reset();
 
       // close the search bar
       toggleSearchBar();
@@ -98,11 +82,9 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
     );
   }
 
-  function handleClear() {
-    // Clear search query if there is one
-    if (searchQuery) {
-      setSearchQuery("");
-    }
+  // function to clear the search query
+  function clearSearchQuery() {
+    setSearchQuery("");
   }
 
   return (
@@ -111,7 +93,7 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
       <Button
         variant="outline"
         size={"icon"}
-        className="flex lg:h-12 lg:w-12  items-center justify-center rounded-full border-none bg-[#2c2c2c] font-bold ring-1 ring-primaryRed ring-offset-1 ring-offset-primaryRed hover:bg-[#2b2b2bbb] hover:text-white/80"
+        className="flex items-center justify-center  rounded-full border-none bg-[#2c2c2c] font-bold ring-1 ring-primaryRed ring-offset-1 ring-offset-primaryRed hover:bg-[#2b2b2bbb] hover:text-white/80 lg:h-12 lg:w-12"
         onClick={toggleSearchBar}
         aria-label="Open search bar"
       >
@@ -122,15 +104,17 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
       {/* search bar input*/}
       {isSearchBarOpen && (
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit}
+          autoComplete="off"
           className=" absolute left-0 right-0 top-[75px] z-50 w-full overflow-hidden bg-[#ffffff] transition-all  lg:top-[90px]"
         >
           <div className="master-container relative h-full">
             <Input
               type="text"
+              name="search"
               autoFocus
               placeholder="Search for Movies and TV shows"
-              className=" h-12 w-full rounded-none border-none bg-transparent px-2  py-0 text-2xl font-semibold tracking-wide text-[#333] placeholder:pl-[1px] placeholder:text-2xl placeholder:text-[#999] focus-visible:outline-none focus-visible:ring-0  md:text-2xl  md:placeholder:text-2xl lg:h-14"
+              className=" h-12 w-full rounded-none border-none bg-transparent px-2  py-0 text-2xl font-semibold tracking-wide text-[#333] placeholder:pl-[1px] placeholder:text-lg placeholder:text-[#999] focus-visible:outline-none focus-visible:ring-0  md:text-2xl  md:placeholder:text-xl lg:h-14"
               value={searchQuery}
               onChange={handleSearch}
             />
@@ -140,7 +124,7 @@ const SearchBar = ({ onDarkenBackground }: NavbarSearchBarProps) => {
                 size={"icon"}
                 type="button"
                 className="absolute right-4 top-1/2 flex -translate-y-1/2  transform items-center justify-center rounded-full text-2xl text-black hover:bg-[#333] hover:text-[#ffffff]"
-                onClick={handleClear}
+                onClick={clearSearchQuery}
                 aria-label="Clear search query"
               >
                 <CloseIcon className="h-6 w-6 md:h-8 md:w-8" />
