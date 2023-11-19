@@ -1,4 +1,8 @@
+"use server";
+
 import { filterMediaWithVideoUrl } from "@/helpers/filterMediaWithVideoUrl";
+import { filterResults } from "@/helpers/filterResults";
+import { sortResultsByPopularity } from "@/helpers/sortResults";
 
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const BASE_URL = `https://api.themoviedb.org/3`;
@@ -66,8 +70,19 @@ export async function searchAll(query: string, page: number = 1) {
   //  combine movie and tv results into one array
   const allResults = [...movieResults.results, ...tvResults.results];
 
+  console.log("allResults", allResults);
+
   // filter out results that don't have a video url
   const filteredResults = await filterMediaWithVideoUrl(allResults);
 
-  return filteredResults;
+  // filter results to only include English language results
+  const filteredEnglishResults = filterResults(filteredResults, "en");
+
+  // flatten the array before sorting
+  const flattenedResults = filteredEnglishResults.flat();
+
+  // sort results by popularity
+  const sortedResults = sortResultsByPopularity(flattenedResults);
+
+  return sortedResults;
 }
