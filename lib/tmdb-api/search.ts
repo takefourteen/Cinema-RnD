@@ -70,8 +70,6 @@ export async function searchAll(query: string, page: number = 1) {
   //  combine movie and tv results into one array
   const allResults = [...movieResults.results, ...tvResults.results];
 
-  console.log("allResults", allResults);
-
   // filter out results that don't have a video url
   const filteredResults = await filterMediaWithVideoUrl(allResults);
 
