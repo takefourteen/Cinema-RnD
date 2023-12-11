@@ -33,11 +33,14 @@ const maxSans = localFont({
 
 // ===== METADATA ===== //
 export const metadata: Metadata = {
+  metadataBase: new URL("https://cozycinema.vercel.app/"),
   title: {
     default: "CozyCinema - Stream Movies and TV Shows for Free",
     template: "%s - CozyCinema",
   },
-
+  verification: {
+    google: "fJtqvykAw1qD_OU9FtxauJHsoE-r9dLhYACgaq022sw",
+  },
   keywords:
     "cozy cinema, cozy, cinema, cozycinema, movies, tv shows, free, streaming, watch, online, stream, watch movies, watch tv shows, watch online, watch free, watch free movies, watch free tv shows, watch free online, watch free stream, watch free streaming, watch free movies online, watch free tv shows online, watch free movies stream, watch free tv shows stream, watch free movies streaming, watch free tv shows streaming, watch free movies online stream, watch free tv shows online stream, watch free movies online streaming, watch free tv shows online streaming, Free movie streaming, On-demand TV shows, HD movie quality, Watch movies online free, Binge-worthy TV series, Family-friendly film selection, New release streaming, Personalized watchlist feature, No subscription movie access, Genre-specific movie recommendations, High-quality video streaming, Accessible movie library, Exclusive TV series catalog, Ad-free streaming experience, User-friendly movie platform, Latest movie releases online, Unlimited streaming access, Dynamic content categories, Customizable viewing preferences, Instant access to diverse genres, Cinematic entertainment, Cozy streaming experience, Premium movie selection, Diverse film genres, Cost-free movie access, Anywhere, anytime viewing, Cinematic escape at home",
 };
